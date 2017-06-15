@@ -43,3 +43,7 @@ void Entity::setCurrentHitpoints(int hp) {
 void Entity::setMaxHitPoints(int hp) {
     maxHitPoints = hp;
 }
+
+int Entity::getAbs(STATS::ABS statToGet) {
+    return statArray.at(statToGet);
+}

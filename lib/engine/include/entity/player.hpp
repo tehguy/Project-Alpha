@@ -20,6 +20,8 @@
 
 #include "entity.hpp"
 
+#include <include/core/location.hpp>
+
 class Player : Entity{
 public:
     Player(int chp, int mhp, std::vector<int> stats);
@@ -31,7 +33,11 @@ public:
     void addGold(int amount);
     void addExpPoints(int amount);
 
+    void setCurrentLocation(Location* location);
+    Location* getCurrentLocation();
 private:
 
     int gold, expPoints, level;
+
+    Location* currentLocation;
 };

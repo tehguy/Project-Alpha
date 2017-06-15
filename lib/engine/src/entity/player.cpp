@@ -22,6 +22,8 @@ Player::Player(int chp, int mhp, std::vector<int> stats) : Entity(chp, mhp, stat
     gold = 0;
     expPoints = 0;
     level = 0;
+
+    currentLocation = nullptr;
 }
 
 int Player::getGold() {
@@ -42,4 +44,12 @@ void Player::addGold(int amount) {
 
 void Player::addExpPoints(int amount) {
     expPoints += amount;
+}
+
+void Player::setCurrentLocation(Location *location) {
+    currentLocation = location;
+}
+
+Location *Player::getCurrentLocation() {
+    return currentLocation;
 }

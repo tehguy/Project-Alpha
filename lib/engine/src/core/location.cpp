@@ -17,7 +17,7 @@
 */
 
 #include <include/core/location.hpp>
-#include <include/core/world.hpp>
+#include <include/core/core.hpp>
 
 Location::Location(int id, std::string in_name, std::string desc, int itemRequiredToEnter, int questAvailableHere,
                    int monsterLivingHere, int locNorth, int locEast, int locSouth, int locWest) {
@@ -46,29 +46,29 @@ std::string Location::getDescription() {
 }
 
 Item Location::getItemRequiredToEnter() {
-    return World::ItemByID(itemRequiredToEnterID);
+    return *CORE::WORLD->ItemByID(itemRequiredToEnterID);
 }
 
 Quest Location::getQuestAvailableHere() {
-    return World::QuestByID(questAvailableHereID);
+    return *CORE::WORLD->QuestByID(questAvailableHereID);
 }
 
 Monster Location::getMonsterLivingHere() {
-    return World::MonsterByID(monsterLivingHereID);
+    return *CORE::WORLD->MonsterByID(monsterLivingHereID);
 }
 
 Location* Location::getLocationToNorth() {
-    return World::LocationByID(locNorthID);
+    return CORE::WORLD->LocationByID(locNorthID);
 }
 
 Location* Location::getLocationToEast() {
-    return World::LocationByID(locEastID);
+    return CORE::WORLD->LocationByID(locEastID);
 }
 
 Location* Location::getLocationToSouth() {
-    return World::LocationByID(locSouthID);
+    return CORE::WORLD->LocationByID(locSouthID);
 }
 
 Location* Location::getLocationToWest() {
-    return World::LocationByID(locWestID);
+    return CORE::WORLD->LocationByID(locWestID);
 }

@@ -31,5 +31,6 @@ public:
     std::string getName();
 
 private:
-
+    int ID, rewardExperience, rewardGold;
+    std::string name;
 };

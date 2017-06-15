@@ -18,41 +18,8 @@
 
 #pragma once
 
-#include "location.hpp"
+#include <include/core/world.hpp>
 
-#include <include/entity/monster.hpp>
-#include <include/entity/player.hpp>
-
-#include <include/item/item.hpp>
-
-#include <memory>
-
-class World {
-public:
-
-    World();
-    ~World();
-
-    Monster* GetCurrentMonster();
-    void SetCurrentMonster(Monster &monster);
-
-    Player* GetPlayer();
-    void SetPlayer(Player &_player);
-
-    Item* ItemByID(int id);
-    Monster* MonsterByID(int id);
-    Quest* QuestByID(int id);
-    Location* LocationByID(int id);
-
-    void CleanUp();
-private:
-
-    Player* player;
-
-    std::vector<Item*> itemList;
-    std::vector<Monster*> monsterList;
-    std::vector<Quest*> questList;
-    std::vector<Location*> locationList;
-
-    Monster* currentMonster;
-};
+namespace CORE {
+    static World* WORLD;
+}

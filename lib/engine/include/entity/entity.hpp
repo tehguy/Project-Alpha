@@ -21,6 +21,8 @@
 #include <vector>
 #include <string>
 
+#include <include/enum/enums.hpp>
+
 class Entity{
 public:
     Entity(int chp, int mhp, std::vector<int> stats);
@@ -31,6 +33,8 @@ public:
 
     void setCurrentHitpoints(int hp);
     void setMaxHitPoints(int hp);
+
+    int getAbs(STATS::ABS statToGet);
 
 private:
 

@@ -16,25 +16,3 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/entity/monster.hpp>
-
-Monster::Monster(int id, std::string name, int rewardExp, int rewardG, std::vector<int> dicePool,
-                 std::vector<int> stats) : Entity(stats) {
-
-}
-
-int Monster::getID() {
-    return ID;
-}
-
-int Monster::getRewardExperience() {
-    return rewardExperience;
-}
-
-int Monster::getRewardGold() {
-    return rewardGold;
-}
-
-std::string Monster::getName() {
-    return name;
-}
