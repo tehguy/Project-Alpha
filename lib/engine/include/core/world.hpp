@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include "location.hpp"
+
 #include <include/entity/monster.hpp>
 #include <include/entity/player.hpp>
 
@@ -28,20 +30,28 @@
 class World {
 public:
 
-    static Monster* getCurrentMonster();
-    static void setCurrentMonster(Monster* monster);
+    static Monster* GetCurrentMonster();
+    static void SetCurrentMonster(Monster &monster);
 
+    static Player* GetPlayer();
+    static void SetPlayer(Player &_player);
 
-    static Item* ItemByID(int id);
-    static Monster* MonsterByID(int id);
+    static Item ItemByID(int id);
+    static Monster MonsterByID(int id);
+    static Quest QuestByID(int id);
+    static Location* LocationByID(int id);
 
-
+    static void CleanUp();
 private:
     World();
     ~World();
 
-    static std::vector<Monster*> monsterList;
-    static std::vector<Item*> itemList;
+    static Player* player = nullptr;
 
-    static Monster* currentMonster;
+    static std::vector<Item> itemList;
+    static std::vector<Monster> monsterList;
+    static std::vector<Quest> questList;
+    static std::vector<Location*> locationList;
+
+    static Monster* currentMonster = nullptr;
 };

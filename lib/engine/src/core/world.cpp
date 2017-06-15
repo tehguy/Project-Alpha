@@ -18,30 +18,58 @@
 
 #include <include/core/world.hpp>
 
-World::World() {
+World::World() {}
 
-}
+World::~World() {}
 
-World::~World() {
-    currentMonster = nullptr;
-
-    for(auto* ptr : monsterList){
-        delete ptr;
-        ptr = nullptr;
-    }
-    monsterList.clear();
-}
-
-Monster *World::getCurrentMonster() {
+Monster *World::GetCurrentMonster() {
     return currentMonster;
 }
 
-void World::setCurrentMonster(Monster* monster) {
-    currentMonster = monster;
+void World::SetCurrentMonster(Monster &monster) {
+    currentMonster = &monster;
 }
 
-Item *World::ItemByID(int id) {
-    for(auto* ptr : itemList){
+Player *World::GetPlayer() {
+    return player;
+}
+
+void World::SetPlayer(Player &_player) {
+    player = &_player;
+}
+
+Item World::ItemByID(int id) {
+    for(auto ptr : itemList){
+        if(ptr.getID() == id){
+            return ptr;
+        }
+    }
+
+    return nullptr;
+}
+
+Monster World::MonsterByID(int id) {
+    for(auto ptr : monsterList){
+        if(ptr.getID() == id){
+            return ptr;
+        }
+    }
+
+    return nullptr;
+}
+
+Quest World::QuestByID(int id) {
+    for(auto ptr : questList){
+        if(ptr.getID() == id){
+            return ptr;
+        }
+    }
+
+    return nullptr;
+}
+
+Location* World::LocationByID(int id) {
+    for(auto ptr : locationList){
         if(ptr->getID() == id){
             return ptr;
         }
@@ -50,12 +78,10 @@ Item *World::ItemByID(int id) {
     return nullptr;
 }
 
-Monster *World::MonsterByID(int id) {
-    for(auto* ptr : monsterList){
-        if(ptr->getID() == id){
-            return ptr;
-        }
-    }
+void World::CleanUp() {
+    currentMonster = nullptr;
+    player = nullptr;
 
-    return nullptr;
+    itemList.clear();
+    monsterList.clear();
 }

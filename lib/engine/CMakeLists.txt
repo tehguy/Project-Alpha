@@ -1,6 +1,7 @@
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 set (SOURCE_FILES
+        src/core/location.cpp               include/core/location.hpp
         src/core/world.cpp                  include/core/world.hpp
 
         src/entity/entity.cpp               include/entity/entity.hpp
@@ -9,6 +10,7 @@ set (SOURCE_FILES
 
         src/item/item.cpp                   include/item/item.hpp
 
+        src/quests/quest.cpp                include/quests/quest.hpp
         src/quests/questcompletionitem.cpp  include/quests/questcompletionitem.hpp)
 
 add_library (engine SHARED
