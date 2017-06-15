@@ -16,22 +16,23 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/item/healingpotion.hpp>
 
-namespace STATS {
-    enum ABS {
-        STRENGTH,
-        DEXTERITY,
-        CONSTITUTION,
-        INTELLIGENCE,
-        WISDOM,
-        CHARISMA
-    };
+HealingPotion::HealingPotion(int id, std::string name, std::string namePlural,
+                             int numHeal, int dieSides, int mod) : Item(id, name, namePlural){
+    numberOfHealDice = numHeal;
+    sidesOnDie = dieSides;
+    modifier = mod;
+}
 
-    enum WEAPONTYPE{
-        SIMPLE_MELEE,
-        SIMPLE_RANGED,
-        MARTIAL_MELEE,
-        MARTIAL_RANGED
-    };
+int HealingPotion::getNumberOfHealDice() {
+    return numberOfHealDice;
+}
+
+int HealingPotion::getSidesOnDie() {
+    return sidesOnDie;
+}
+
+int HealingPotion::getModifier() {
+    return modifier;
 }

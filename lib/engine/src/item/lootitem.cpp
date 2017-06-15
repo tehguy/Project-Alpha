@@ -16,22 +16,35 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/item/lootitem.hpp>
+#include <include/core/core.hpp>
 
-namespace STATS {
-    enum ABS {
-        STRENGTH,
-        DEXTERITY,
-        CONSTITUTION,
-        INTELLIGENCE,
-        WISDOM,
-        CHARISMA
-    };
+LootItem::LootItem(int id, int dropPer, bool isDef) {
+    ID = id;
+    dropPercentage = dropPer;
+    isDefault = isDef;
+}
 
-    enum WEAPONTYPE{
-        SIMPLE_MELEE,
-        SIMPLE_RANGED,
-        MARTIAL_MELEE,
-        MARTIAL_RANGED
-    };
+Item *LootItem::getDetails() {
+    return CORE::WORLD->ItemByID(ID);
+}
+
+void LootItem::setDetails(int id) {
+    ID = id;
+}
+
+int LootItem::getDropPercentage() {
+    return dropPercentage;
+}
+
+void LootItem::setDropPercentage(int dropPer) {
+    dropPercentage = dropPer;
+}
+
+bool LootItem::isDefaultItem() {
+    return isDefault;
+}
+
+void LootItem::setDefaultItem(bool isDef) {
+    isDefault = isDef;
 }

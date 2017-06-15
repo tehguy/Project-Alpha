@@ -16,22 +16,24 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/item/weapon.hpp>
 
-namespace STATS {
-    enum ABS {
-        STRENGTH,
-        DEXTERITY,
-        CONSTITUTION,
-        INTELLIGENCE,
-        WISDOM,
-        CHARISMA
-    };
+Weapon::Weapon(int id, std::string name, std::string namePlural, STATS::WEAPONTYPE weapontype, STATS::ABS _attackStat,
+               int numDice, int dieSides) : Item(id, name, namePlural) {
+    type = weapontype;
+    attackStat = _attackStat;
+    numAttackDice = numDice;
+    sidesOnDie = dieSides;
+}
 
-    enum WEAPONTYPE{
-        SIMPLE_MELEE,
-        SIMPLE_RANGED,
-        MARTIAL_MELEE,
-        MARTIAL_RANGED
-    };
+STATS::ABS Weapon::getAttackStat() {
+    return attackStat;
+}
+
+int Weapon::getNumAttackDice() {
+    return numAttackDice;
+}
+
+int Weapon::getSidesOnDie() {
+    return sidesOnDie;
 }

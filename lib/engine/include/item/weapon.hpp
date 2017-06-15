@@ -18,34 +18,22 @@
 
 #pragma once
 
+#include <include/enum/enums.hpp>
 #include <include/item/item.hpp>
-#include <include/quests/quest.hpp>
-#include <include/entity/monster.hpp>
 
-class Location {
+class Weapon : public Item {
 public:
-    Location(int id, std::string in_name, std::string desc, int itemRequiredToEnter, int questAvailableHere,
-    int monsterLivingHere, int locNorth, int locEast, int locSouth, int locWest);
+    Weapon(int id, std::string name, std::string namePlural, STATS::WEAPONTYPE weapontype,
+     STATS::ABS _attackStat, int numDice, int dieSides);
 
-    int getID();
+    STATS::ABS getAttackStat();
 
-    std::string getName();
-    std::string getDescription();
-
-    Item* getItemRequiredToEnter();
-
-    Quest* getQuestAvailableHere();
-
-    Monster* getMonsterLivingHere();
-
-    Location* getLocationToNorth();
-    Location* getLocationToEast();
-    Location* getLocationToSouth();
-    Location* getLocationToWest();
+    int getNumAttackDice();
+    int getSidesOnDie();
 
 private:
+    STATS::WEAPONTYPE type;
+    STATS::ABS attackStat;
 
-    int ID, itemRequiredToEnterID, questAvailableHereID, monsterLivingHereID, locNorthID, locEastID, locSouthID, locWestID;
-
-    std::string name, description;
+    int numAttackDice, sidesOnDie;
 };

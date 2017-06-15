@@ -45,16 +45,16 @@ std::string Location::getDescription() {
     return description;
 }
 
-Item Location::getItemRequiredToEnter() {
-    return *CORE::WORLD->ItemByID(itemRequiredToEnterID);
+Item* Location::getItemRequiredToEnter() {
+    return CORE::WORLD->ItemByID(itemRequiredToEnterID);
 }
 
-Quest Location::getQuestAvailableHere() {
-    return *CORE::WORLD->QuestByID(questAvailableHereID);
+Quest* Location::getQuestAvailableHere() {
+    return CORE::WORLD->QuestByID(questAvailableHereID);
 }
 
-Monster Location::getMonsterLivingHere() {
-    return *CORE::WORLD->MonsterByID(monsterLivingHereID);
+Monster* Location::getMonsterLivingHere() {
+    return CORE::WORLD->MonsterByID(monsterLivingHereID);
 }
 
 Location* Location::getLocationToNorth() {

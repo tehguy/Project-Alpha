@@ -19,33 +19,18 @@
 #pragma once
 
 #include <include/item/item.hpp>
-#include <include/quests/quest.hpp>
-#include <include/entity/monster.hpp>
 
-class Location {
+class InventoryItem {
 public:
-    Location(int id, std::string in_name, std::string desc, int itemRequiredToEnter, int questAvailableHere,
-    int monsterLivingHere, int locNorth, int locEast, int locSouth, int locWest);
+    InventoryItem(int id, int quant);
 
-    int getID();
+    Item* getDetails();
+    void setDetails(int id);
 
-    std::string getName();
-    std::string getDescription();
-
-    Item* getItemRequiredToEnter();
-
-    Quest* getQuestAvailableHere();
-
-    Monster* getMonsterLivingHere();
-
-    Location* getLocationToNorth();
-    Location* getLocationToEast();
-    Location* getLocationToSouth();
-    Location* getLocationToWest();
+    int getQuantity();
+    void setQuantity(int quant);
+    void incrementQuantity();
 
 private:
-
-    int ID, itemRequiredToEnterID, questAvailableHereID, monsterLivingHereID, locNorthID, locEastID, locSouthID, locWestID;
-
-    std::string name, description;
+    int ID, quantity;
 };

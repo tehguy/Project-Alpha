@@ -16,22 +16,30 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/core/core.hpp>
+#include <include/item/inventoryitem.hpp>
 
-namespace STATS {
-    enum ABS {
-        STRENGTH,
-        DEXTERITY,
-        CONSTITUTION,
-        INTELLIGENCE,
-        WISDOM,
-        CHARISMA
-    };
+InventoryItem::InventoryItem(int id, int quant) {
+    ID = id;
+    quantity = quant;
+}
 
-    enum WEAPONTYPE{
-        SIMPLE_MELEE,
-        SIMPLE_RANGED,
-        MARTIAL_MELEE,
-        MARTIAL_RANGED
-    };
+Item *InventoryItem::getDetails() {
+    return CORE::WORLD->ItemByID(ID);
+}
+
+void InventoryItem::setDetails(int id) {
+    ID = id;
+}
+
+int InventoryItem::getQuantity() {
+    return quantity;
+}
+
+void InventoryItem::setQuantity(int quant) {
+    quantity = quant;
+}
+
+void InventoryItem::incrementQuantity() {
+    setQuantity(quantity + 1);
 }

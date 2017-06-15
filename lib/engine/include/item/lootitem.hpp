@@ -19,33 +19,21 @@
 #pragma once
 
 #include <include/item/item.hpp>
-#include <include/quests/quest.hpp>
-#include <include/entity/monster.hpp>
 
-class Location {
+class LootItem {
 public:
-    Location(int id, std::string in_name, std::string desc, int itemRequiredToEnter, int questAvailableHere,
-    int monsterLivingHere, int locNorth, int locEast, int locSouth, int locWest);
+    LootItem(int id, int dropPer, bool isDef);
 
-    int getID();
+    Item* getDetails();
+    void setDetails(int id);
 
-    std::string getName();
-    std::string getDescription();
+    int getDropPercentage();
+    void setDropPercentage(int dropPer);
 
-    Item* getItemRequiredToEnter();
-
-    Quest* getQuestAvailableHere();
-
-    Monster* getMonsterLivingHere();
-
-    Location* getLocationToNorth();
-    Location* getLocationToEast();
-    Location* getLocationToSouth();
-    Location* getLocationToWest();
+    bool isDefaultItem();
+    void setDefaultItem(bool isDef);
 
 private:
-
-    int ID, itemRequiredToEnterID, questAvailableHereID, monsterLivingHereID, locNorthID, locEastID, locSouthID, locWestID;
-
-    std::string name, description;
+    int ID, dropPercentage;
+    bool isDefault;
 };

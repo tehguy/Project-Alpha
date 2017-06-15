@@ -9,10 +9,15 @@ set (SOURCE_FILES
 
                                             include/enum/enums.hpp
 
+        src/item/healingpotion.cpp          include/item/healingpotion.hpp
+        src/item/inventoryitem.cpp          include/item/inventoryitem.hpp
         src/item/item.cpp                   include/item/item.hpp
+        src/item/lootitem.cpp               include/item/lootitem.hpp
+        src/item/weapon.cpp                 include/item/weapon.hpp
 
         src/quests/quest.cpp                include/quests/quest.hpp
         src/quests/questcompletionitem.cpp  include/quests/questcompletionitem.hpp)
 
 add_library (engine SHARED ${SOURCE_FILES})
+target_link_libraries (engine system)
 target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
