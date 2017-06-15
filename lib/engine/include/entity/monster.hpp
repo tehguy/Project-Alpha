@@ -18,7 +18,8 @@
 
 #pragma once
 
-#include "entity.hpp"
+#include <include/entity/entity.hpp>
+#include <include/item/lootitem.hpp>
 
 class Monster : public Entity {
 public:
@@ -30,7 +31,11 @@ public:
 
     std::string getName();
 
+    std::vector<LootItem>* getLootTable();
+
 private:
     int ID, rewardExperience, rewardGold;
     std::string name;
+
+    std::vector<LootItem> lootTable;
 };

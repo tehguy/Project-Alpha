@@ -38,3 +38,9 @@ int Monster::getRewardGold() {
 std::string Monster::getName() {
     return name;
 }
+
+std::vector<LootItem> *Monster::getLootTable() {
+    std::vector<LootItem>* temp(&lootTable);
+
+    return temp;
+}
