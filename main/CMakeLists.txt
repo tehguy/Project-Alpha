@@ -1,8 +1,8 @@
 set (SOURCE_FILES
-        ./src/main.cpp)
+        src/main.cpp)
 
 set (HEADER_FILES
-        ./include/test.hpp)
+        )
 
 add_executable (CPPAdventures
         ${SOURCE_FILES}
