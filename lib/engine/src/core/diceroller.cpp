@@ -19,10 +19,21 @@
 #include <include/core/diceroller.hpp>
 #include <include/core/randomnumbergenerator.hpp>
 
-int DICE_ROLLER::rollDice(int numberOfDice, int sidesOnDie, int modifier){
+int DICE_ROLLER::RollDice(int numberOfDice, int sidesOnDie, int modifier){
     return RandomNumberGenerator::rollDie(numberOfDice, (numberOfDice * sidesOnDie)) + modifier;
 }
 
-int DICE_ROLLER::rollAbilityScore(int numberOfDice) {
-    return 0;
+int DICE_ROLLER::RollAbilityScore(int numberOfDice) {
+    std::vector<int> rollList;
+    rollList.reserve(3);
+
+    for(int i = 0; i < numberOfDice; i++){
+        rollList.push_back(RandomNumberGenerator::rollDie(1, 6));
+    }
+
+    if(numberOfDice == 2){
+        rollList.push_back(6);
+    }
+
+    return rollList.at(0) + rollList.at(1) + rollList.at(2);
 }

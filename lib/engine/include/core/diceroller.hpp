@@ -19,6 +19,6 @@
 #pragma once
 
 namespace DICE_ROLLER {
-    static int rollDice(int numberOfDice, int sidesOnDie, int modifier);
-    static int rollAbilityScore(int numberOfDice);
+    static int RollDice(int numberOfDice, int sidesOnDie, int modifier);
+    static int RollAbilityScore(int numberOfDice);
 }
