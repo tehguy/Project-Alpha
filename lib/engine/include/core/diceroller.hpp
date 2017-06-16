@@ -18,29 +18,7 @@
 
 #pragma once
 
-namespace STATS {
-    enum ABS {
-        STRENGTH,
-        DEXTERITY,
-        CONSTITUTION,
-        INTELLIGENCE,
-        WISDOM,
-        CHARISMA
-    };
-
-    enum WEAPONTYPE {
-        SIMPLE_MELEE,
-        SIMPLE_RANGED,
-        MARTIAL_MELEE,
-        MARTIAL_RANGED
-    };
-
-    enum MONSTERPOOL {
-        NUM_HIT_DICE,
-        HIT_DIE_TYPE,
-        HIT_DIE_MODIFIER,
-        NUM_ATTACK_DICE,
-        ATTACK_DIE_TYPE,
-        ATTACK_DIE_MODIFIER
-    };
+namespace DICE_ROLLER {
+    static int rollDice(int numberOfDice, int sidesOnDie, int modifier);
+    static int rollAbilityScore(int numberOfDice);
 }

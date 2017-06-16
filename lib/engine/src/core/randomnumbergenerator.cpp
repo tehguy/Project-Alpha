@@ -16,31 +16,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <functional>
+#include <include/core/randomnumbergenerator.hpp>
 
-namespace STATS {
-    enum ABS {
-        STRENGTH,
-        DEXTERITY,
-        CONSTITUTION,
-        INTELLIGENCE,
-        WISDOM,
-        CHARISMA
-    };
+RandomNumberGenerator::RandomNumberGenerator() {}
 
-    enum WEAPONTYPE {
-        SIMPLE_MELEE,
-        SIMPLE_RANGED,
-        MARTIAL_MELEE,
-        MARTIAL_RANGED
-    };
+int RandomNumberGenerator::rollDie(int minVal, int maxVal) {
+    std::mt19937 rng((const uint32_t) time(0));
+    std::uniform_int_distribution<> rollSet(minVal, maxVal);
+    auto r = std::bind(rollSet, rng);
 
-    enum MONSTERPOOL {
-        NUM_HIT_DICE,
-        HIT_DIE_TYPE,
-        HIT_DIE_MODIFIER,
-        NUM_ATTACK_DICE,
-        ATTACK_DIE_TYPE,
-        ATTACK_DIE_MODIFIER
-    };
+    return r();
 }

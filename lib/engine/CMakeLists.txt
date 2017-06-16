@@ -1,6 +1,8 @@
 set (SOURCE_FILES
                                             include/core/core.hpp
+        src/core/diceroller.cpp             include/core/diceroller.hpp
         src/core/location.cpp               include/core/location.hpp
+        src/core/randomnumbergenerator.cpp  include/core/randomnumbergenerator.hpp
         src/core/world.cpp                  include/core/world.hpp
 
         src/entity/entity.cpp               include/entity/entity.hpp
@@ -19,5 +21,5 @@ set (SOURCE_FILES
         src/quests/questcompletionitem.cpp  include/quests/questcompletionitem.hpp)
 
 add_library (engine SHARED ${SOURCE_FILES})
-target_link_libraries (engine system)
+#target_link_libraries (engine system)
 target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

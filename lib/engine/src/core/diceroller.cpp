@@ -16,31 +16,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/core/diceroller.hpp>
+#include <include/core/randomnumbergenerator.hpp>
 
-namespace STATS {
-    enum ABS {
-        STRENGTH,
-        DEXTERITY,
-        CONSTITUTION,
-        INTELLIGENCE,
-        WISDOM,
-        CHARISMA
-    };
+int DICE_ROLLER::rollDice(int numberOfDice, int sidesOnDie, int modifier){
+    return RandomNumberGenerator::rollDie(numberOfDice, (numberOfDice * sidesOnDie)) + modifier;
+}
 
-    enum WEAPONTYPE {
-        SIMPLE_MELEE,
-        SIMPLE_RANGED,
-        MARTIAL_MELEE,
-        MARTIAL_RANGED
-    };
-
-    enum MONSTERPOOL {
-        NUM_HIT_DICE,
-        HIT_DIE_TYPE,
-        HIT_DIE_MODIFIER,
-        NUM_ATTACK_DICE,
-        ATTACK_DIE_TYPE,
-        ATTACK_DIE_MODIFIER
-    };
+int DICE_ROLLER::rollAbilityScore(int numberOfDice) {
+    return 0;
 }

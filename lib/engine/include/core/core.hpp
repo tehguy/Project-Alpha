@@ -18,8 +18,10 @@
 
 #pragma once
 
+#include <include/core/randomnumbergenerator.hpp>
 #include <include/core/world.hpp>
 
 namespace CORE {
     static World* WORLD;
+
 }
