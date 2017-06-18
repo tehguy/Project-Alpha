@@ -19,7 +19,7 @@
 #include <include/quests/quest.hpp>
 
 Quest::Quest(int id, std::string in_name, std::string descrip, int rewardExp, int rewardG,
-             std::vector<QuestCompletionItem> qci, int rewardItem) {
+             std::shared_ptr<std::vector<QuestCompletionItem>> qci, int rewardItem) {
     ID = id;
     name = in_name;
     description = descrip;
@@ -53,6 +53,6 @@ std::string Quest::getDescription() {
     return description;
 }
 
-std::vector<QuestCompletionItem> Quest::getQuestCompletionItems() {
+std::shared_ptr<std::vector<QuestCompletionItem>> Quest::getQuestCompletionItems() {
     return questCompletionItems;
 }

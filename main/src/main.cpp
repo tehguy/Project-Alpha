@@ -20,33 +20,16 @@
 
 #include <include/core/core.hpp>
 
-void cleanUp();
-
 int main(){
     std::cout << "Loading things..." << std::endl;
 
     try{
         CORE::WORLD = std::unique_ptr<World>(new World());
-
-        if(CORE::WORLD.get()->GetPlayer() == nullptr){
-            std::cout << "Player doesn't exist, but that's ok.." << std::endl;
-        }
     } catch (...) {
         std::cout << "Things broke" << std::endl;
         return 0;
     }
     std::cout << "Things loaded" << std::endl;
 
-    //cleanUp();
-
     return 1;
-}
-
-void cleanUp(){
-    std::cout << "Time to tidy things up a bit..." << std::endl;
-
-    //delete CORE::WORLD;
-    //CORE::WORLD = nullptr;
-
-
 }

@@ -19,12 +19,14 @@
 #pragma once
 
 #include <vector>
-#include "questcompletionitem.hpp"
+#include <include/quests/questcompletionitem.hpp>
+
+#include <memory>
 
 class Quest {
 public:
     Quest(int id, std::string in_name, std::string descrip, int rewardExp, int rewardG,
-          std::vector<QuestCompletionItem> qci, int rewardItem);
+          std::shared_ptr<std::vector<QuestCompletionItem>> qci, int rewardItem);
 
     int getID();
     int getRewardExp();
@@ -34,11 +36,11 @@ public:
     std::string getName();
     std::string getDescription();
 
-    std::vector<QuestCompletionItem> getQuestCompletionItems();
+    std::shared_ptr<std::vector<QuestCompletionItem>> getQuestCompletionItems();
 
 private:
     int ID, rewardExperience, rewardGold, rewardItemID;
     std::string name, description;
 
-    std::vector<QuestCompletionItem> questCompletionItems;
+    std::shared_ptr<std::vector<QuestCompletionItem>> questCompletionItems;
 };
