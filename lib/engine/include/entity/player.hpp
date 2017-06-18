@@ -33,11 +33,11 @@ public:
     void addGold(int amount);
     void addExpPoints(int amount);
 
-    void setCurrentLocation(Location* location);
-    Location* getCurrentLocation();
+    void setCurrentLocation(std::shared_ptr<Location> location);
+    std::shared_ptr<Location> getCurrentLocation();
 private:
 
     int gold, expPoints, level;
 
-    Location* currentLocation;
+    std::shared_ptr<Location> currentLocation;
 };

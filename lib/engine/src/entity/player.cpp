@@ -46,10 +46,10 @@ void Player::addExpPoints(int amount) {
     expPoints += amount;
 }
 
-void Player::setCurrentLocation(Location *location) {
+void Player::setCurrentLocation(std::shared_ptr<Location> location) {
     currentLocation = location;
 }
 
-Location *Player::getCurrentLocation() {
+std::shared_ptr<Location> Player::getCurrentLocation() {
     return currentLocation;
 }

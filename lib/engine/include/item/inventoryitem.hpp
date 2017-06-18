@@ -24,7 +24,7 @@ class InventoryItem {
 public:
     InventoryItem(int id, int quant);
 
-    Item* getDetails();
+    std::shared_ptr<Item> getDetails();
     void setDetails(int id);
 
     int getQuantity();

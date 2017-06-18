@@ -24,8 +24,8 @@ InventoryItem::InventoryItem(int id, int quant) {
     quantity = quant;
 }
 
-Item *InventoryItem::getDetails() {
-    return CORE::WORLD->ItemByID(ID);
+std::shared_ptr<Item> InventoryItem::getDetails() {
+    return CORE::WORLD.get()->ItemByID(ID);
 }
 
 void InventoryItem::setDetails(int id) {

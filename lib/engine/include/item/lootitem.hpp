@@ -19,12 +19,13 @@
 #pragma once
 
 #include <include/item/item.hpp>
+#include <memory>
 
 class LootItem {
 public:
     LootItem(int id, int dropPer, bool isDef);
 
-    Item* getDetails();
+    std::shared_ptr<Item> getDetails();
     void setDetails(int id);
 
     int getDropPercentage();

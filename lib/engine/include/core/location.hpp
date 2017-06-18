@@ -22,6 +22,8 @@
 #include <include/quests/quest.hpp>
 #include <include/entity/monster.hpp>
 
+#include <memory>
+
 class Location {
 public:
     Location(int id, std::string in_name, std::string desc, int itemRequiredToEnter, int questAvailableHere,
@@ -32,16 +34,16 @@ public:
     std::string getName();
     std::string getDescription();
 
-    Item* getItemRequiredToEnter();
+    std::shared_ptr<Item> getItemRequiredToEnter();
 
-    Quest* getQuestAvailableHere();
+    std::shared_ptr<Quest> getQuestAvailableHere();
 
-    Monster* getMonsterLivingHere();
+    std::shared_ptr<Monster> getMonsterLivingHere();
 
-    Location* getLocationToNorth();
-    Location* getLocationToEast();
-    Location* getLocationToSouth();
-    Location* getLocationToWest();
+    std::shared_ptr<Location> getLocationToNorth();
+    std::shared_ptr<Location> getLocationToEast();
+    std::shared_ptr<Location> getLocationToSouth();
+    std::shared_ptr<Location> getLocationToWest();
 
 private:
 

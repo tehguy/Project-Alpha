@@ -20,8 +20,9 @@
 
 #include <include/core/randomnumbergenerator.hpp>
 #include <include/core/world.hpp>
+#include <memory>
 
 namespace CORE {
-    static World* WORLD;
+    static std::unique_ptr<World> WORLD;
 
 }

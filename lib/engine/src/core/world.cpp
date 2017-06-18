@@ -50,8 +50,8 @@ void World::SetPlayer(Player &_player) {
     player = &_player;
 }
 
-Item *World::ItemByID(int id) {
-    for(auto* ptr : itemList){
+std::shared_ptr<Item> World::ItemByID(int id) {
+    for(auto ptr : itemList){
         if(ptr->getID() == id){
             return ptr;
         }
@@ -60,8 +60,8 @@ Item *World::ItemByID(int id) {
     return nullptr;
 }
 
-Monster *World::MonsterByID(int id) {
-    for(auto* ptr : monsterList){
+std::shared_ptr<Monster> World::MonsterByID(int id) {
+    for(auto ptr : monsterList){
         if(ptr->getID() == id){
             return ptr;
         }
@@ -70,8 +70,8 @@ Monster *World::MonsterByID(int id) {
     return nullptr;
 }
 
-Quest *World::QuestByID(int id) {
-    for(auto* ptr : questList){
+std::shared_ptr<Quest> World::QuestByID(int id) {
+    for(auto ptr : questList){
         if(ptr->getID() == id){
             return ptr;
         }
@@ -80,7 +80,7 @@ Quest *World::QuestByID(int id) {
     return nullptr;
 }
 
-Location* World::LocationByID(int id) {
+std::shared_ptr<Location> World::LocationByID(int id) {
     for(auto ptr : locationList){
         if(ptr->getID() == id){
             return ptr;
@@ -91,11 +91,11 @@ Location* World::LocationByID(int id) {
 }
 
 void World::CleanUp() {
-    delete currentMonster;
+    /*delete currentMonster;
     currentMonster = nullptr;
 
     delete player;
-    player = nullptr;
+    player = nullptr;*/
 
     itemList.clear();
     monsterList.clear();

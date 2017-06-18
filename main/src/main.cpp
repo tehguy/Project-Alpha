@@ -26,9 +26,9 @@ int main(){
     std::cout << "Loading things..." << std::endl;
 
     try{
-        CORE::WORLD = new World();
+        CORE::WORLD = std::unique_ptr<World>(new World());
 
-        if(CORE::WORLD->GetPlayer() == nullptr){
+        if(CORE::WORLD.get()->GetPlayer() == nullptr){
             std::cout << "Player doesn't exist, but that's ok.." << std::endl;
         }
     } catch (...) {
@@ -37,7 +37,7 @@ int main(){
     }
     std::cout << "Things loaded" << std::endl;
 
-    cleanUp();
+    //cleanUp();
 
     return 1;
 }
@@ -45,8 +45,8 @@ int main(){
 void cleanUp(){
     std::cout << "Time to tidy things up a bit..." << std::endl;
 
-    delete CORE::WORLD;
-    CORE::WORLD = nullptr;
+    //delete CORE::WORLD;
+    //CORE::WORLD = nullptr;
 
 
 }

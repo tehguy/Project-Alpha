@@ -45,30 +45,30 @@ std::string Location::getDescription() {
     return description;
 }
 
-Item* Location::getItemRequiredToEnter() {
-    return CORE::WORLD->ItemByID(itemRequiredToEnterID);
+std::shared_ptr<Item> Location::getItemRequiredToEnter() {
+    return CORE::WORLD.get()->ItemByID(itemRequiredToEnterID);
 }
 
-Quest* Location::getQuestAvailableHere() {
-    return CORE::WORLD->QuestByID(questAvailableHereID);
+std::shared_ptr<Quest> Location::getQuestAvailableHere() {
+    return CORE::WORLD.get()->QuestByID(questAvailableHereID);
 }
 
-Monster* Location::getMonsterLivingHere() {
-    return CORE::WORLD->MonsterByID(monsterLivingHereID);
+std::shared_ptr<Monster> Location::getMonsterLivingHere() {
+    return CORE::WORLD.get()->MonsterByID(monsterLivingHereID);
 }
 
-Location* Location::getLocationToNorth() {
-    return CORE::WORLD->LocationByID(locNorthID);
+std::shared_ptr<Location> Location::getLocationToNorth() {
+    return CORE::WORLD.get()->LocationByID(locNorthID);
 }
 
-Location* Location::getLocationToEast() {
-    return CORE::WORLD->LocationByID(locEastID);
+std::shared_ptr<Location> Location::getLocationToEast() {
+    return CORE::WORLD.get()->LocationByID(locEastID);
 }
 
-Location* Location::getLocationToSouth() {
-    return CORE::WORLD->LocationByID(locSouthID);
+std::shared_ptr<Location> Location::getLocationToSouth() {
+    return CORE::WORLD.get()->LocationByID(locSouthID);
 }
 
-Location* Location::getLocationToWest() {
-    return CORE::WORLD->LocationByID(locWestID);
+std::shared_ptr<Location> Location::getLocationToWest() {
+    return CORE::WORLD.get()->LocationByID(locWestID);
 }

@@ -25,8 +25,8 @@ LootItem::LootItem(int id, int dropPer, bool isDef) {
     isDefault = isDef;
 }
 
-Item *LootItem::getDetails() {
-    return CORE::WORLD->ItemByID(ID);
+std::shared_ptr<Item> LootItem::getDetails() {
+    return CORE::WORLD.get()->ItemByID(ID);
 }
 
 void LootItem::setDetails(int id) {

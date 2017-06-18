@@ -39,20 +39,20 @@ public:
     Player* GetPlayer();
     void SetPlayer(Player &_player);
 
-    Item* ItemByID(int id);
-    Monster* MonsterByID(int id);
-    Quest* QuestByID(int id);
-    Location* LocationByID(int id);
+    std::shared_ptr<Item> ItemByID(int id);
+    std::shared_ptr<Monster> MonsterByID(int id);
+    std::shared_ptr<Quest> QuestByID(int id);
+    std::shared_ptr<Location> LocationByID(int id);
 
     void CleanUp();
 private:
 
     Player* player;
 
-    std::vector<Item*> itemList;
-    std::vector<Monster*> monsterList;
-    std::vector<Quest*> questList;
-    std::vector<Location*> locationList;
+    std::vector<std::shared_ptr<Item>> itemList;
+    std::vector<std::shared_ptr<Monster>> monsterList;
+    std::vector<std::shared_ptr<Quest>> questList;
+    std::vector<std::shared_ptr<Location>> locationList;
 
     Monster* currentMonster;
 };
