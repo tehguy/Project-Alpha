@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "location.hpp"
+#include <include/core/location.hpp>
 
 #include <include/entity/monster.hpp>
 #include <include/entity/player.hpp>
@@ -34,7 +34,7 @@ public:
     ~World();
 
     std::shared_ptr<Monster> GetCurrentMonster();
-    void SetCurrentMonster(Monster monster);
+    void SetCurrentMonster(std::shared_ptr<Monster> monster);
 
     std::shared_ptr<Player> GetPlayer();
     void SetPlayer(Player _player);

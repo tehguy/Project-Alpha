@@ -2,6 +2,8 @@ set (SOURCE_FILES
         src/core/core.cpp                   include/core/core.hpp
         src/core/diceroller.cpp             include/core/diceroller.hpp
         src/core/location.cpp               include/core/location.hpp
+        src/core/locationlogic.cpp          include/core/locationlogic.hpp
+        src/quests/questlogic.cpp           include/quests/questlogic.hpp
         src/core/randomnumbergenerator.cpp  include/core/randomnumbergenerator.hpp
         src/core/world.cpp                  include/core/world.hpp
 

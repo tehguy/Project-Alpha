@@ -16,29 +16,23 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/entity/monster.hpp>
+#pragma once
 
-Monster::Monster(int id, std::string name, int rewardExp, int rewardG, std::vector<int> dicePool,
-                 std::vector<int> stats) : Entity(stats) {
+#include <include/core/location.hpp>
+#include <memory>
 
-}
+class LocationLogic {
+public:
+    static void MoveNorth();
+    static void MoveEast();
+    static void MoveSouth();
+    static void MoveWest();
 
-int Monster::getID() {
-    return ID;
-}
+private:
+    LocationLogic();
 
-int Monster::getRewardExperience() {
-    return rewardExperience;
-}
+    static void MoveToLocation(std::shared_ptr<Location> newLocation);
+    static void SetMonsterForCurrentLocation(std::shared_ptr<Location> location);
 
-int Monster::getRewardGold() {
-    return rewardGold;
-}
-
-std::string Monster::getName() {
-    return name;
-}
-
-std::shared_ptr<std::vector<LootItem>> Monster::getLootTable() {
-    return lootTable;
-}
+    static bool HasRequiredItemToEnter(std::shared_ptr<Location> location);
+};

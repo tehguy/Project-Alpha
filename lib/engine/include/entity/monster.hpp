@@ -31,11 +31,11 @@ public:
 
     std::string getName();
 
-    std::vector<LootItem>* getLootTable();
+    std::shared_ptr<std::vector<LootItem>> getLootTable();
 
 private:
     int ID, rewardExperience, rewardGold;
     std::string name;
 
-    std::vector<LootItem> lootTable;
+    std::shared_ptr<std::vector<LootItem>> lootTable;
 };

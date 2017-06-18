@@ -35,8 +35,8 @@ std::shared_ptr<Monster> World::GetCurrentMonster() {
     return currentMonster;
 }
 
-void World::SetCurrentMonster(Monster monster) {
-    currentMonster = std::make_shared<Monster>(monster);
+void World::SetCurrentMonster(std::shared_ptr<Monster> monster) {
+    currentMonster = monster;
 }
 
 std::shared_ptr<Player> World::GetPlayer() {

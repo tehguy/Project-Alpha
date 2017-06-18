@@ -30,6 +30,7 @@ public:
     int monsterLivingHere, int locNorth, int locEast, int locSouth, int locWest);
 
     ~Location();
+    void initLinks();
 
     int getID();
 
@@ -51,8 +52,13 @@ private:
 
     int ID;
 
+    int* tN;
+    int* tE;
+    int* tS;
+    int* tW;
+
     std::shared_ptr<Location> locNorth, locEast, locSouth, locWest;
-    std::shared_ptr<Item> itemReqiredToEnter;
+    std::shared_ptr<Item> itemRequiredToEnter;
     std::shared_ptr<Quest> questAvailableHere;
     std::shared_ptr<Monster> monsterLivingHere;
 
