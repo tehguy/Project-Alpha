@@ -24,6 +24,10 @@ Item::Item(int _id, std::string _name, std::string _namePlural) {
     namePlural = _namePlural;
 }
 
+Item::~Item(){
+    //printf("item ded\n");
+}
+
 int Item::getID() {
     return ID;
 }

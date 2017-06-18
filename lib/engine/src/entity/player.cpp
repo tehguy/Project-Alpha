@@ -24,6 +24,8 @@ Player::Player(int chp, int mhp, std::vector<int> stats) : Entity(chp, mhp, stat
     level = 0;
 
     currentLocation = nullptr;
+    inventory = std::make_shared<std::vector<InventoryItem>>();
+    quests = std::make_shared<std::vector<PlayerQuest>>();
 }
 
 int Player::getGold() {
@@ -52,4 +54,30 @@ void Player::setCurrentLocation(std::shared_ptr<Location> location) {
 
 std::shared_ptr<Location> Player::getCurrentLocation() {
     return currentLocation;
+}
+
+void Player::addItemToInventory(int itemToAddID) {
+    if(inventory->size() > 0){
+        for(InventoryItem item : *inventory){
+            if(item.getDetails()->getID() == itemToAddID){
+                item.incrementQuantity();
+                return;
+            }
+        }
+    }
+    InventoryItem tmpItem(itemToAddID, 1);
+
+    if(tmpItem.getDetails() == nullptr){
+        printf("oh no\n");
+    }
+
+    inventory->push_back(tmpItem);
+}
+
+std::shared_ptr<std::vector<InventoryItem>> Player::getInventory() {
+    return inventory;
+}
+
+std::shared_ptr<std::vector<PlayerQuest>> Player::getQuests() {
+    return quests;
 }

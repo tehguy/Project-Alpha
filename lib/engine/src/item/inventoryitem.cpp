@@ -17,19 +17,18 @@
 */
 
 #include <include/core/core.hpp>
-#include <include/item/inventoryitem.hpp>
 
 InventoryItem::InventoryItem(int id, int quant) {
-    ID = id;
+    details = MAIN::core.getWorld()->ItemByID(id);
     quantity = quant;
 }
 
 std::shared_ptr<Item> InventoryItem::getDetails() {
-    return CORE::WORLD.get()->ItemByID(ID);
+    return details;
 }
 
 void InventoryItem::setDetails(int id) {
-    ID = id;
+    details = MAIN::core.getWorld()->ItemByID(id);
 }
 
 int InventoryItem::getQuantity() {

@@ -18,8 +18,20 @@
 
 #pragma once
 
-class DiceRoller {
+#include <memory>
+#include <include/quests/quest.hpp>
+
+class PlayerQuest{
 public:
-    static int RollDice(int numberOfDice, int sidesOnDie, int modifier);
-    static int RollAbilityScore(int numberOfDice);
+    PlayerQuest(int quest);
+
+    std::shared_ptr<Quest> getDetails();
+
+    bool isCompleted();
+
+    void setCompleted();
+
+private:
+    std::shared_ptr<Quest> details;
+    bool completed;
 };

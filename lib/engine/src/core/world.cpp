@@ -20,9 +20,6 @@
 #include <iostream>
 
 World::World() {
-    player = nullptr;
-    currentMonster = nullptr;
-
     itemList.reserve(0);
     monsterList.reserve(0);
     questList.reserve(0);
@@ -34,26 +31,28 @@ World::~World() {
     std::cout << "World has been deleted..." << std::endl;
 }
 
-Monster *World::GetCurrentMonster() {
+std::shared_ptr<Monster> World::GetCurrentMonster() {
     return currentMonster;
 }
 
-void World::SetCurrentMonster(Monster &monster) {
-    currentMonster = &monster;
+void World::SetCurrentMonster(Monster monster) {
+    currentMonster = std::make_shared<Monster>(monster);
 }
 
-Player *World::GetPlayer() {
+std::shared_ptr<Player> World::GetPlayer() {
     return player;
 }
 
-void World::SetPlayer(Player &_player) {
-    player = &_player;
+void World::SetPlayer(Player _player) {
+    player = std::make_shared<Player>(_player);
 }
 
 std::shared_ptr<Item> World::ItemByID(int id) {
-    for(auto ptr : itemList){
-        if(ptr->getID() == id){
-            return ptr;
+    if(itemList.size() > 0){
+        for(std::shared_ptr<Item> ptr : itemList){
+            if(ptr->getID() == id){
+                return ptr;
+            }
         }
     }
 
@@ -61,9 +60,11 @@ std::shared_ptr<Item> World::ItemByID(int id) {
 }
 
 std::shared_ptr<Monster> World::MonsterByID(int id) {
-    for(auto ptr : monsterList){
-        if(ptr->getID() == id){
-            return ptr;
+    if(monsterList.size() > 0){
+        for(auto ptr : monsterList){
+            if(ptr->getID() == id){
+                return ptr;
+            }
         }
     }
 
@@ -71,9 +72,11 @@ std::shared_ptr<Monster> World::MonsterByID(int id) {
 }
 
 std::shared_ptr<Quest> World::QuestByID(int id) {
-    for(auto ptr : questList){
-        if(ptr->getID() == id){
-            return ptr;
+    if(questList.size() > 0){
+        for(auto ptr : questList){
+            if(ptr->getID() == id){
+                return ptr;
+            }
         }
     }
 
@@ -81,9 +84,11 @@ std::shared_ptr<Quest> World::QuestByID(int id) {
 }
 
 std::shared_ptr<Location> World::LocationByID(int id) {
-    for(auto ptr : locationList){
-        if(ptr->getID() == id){
-            return ptr;
+    if(locationList.size() > 0){
+        for(auto ptr : locationList){
+            if(ptr->getID() == id){
+                return ptr;
+            }
         }
     }
 
@@ -91,12 +96,8 @@ std::shared_ptr<Location> World::LocationByID(int id) {
 }
 
 void World::CleanUp() {
-    /*delete currentMonster;
-    currentMonster = nullptr;
-
-    delete player;
-    player = nullptr;*/
-
     itemList.clear();
     monsterList.clear();
+    questList.clear();
+    locationList.clear();
 }

@@ -21,8 +21,9 @@
 
 RandomNumberGenerator::RandomNumberGenerator() {}
 
-int RandomNumberGenerator::rollDie(int minVal, int maxVal) {
-    std::mt19937 rng((const uint32_t) time(0));
+int RandomNumberGenerator::rollDice(int minVal, int maxVal) {
+    std::random_device randomDevice;
+    std::mt19937 rng(randomDevice());
     std::uniform_int_distribution<> rollSet(minVal, maxVal);
     auto r = std::bind(rollSet, rng);
 

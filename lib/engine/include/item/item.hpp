@@ -23,6 +23,7 @@
 class Item {
 public:
     Item(int _id, std::string _name, std::string _namePlural);
+    ~Item();
     
     int getID();
     

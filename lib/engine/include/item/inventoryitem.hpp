@@ -19,6 +19,7 @@
 #pragma once
 
 #include <include/item/item.hpp>
+#include <memory>
 
 class InventoryItem {
 public:
@@ -32,5 +33,7 @@ public:
     void incrementQuantity();
 
 private:
-    int ID, quantity;
+    int quantity;
+
+    std::shared_ptr<Item> details;
 };

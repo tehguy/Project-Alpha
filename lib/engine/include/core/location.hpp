@@ -29,6 +29,8 @@ public:
     Location(int id, std::string in_name, std::string desc, int itemRequiredToEnter, int questAvailableHere,
     int monsterLivingHere, int locNorth, int locEast, int locSouth, int locWest);
 
+    ~Location();
+
     int getID();
 
     std::string getName();
@@ -47,7 +49,12 @@ public:
 
 private:
 
-    int ID, itemRequiredToEnterID, questAvailableHereID, monsterLivingHereID, locNorthID, locEastID, locSouthID, locWestID;
+    int ID;
+
+    std::shared_ptr<Location> locNorth, locEast, locSouth, locWest;
+    std::shared_ptr<Item> itemReqiredToEnter;
+    std::shared_ptr<Quest> questAvailableHere;
+    std::shared_ptr<Monster> monsterLivingHere;
 
     std::string name, description;
 };

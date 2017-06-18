@@ -25,7 +25,14 @@ Quest::Quest(int id, std::string in_name, std::string descrip, int rewardExp, in
     description = descrip;
     rewardExperience = rewardExp;
     rewardGold = rewardG;
-    questCompletionItems = qci;
+
+    if(qci == nullptr){
+        questCompletionItems = std::shared_ptr<std::vector<QuestCompletionItem>>();
+    }
+    else{
+        questCompletionItems = qci;
+    }
+
     rewardItemID = rewardItem;
 }
 

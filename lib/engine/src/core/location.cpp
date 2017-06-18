@@ -19,19 +19,21 @@
 #include <include/core/location.hpp>
 #include <include/core/core.hpp>
 
-Location::Location(int id, std::string in_name, std::string desc, int itemRequiredToEnter, int questAvailableHere,
-                   int monsterLivingHere, int locNorth, int locEast, int locSouth, int locWest) {
+Location::Location(int id, std::string in_name, std::string desc, int itemRequiredToEnterID, int questAvailableHereID,
+                   int monsterLivingHereID, int locNorthID, int locEastID, int locSouthID, int locWestID) {
     ID = id;
     name = in_name;
     description = desc;
-    itemRequiredToEnterID = itemRequiredToEnter;
-    questAvailableHereID = questAvailableHere;
-    monsterLivingHereID = monsterLivingHere;
-    locNorthID = locNorth;
-    locEastID = locEast;
-    locSouthID = locSouth;
-    locWestID = locWest;
+    itemReqiredToEnter = MAIN::core.getWorld()->ItemByID(itemRequiredToEnterID);
+    questAvailableHere = MAIN::core.getWorld()->QuestByID(questAvailableHereID);
+    monsterLivingHere = MAIN::core.getWorld()->MonsterByID(monsterLivingHereID);
+    locNorth = MAIN::core.getWorld()->LocationByID(locNorthID);
+    locEast = MAIN::core.getWorld()->LocationByID(locEastID);
+    locSouth = MAIN::core.getWorld()->LocationByID(locSouthID);
+    locWest = MAIN::core.getWorld()->LocationByID(locWestID);
 }
+
+Location::~Location(){}
 
 int Location::getID() {
     return ID;
@@ -46,29 +48,29 @@ std::string Location::getDescription() {
 }
 
 std::shared_ptr<Item> Location::getItemRequiredToEnter() {
-    return CORE::WORLD.get()->ItemByID(itemRequiredToEnterID);
+    return itemReqiredToEnter;
 }
 
 std::shared_ptr<Quest> Location::getQuestAvailableHere() {
-    return CORE::WORLD.get()->QuestByID(questAvailableHereID);
+    return questAvailableHere;
 }
 
 std::shared_ptr<Monster> Location::getMonsterLivingHere() {
-    return CORE::WORLD.get()->MonsterByID(monsterLivingHereID);
+    return monsterLivingHere;
 }
 
 std::shared_ptr<Location> Location::getLocationToNorth() {
-    return CORE::WORLD.get()->LocationByID(locNorthID);
+    return locNorth;
 }
 
 std::shared_ptr<Location> Location::getLocationToEast() {
-    return CORE::WORLD.get()->LocationByID(locEastID);
+    return locEast;
 }
 
 std::shared_ptr<Location> Location::getLocationToSouth() {
-    return CORE::WORLD.get()->LocationByID(locSouthID);
+    return locSouth;
 }
 
 std::shared_ptr<Location> Location::getLocationToWest() {
-    return CORE::WORLD.get()->LocationByID(locWestID);
+    return locWest;
 }

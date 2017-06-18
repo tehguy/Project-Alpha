@@ -16,24 +16,27 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <algorithm>
 #include <include/core/diceroller.hpp>
 #include <include/core/randomnumbergenerator.hpp>
 
-int DICE_ROLLER::RollDice(int numberOfDice, int sidesOnDie, int modifier){
-    return RandomNumberGenerator::rollDie(numberOfDice, (numberOfDice * sidesOnDie)) + modifier;
+int DiceRoller::RollDice(int numberOfDice, int sidesOnDie, int modifier){
+    return RandomNumberGenerator::rollDice(numberOfDice, (numberOfDice * sidesOnDie)) + modifier;
 }
 
-int DICE_ROLLER::RollAbilityScore(int numberOfDice) {
+int DiceRoller::RollAbilityScore(int numberOfDice) {
     std::vector<int> rollList;
     rollList.reserve(3);
 
     for(int i = 0; i < numberOfDice; i++){
-        rollList.push_back(RandomNumberGenerator::rollDie(1, 6));
+        rollList.push_back(RandomNumberGenerator::rollDice(1, 6));
     }
 
     if(numberOfDice == 2){
         rollList.push_back(6);
     }
+
+    std::sort(rollList.rbegin(), rollList.rend());
 
     return rollList.at(0) + rollList.at(1) + rollList.at(2);
 }

@@ -33,11 +33,11 @@ public:
     World();
     ~World();
 
-    Monster* GetCurrentMonster();
-    void SetCurrentMonster(Monster &monster);
+    std::shared_ptr<Monster> GetCurrentMonster();
+    void SetCurrentMonster(Monster monster);
 
-    Player* GetPlayer();
-    void SetPlayer(Player &_player);
+    std::shared_ptr<Player> GetPlayer();
+    void SetPlayer(Player _player);
 
     std::shared_ptr<Item> ItemByID(int id);
     std::shared_ptr<Monster> MonsterByID(int id);
@@ -47,12 +47,12 @@ public:
     void CleanUp();
 private:
 
-    Player* player;
+    std::shared_ptr<Player> player;
 
     std::vector<std::shared_ptr<Item>> itemList;
     std::vector<std::shared_ptr<Monster>> monsterList;
     std::vector<std::shared_ptr<Quest>> questList;
     std::vector<std::shared_ptr<Location>> locationList;
 
-    Monster* currentMonster;
+    std::shared_ptr<Monster> currentMonster;
 };

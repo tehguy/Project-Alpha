@@ -25,5 +25,5 @@ class RandomNumberGenerator {
 public:
     RandomNumberGenerator();
 
-    static int rollDie(int minVal, int maxVal);
+    static int rollDice(int minVal, int maxVal);
 };

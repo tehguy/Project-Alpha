@@ -1,5 +1,5 @@
 set (SOURCE_FILES
-                                            include/core/core.hpp
+        src/core/core.cpp                   include/core/core.hpp
         src/core/diceroller.cpp             include/core/diceroller.hpp
         src/core/location.cpp               include/core/location.hpp
         src/core/randomnumbergenerator.cpp  include/core/randomnumbergenerator.hpp
@@ -17,6 +17,7 @@ set (SOURCE_FILES
         src/item/lootitem.cpp               include/item/lootitem.hpp
         src/item/weapon.cpp                 include/item/weapon.hpp
 
+        src/quests/playerquest.cpp          include/quests/playerquest.hpp
         src/quests/quest.cpp                include/quests/quest.hpp
         src/quests/questcompletionitem.cpp  include/quests/questcompletionitem.hpp)
 

@@ -18,11 +18,24 @@
 
 #pragma once
 
+#include <include/core/diceroller.hpp>
 #include <include/core/randomnumbergenerator.hpp>
 #include <include/core/world.hpp>
 #include <memory>
 
-namespace CORE {
-    static std::unique_ptr<World> WORLD;
+class Core {
+public:
+    Core();
+    ~Core();
 
+    std::shared_ptr<World> getWorld();
+    std::shared_ptr<DiceRoller> getDiceRoller();
+
+private:
+    static std::shared_ptr<World> WORLD;
+    std::shared_ptr<DiceRoller> DICE_ROLLER;
+};
+
+namespace MAIN{
+    static Core core;
 }

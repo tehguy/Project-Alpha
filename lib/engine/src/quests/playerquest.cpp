@@ -16,10 +16,21 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/core/core.hpp>
 
-class DiceRoller {
-public:
-    static int RollDice(int numberOfDice, int sidesOnDie, int modifier);
-    static int RollAbilityScore(int numberOfDice);
-};
+PlayerQuest::PlayerQuest(int quest) {
+    details = MAIN::core.getWorld()->QuestByID(quest);
+    completed = false;
+}
+
+std::shared_ptr<Quest> PlayerQuest::getDetails() {
+    return details;
+}
+
+bool PlayerQuest::isCompleted() {
+    return completed;
+}
+
+void PlayerQuest::setCompleted() {
+    completed = true;
+}

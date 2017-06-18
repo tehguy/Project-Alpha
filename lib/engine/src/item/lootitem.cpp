@@ -20,17 +20,17 @@
 #include <include/core/core.hpp>
 
 LootItem::LootItem(int id, int dropPer, bool isDef) {
-    ID = id;
+    details = MAIN::core.getWorld()->ItemByID(id);
     dropPercentage = dropPer;
     isDefault = isDef;
 }
 
 std::shared_ptr<Item> LootItem::getDetails() {
-    return CORE::WORLD.get()->ItemByID(ID);
+    return details;
 }
 
 void LootItem::setDetails(int id) {
-    ID = id;
+    details = MAIN::core.getWorld()->ItemByID(id);
 }
 
 int LootItem::getDropPercentage() {

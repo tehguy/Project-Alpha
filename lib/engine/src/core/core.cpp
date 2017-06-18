@@ -16,10 +16,23 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/core/core.hpp>
 
-class DiceRoller {
-public:
-    static int RollDice(int numberOfDice, int sidesOnDie, int modifier);
-    static int RollAbilityScore(int numberOfDice);
-};
+std::shared_ptr<World> Core::WORLD = std::shared_ptr<World>(new World());
+
+Core::Core() {
+    DICE_ROLLER = std::shared_ptr<DiceRoller>(new DiceRoller());
+}
+
+Core::~Core() {
+
+}
+
+std::shared_ptr<World> Core::getWorld() {
+    return WORLD;
+}
+
+std::shared_ptr<DiceRoller> Core::getDiceRoller() {
+    return DICE_ROLLER;
+}
+

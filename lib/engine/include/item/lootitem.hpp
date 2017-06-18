@@ -35,6 +35,8 @@ public:
     void setDefaultItem(bool isDef);
 
 private:
-    int ID, dropPercentage;
+    int dropPercentage;
     bool isDefault;
+
+    std::shared_ptr<Item> details;
 };

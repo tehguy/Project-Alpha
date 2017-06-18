@@ -24,7 +24,7 @@ int main(){
     std::cout << "Loading things..." << std::endl;
 
     try{
-        CORE::WORLD = std::unique_ptr<World>(new World());
+
     } catch (...) {
         std::cout << "Things broke" << std::endl;
         return 0;

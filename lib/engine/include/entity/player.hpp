@@ -21,8 +21,10 @@
 #include "entity.hpp"
 
 #include <include/core/location.hpp>
+#include <include/item/inventoryitem.hpp>
+#include <include/quests/playerquest.hpp>
 
-class Player : Entity{
+class Player : public Entity{
 public:
     Player(int chp, int mhp, std::vector<int> stats);
 
@@ -35,9 +37,16 @@ public:
 
     void setCurrentLocation(std::shared_ptr<Location> location);
     std::shared_ptr<Location> getCurrentLocation();
+
+    void addItemToInventory(int itemToAddID);
+    std::shared_ptr<std::vector<InventoryItem>> getInventory();
+
+    std::shared_ptr<std::vector<PlayerQuest>> getQuests();
 private:
 
     int gold, expPoints, level;
 
     std::shared_ptr<Location> currentLocation;
+    std::shared_ptr<std::vector<InventoryItem>> inventory;
+    std::shared_ptr<std::vector<PlayerQuest>> quests;
 };
