@@ -3,7 +3,6 @@ set (SOURCE_FILES
         src/core/diceroller.cpp             include/core/diceroller.hpp
         src/core/location.cpp               include/core/location.hpp
         src/core/locationlogic.cpp          include/core/locationlogic.hpp
-        src/quests/questlogic.cpp           include/quests/questlogic.hpp
         src/core/randomnumbergenerator.cpp  include/core/randomnumbergenerator.hpp
         src/core/world.cpp                  include/core/world.hpp
 
@@ -21,7 +20,8 @@ set (SOURCE_FILES
 
         src/quests/playerquest.cpp          include/quests/playerquest.hpp
         src/quests/quest.cpp                include/quests/quest.hpp
-        src/quests/questcompletionitem.cpp  include/quests/questcompletionitem.hpp)
+        src/quests/questcompletionitem.cpp  include/quests/questcompletionitem.hpp
+        src/quests/questlogic.cpp           include/quests/questlogic.hpp)
 
 add_library (engine SHARED ${SOURCE_FILES})
 #target_link_libraries (engine system)
