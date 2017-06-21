@@ -17,3 +17,9 @@
 */
 
 #pragma once
+
+#include <include/system/dictionary.hpp>
+
+namespace SYSTEM {
+    static Dictionary dictionary;
+}

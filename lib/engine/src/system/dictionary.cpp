@@ -16,3 +16,22 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <include/system/dictionary.hpp>
+
+Dictionary::Dictionary() {
+
+}
+
+Dictionary::~Dictionary() {
+    functions.clear();
+}
+
+template<typename Function>
+void Dictionary::add(std::string key, Function && function) {
+    std::pair<std::string, Function &&> keypair(key, function);
+    functions.insert(keypair);
+}
+
+void Dictionary::invoke(std::string key, std::string message) {
+    functions.find(key)->second(message);
+}

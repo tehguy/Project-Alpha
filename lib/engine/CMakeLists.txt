@@ -21,8 +21,10 @@ set (SOURCE_FILES
         src/quests/playerquest.cpp          include/quests/playerquest.hpp
         src/quests/quest.cpp                include/quests/quest.hpp
         src/quests/questcompletionitem.cpp  include/quests/questcompletionitem.hpp
-        src/quests/questlogic.cpp           include/quests/questlogic.hpp)
+        src/quests/questlogic.cpp           include/quests/questlogic.hpp
+
+        src/system/dictionary.cpp           include/system/dictionary.hpp
+                                            include/system/system.hpp)
 
 add_library (engine SHARED ${SOURCE_FILES})
-#target_link_libraries (engine system)
 target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

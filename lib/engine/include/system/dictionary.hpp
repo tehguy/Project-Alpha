@@ -17,3 +17,21 @@
 */
 
 #pragma once
+
+#include <functional>
+#include <map>
+#include <string>
+
+class Dictionary {
+public:
+    Dictionary();
+    ~Dictionary();
+
+    template<typename Function>
+    void add(std::string, Function &&);
+
+    void invoke(std::string, std::string);
+
+private:
+    std::map<std::string, std::function<void(std::string)>> functions;
+};
