@@ -23,8 +23,7 @@ set (SOURCE_FILES
         src/quests/questcompletionitem.cpp  include/quests/questcompletionitem.hpp
         src/quests/questlogic.cpp           include/quests/questlogic.hpp
 
-        src/system/dictionary.cpp           include/system/dictionary.hpp
-                                            include/system/system.hpp)
+        include/system/system.hpp)
 
 add_library (engine SHARED ${SOURCE_FILES})
 target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
