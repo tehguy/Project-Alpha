@@ -24,9 +24,9 @@ Location::Location(int id, std::string in_name, std::string desc, int itemRequir
     ID = id;
     name = in_name;
     description = desc;
-    itemRequiredToEnter = MAIN::core.getWorld()->ItemByID(itemRequiredToEnterID);
-    questAvailableHere = MAIN::core.getWorld()->QuestByID(questAvailableHereID);
-    monsterLivingHere = MAIN::core.getWorld()->MonsterByID(monsterLivingHereID);
+    itemRequiredToEnter = MAIN::core.ItemByID(itemRequiredToEnterID);
+    questAvailableHere = MAIN::core.QuestByID(questAvailableHereID);
+    monsterLivingHere = MAIN::core.MonsterByID(monsterLivingHereID);
     *tN = locNorthID;
     *tE = locEastID;
     *tS = locSouthID;
@@ -36,10 +36,10 @@ Location::Location(int id, std::string in_name, std::string desc, int itemRequir
 Location::~Location(){}
 
 void Location::initLinks() {
-    locNorth = MAIN::core.getWorld()->LocationByID(*tN);
-    locEast = MAIN::core.getWorld()->LocationByID(*tE);
-    locSouth = MAIN::core.getWorld()->LocationByID(*tS);
-    locWest = MAIN::core.getWorld()->LocationByID(*tW);
+    locNorth = MAIN::core.LocationByID(*tN);
+    locEast = MAIN::core.LocationByID(*tE);
+    locSouth = MAIN::core.LocationByID(*tS);
+    locWest = MAIN::core.LocationByID(*tW);
 
     delete tN;
     tN = nullptr;

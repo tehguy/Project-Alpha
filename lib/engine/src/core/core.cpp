@@ -17,22 +17,93 @@
 */
 
 #include <include/core/core.hpp>
-
-std::shared_ptr<World> Core::WORLD = std::shared_ptr<World>(new World());
+#include <iostream>
 
 Core::Core() {
     DICE_ROLLER = std::shared_ptr<DiceRoller>(new DiceRoller());
+
+    itemList.reserve(0);
+    monsterList.reserve(0);
+    questList.reserve(0);
+    locationList.reserve(0);
 }
 
 Core::~Core() {
-
-}
-
-std::shared_ptr<World> Core::getWorld() {
-    return WORLD;
+    CleanUp();
+    std::cout << "Core components cleaned up..." << std::endl;
 }
 
 std::shared_ptr<DiceRoller> Core::getDiceRoller() {
     return DICE_ROLLER;
 }
 
+std::shared_ptr<Monster> Core::GetCurrentMonster() {
+    return currentMonster;
+}
+
+void Core::SetCurrentMonster(std::shared_ptr<Monster> monster) {
+    currentMonster = monster;
+}
+
+std::shared_ptr<Player> Core::GetPlayer() {
+    return player;
+}
+
+void Core::SetPlayer(Player _player) {
+    player = std::make_shared<Player>(_player);
+}
+
+std::shared_ptr<Item> Core::ItemByID(int id) {
+    if(itemList.size() > 0){
+        for(std::shared_ptr<Item> ptr : itemList){
+            if(ptr->getID() == id){
+                return ptr;
+            }
+        }
+    }
+
+    return nullptr;
+}
+
+std::shared_ptr<Monster> Core::MonsterByID(int id) {
+    if(monsterList.size() > 0){
+        for(auto ptr : monsterList){
+            if(ptr->getID() == id){
+                return ptr;
+            }
+        }
+    }
+
+    return nullptr;
+}
+
+std::shared_ptr<Quest> Core::QuestByID(int id) {
+    if(questList.size() > 0){
+        for(auto ptr : questList){
+            if(ptr->getID() == id){
+                return ptr;
+            }
+        }
+    }
+
+    return nullptr;
+}
+
+std::shared_ptr<Location> Core::LocationByID(int id) {
+    if(locationList.size() > 0 && id >= 0){
+        for(auto ptr : locationList){
+            if(ptr->getID() == id){
+                return ptr;
+            }
+        }
+    }
+
+    return nullptr;
+}
+
+void Core::CleanUp() {
+    itemList.clear();
+    monsterList.clear();
+    questList.clear();
+    locationList.clear();
+}

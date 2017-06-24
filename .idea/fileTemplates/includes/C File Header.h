@@ -1,3 +1,4 @@
+#if ($HEADER_COMMENTS)
 /*
     CPPAdventures
     Copyright (C) 2017  TehGuy
@@ -15,36 +16,5 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#end
 
-#include <include/item/lootitem.hpp>
-#include <include/core/core.hpp>
-
-LootItem::LootItem(int id, int dropPer, bool isDef) {
-    details = MAIN::core.ItemByID(id);
-    dropPercentage = dropPer;
-    isDefault = isDef;
-}
-
-std::shared_ptr<Item> LootItem::getDetails() {
-    return details;
-}
-
-void LootItem::setDetails(int id) {
-    details = MAIN::core.ItemByID(id);
-}
-
-int LootItem::getDropPercentage() {
-    return dropPercentage;
-}
-
-void LootItem::setDropPercentage(int dropPer) {
-    dropPercentage = dropPer;
-}
-
-bool LootItem::isDefaultItem() {
-    return isDefault;
-}
-
-void LootItem::setDefaultItem(bool isDef) {
-    isDefault = isDef;
-}

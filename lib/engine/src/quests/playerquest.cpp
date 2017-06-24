@@ -19,7 +19,7 @@
 #include <include/core/core.hpp>
 
 PlayerQuest::PlayerQuest(int quest) {
-    details = MAIN::core.getWorld()->QuestByID(quest);
+    details = MAIN::core.QuestByID(quest);
     completed = false;
 }
 

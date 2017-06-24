@@ -16,35 +16,23 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/item/lootitem.hpp>
-#include <include/core/core.hpp>
+#pragma once
 
-LootItem::LootItem(int id, int dropPer, bool isDef) {
-    details = MAIN::core.ItemByID(id);
-    dropPercentage = dropPer;
-    isDefault = isDef;
-}
+#include <ncurses.h>
 
-std::shared_ptr<Item> LootItem::getDetails() {
-    return details;
-}
+class Terrain {
+public:
+    Terrain(char _symbol, int _symbol_color, bool _passable);
 
-void LootItem::setDetails(int id) {
-    details = MAIN::core.ItemByID(id);
-}
+    char getSymbol();
 
-int LootItem::getDropPercentage() {
-    return dropPercentage;
-}
+    int getSymbolColor();
 
-void LootItem::setDropPercentage(int dropPer) {
-    dropPercentage = dropPer;
-}
+    bool isPassable();
+private:
+    char symbol;
 
-bool LootItem::isDefaultItem() {
-    return isDefault;
-}
+    int symbolColor;
 
-void LootItem::setDefaultItem(bool isDef) {
-    isDefault = isDef;
-}
+    bool passable;
+};

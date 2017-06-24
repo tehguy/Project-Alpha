@@ -21,31 +21,33 @@
 
 #include <include/quests/questlogic.hpp>
 
+#include <iostream>
+
 LocationLogic::LocationLogic() {}
 
 void LocationLogic::MoveNorth() {
-    std::shared_ptr<Location> locNorth = MAIN::core.getWorld()->GetPlayer()->getCurrentLocation()->getLocationToNorth();
+    std::shared_ptr<Location> locNorth = MAIN::core.GetPlayer()->getCurrentLocation()->getLocationToNorth();
     if(locNorth != nullptr){
         MoveToLocation(locNorth);
     }
 }
 
 void LocationLogic::MoveEast() {
-    std::shared_ptr<Location> locEast = MAIN::core.getWorld()->GetPlayer()->getCurrentLocation()->getLocationToEast();
+    std::shared_ptr<Location> locEast = MAIN::core.GetPlayer()->getCurrentLocation()->getLocationToEast();
     if(locEast != nullptr){
         MoveToLocation(locEast);
     }
 }
 
 void LocationLogic::MoveSouth() {
-    std::shared_ptr<Location> locSouth = MAIN::core.getWorld()->GetPlayer()->getCurrentLocation()->getLocationToSouth();
+    std::shared_ptr<Location> locSouth = MAIN::core.GetPlayer()->getCurrentLocation()->getLocationToSouth();
     if(locSouth != nullptr){
         MoveToLocation(locSouth);
     }
 }
 
 void LocationLogic::MoveWest() {
-    std::shared_ptr<Location> locWest = MAIN::core.getWorld()->GetPlayer()->getCurrentLocation()->getLocationToWest();
+    std::shared_ptr<Location> locWest = MAIN::core.GetPlayer()->getCurrentLocation()->getLocationToWest();
     if(locWest != nullptr){
         MoveToLocation(locWest);
     }
@@ -57,12 +59,12 @@ void LocationLogic::MoveToLocation(std::shared_ptr<Location> newLocation) {
 
         return;
     }
-    std::shared_ptr<Player> player = MAIN::core.getWorld()->GetPlayer();
+    std::shared_ptr<Player> player = MAIN::core.GetPlayer();
     player->setCurrentLocation(newLocation);
 
     // TODO: print location name and desc out to whatever GUI comes in later
 
-    player->setCurrentHitpoints(MAIN::core.getWorld()->GetPlayer()->getMaxHitPoints());
+    player->setCurrentHitpoints(MAIN::core.GetPlayer()->getMaxHitPoints());
 
     if(newLocation->getQuestAvailableHere() != nullptr){
         if(QuestLogic::HasThisQuest(newLocation->getQuestAvailableHere(), player->getQuests())){
@@ -85,12 +87,12 @@ void LocationLogic::SetMonsterForCurrentLocation(std::shared_ptr<Location> locat
     if(location->getMonsterLivingHere() != nullptr){
         // TODO: display monster description
 
-        std::shared_ptr<Monster> monster = MAIN::core.getWorld()->MonsterByID(location->getMonsterLivingHere()->getID());
+        std::shared_ptr<Monster> monster = MAIN::core.MonsterByID(location->getMonsterLivingHere()->getID());
 
-        MAIN::core.getWorld()->SetCurrentMonster(monster);
+        MAIN::core.SetCurrentMonster(monster);
     }
     else {
-        MAIN::core.getWorld()->SetCurrentMonster(nullptr);
+        MAIN::core.SetCurrentMonster(nullptr);
     }
 }
 
@@ -99,7 +101,7 @@ bool LocationLogic::HasRequiredItemToEnter(std::shared_ptr<Location> location) {
         return true;
     }
 
-    for(InventoryItem item : *MAIN::core.getWorld()->GetPlayer()->getInventory()){
+    for(InventoryItem item : *MAIN::core.GetPlayer()->getInventory()){
         if(item.getDetails()->getID() == location->getItemRequiredToEnter()->getID()){
             return true;
         }

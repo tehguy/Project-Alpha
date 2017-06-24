@@ -16,35 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/item/lootitem.hpp>
-#include <include/core/core.hpp>
+#include <include/terrain/water.hpp>
 
-LootItem::LootItem(int id, int dropPer, bool isDef) {
-    details = MAIN::core.ItemByID(id);
-    dropPercentage = dropPer;
-    isDefault = isDef;
-}
+Water::Water() : Terrain('~', COLOR_BLUE, false) {
 
-std::shared_ptr<Item> LootItem::getDetails() {
-    return details;
-}
-
-void LootItem::setDetails(int id) {
-    details = MAIN::core.ItemByID(id);
-}
-
-int LootItem::getDropPercentage() {
-    return dropPercentage;
-}
-
-void LootItem::setDropPercentage(int dropPer) {
-    dropPercentage = dropPer;
-}
-
-bool LootItem::isDefaultItem() {
-    return isDefault;
-}
-
-void LootItem::setDefaultItem(bool isDef) {
-    isDefault = isDef;
 }

@@ -69,11 +69,11 @@ bool QuestLogic::HasAllQuestCompletionItems(std::shared_ptr<Quest> quest,
 void QuestLogic::CompleteQuest(std::shared_ptr<Quest> quest) {
     // TODO: quest completion text stuff
 
-    RemoveQuestCompletionItems(quest, MAIN::core.getWorld()->GetPlayer()->getInventory());
+    RemoveQuestCompletionItems(quest, MAIN::core.GetPlayer()->getInventory());
 
     // TODO: quest rewards text stuff
 
-    std::shared_ptr<Player> player = MAIN::core.getWorld()->GetPlayer();
+    std::shared_ptr<Player> player = MAIN::core.GetPlayer();
 
     player->addExpPoints(quest->getRewardExp());
     player->addGold(quest->getRewardGold());
@@ -95,7 +95,7 @@ void QuestLogic::GiveQuestToPlayer(std::shared_ptr<Quest> quest) {
     }
 
     PlayerQuest pq(quest->getID());
-    AddQuestToList(pq, MAIN::core.getWorld()->GetPlayer()->getQuests());
+    AddQuestToList(pq, MAIN::core.GetPlayer()->getQuests());
 }
 
 void QuestLogic::AddQuestToList(PlayerQuest quest, std::shared_ptr<std::vector<PlayerQuest>> questList) {

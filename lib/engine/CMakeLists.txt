@@ -1,10 +1,13 @@
+find_package(Curses REQUIRED)
+include_directories(${CURSES_INCLUDE_DIR})
+
 set (SOURCE_FILES
         src/core/core.cpp                   include/core/core.hpp
         src/core/diceroller.cpp             include/core/diceroller.hpp
         src/core/location.cpp               include/core/location.hpp
         src/core/locationlogic.cpp          include/core/locationlogic.hpp
+        src/core/perlinnoise.cpp            include/core/perlinnoise.hpp
         src/core/randomnumbergenerator.cpp  include/core/randomnumbergenerator.hpp
-        src/core/world.cpp                  include/core/world.hpp
 
         src/entity/entity.cpp               include/entity/entity.hpp
         src/entity/player.cpp               include/entity/player.hpp
@@ -23,7 +26,11 @@ set (SOURCE_FILES
         src/quests/questcompletionitem.cpp  include/quests/questcompletionitem.hpp
         src/quests/questlogic.cpp           include/quests/questlogic.hpp
 
-        include/system/system.hpp)
+                                            include/system/system.hpp
+
+        src/terrain/terrain.cpp             include/terrain/terrain.hpp
+        src/terrain/water.cpp               include/terrain/water.hpp)
 
 add_library (engine SHARED ${SOURCE_FILES})
 target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(engine ${CURSES_LIBRARIES})

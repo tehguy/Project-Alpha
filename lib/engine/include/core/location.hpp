@@ -18,9 +18,10 @@
 
 #pragma once
 
+#include <include/entity/monster.hpp>
 #include <include/item/item.hpp>
 #include <include/quests/quest.hpp>
-#include <include/entity/monster.hpp>
+#include <include/terrain/terrain.hpp>
 
 #include <memory>
 
@@ -61,6 +62,8 @@ private:
     std::shared_ptr<Item> itemRequiredToEnter;
     std::shared_ptr<Quest> questAvailableHere;
     std::shared_ptr<Monster> monsterLivingHere;
+
+    std::shared_ptr<std::vector<Terrain>> terrainVector;
 
     std::string name, description;
 };

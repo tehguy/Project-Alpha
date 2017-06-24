@@ -18,9 +18,8 @@
 
 #pragma once
 
-#include "entity.hpp"
-
 #include <include/core/location.hpp>
+#include <include/entity/entity.hpp>
 #include <include/item/inventoryitem.hpp>
 #include <include/quests/playerquest.hpp>
 
