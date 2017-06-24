@@ -19,7 +19,7 @@
 #include <include/entity/monster.hpp>
 
 Monster::Monster(int id, std::string name, int rewardExp, int rewardG, std::vector<int> dicePool,
-                 std::vector<int> stats) : Entity(stats) {
+                 std::vector<int> stats) : Entity(stats, 'X') {
 
 }
 

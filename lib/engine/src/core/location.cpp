@@ -16,24 +16,35 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/location.hpp>
 #include <include/core/core.hpp>
 
-Location::Location(int id, std::string in_name, std::string desc, int itemRequiredToEnterID, int questAvailableHereID,
-                   int monsterLivingHereID, int locNorthID, int locEastID, int locSouthID, int locWestID) {
+Location::Location(int id, std::string in_name, std::string desc, unsigned int _width, unsigned int _height,
+                   int itemRequiredToEnterID, int questAvailableHereID, int monsterLivingHereID, int locNorthID,
+                   int locEastID, int locSouthID, int locWestID) {
     ID = id;
     name = in_name;
     description = desc;
+    width = _width;
+    height = _height;
+
+    initTerrainVector(width, height);
+
     itemRequiredToEnter = MAIN::core.ItemByID(itemRequiredToEnterID);
     questAvailableHere = MAIN::core.QuestByID(questAvailableHereID);
     monsterLivingHere = MAIN::core.MonsterByID(monsterLivingHereID);
-    *tN = locNorthID;
-    *tE = locEastID;
-    *tS = locSouthID;
-    *tW = locWestID;
+    tN = new int(locNorthID);
+    tE = new int(locEastID);
+    tS = new int(locSouthID);
+    tW = new int(locWestID);
 }
 
-Location::~Location(){}
+Location::~Location() {
+    for(auto innerVec : terrainVector) {
+        innerVec.clear();
+    }
+
+    terrainVector.clear();
+}
 
 void Location::initLinks() {
     locNorth = MAIN::core.LocationByID(*tN);
@@ -52,6 +63,34 @@ void Location::initLinks() {
 
     delete tW;
     tW = nullptr;
+}
+
+void Location::addTerrain(Terrain terrain, unsigned int row, unsigned int col) {
+    if(row < height && col < width) {
+        terrainVector.at(row).at(col) = std::make_shared<Terrain>(terrain);
+    }
+}
+
+std::shared_ptr<Terrain> Location::getTerrainAtPosition(unsigned int row, unsigned int col) {
+    if(row < height && col < width) {
+        return terrainVector.at(row).at(col);
+    }
+
+    return nullptr;
+}
+
+void Location::initTerrainVector(unsigned int _width, unsigned int _height) {
+    terrainVector.reserve(_height);
+    for(unsigned int i = 0; i < _width; i++) {
+        terrainVector.push_back(std::vector<std::shared_ptr<Terrain>>());
+        terrainVector.at(i).reserve(_height);
+
+        for(unsigned int j = 0; j < _height; j++) {
+            terrainVector.at(i).push_back(nullptr);
+        }
+    }
+
+
 }
 
 int Location::getID() {

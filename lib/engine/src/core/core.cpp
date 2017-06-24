@@ -19,6 +19,10 @@
 #include <include/core/core.hpp>
 #include <iostream>
 
+namespace MAIN {
+    Core core;
+}
+
 Core::Core() {
     DICE_ROLLER = std::shared_ptr<DiceRoller>(new DiceRoller());
 
@@ -54,7 +58,7 @@ void Core::SetPlayer(Player _player) {
 }
 
 std::shared_ptr<Item> Core::ItemByID(int id) {
-    if(itemList.size() > 0){
+    if(itemList.size() > 0 && id >= 0){
         for(std::shared_ptr<Item> ptr : itemList){
             if(ptr->getID() == id){
                 return ptr;
@@ -66,7 +70,7 @@ std::shared_ptr<Item> Core::ItemByID(int id) {
 }
 
 std::shared_ptr<Monster> Core::MonsterByID(int id) {
-    if(monsterList.size() > 0){
+    if(monsterList.size() > 0 && id >= 0){
         for(auto ptr : monsterList){
             if(ptr->getID() == id){
                 return ptr;
@@ -78,7 +82,7 @@ std::shared_ptr<Monster> Core::MonsterByID(int id) {
 }
 
 std::shared_ptr<Quest> Core::QuestByID(int id) {
-    if(questList.size() > 0){
+    if(questList.size() > 0 && id >= 0){
         for(auto ptr : questList){
             if(ptr->getID() == id){
                 return ptr;
@@ -106,4 +110,6 @@ void Core::CleanUp() {
     monsterList.clear();
     questList.clear();
     locationList.clear();
+
+    DICE_ROLLER.reset();
 }

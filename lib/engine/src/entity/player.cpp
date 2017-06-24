@@ -18,7 +18,7 @@
 
 #include <include/entity/player.hpp>
 
-Player::Player(int chp, int mhp, std::vector<int> stats) : Entity(chp, mhp, stats) {
+Player::Player(int chp, int mhp, std::vector<int> stats) : Entity(chp, mhp, stats, '@') {
     gold = 0;
     expPoints = 0;
     level = 0;

@@ -18,14 +18,16 @@
 
 #include <include/entity/entity.hpp>
 
-Entity::Entity(int chp, int mhp, std::vector<int> stats){
+Entity::Entity(int chp, int mhp, std::vector<int> stats, char _symbol){
     currentHitPoints = chp;
     maxHitPoints = mhp;
     statArray = stats;
+    symbol = _symbol;
 }
 
-Entity::Entity(std::vector<int> stats) {
+Entity::Entity(std::vector<int> stats, char _symbol) {
     statArray = stats;
+    symbol = _symbol;
 }
 
 int Entity::getCurrentHitPoints() {

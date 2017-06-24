@@ -59,5 +59,5 @@ private:
 };
 
 namespace MAIN{
-    static Core core;
+    extern Core core;
 }

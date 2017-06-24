@@ -25,8 +25,8 @@
 
 class Entity{
 public:
-    Entity(int chp, int mhp, std::vector<int> stats);
-    Entity(std::vector<int> stats);
+    Entity(int chp, int mhp, std::vector<int> stats, char _symbol);
+    Entity(std::vector<int> stats, char _symbol);
 
     int getCurrentHitPoints();
     int getMaxHitPoints();
@@ -37,7 +37,8 @@ public:
     int getAbs(STATS::ABS statToGet);
 
 private:
-
     int currentHitPoints, maxHitPoints;
     std::vector<int> statArray;
+
+    char symbol;
 };

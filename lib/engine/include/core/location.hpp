@@ -27,11 +27,14 @@
 
 class Location {
 public:
-    Location(int id, std::string in_name, std::string desc, int itemRequiredToEnter, int questAvailableHere,
-    int monsterLivingHere, int locNorth, int locEast, int locSouth, int locWest);
+    Location(int id, std::string in_name, std::string desc, unsigned int _width, unsigned int _height,
+             int itemRequiredToEnter, int questAvailableHere, int monsterLivingHere, int locNorth, int locEast,
+             int locSouth, int locWest);
 
     ~Location();
     void initLinks();
+    void addTerrain(Terrain terrain, unsigned int x_placement, unsigned int y_placement);
+    std::shared_ptr<Terrain> getTerrainAtPosition(unsigned int row, unsigned int col);
 
     int getID();
 
@@ -50,20 +53,22 @@ public:
     std::shared_ptr<Location> getLocationToWest();
 
 private:
+    void initTerrainVector(unsigned int _width, unsigned int _height);
 
     int ID;
+    unsigned int width, height;
 
-    int* tN;
-    int* tE;
-    int* tS;
-    int* tW;
+    int* tN = nullptr;
+    int* tE = nullptr;
+    int* tS = nullptr;
+    int* tW = nullptr;
 
     std::shared_ptr<Location> locNorth, locEast, locSouth, locWest;
     std::shared_ptr<Item> itemRequiredToEnter;
     std::shared_ptr<Quest> questAvailableHere;
     std::shared_ptr<Monster> monsterLivingHere;
 
-    std::shared_ptr<std::vector<Terrain>> terrainVector;
+    std::vector<std::vector<std::shared_ptr<Terrain>>> terrainVector;
 
     std::string name, description;
 };
