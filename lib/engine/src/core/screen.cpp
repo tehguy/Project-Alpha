@@ -16,23 +16,38 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/core/screen.hpp>
 
-#include <include/core/location.hpp>
-#include <memory>
+#include <ncurses.h>
 
-class LocationLogic {
-public:
-    static void MoveNorth();
-    static void MoveEast();
-    static void MoveSouth();
-    static void MoveWest();
+Screen::Screen() {
+    initscr();
 
-private:
-    LocationLogic();
+    if(has_colors()){
+        start_color();
+    }
 
-    static void MoveToLocation(std::shared_ptr<Location> newLocation);
-    static void SetMonsterForCurrentLocation(std::shared_ptr<Location> location);
+    clear();
+    noecho();
+    cbreak();
+    keypad(stdscr, true);
+    curs_set(0);
 
-    static bool HasRequiredItemToEnter(std::shared_ptr<Location> location);
-};
+    getmaxyx(stdscr, height, width);
+}
+
+Screen::~Screen() {
+    endwin();
+}
+
+void Screen::add(const char *message) {
+    printw(message);
+}
+
+int Screen::getHeight() {
+    return height;
+}
+
+int Screen::getWidth() {
+    return width;
+}

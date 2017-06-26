@@ -15,101 +15,87 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include <ncurses.h>
 
 #include <include/core/core.hpp>
-#include <iostream>
+#include <include/core/screen.hpp>
 
 namespace MAIN {
     Core core;
 }
 
 Core::Core() {
-    DICE_ROLLER = std::shared_ptr<DiceRoller>(new DiceRoller());
 
-    itemList.reserve(0);
-    monsterList.reserve(0);
-    questList.reserve(0);
-    locationList.reserve(0);
 }
 
 Core::~Core() {
-    CleanUp();
-    std::cout << "Core components cleaned up..." << std::endl;
+
 }
 
-std::shared_ptr<DiceRoller> Core::getDiceRoller() {
-    return DICE_ROLLER;
-}
+void Core::init() {
+    Screen scr;
 
-std::shared_ptr<Monster> Core::GetCurrentMonster() {
-    return currentMonster;
-}
+    if(!has_colors()){
+        scr.add("Warning: terminal does not support colors...\n\n");
+    }
+    else{
+        init_pair(1, COLOR_BLUE, COLOR_BLACK);
+        init_pair(2, COLOR_GREEN, COLOR_BLACK);
+        init_pair(3, COLOR_YELLOW, COLOR_BLACK);
+        init_pair(4, COLOR_WHITE, COLOR_BLACK);
 
-void Core::SetCurrentMonster(std::shared_ptr<Monster> monster) {
-    currentMonster = monster;
-}
-
-std::shared_ptr<Player> Core::GetPlayer() {
-    return player;
-}
-
-void Core::SetPlayer(Player _player) {
-    player = std::make_shared<Player>(_player);
-}
-
-std::shared_ptr<Item> Core::ItemByID(int id) {
-    if(itemList.size() > 0 && id >= 0){
-        for(std::shared_ptr<Item> ptr : itemList){
-            if(ptr->getID() == id){
-                return ptr;
-            }
-        }
+        attron(COLOR_PAIR(2));
+        scr.add("We have colors wooo!!\n\n");
+        attroff(COLOR_PAIR(2));
     }
 
-    return nullptr;
+    scr.add("Welcome to the RR game.\nPress any key to start.\nIf you want to quit press \"q\" or \"Q\"");
+
+    int ch = getch();
+
+    Frame game_map(2 * scr.getHeight(), 2 * scr.getWidth(), 0, 0);
+    Frame viewport(game_map, scr.getHeight(), scr.getWidth(), 0, 0);
+
+    Player player('@', game_map.getHeight() / 2, game_map.getWidth() / 2);
+
+    game_map.genPerlin(237);
+
+    gameLoop(game_map, viewport, player, ch);
 }
 
-std::shared_ptr<Monster> Core::MonsterByID(int id) {
-    if(monsterList.size() > 0 && id >= 0){
-        for(auto ptr : monsterList){
-            if(ptr->getID() == id){
-                return ptr;
-            }
+void Core::gameLoop(Frame &game_map, Frame &viewport, Player &player, int ch) {
+    if(ch == 'q' || ch == 'Q') return;
+
+    game_map.add(player);
+    viewport.center(player);
+    viewport.refresh();
+
+    while(1){
+        ch = getch();
+
+        // Main character movements
+        if(ch == KEY_LEFT) {
+            game_map.add(player, player.getRow(), player.getCol() - 1);
+            viewport.center(player);
+            viewport.refresh();
+        }
+        else if(ch == KEY_RIGHT) {
+            game_map.add(player, player.getRow(), player.getCol() + 1);
+            viewport.center(player);
+            viewport.refresh();
+        }
+        else if(ch == KEY_UP) {
+            game_map.add(player, player.getRow() - 1, player.getCol());
+            viewport.center(player);
+            viewport.refresh();
+        }
+        else if(ch == KEY_DOWN) {
+            game_map.add(player, player.getRow() + 1, player.getCol());
+            viewport.center(player);
+            viewport.refresh();
+        }
+        else if(ch == 'q' || ch == 'Q') {
+            break;
         }
     }
-
-    return nullptr;
-}
-
-std::shared_ptr<Quest> Core::QuestByID(int id) {
-    if(questList.size() > 0 && id >= 0){
-        for(auto ptr : questList){
-            if(ptr->getID() == id){
-                return ptr;
-            }
-        }
-    }
-
-    return nullptr;
-}
-
-std::shared_ptr<Location> Core::LocationByID(int id) {
-    if(locationList.size() > 0 && id >= 0){
-        for(auto ptr : locationList){
-            if(ptr->getID() == id){
-                return ptr;
-            }
-        }
-    }
-
-    return nullptr;
-}
-
-void Core::CleanUp() {
-    itemList.clear();
-    monsterList.clear();
-    questList.clear();
-    locationList.clear();
-
-    DICE_ROLLER.reset();
 }

@@ -16,4 +16,6 @@ private:
     static double grad(int hash, double x, double y, double z);
 
     static std::vector<int> p;
+
+    static unsigned int _seed;
 };

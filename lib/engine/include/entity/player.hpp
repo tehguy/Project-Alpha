@@ -18,34 +18,18 @@
 
 #pragma once
 
-#include <include/core/location.hpp>
-#include <include/entity/entity.hpp>
-#include <include/item/inventoryitem.hpp>
-#include <include/quests/playerquest.hpp>
-
-class Player : public Entity{
+class Player {
 public:
-    Player(int chp, int mhp, std::vector<int> stats);
+    Player(char symbol, int row_0, int col_0);
 
-    int getGold();
-    int getExpPoints();
-    int getLevel();
+    void pos(int row_0, int col_0);
 
-    void addGold(int amount);
-    void addExpPoints(int amount);
+    int getRow();
+    int getCol();
 
-    void setCurrentLocation(std::shared_ptr<Location> location);
-    std::shared_ptr<Location> getCurrentLocation();
+    const unsigned int getSymbol();
 
-    void addItemToInventory(int itemToAddID);
-    std::shared_ptr<std::vector<InventoryItem>> getInventory();
-
-    std::shared_ptr<std::vector<PlayerQuest>> getQuests();
 private:
-
-    int gold, expPoints, level;
-
-    std::shared_ptr<Location> currentLocation;
-    std::shared_ptr<std::vector<InventoryItem>> inventory;
-    std::shared_ptr<std::vector<PlayerQuest>> quests;
+    int row, col;
+    char symbol;
 };

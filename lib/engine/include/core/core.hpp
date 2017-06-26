@@ -18,9 +18,7 @@
 
 #pragma once
 
-#include <include/core/diceroller.hpp>
-#include <include/core/randomnumbergenerator.hpp>
-
+#include <include/core/frame.hpp>
 #include <include/entity/player.hpp>
 
 #include <memory>
@@ -30,34 +28,11 @@ public:
     Core();
     ~Core();
 
-    std::shared_ptr<DiceRoller> getDiceRoller();
+    void init();
 
-    std::shared_ptr<Monster> GetCurrentMonster();
-    void SetCurrentMonster(std::shared_ptr<Monster> monster);
-
-    std::shared_ptr<Player> GetPlayer();
-    void SetPlayer(Player _player);
-
-    std::shared_ptr<Item> ItemByID(int id);
-    std::shared_ptr<Monster> MonsterByID(int id);
-    std::shared_ptr<Quest> QuestByID(int id);
-    std::shared_ptr<Location> LocationByID(int id);
-
-    void CleanUp();
-
-private:
-    std::shared_ptr<DiceRoller> DICE_ROLLER;
-
-    std::shared_ptr<Player> player;
-
-    std::vector<std::shared_ptr<Item>> itemList;
-    std::vector<std::shared_ptr<Monster>> monsterList;
-    std::vector<std::shared_ptr<Quest>> questList;
-    std::vector<std::shared_ptr<Location>> locationList;
-
-    std::shared_ptr<Monster> currentMonster;
+    void gameLoop(Frame &game_map, Frame &viewport, Player &player, int ch);
 };
 
-namespace MAIN{
+namespace MAIN {
     extern Core core;
 }

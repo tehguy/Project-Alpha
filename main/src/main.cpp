@@ -16,20 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <iostream>
-
 #include <include/core/core.hpp>
 
-int main(){
-    std::cout << "Loading things..." << std::endl;
+int main() {
 
-    try{
+    MAIN::core.init();
 
-    } catch (...) {
-        std::cout << "Things broke" << std::endl;
-        return 0;
-    }
-    std::cout << "Things loaded" << std::endl;
-
-    return 1;
+	return 0;
 }

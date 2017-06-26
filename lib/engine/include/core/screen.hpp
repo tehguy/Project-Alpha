@@ -18,8 +18,16 @@
 
 #pragma once
 
-class DiceRoller {
+class Screen {
 public:
-    static int RollDice(int numberOfDice, int sidesOnDie, int modifier);
-    static int RollAbilityScore(int numberOfDice);
+    Screen();
+    ~Screen();
+
+    void add(const char *message);
+
+    int getHeight();
+    int getWidth();
+
+private:
+    int height, width;
 };

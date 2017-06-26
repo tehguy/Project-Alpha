@@ -16,17 +16,40 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/quests/questcompletionitem.hpp>
+#pragma once
 
-QuestCompletionItem::QuestCompletionItem(int det, int quant) {
-    details = det;
-    quantity = quant;
+namespace STATS {
+    enum ABS {
+        STRENGTH,
+        DEXTERITY,
+        CONSTITUTION,
+        INTELLIGENCE,
+        WISDOM,
+        CHARISMA
+    };
+
+    enum WEAPONTYPE {
+        SIMPLE_MELEE,
+        SIMPLE_RANGED,
+        MARTIAL_MELEE,
+        MARTIAL_RANGED
+    };
+
+    enum MONSTERPOOL {
+        NUM_HIT_DICE,
+        HIT_DIE_TYPE,
+        HIT_DIE_MODIFIER,
+        NUM_ATTACK_DICE,
+        ATTACK_DIE_TYPE,
+        ATTACK_DIE_MODIFIER
+    };
 }
 
-Item* QuestCompletionItem::getDetails() {
-    return nullptr;
-}
-
-int QuestCompletionItem::getQuantity() {
-    return quantity;
+namespace CORE {
+    enum COLOR {
+        BLUE = 1,
+        GREEN,
+        YELLOW,
+        WHITE
+    };
 }
