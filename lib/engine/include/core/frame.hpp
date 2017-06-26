@@ -22,8 +22,6 @@
 #include <ncurses.h>
 
 #include <include/entity/player.hpp>
-#include <include/enums/enums.hpp>
-
 
 class Frame {
 public:

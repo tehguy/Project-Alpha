@@ -16,11 +16,16 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#include <functional>
+#include <include/core/randomnumbergenerator.hpp>
 
-int main() {
+RandomNumberGenerator::RandomNumberGenerator() {}
 
-    MAIN::core.init();
+int RandomNumberGenerator::RollDice(int minVal, int maxVal) {
+    std::random_device randomDevice;
+    std::mt19937 rng(randomDevice());
+    std::uniform_int_distribution<> rollSet(minVal, maxVal);
+    auto r = std::bind(rollSet, rng);
 
-	return 1;
+    return r();
 }

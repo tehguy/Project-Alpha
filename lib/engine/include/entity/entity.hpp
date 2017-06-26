@@ -16,11 +16,20 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-int main() {
+#include <include/enums/enums.hpp>
 
-    MAIN::core.init();
+class Entity {
+public:
+    Entity(char _symbol, CORE::COLOR color);
 
-	return 1;
-}
+    const unsigned int getSymbol();
+
+    CORE::COLOR getSymbolColor();
+
+private:
+    char symbol;
+
+    CORE::COLOR symbolColor;
+};

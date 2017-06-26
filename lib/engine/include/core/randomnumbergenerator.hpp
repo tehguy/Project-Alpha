@@ -16,11 +16,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-int main() {
+#include <random>
 
-    MAIN::core.init();
+class RandomNumberGenerator {
+public:
+    static int RollDice(int minVal, int maxVal);
 
-	return 1;
-}
+private:
+    RandomNumberGenerator();
+};

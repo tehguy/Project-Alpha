@@ -18,10 +18,9 @@
 
 #include <include/entity/player.hpp>
 
-Player::Player(char _symbol, int row_0, int col_0) {
+Player::Player(char _symbol, CORE::COLOR color, int row_0, int col_0) : Entity(_symbol, color) {
     row = row_0;
     col = col_0;
-    symbol = _symbol;
 }
 
 void Player::pos(int row_0, int col_0) {
@@ -35,8 +34,4 @@ int Player::getRow() {
 
 int Player::getCol() {
     return col;
-}
-
-const unsigned int Player::getSymbol() {
-    return (const unsigned int) symbol;
 }

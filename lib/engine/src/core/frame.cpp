@@ -131,7 +131,7 @@ void Frame::move(int r, int c) {
 }
 
 void Frame::add(Player &player) {
-    mvwaddch(w, player.getRow(), player.getCol(), player.getSymbol());
+    mvwaddch_color(player.getRow(), player.getCol(), player.getSymbol(), player.getSymbolColor());
 }
 
 void Frame::add(Player &player, int row_0, int col_0) {
@@ -139,10 +139,18 @@ void Frame::add(Player &player, int row_0, int col_0) {
 
         chtype target = mvwinch(w, row_0, col_0);
 
-        if(target == '~' || target == '#' || target == 'S') return;
+        if(has_colors()){
+            if(target == ('~' | COLOR_PAIR(CORE::COLOR::BLUE))
+               || target == ('#' | COLOR_PAIR(CORE::COLOR::YELLOW))
+               || target == ('S' | COLOR_PAIR(CORE::COLOR::WHITE))) return;
+        }
+        else{
+            if(target == '~' || target == '#' || target == 'S') return;
+        }
 
         erase(player);
-        mvwaddch(w, row_0, col_0, player.getSymbol());
+        //mvwaddch(w, row_0, col_0, player.getSymbol());
+        mvwaddch_color(row_0, col_0, player.getSymbol(), player.getSymbolColor());
         player.pos(row_0, col_0);
     }
 }
@@ -191,19 +199,19 @@ void Frame::genPerlin(const unsigned int &seed) {
 
             // Watter (or a Lakes)
             if(n < 0.35) {
-                mvwaddch_color(i, j, '~', 1);
+                mvwaddch_color(i, j, '~', CORE::COLOR::BLUE);
             }
                 // Floors (or Planes)
             else if (n >= 0.35 && n < 0.6) {
-                mvwaddch_color(i, j, '.', 2);
+                mvwaddch_color(i, j, '.', CORE::COLOR::GREEN);
             }
                 // Walls (or Mountains)
             else if (n >= 0.6 && n < 0.8) {
-                mvwaddch_color(i, j, '#', 3);
+                mvwaddch_color(i, j, '#', CORE::COLOR::YELLOW);
             }
                 // Ice (or Snow)
             else {
-                mvwaddch_color(i, j, 'S', 4);
+                mvwaddch_color(i, j, 'S', CORE::COLOR::WHITE);
             }
         }
     }

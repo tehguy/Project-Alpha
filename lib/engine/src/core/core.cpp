@@ -56,7 +56,7 @@ void Core::init() {
     Frame game_map(2 * scr.getHeight(), 2 * scr.getWidth(), 0, 0);
     Frame viewport(game_map, scr.getHeight(), scr.getWidth(), 0, 0);
 
-    Player player('@', game_map.getHeight() / 2, game_map.getWidth() / 2);
+    Player player('@', CORE::COLOR::WHITE, game_map.getHeight() / 2, game_map.getWidth() / 2);
 
     game_map.genPerlin(237);
 

@@ -16,11 +16,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-int main() {
+class DiceRoller {
+    static int RollDice(int numberOfDice, int sidesOnDie, int modifier);
+    static int RollAbilityScore(int numberOfDice);
 
-    MAIN::core.init();
-
-	return 1;
-}
+private:
+    DiceRoller();
+};

@@ -16,11 +16,17 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#include <include/entity/entity.hpp>
 
-int main() {
+Entity::Entity(char _symbol, CORE::COLOR color) {
+    symbol = _symbol;
+    symbolColor = color;
+}
 
-    MAIN::core.init();
+const unsigned int Entity::getSymbol() {
+    return (const unsigned int) symbol;
+}
 
-	return 1;
+CORE::COLOR Entity::getSymbolColor() {
+    return symbolColor;
 }

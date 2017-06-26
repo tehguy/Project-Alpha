@@ -18,18 +18,17 @@
 
 #pragma once
 
-class Player {
+#include <include/entity/entity.hpp>
+
+class Player : public Entity{
 public:
-    Player(char symbol, int row_0, int col_0);
+    Player(char symbol, CORE::COLOR color, int row_0, int col_0);
 
     void pos(int row_0, int col_0);
 
     int getRow();
     int getCol();
 
-    const unsigned int getSymbol();
-
 private:
     int row, col;
-    char symbol;
 };
