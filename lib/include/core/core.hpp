@@ -30,7 +30,11 @@ public:
 
     void init();
 
-    void gameLoop(Frame &game_map, Frame &viewport, Player &player, int ch);
+    void gameLoop(const std::shared_ptr<Frame> &game_map, const std::shared_ptr<Frame> &viewport, Player &player, int ch);
+
+private:
+    std::shared_ptr<Frame> game_map;
+    std::shared_ptr<Frame> viewport;
 };
 
 namespace MAIN {

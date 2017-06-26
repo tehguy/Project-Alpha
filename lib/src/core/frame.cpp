@@ -29,10 +29,10 @@ Frame::Frame(int nr_rows, int nr_cols, int row_0, int col_0) {
     col = col_0;
 }
 
-Frame::Frame(Frame &sw, int nr_rows, int nr_cols, int row_0, int col_0) {
+Frame::Frame(const std::shared_ptr<Frame> &sw, int nr_rows, int nr_cols, int row_0, int col_0) {
     _hasSuper = true;
-    _super = sw.win();
-    w = derwin(sw.win(), nr_rows, nr_cols, row_0, col_0);
+    _super = sw->win();
+    w = derwin(sw->win(), nr_rows, nr_cols, row_0, col_0);
     height = nr_rows;
     width = nr_cols;
     row = row_0;

@@ -26,7 +26,7 @@
 class Frame {
 public:
     Frame(int nr_rows, int nr_cols, int row_0, int col_0);
-    Frame(Frame &sw, int nr_rows, int nr_cols, int row_0, int col_0);
+    Frame(const std::shared_ptr<Frame> &sw, int nr_rows, int nr_cols, int row_0, int col_0);
     ~Frame();
 
     WINDOW* win();
