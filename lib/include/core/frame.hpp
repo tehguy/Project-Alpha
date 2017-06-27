@@ -42,10 +42,10 @@ public:
     void fillWindow();
     void refresh();
     void move(int r, int c);
-    void add(Player &player);
-    void add(Player &player, int row_0, int col_0);
-    void erase(Player &player);
-    void center(Player &player);
+    void add(const std::shared_ptr<Player> &player);
+    void add(const std::shared_ptr<Player> &player, int row_0, int col_0);
+    void erase(const std::shared_ptr<Player> &player);
+    void center(const std::shared_ptr<Player> &player);
     void genPerlin(const unsigned int &seed);
 
     void mvwaddch_color(int row_0, int col_0, const chtype symbol, int color);

@@ -130,11 +130,11 @@ void Frame::move(int r, int c) {
     }
 }
 
-void Frame::add(Player &player) {
-    mvwaddch_color(player.getRow(), player.getCol(), player.getSymbol(), player.getSymbolColor());
+void Frame::add(const std::shared_ptr<Player> &player) {
+    mvwaddch_color(player->getRow(), player->getCol(), player->getSymbol(), player->getSymbolColor());
 }
 
-void Frame::add(Player &player, int row_0, int col_0) {
+void Frame::add(const std::shared_ptr<Player> &player, int row_0, int col_0) {
     if((row_0 >= 0 && row_0 < height) && (col_0 >= 0 && col_0 < width)){
 
         chtype target = mvwinch(w, row_0, col_0);
@@ -149,21 +149,20 @@ void Frame::add(Player &player, int row_0, int col_0) {
         }
 
         erase(player);
-        //mvwaddch(w, row_0, col_0, player.getSymbol());
-        mvwaddch_color(row_0, col_0, player.getSymbol(), player.getSymbolColor());
-        player.pos(row_0, col_0);
+        mvwaddch_color(row_0, col_0, player->getSymbol(), player->getSymbolColor());
+        player->pos(row_0, col_0);
     }
 }
 
-void Frame::erase(Player &player) {
-    mvwaddch(w, player.getRow(), player.getCol(), ' ');
+void Frame::erase(const std::shared_ptr<Player> &player) {
+    mvwaddch(w, player->getRow(), player->getCol(), ' ');
 }
 
-void Frame::center(Player &player) {
+void Frame::center(const std::shared_ptr<Player> &player) {
     if(_hasSuper){
         int rr, cc, hh, ww;
-        int _r = player.getRow() - height/2;
-        int _c = player.getCol() - width/2;
+        int _r = player->getRow() - height/2;
+        int _c = player->getCol() - width/2;
 
         getmaxyx(_super, hh, ww);
 

@@ -56,14 +56,15 @@ void Core::init() {
     game_map = std::shared_ptr<Frame>(new Frame(2 * scr.getHeight(), 2 * scr.getWidth(), 0, 0));
     viewport = std::shared_ptr<Frame>(new Frame(game_map, scr.getHeight(), scr.getWidth(), 0, 0));
 
-    Player player('@', CORE::COLOR::WHITE, game_map->getHeight() / 2, game_map->getWidth() / 2);
+    player = std::shared_ptr<Player>(new Player('@', CORE::COLOR::WHITE, game_map->getHeight() / 2, game_map->getWidth() / 2));
 
     game_map->genPerlin(237);
 
     gameLoop(game_map, viewport, player, ch);
 }
 
-void Core::gameLoop(const std::shared_ptr<Frame> &game_map, const std::shared_ptr<Frame> &viewport, Player &player, int ch) {
+void Core::gameLoop(const std::shared_ptr<Frame> &game_map, const std::shared_ptr<Frame> &viewport,
+                    const std::shared_ptr<Player> &player, int ch) {
     if(ch == 'q' || ch == 'Q') return;
 
     game_map->add(player);
@@ -75,22 +76,22 @@ void Core::gameLoop(const std::shared_ptr<Frame> &game_map, const std::shared_pt
 
         // Main character movements
         if(ch == KEY_LEFT) {
-            game_map->add(player, player.getRow(), player.getCol() - 1);
+            game_map->add(player, player->getRow(), player->getCol() - 1);
             viewport->center(player);
             viewport->refresh();
         }
         else if(ch == KEY_RIGHT) {
-            game_map->add(player, player.getRow(), player.getCol() + 1);
+            game_map->add(player, player->getRow(), player->getCol() + 1);
             viewport->center(player);
             viewport->refresh();
         }
         else if(ch == KEY_UP) {
-            game_map->add(player, player.getRow() - 1, player.getCol());
+            game_map->add(player, player->getRow() - 1, player->getCol());
             viewport->center(player);
             viewport->refresh();
         }
         else if(ch == KEY_DOWN) {
-            game_map->add(player, player.getRow() + 1, player.getCol());
+            game_map->add(player, player->getRow() + 1, player->getCol());
             viewport->center(player);
             viewport->refresh();
         }
