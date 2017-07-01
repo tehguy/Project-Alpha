@@ -36,17 +36,17 @@ void Core::init() {
     Screen scr;
 
     if(!has_colors()){
-        scr.add("Info: terminal does not support colors...\n\n");
+        scr.add("Info: Your terminal does not support colors...\n\n");
     }
     else{
-        init_pair(1, COLOR_BLUE, COLOR_BLACK);
-        init_pair(2, COLOR_GREEN, COLOR_BLACK);
-        init_pair(3, COLOR_YELLOW, COLOR_BLACK);
-        init_pair(4, COLOR_WHITE, COLOR_BLACK);
+        init_pair(CORE::COLOR::BLUE, COLOR_BLUE, COLOR_BLACK);
+        init_pair(CORE::COLOR::GREEN, COLOR_GREEN, COLOR_BLACK);
+        init_pair(CORE::COLOR::YELLOW, COLOR_YELLOW, COLOR_BLACK);
+        init_pair(CORE::COLOR::WHITE, COLOR_WHITE, COLOR_BLACK);
 
-        attron(COLOR_PAIR(2));
+        attron(COLOR_PAIR(CORE::COLOR::GREEN));
         scr.add("We have colors wooo!!\n\n");
-        attroff(COLOR_PAIR(2));
+        attroff(COLOR_PAIR(CORE::COLOR::GREEN));
     }
 
     scr.add("Welcome to the RR game.\nPress any key to start.\nIf you want to quit press \"q\" or \"Q\"");
@@ -54,22 +54,23 @@ void Core::init() {
     int ch = getch();
 
     game_map = std::shared_ptr<Frame>(new Frame(2 * scr.getHeight(), 2 * scr.getWidth(), 0, 0));
-    viewport = std::shared_ptr<Frame>(new Frame(game_map, scr.getHeight(), scr.getWidth(), 0, 0));
+    game_viewport = std::shared_ptr<Frame>(new Frame(game_map, scr.getHeight(), scr.getWidth(), 0, 0));
 
     player = std::shared_ptr<Player>(new Player(game_map->getHeight() / 2, game_map->getWidth() / 2));
 
+    // TODO: set up player health/stats viewport below the game_viewport
+
     game_map->genPerlin(237);
 
-    gameLoop(game_map, viewport, player, ch);
+    gameLoop(ch);
 }
 
-void Core::gameLoop(const std::shared_ptr<Frame> &game_map, const std::shared_ptr<Frame> &viewport,
-                    const std::shared_ptr<Player> &player, int ch) {
+void Core::gameLoop(int ch) {
     if(ch == 'q' || ch == 'Q') return;
 
     game_map->add(player);
-    viewport->center(player);
-    viewport->refresh();
+    game_viewport->center(player);
+    game_viewport->refresh();
 
     while(1){
         ch = getch();
@@ -77,23 +78,23 @@ void Core::gameLoop(const std::shared_ptr<Frame> &game_map, const std::shared_pt
         // Main character movements
         if(ch == KEY_LEFT) {
             game_map->add(player, player->getRow(), player->getCol() - 1);
-            viewport->center(player);
-            viewport->refresh();
+            game_viewport->center(player);
+            game_viewport->refresh();
         }
         else if(ch == KEY_RIGHT) {
             game_map->add(player, player->getRow(), player->getCol() + 1);
-            viewport->center(player);
-            viewport->refresh();
+            game_viewport->center(player);
+            game_viewport->refresh();
         }
         else if(ch == KEY_UP) {
             game_map->add(player, player->getRow() - 1, player->getCol());
-            viewport->center(player);
-            viewport->refresh();
+            game_viewport->center(player);
+            game_viewport->refresh();
         }
         else if(ch == KEY_DOWN) {
             game_map->add(player, player->getRow() + 1, player->getCol());
-            viewport->center(player);
-            viewport->refresh();
+            game_viewport->center(player);
+            game_viewport->refresh();
         }
         else if(ch == 'q' || ch == 'Q') {
             break;
