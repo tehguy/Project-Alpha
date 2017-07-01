@@ -37,6 +37,7 @@ private:
 
     std::shared_ptr<Frame> game_map;
     std::shared_ptr<Frame> game_viewport;
+    std::shared_ptr<Frame> stats_viewport;
 
     std::shared_ptr<Player> player;
 };

@@ -52,7 +52,8 @@ namespace CORE {
         BLUE = 1,
         GREEN,
         YELLOW,
-        WHITE
+        WHITE,
+        RED
     };
 
     enum SYMBOL {

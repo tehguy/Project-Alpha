@@ -18,6 +18,7 @@
 #include <ncurses.h>
 
 #include <include/core/core.hpp>
+#include <include/core/randomnumbergenerator.hpp>
 
 namespace MAIN {
     Core core;
@@ -41,13 +42,15 @@ void Core::init() {
     int ch = getch();
 
     game_map = std::shared_ptr<Frame>(new Frame(2 * scr.getHeight(), 2 * scr.getWidth(), 0, 0));
-    game_viewport = std::shared_ptr<Frame>(new Frame(game_map, scr.getHeight(), scr.getWidth(), 0, 0));
+    game_viewport = std::shared_ptr<Frame>(new Frame(game_map, (scr.getHeight()/2) + 5, scr.getWidth(), 0, 0));
 
-    player = std::shared_ptr<Player>(new Player(game_map->getHeight() / 2, game_map->getWidth() / 2));
+    stats_viewport = std::shared_ptr<Frame>(new Frame((scr.getHeight()/2) - 5, (scr.getWidth()/2) - 22, scr.getHeight()/2 + 5, 0));
 
-    // TODO: set up player health/stats viewport below the game_viewport
+
+    player = std::shared_ptr<Player>(new Player(game_map->getHeight() / 2, game_map->getWidth() / 2, 20));
 
     game_map->genPerlin(237);
+    stats_viewport->genStatWindow(player);
 
     gameLoop(ch);
 }
@@ -58,6 +61,7 @@ void Core::gameLoop(int ch) {
     game_map->add(player);
     game_viewport->center(player);
     game_viewport->refresh();
+    stats_viewport->refresh();
 
     while(1){
         ch = getch();
@@ -83,6 +87,14 @@ void Core::gameLoop(int ch) {
             game_viewport->center(player);
             game_viewport->refresh();
         }
+        else if (ch == 'h') {
+            player->remHP(1);
+            stats_viewport->updateHealth(player);
+        }
+        else if (ch == 'l') {
+            player->addHP(1);
+            stats_viewport->updateHealth(player);
+        }
         else if(ch == 'q' || ch == 'Q') {
             break;
         }
@@ -98,6 +110,7 @@ void Core::initColor(Screen& scr) {
         init_pair(CORE::COLOR::GREEN, COLOR_GREEN, COLOR_BLACK);
         init_pair(CORE::COLOR::YELLOW, COLOR_YELLOW, COLOR_BLACK);
         init_pair(CORE::COLOR::WHITE, COLOR_WHITE, COLOR_BLACK);
+        init_pair(CORE::COLOR::RED, COLOR_RED, COLOR_BLACK);
 
         attron(COLOR_PAIR(CORE::COLOR::GREEN));
         scr.add("We have colors wooo!!\n\n");

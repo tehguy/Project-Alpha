@@ -18,7 +18,8 @@
 
 #include <include/entity/player.hpp>
 
-Player::Player(int row_0, int col_0) : Entity(CORE::SYMBOL::PLAYER, CORE::CSYMBOL::CPLAYER) {
+Player::Player(int row_0, int col_0, unsigned int maxhp) : Entity(CORE::SYMBOL::PLAYER, CORE::CSYMBOL::CPLAYER,
+                                                                  maxhp, maxhp) {
     row = row_0;
     col = col_0;
 }

@@ -18,9 +18,11 @@
 
 #include <include/entity/entity.hpp>
 
-Entity::Entity(char _symbol, const chtype csymbol) {
+Entity::Entity(char _symbol, const chtype csymbol, unsigned int _curhp, unsigned int _maxhp) {
     symbol = _symbol;
     symbolColor = csymbol;
+    curhp = _curhp;
+    maxhp = _maxhp;
 }
 
 const unsigned int Entity::getSymbol() {
@@ -29,4 +31,26 @@ const unsigned int Entity::getSymbol() {
 
 const chtype Entity::getSymbolColor() {
     return symbolColor;
+}
+
+const unsigned int Entity::getCurHP() {
+    return curhp;
+}
+
+const unsigned int Entity::getMaxHP() {
+    return maxhp;
+}
+
+void Entity::addHP(unsigned int amtToAdd) {
+    curhp += amtToAdd;
+    if(curhp > maxhp) {
+        curhp = maxhp;
+    }
+}
+
+void Entity::remHP(unsigned int amtToRem) {
+    curhp -= amtToRem;
+    if(curhp < 0) {
+        curhp = 0;
+    }
 }

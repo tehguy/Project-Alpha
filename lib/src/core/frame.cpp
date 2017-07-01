@@ -104,14 +104,19 @@ void Frame::fillWindow() {
     }
 
     for(int y = 0; y < height; ++y) {
-        mvwaddch(w, y, 0, '-');
-        mvwaddch(w, y, width - 1, '-');
+        mvwaddch(w, y, 0, '|');
+        mvwaddch(w, y, width - 1, '|');
     }
 
     for(int x = 0; x < width; ++x) {
-        mvwaddch(w, 0, x, '|');
-        mvwaddch(w, height - 1, x, '|');
+        mvwaddch(w, 0, x, '-');
+        mvwaddch(w, height - 1, x, '-');
     }
+
+    mvwaddch(w, 0, 0, '+');
+    mvwaddch(w, 0, width-1, '+');
+    mvwaddch(w, height-1, 0, '+');
+    mvwaddch(w, height-1, width-1, '+');
 }
 
 void Frame::refresh() {
@@ -222,4 +227,41 @@ void Frame::mvwaddch_color(int row_0, int col_0, const chtype symbol, const chty
     else{
         mvwaddch(w, row_0, col_0, symbol);
     }
+}
+
+void Frame::genStatWindow(const std::shared_ptr<Player> &player) {
+    for(int y = 0; y < height; ++y) {
+        mvwaddch(w, y, 0, '|');
+        mvwaddch(w, y, width - 1, '|');
+    }
+
+    for(int x = 0; x < width; ++x) {
+        mvwaddch(w, 0, x, '-');
+        mvwaddch(w, height - 1, x, '-');
+    }
+
+    mvwaddch(w, 0, 0, '+');
+    mvwaddch(w, 0, width-1, '+');
+    mvwaddch(w, height-1, 0, '+');
+    mvwaddch(w, height-1, width-1, '+');
+
+    mvwaddch(w, height/2, 3, '[');
+    mvwaddch(w, height/2, 14, ']');
+
+    updateHealth(player);
+}
+
+void Frame::updateHealth(const std::shared_ptr<Player> &player) {
+    float healthRatio = ((float)player->getCurHP() / (float)player->getMaxHP()) * 10;
+    int col_0 = 4;
+
+    for(int i = 0; i < 10; i++){
+        mvwaddch(w, height/2, col_0 + i, ' ');
+    }
+    refresh();
+
+    for(int i = 0; i < healthRatio; i++){
+        mvwaddch_color(height/2, col_0 + i, '#', ('#' | COLOR_PAIR(CORE::COLOR::RED)));
+    }
+    refresh();
 }

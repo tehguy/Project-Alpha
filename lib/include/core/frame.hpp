@@ -49,6 +49,8 @@ public:
     void genPerlin(const unsigned int &seed);
 
     void mvwaddch_color(int row_0, int col_0, const chtype symbol, const chtype color);
+    void genStatWindow(const std::shared_ptr<Player> &player);
+    void updateHealth(const std::shared_ptr<Player> &player);
 
 private:
     int height, width, row, col;
