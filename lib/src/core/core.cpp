@@ -56,7 +56,7 @@ void Core::init() {
     game_map = std::shared_ptr<Frame>(new Frame(2 * scr.getHeight(), 2 * scr.getWidth(), 0, 0));
     viewport = std::shared_ptr<Frame>(new Frame(game_map, scr.getHeight(), scr.getWidth(), 0, 0));
 
-    player = std::shared_ptr<Player>(new Player('@', CORE::COLOR::WHITE, game_map->getHeight() / 2, game_map->getWidth() / 2));
+    player = std::shared_ptr<Player>(new Player(game_map->getHeight() / 2, game_map->getWidth() / 2));
 
     game_map->genPerlin(237);
 

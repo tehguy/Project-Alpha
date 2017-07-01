@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include <ncurses.h>
+
 namespace STATS {
     enum ABS {
         STRENGTH,
@@ -51,5 +53,21 @@ namespace CORE {
         GREEN,
         YELLOW,
         WHITE
+    };
+
+    enum SYMBOL {
+        PLAYER = '@',
+        WATER = '~',
+        WALL = '#',
+        GRASS = '.',
+        SNOW = 'S'
+    };
+
+    enum CSYMBOL {
+        CPLAYER = (CORE::SYMBOL::PLAYER | COLOR_PAIR(CORE::COLOR::WHITE)),
+        CWATER = (CORE::SYMBOL::WATER | COLOR_PAIR(CORE::COLOR::BLUE)),
+        CWALL = (CORE::SYMBOL::WALL | COLOR_PAIR(CORE::COLOR::YELLOW)),
+        CGRASS = (CORE::SYMBOL::GRASS | COLOR_PAIR(CORE::COLOR::GREEN)),
+        CSNOW = (CORE::SYMBOL::SNOW | COLOR_PAIR(CORE::COLOR::WHITE)),
     };
 }

@@ -18,7 +18,7 @@
 
 #include <include/entity/player.hpp>
 
-Player::Player(char _symbol, CORE::COLOR color, int row_0, int col_0) : Entity(_symbol, color) {
+Player::Player(int row_0, int col_0) : Entity(CORE::SYMBOL::PLAYER, CORE::CSYMBOL::CPLAYER) {
     row = row_0;
     col = col_0;
 }

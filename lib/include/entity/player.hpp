@@ -22,7 +22,7 @@
 
 class Player : public Entity{
 public:
-    Player(char symbol, CORE::COLOR color, int row_0, int col_0);
+    Player(int row_0, int col_0);
 
     void pos(int row_0, int col_0);
 

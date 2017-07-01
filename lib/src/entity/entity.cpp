@@ -18,15 +18,15 @@
 
 #include <include/entity/entity.hpp>
 
-Entity::Entity(char _symbol, CORE::COLOR color) {
+Entity::Entity(char _symbol, const chtype csymbol) {
     symbol = _symbol;
-    symbolColor = color;
+    symbolColor = csymbol;
 }
 
 const unsigned int Entity::getSymbol() {
     return (const unsigned int) symbol;
 }
 
-CORE::COLOR Entity::getSymbolColor() {
+const chtype Entity::getSymbolColor() {
     return symbolColor;
 }

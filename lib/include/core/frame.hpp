@@ -48,7 +48,7 @@ public:
     void center(const std::shared_ptr<Player> &player);
     void genPerlin(const unsigned int &seed);
 
-    void mvwaddch_color(int row_0, int col_0, const chtype symbol, int color);
+    void mvwaddch_color(int row_0, int col_0, const chtype symbol, const chtype color);
 
 private:
     int height, width, row, col;

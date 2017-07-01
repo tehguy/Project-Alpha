@@ -22,14 +22,14 @@
 
 class Entity {
 public:
-    Entity(char _symbol, CORE::COLOR color);
+    Entity(char _symbol, const chtype csymbol);
 
     const unsigned int getSymbol();
 
-    CORE::COLOR getSymbolColor();
+    const chtype getSymbolColor();
 
 private:
     char symbol;
 
-    CORE::COLOR symbolColor;
+    chtype symbolColor;
 };

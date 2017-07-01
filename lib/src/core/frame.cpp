@@ -140,12 +140,11 @@ void Frame::add(const std::shared_ptr<Player> &player, int row_0, int col_0) {
         chtype target = mvwinch(w, row_0, col_0);
 
         if(has_colors()){
-            if(target == ('~' | COLOR_PAIR(CORE::COLOR::BLUE))
-               || target == ('#' | COLOR_PAIR(CORE::COLOR::YELLOW))
-               || target == ('S' | COLOR_PAIR(CORE::COLOR::WHITE))) return;
+            if(target == CORE::CSYMBOL::CWATER || target == CORE::CSYMBOL::CWALL
+               || target == CORE::CSYMBOL::CSNOW) return;
         }
         else{
-            if(target == '~' || target == '#' || target == 'S') return;
+            if(target == CORE::SYMBOL::WATER || target == CORE::SYMBOL::WALL || target == CORE::SYMBOL::SNOW) return;
         }
 
         erase(player);
@@ -198,27 +197,27 @@ void Frame::genPerlin(const unsigned int &seed) {
 
             // Watter (or a Lakes)
             if(n < 0.35) {
-                mvwaddch_color(i, j, '~', CORE::COLOR::BLUE);
+                mvwaddch_color(i, j, CORE::SYMBOL::WATER, CORE::CSYMBOL::CWATER);
             }
                 // Floors (or Planes)
             else if (n >= 0.35 && n < 0.6) {
-                mvwaddch_color(i, j, '.', CORE::COLOR::GREEN);
+                mvwaddch_color(i, j, CORE::SYMBOL::GRASS, CORE::CSYMBOL::CGRASS);
             }
                 // Walls (or Mountains)
             else if (n >= 0.6 && n < 0.8) {
-                mvwaddch_color(i, j, '#', CORE::COLOR::YELLOW);
+                mvwaddch_color(i, j, CORE::SYMBOL::WALL, CORE::CSYMBOL::CWALL);
             }
                 // Ice (or Snow)
             else {
-                mvwaddch_color(i, j, 'S', CORE::COLOR::WHITE);
+                mvwaddch_color(i, j, CORE::SYMBOL::SNOW, CORE::CSYMBOL::CSNOW);
             }
         }
     }
 }
 
-void Frame::mvwaddch_color(int row_0, int col_0, const chtype symbol, int color) {
+void Frame::mvwaddch_color(int row_0, int col_0, const chtype symbol, const chtype csymbol) {
     if(has_colors()){
-        mvwaddch(w, row_0, col_0, symbol | COLOR_PAIR(color));
+        mvwaddch(w, row_0, col_0, csymbol);
     }
     else{
         mvwaddch(w, row_0, col_0, symbol);
