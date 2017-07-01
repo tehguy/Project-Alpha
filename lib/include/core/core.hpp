@@ -19,6 +19,7 @@
 #pragma once
 
 #include <include/core/frame.hpp>
+#include <include/core/screen.hpp>
 #include <include/entity/player.hpp>
 
 #include <memory>
@@ -29,6 +30,7 @@ public:
     ~Core();
 
     void init();
+    void initColor(Screen& scr);
 
 private:
     void gameLoop(int ch);

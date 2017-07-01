@@ -18,7 +18,6 @@
 #include <ncurses.h>
 
 #include <include/core/core.hpp>
-#include <include/core/screen.hpp>
 
 namespace MAIN {
     Core core;
@@ -35,19 +34,7 @@ Core::~Core() {
 void Core::init() {
     Screen scr;
 
-    if(!has_colors()){
-        scr.add("Info: Your terminal does not support colors...\n\n");
-    }
-    else{
-        init_pair(CORE::COLOR::BLUE, COLOR_BLUE, COLOR_BLACK);
-        init_pair(CORE::COLOR::GREEN, COLOR_GREEN, COLOR_BLACK);
-        init_pair(CORE::COLOR::YELLOW, COLOR_YELLOW, COLOR_BLACK);
-        init_pair(CORE::COLOR::WHITE, COLOR_WHITE, COLOR_BLACK);
-
-        attron(COLOR_PAIR(CORE::COLOR::GREEN));
-        scr.add("We have colors wooo!!\n\n");
-        attroff(COLOR_PAIR(CORE::COLOR::GREEN));
-    }
+    initColor(scr);
 
     scr.add("Welcome to the RR game.\nPress any key to start.\nIf you want to quit press \"q\" or \"Q\"");
 
@@ -99,5 +86,21 @@ void Core::gameLoop(int ch) {
         else if(ch == 'q' || ch == 'Q') {
             break;
         }
+    }
+}
+
+void Core::initColor(Screen& scr) {
+    if(!has_colors()){
+        scr.add("Info: Your terminal does not support colors...\n\n");
+    }
+    else{
+        init_pair(CORE::COLOR::BLUE, COLOR_BLUE, COLOR_BLACK);
+        init_pair(CORE::COLOR::GREEN, COLOR_GREEN, COLOR_BLACK);
+        init_pair(CORE::COLOR::YELLOW, COLOR_YELLOW, COLOR_BLACK);
+        init_pair(CORE::COLOR::WHITE, COLOR_WHITE, COLOR_BLACK);
+
+        attron(COLOR_PAIR(CORE::COLOR::GREEN));
+        scr.add("We have colors wooo!!\n\n");
+        attroff(COLOR_PAIR(CORE::COLOR::GREEN));
     }
 }
