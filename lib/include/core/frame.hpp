@@ -42,15 +42,15 @@ public:
     void fillWindow();
     void refresh();
     void move(int r, int c);
-    void add(const std::shared_ptr<Player> &player);
-    void add(const std::shared_ptr<Player> &player, int row_0, int col_0);
-    void erase(const std::shared_ptr<Player> &player);
-    void center(const std::shared_ptr<Player> &player);
+    void add();
+    void add(int row_0, int col_0);
+    void erase();
+    void center();
     void genPerlin(const unsigned int &seed);
 
     void mvwaddch_color(int row_0, int col_0, const chtype symbol, const chtype color);
-    void genStatWindow(const std::shared_ptr<Player> &player);
-    void updateHealth(const std::shared_ptr<Player> &player);
+    void genStatWindow();
+    void updateHealth();
 
 private:
     int height, width, row, col;

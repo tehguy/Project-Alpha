@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/frame.hpp>
+#include <include/core/core.hpp>
 #include <include/core/perlinnoise.hpp>
 
 Frame::Frame(int nr_rows, int nr_cols, int row_0, int col_0) {
@@ -71,6 +71,7 @@ int Frame::getCol() {
     return col;
 }
 
+// Debug/Test function to see if your windows are how they should be
 void Frame::fillWindow() {
     int max_x = width/2;
     int max_y = height/2;
@@ -135,11 +136,12 @@ void Frame::move(int r, int c) {
     }
 }
 
-void Frame::add(const std::shared_ptr<Player> &player) {
-    mvwaddch_color(player->getRow(), player->getCol(), player->getSymbol(), player->getSymbolColor());
+void Frame::add() {
+    mvwaddch_color(MAIN::core.getPlayer()->getRow(), MAIN::core.getPlayer()->getCol(),
+                   MAIN::core.getPlayer()->getSymbol(), MAIN::core.getPlayer()->getSymbolColor());
 }
 
-void Frame::add(const std::shared_ptr<Player> &player, int row_0, int col_0) {
+void Frame::add(int row_0, int col_0) {
     if((row_0 >= 0 && row_0 < height) && (col_0 >= 0 && col_0 < width)){
 
         chtype target = mvwinch(w, row_0, col_0);
@@ -152,21 +154,21 @@ void Frame::add(const std::shared_ptr<Player> &player, int row_0, int col_0) {
             if(target == CORE::SYMBOL::WATER || target == CORE::SYMBOL::WALL || target == CORE::SYMBOL::SNOW) return;
         }
 
-        erase(player);
-        mvwaddch_color(row_0, col_0, player->getSymbol(), player->getSymbolColor());
-        player->pos(row_0, col_0);
+        erase();
+        mvwaddch_color(row_0, col_0, MAIN::core.getPlayer()->getSymbol(), MAIN::core.getPlayer()->getSymbolColor());
+        MAIN::core.getPlayer()->pos(row_0, col_0);
     }
 }
 
-void Frame::erase(const std::shared_ptr<Player> &player) {
-    mvwaddch(w, player->getRow(), player->getCol(), ' ');
+void Frame::erase() {
+    mvwaddch(w, MAIN::core.getPlayer()->getRow(), MAIN::core.getPlayer()->getCol(), ' ');
 }
 
-void Frame::center(const std::shared_ptr<Player> &player) {
+void Frame::center() {
     if(_hasSuper){
         int rr, cc, hh, ww;
-        int _r = player->getRow() - height/2;
-        int _c = player->getCol() - width/2;
+        int _r = MAIN::core.getPlayer()->getRow() - height/2;
+        int _c = MAIN::core.getPlayer()->getCol() - width/2;
 
         getmaxyx(_super, hh, ww);
 
@@ -192,6 +194,7 @@ void Frame::center(const std::shared_ptr<Player> &player) {
     }
 }
 
+// Test function for use until actual location stuff is put in place
 void Frame::genPerlin(const unsigned int &seed) {
     for(int i = 0; i < height; ++i) {     // y
         for(int j = 0; j < width; ++j) {  // x
@@ -229,7 +232,7 @@ void Frame::mvwaddch_color(int row_0, int col_0, const chtype symbol, const chty
     }
 }
 
-void Frame::genStatWindow(const std::shared_ptr<Player> &player) {
+void Frame::genStatWindow() {
     for(int y = 0; y < height; ++y) {
         mvwaddch(w, y, 0, '|');
         mvwaddch(w, y, width - 1, '|');
@@ -248,11 +251,12 @@ void Frame::genStatWindow(const std::shared_ptr<Player> &player) {
     mvwaddch(w, height/2, 3, '[');
     mvwaddch(w, height/2, 14, ']');
 
-    updateHealth(player);
+    updateHealth();
 }
 
-void Frame::updateHealth(const std::shared_ptr<Player> &player) {
-    float healthRatio = ((float)player->getCurHP() / (float)player->getMaxHP()) * 10;
+void Frame::updateHealth() {
+
+    float healthRatio = ((float)MAIN::core.getPlayer()->getCurHP() / (float)MAIN::core.getPlayer()->getMaxHP()) * 10;
     int col_0 = 4;
 
     for(int i = 0; i < 10; i++){

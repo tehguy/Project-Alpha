@@ -50,7 +50,7 @@ void Core::init() {
     player = std::shared_ptr<Player>(new Player(game_map->getHeight() / 2, game_map->getWidth() / 2, 20));
 
     game_map->genPerlin(237);
-    stats_viewport->genStatWindow(player);
+    stats_viewport->genStatWindow();
 
     gameLoop(ch);
 }
@@ -58,8 +58,8 @@ void Core::init() {
 void Core::gameLoop(int ch) {
     if(ch == 'q' || ch == 'Q') return;
 
-    game_map->add(player);
-    game_viewport->center(player);
+    game_map->add();
+    game_viewport->center();
     game_viewport->refresh();
     stats_viewport->refresh();
 
@@ -68,32 +68,32 @@ void Core::gameLoop(int ch) {
 
         // Main character movements
         if(ch == KEY_LEFT) {
-            game_map->add(player, player->getRow(), player->getCol() - 1);
-            game_viewport->center(player);
+            game_map->add(player->getRow(), player->getCol() - 1);
+            game_viewport->center();
             game_viewport->refresh();
         }
         else if(ch == KEY_RIGHT) {
-            game_map->add(player, player->getRow(), player->getCol() + 1);
-            game_viewport->center(player);
+            game_map->add(player->getRow(), player->getCol() + 1);
+            game_viewport->center();
             game_viewport->refresh();
         }
         else if(ch == KEY_UP) {
-            game_map->add(player, player->getRow() - 1, player->getCol());
-            game_viewport->center(player);
+            game_map->add(player->getRow() - 1, player->getCol());
+            game_viewport->center();
             game_viewport->refresh();
         }
         else if(ch == KEY_DOWN) {
-            game_map->add(player, player->getRow() + 1, player->getCol());
-            game_viewport->center(player);
+            game_map->add(player->getRow() + 1, player->getCol());
+            game_viewport->center();
             game_viewport->refresh();
         }
         else if (ch == 'h') {
             player->remHP(1);
-            stats_viewport->updateHealth(player);
+            stats_viewport->updateHealth();
         }
         else if (ch == 'l') {
             player->addHP(1);
-            stats_viewport->updateHealth(player);
+            stats_viewport->updateHealth();
         }
         else if(ch == 'q' || ch == 'Q') {
             break;
@@ -116,4 +116,16 @@ void Core::initColor(Screen& scr) {
         scr.add("We have colors wooo!!\n\n");
         attroff(COLOR_PAIR(CORE::COLOR::GREEN));
     }
+}
+
+const std::shared_ptr<Frame> &Core::getStatWindow() {
+    return stats_viewport;
+}
+
+const std::shared_ptr<Frame> &Core::getGameMap() {
+    return game_map;
+}
+
+const std::shared_ptr<Player> &Core::getPlayer() {
+    return player;
 }

@@ -32,6 +32,11 @@ public:
     void init();
     void initColor(Screen& scr);
 
+    const std::shared_ptr<Frame>& getStatWindow();
+    const std::shared_ptr<Frame>& getGameMap();
+
+    const std::shared_ptr<Player>& getPlayer();
+
 private:
     void gameLoop(int ch);
 
