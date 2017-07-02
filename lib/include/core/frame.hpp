@@ -49,10 +49,8 @@ public:
     void genPerlin(const unsigned int &seed);
 
     void mvwaddch_color(int row_0, int col_0, const chtype symbol, const chtype color);
-    void genStatWindow();
-    void updateHealth();
 
-private:
+protected:
     int height, width, row, col;
 
     WINDOW* w;

@@ -17,11 +17,14 @@
 */
 
 #include <include/entity/player.hpp>
+#include <include/core/core.hpp>
 
 Player::Player(int row_0, int col_0, unsigned int maxhp) : Entity(CORE::SYMBOL::PLAYER, CORE::CSYMBOL::CPLAYER,
                                                                   maxhp, maxhp) {
     row = row_0;
     col = col_0;
+    curExp = 0;
+    expToNextLevel = 100;
 }
 
 void Player::pos(int row_0, int col_0) {
@@ -35,4 +38,40 @@ int Player::getRow() {
 
 int Player::getCol() {
     return col;
+}
+
+unsigned int Player::getCurExp() {
+    return curExp;
+}
+
+unsigned int Player::getExpToNextLevel() {
+    return expToNextLevel;
+}
+
+void Player::addExpPoints(unsigned int amtToAdd) {
+    curExp += amtToAdd;
+    if(curExp > expToNextLevel){
+        curExp = expToNextLevel;
+    }
+
+    MAIN::core.getStatWindow()->updateExperience();
+}
+
+void Player::remExpPoints(unsigned int amtToRem) {
+    curExp -= amtToRem;
+    if(curExp < 0){
+        curExp = 0;
+    }
+
+    MAIN::core.getStatWindow()->updateExperience();
+}
+
+void Player::addHP(unsigned int amtToAdd) {
+    Entity::addHP(amtToAdd);
+    MAIN::core.getStatWindow()->updateHealth();
+}
+
+void Player::remHP(unsigned int amtToRem) {
+    Entity::remHP(amtToRem);
+    MAIN::core.getStatWindow()->updateHealth();
 }

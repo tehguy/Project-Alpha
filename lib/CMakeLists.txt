@@ -9,6 +9,7 @@ set (SOURCE_FILES
         src/core/core.cpp                       include/core/core.hpp
         src/core/diceroller.cpp                 include/core/diceroller.hpp
         src/core/frame.cpp                      include/core/frame.hpp
+        src/core/frame_stats.cpp                include/core/frame_stats.hpp
         src/core/perlinnoise.cpp                include/core/perlinnoise.hpp
         src/core/randomnumbergenerator.cpp      include/core/randomnumbergenerator.hpp
         src/core/screen.cpp                     include/core/screen.hpp

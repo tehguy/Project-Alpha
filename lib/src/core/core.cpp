@@ -44,7 +44,7 @@ void Core::init() {
     game_map = std::shared_ptr<Frame>(new Frame(2 * scr.getHeight(), 2 * scr.getWidth(), 0, 0));
     game_viewport = std::shared_ptr<Frame>(new Frame(game_map, (scr.getHeight()/2) + 5, scr.getWidth(), 0, 0));
 
-    stats_viewport = std::shared_ptr<Frame>(new Frame((scr.getHeight()/2) - 5, (scr.getWidth()/2) - 22, scr.getHeight()/2 + 5, 0));
+    stats_viewport = std::shared_ptr<FrameStats>(new FrameStats((scr.getHeight()/2) - 5, (scr.getWidth()/2) - 22, scr.getHeight()/2 + 5, 0));
 
 
     player = std::shared_ptr<Player>(new Player(game_map->getHeight() / 2, game_map->getWidth() / 2, 20));
@@ -87,14 +87,6 @@ void Core::gameLoop(int ch) {
             game_viewport->center();
             game_viewport->refresh();
         }
-        else if (ch == 'h') {
-            player->remHP(1);
-            stats_viewport->updateHealth();
-        }
-        else if (ch == 'l') {
-            player->addHP(1);
-            stats_viewport->updateHealth();
-        }
         else if(ch == 'q' || ch == 'Q') {
             break;
         }
@@ -118,7 +110,7 @@ void Core::initColor(Screen& scr) {
     }
 }
 
-const std::shared_ptr<Frame> &Core::getStatWindow() {
+const std::shared_ptr<FrameStats> &Core::getStatWindow() {
     return stats_viewport;
 }
 

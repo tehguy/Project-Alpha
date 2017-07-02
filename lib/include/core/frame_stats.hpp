@@ -18,28 +18,13 @@
 
 #pragma once
 
-#include <include/entity/entity.hpp>
+#include <include/core/frame.hpp>
 
-class Player : public Entity{
+class FrameStats : public Frame {
 public:
-    Player(int row_0, int col_0, unsigned int maxhp);
+    FrameStats(int nr_rows, int nr_cols, int row_0, int col_0);
 
-    void pos(int row_0, int col_0);
-
-    int getRow();
-    int getCol();
-
-    unsigned int getCurExp();
-    unsigned int getExpToNextLevel();
-
-    void addExpPoints(unsigned int amtToAdd);
-    void remExpPoints(unsigned int amtToRem);
-
-    void addHP(unsigned int amtToAdd);
-    void remHP(unsigned int amtToRem);
-
-private:
-    int row, col;
-
-    unsigned int curExp, expToNextLevel;
+    void genStatWindow();
+    void updateHealth();
+    void updateExperience();
 };
