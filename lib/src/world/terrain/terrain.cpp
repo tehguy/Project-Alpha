@@ -16,27 +16,21 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/world/terrain/terrain.hpp>
 
-#include <include/enums/enums.hpp>
+Terrain::Terrain(chtype _symbol, chtype _csymbol) {
+    symbol = _symbol;
+    csymbol = _csymbol;
+}
 
-class Entity {
-public:
-    Entity(char _symbol, const chtype csymbol, unsigned int _curhp, unsigned int _maxhp);
+chtype Terrain::getSymbol() const {
+    return symbol;
+}
 
-    const unsigned int getSymbol();
-    const unsigned int getCurHP();
-    const unsigned int getMaxHP();
+chtype Terrain::getCSymbol() const {
+    return csymbol;
+}
 
-    virtual void addHP(unsigned int amtToAdd);
-    virtual void remHP(unsigned int amtToRem);
-
-    const chtype getSymbolColor();
-
-private:
-    char symbol;
-
-    unsigned int curhp, maxhp;
-
-    chtype symbolColor;
-};
+const std::vector <chtype, std::allocator<chtype>> Terrain::getTerrainSymbols() {
+    return {symbol, csymbol};
+}

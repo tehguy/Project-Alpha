@@ -18,25 +18,9 @@
 
 #pragma once
 
-#include <include/enums/enums.hpp>
+#include <include/world/terrain/terrain.hpp>
 
-class Entity {
+class Wall : public Terrain {
 public:
-    Entity(char _symbol, const chtype csymbol, unsigned int _curhp, unsigned int _maxhp);
-
-    const unsigned int getSymbol();
-    const unsigned int getCurHP();
-    const unsigned int getMaxHP();
-
-    virtual void addHP(unsigned int amtToAdd);
-    virtual void remHP(unsigned int amtToRem);
-
-    const chtype getSymbolColor();
-
-private:
-    char symbol;
-
-    unsigned int curhp, maxhp;
-
-    chtype symbolColor;
+    Wall();
 };

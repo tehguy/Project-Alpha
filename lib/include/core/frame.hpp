@@ -43,26 +43,20 @@ public:
     void fillWindow();
     void refresh();
     void move(int r, int c);
-    void add();
-    void add(int row_0, int col_0);
     void erase();
     void center();
-    void genPerlin(const unsigned int &seed);
+    void resize(unsigned int r, unsigned int c);
 
     void mvwaddch_color(int row_0, int col_0, const chtype symbol, const chtype color);
-    void drawArea(Area& area);
-    void genAreaWithPerlin(Area& area, const unsigned int &seed);
-
 
 
 protected:
+    void blankView();
+
     int height, width, row, col;
 
     WINDOW* w;
-    WINDOW* _super;
+    std::shared_ptr<Frame> _super;
 
     bool _hasSuper;
-
-private:
-    void blankView();
 };

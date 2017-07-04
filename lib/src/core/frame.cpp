@@ -17,7 +17,6 @@
 */
 
 #include <include/core/core.hpp>
-#include <include/core/perlinnoise.hpp>
 
 Frame::Frame(int nr_rows, int nr_cols, int row_0, int col_0) {
     _hasSuper = false;
@@ -31,7 +30,7 @@ Frame::Frame(int nr_rows, int nr_cols, int row_0, int col_0) {
 
 Frame::Frame(const std::shared_ptr<Frame> &sw, int nr_rows, int nr_cols, int row_0, int col_0) {
     _hasSuper = true;
-    _super = sw->win();
+    _super = sw;
     w = derwin(sw->win(), nr_rows, nr_cols, row_0, col_0);
     height = nr_rows;
     width = nr_cols;
@@ -48,7 +47,7 @@ WINDOW* Frame::win() {
 }
 
 WINDOW* Frame::super() {
-    return _super;
+    return _super->win();
 }
 
 bool Frame::hasSuper() {
@@ -122,7 +121,7 @@ void Frame::fillWindow() {
 
 void Frame::refresh() {
     if(_hasSuper){
-        touchwin(_super);
+        touchwin(super());
     }
     wrefresh(w);
 }
@@ -136,43 +135,22 @@ void Frame::move(int r, int c) {
     }
 }
 
-void Frame::add() {
-    mvwaddch_color(MAIN::core.getPlayer()->getRow(), MAIN::core.getPlayer()->getCol(),
-                   MAIN::core.getPlayer()->getSymbol(), MAIN::core.getPlayer()->getSymbolColor());
-}
-
-void Frame::add(int row_0, int col_0) {
-    if((row_0 >= 0 && row_0 < height) && (col_0 >= 0 && col_0 < width)){
-
-        chtype target = mvwinch(w, row_0, col_0);
-
-        if(has_colors()){
-            if(target == CORE::CSYMBOL::CWATER || target == CORE::CSYMBOL::CWALL
-               || target == CORE::CSYMBOL::CSNOW) return;
-        }
-        else{
-            if(target == CORE::SYMBOL::WATER || target == CORE::SYMBOL::WALL || target == CORE::SYMBOL::SNOW) return;
-        }
-
-        erase();
-        mvwaddch_color(row_0, col_0, MAIN::core.getPlayer()->getSymbol(), MAIN::core.getPlayer()->getSymbolColor());
-        MAIN::core.getPlayer()->pos(row_0, col_0);
-    }
-}
-
 void Frame::erase() {
-    int row_0 = MAIN::core.getPlayer()->getRow();
-    int col_0 = MAIN::core.getPlayer()->getCol();
-    mvwaddch(w, row_0, col_0, ' ');
+    unsigned int row_0 = MAIN::core.getPlayer()->getRow();
+    unsigned int col_0 = MAIN::core.getPlayer()->getCol();
+
+    std::vector<chtype> posSymbols = MAIN::core.getCurrentArea()->getMapSymbol(row_0, col_0);
+
+    mvwaddch_color(row_0, col_0, posSymbols.at(0), posSymbols.at(1));
 }
 
 void Frame::center() {
     if(_hasSuper){
-        int rr, cc, hh, ww;
+        int rr = 0, cc = 0, hh = 0, ww = 0;
         int _r = MAIN::core.getPlayer()->getRow() - height/2;
         int _c = MAIN::core.getPlayer()->getCol() - width/2;
 
-        getmaxyx(_super, hh, ww);
+        getmaxyx(super(), hh, ww);
 
         if(_c + width >= ww) {
             int delta = ww - (_c + width);
@@ -182,11 +160,13 @@ void Frame::center() {
             cc = _c;
         }
 
-        if(_r +height >= hh) {
-            int delta = hh - (_r +height);
+        if(_r + height >= hh) {
+            int delta = hh - (_r + height);
             rr = _r + delta;
         }
-        else rr = _r;
+        else {
+            rr = _r;
+        }
 
         if (_r < 0) rr = 0;
 
@@ -196,33 +176,10 @@ void Frame::center() {
     }
 }
 
-// Test function for use until actual world stuff is put in place
-void Frame::genPerlin(const unsigned int &seed) {
-    for(int i = 0; i < height; ++i) {     // y
-        for(int j = 0; j < width; ++j) {  // x
-            double x = (double)j/((double) width);
-            double y = (double)i/((double) height);
-
-            double n = PerlinNoise::NoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
-
-            // Watter (or a Lakes)
-            if(n < 0.35) {
-                mvwaddch_color(i, j, CORE::SYMBOL::WATER, CORE::CSYMBOL::CWATER);
-            }
-                // Floors (or Planes)
-            else if (n >= 0.35 && n < 0.6) {
-                mvwaddch_color(i, j, CORE::SYMBOL::GRASS, CORE::CSYMBOL::CGRASS);
-            }
-                // Walls (or Mountains)
-            else if (n >= 0.6 && n < 0.8) {
-                mvwaddch_color(i, j, CORE::SYMBOL::WALL, CORE::CSYMBOL::CWALL);
-            }
-                // Ice (or Snow)
-            else {
-                mvwaddch_color(i, j, CORE::SYMBOL::SNOW, CORE::CSYMBOL::CSNOW);
-            }
-        }
-    }
+void Frame::resize(unsigned int r, unsigned int c) {
+    wresize(w, r, c);
+    height = r;
+    width = c;
 }
 
 void Frame::mvwaddch_color(int row_0, int col_0, const chtype symbol, const chtype csymbol) {
@@ -234,64 +191,9 @@ void Frame::mvwaddch_color(int row_0, int col_0, const chtype symbol, const chty
     }
 }
 
-void Frame::drawArea(Area &area) {
-    blankView();
-    wresize(w, area.getHeight(), area.getWidth());
-
-    for(unsigned int r = 0; r < area.getHeight(); r++) {
-        for(unsigned int c = 0; c < area.getWidth(); c++) {
-            char symbol = area.getMapSymbol(r, c);
-
-            if(symbol == '~') {
-                mvwaddch_color(r, c, CORE::SYMBOL::WATER, CORE::CSYMBOL::CWATER);
-            }
-            else if(symbol == '.') {
-                mvwaddch_color(r, c, CORE::SYMBOL::GRASS, CORE::CSYMBOL::CGRASS);
-            }
-            else if(symbol == '#') {
-                mvwaddch_color(r, c, CORE::SYMBOL::WALL, CORE::CSYMBOL::CWALL);
-            }
-            else if(symbol == 'S') {
-                mvwaddch_color(r, c, CORE::SYMBOL::SNOW, CORE::CSYMBOL::CSNOW);
-            }
-
-        }
-    }
-}
-
-// Test function for use until actual world stuff is put in place
-void Frame::genAreaWithPerlin(Area &area, const unsigned int &seed) {
-    for(unsigned int i = 0; i < area.getHeight(); ++i) {     // y
-        for(unsigned int j = 0; j < area.getWidth(); ++j) {  // x
-            double x = (double)j/((double) area.getWidth());
-            double y = (double)i/((double) area.getHeight());
-
-            double n = PerlinNoise::NoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
-
-            // Watter (or a Lakes)
-            if(n < 0.35) {
-                area.setMapSymbol(i, j, CORE::SYMBOL::WATER);
-            }
-                // Floors (or Planes)
-            else if (n >= 0.35 && n < 0.6) {
-                area.setMapSymbol(i, j, CORE::SYMBOL::GRASS);
-            }
-                // Walls (or Mountains)
-            else if (n >= 0.6 && n < 0.8) {
-                area.setMapSymbol(i, j, CORE::SYMBOL::WALL);
-            }
-                // Ice (or Snow)
-            else {
-                area.setMapSymbol(i, j, CORE::SYMBOL::SNOW);
-            }
-        }
-    }
-}
-
 void Frame::blankView() {
     for(int i = 0; i < height; i++){
         for(int j = 0; j < width; j++){
-            mvwaddch(w, i, j, '!');
             mvwaddch(w, i, j, ' ');
         }
     }

@@ -22,12 +22,12 @@
 
 class Player : public Entity{
 public:
-    Player(int row_0, int col_0, unsigned int maxhp);
+    Player(unsigned int row_0, unsigned int col_0, unsigned int maxhp);
 
-    void pos(int row_0, int col_0);
+    void pos(unsigned int row_0, unsigned int col_0);
 
-    int getRow();
-    int getCol();
+    unsigned int getRow();
+    unsigned int getCol();
 
     unsigned int getCurExp();
     unsigned int getExpToNextLevel();
@@ -39,7 +39,8 @@ public:
     void remHP(unsigned int amtToRem);
 
 private:
-    int row, col;
+    unsigned int col;
+    unsigned int row;
 
     unsigned int curExp, expToNextLevel;
 };

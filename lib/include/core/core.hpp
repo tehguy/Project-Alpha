@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include <include/core/frame_game.hpp>
 #include <include/core/frame_stats.hpp>
 #include <include/core/screen.hpp>
 
@@ -36,18 +37,22 @@ public:
     void initColor(Screen& scr);
 
     const std::shared_ptr<FrameStats>& getStatWindow();
-    const std::shared_ptr<Frame>& getGameMap();
+    const std::shared_ptr<FrameGame>& getGameMap();
 
     const std::shared_ptr<Player>& getPlayer();
+
+    const std::shared_ptr<Area>& getCurrentArea();
 
 private:
     void gameLoop(int ch);
 
-    std::shared_ptr<Frame> game_map;
+    std::shared_ptr<FrameGame> game_map;
     std::shared_ptr<Frame> game_viewport;
     std::shared_ptr<FrameStats> stats_viewport;
 
     std::shared_ptr<Player> player;
+
+    std::shared_ptr<Area> currentArea;
 };
 
 namespace MAIN {

@@ -43,7 +43,7 @@ void Core::init() {
 
     scr.clearScreen();
 
-    game_map = std::shared_ptr<Frame>(new Frame(2 * scr.getHeight(), 2 * scr.getWidth(), 0, 0));
+    game_map = std::shared_ptr<FrameGame>(new FrameGame(2 * scr.getHeight(), 2 * scr.getWidth(), 0, 0));
 
     game_viewport = std::shared_ptr<Frame>(new Frame(game_map, (scr.getHeight()/2) + 5, scr.getWidth(), 0, 0));
 
@@ -51,7 +51,13 @@ void Core::init() {
 
     player = std::shared_ptr<Player>(new Player(0, 0, 20));
 
-    game_map->genPerlin(237);
+    currentArea = std::shared_ptr<Area>(new Area("id", 50, 50));
+    game_map->genAreaWithPerlin(*currentArea, 237);
+
+    //game_map->genPerlin(237);
+
+    game_map->drawArea(*currentArea);
+    game_viewport->resize((unsigned int) (scr.getHeight()/2) + 5, (unsigned int) game_map->getWidth());
 
     stats_viewport->genStatWindow();
 
@@ -73,22 +79,18 @@ void Core::gameLoop(int ch) {
         if(ch == KEY_LEFT) {
             game_map->add(player->getRow(), player->getCol() - 1);
             game_viewport->center();
-            game_viewport->refresh();
         }
         else if(ch == KEY_RIGHT) {
             game_map->add(player->getRow(), player->getCol() + 1);
             game_viewport->center();
-            game_viewport->refresh();
         }
         else if(ch == KEY_UP) {
             game_map->add(player->getRow() - 1, player->getCol());
             game_viewport->center();
-            game_viewport->refresh();
         }
         else if(ch == KEY_DOWN) {
             game_map->add(player->getRow() + 1, player->getCol());
             game_viewport->center();
-            game_viewport->refresh();
         }
         else if(ch == 'q' || ch == 'Q') {
             break;
@@ -117,10 +119,14 @@ const std::shared_ptr<FrameStats> &Core::getStatWindow() {
     return stats_viewport;
 }
 
-const std::shared_ptr<Frame> &Core::getGameMap() {
+const std::shared_ptr<FrameGame> &Core::getGameMap() {
     return game_map;
 }
 
 const std::shared_ptr<Player> &Core::getPlayer() {
     return player;
+}
+
+const std::shared_ptr<Area> &Core::getCurrentArea() {
+    return currentArea;
 }

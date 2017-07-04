@@ -12,6 +12,7 @@ set (SOURCE_FILES
         src/core/core.cpp                       include/core/core.hpp
         src/core/diceroller.cpp                 include/core/diceroller.hpp
         src/core/frame.cpp                      include/core/frame.hpp
+        src/core/frame_game.cpp                 include/core/frame_game.hpp
         src/core/frame_stats.cpp                include/core/frame_stats.hpp
         src/core/perlinnoise.cpp                include/core/perlinnoise.hpp
         src/core/randomnumbergenerator.cpp      include/core/randomnumbergenerator.hpp
@@ -23,7 +24,13 @@ set (SOURCE_FILES
                                                 include/enums/enums.hpp
 
         src/world/area.cpp                      include/world/area.hpp
-        src/world/location.cpp                  include/world/location.hpp)
+        src/world/location.cpp                  include/world/location.hpp
+
+        src/world/terrain/grass.cpp             include/world/terrain/grass.hpp
+        src/world/terrain/snow.cpp              include/world/terrain/snow.hpp
+        src/world/terrain/terrain.cpp           include/world/terrain/terrain.hpp
+        src/world/terrain/wall.cpp              include/world/terrain/wall.hpp
+        src/world/terrain/water.cpp             include/world/terrain/water.hpp)
 
 add_library (engine SHARED ${SOURCE_FILES})
 target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

@@ -21,6 +21,8 @@
 #include <string>
 #include <vector>
 
+#include <include/world/terrain/terrain.hpp>
+
 class Area {
 public:
     Area(std::string id, unsigned int _width, unsigned int _height);
@@ -30,11 +32,14 @@ public:
     unsigned int getWidth();
     unsigned int getHeight();
 
-    void setMapSymbol(unsigned int row, unsigned int col, char symbol);
+    void setMapSymbol(unsigned int row, unsigned int col, Terrain terrain);
+
     void setItemSymbol(unsigned int row, unsigned int col, char symbol);
     void setEntitySymbol(unsigned int row, unsigned int col, char symbol);
 
-    const char getMapSymbol(unsigned int row, unsigned int col);
+    const std::vector<chtype> getMapSymbol(unsigned int row, unsigned int col);
+
+    const Terrain getMapTerrain(unsigned int row, unsigned int col);
 
 private:
     void genBlankMap();
@@ -43,7 +48,7 @@ private:
 
     unsigned int width, height;
 
-    std::vector<std::vector<char>> map;
+    std::vector<std::vector<Terrain>> map;
     std::vector<std::vector<char>> itemLayer;
     std::vector<std::vector<char>> entityLayer;
 };

@@ -41,17 +41,17 @@ unsigned int Area::getHeight() {
 void Area::genBlankMap() {
     map.reserve(height);
     for(unsigned int i = 0; i < height; i++){
-        map.push_back(std::vector<char>());
+        map.push_back(std::vector<Terrain>());
         map.at(i).reserve(width);
 
         for(unsigned int j = 0; j < width; j++){
-            map.at(i).push_back(' ');
+            map.at(i).push_back(Terrain(' ', ' '));
         }
     }
 }
 
-void Area::setMapSymbol(unsigned int row, unsigned int col, char symbol) {
-    map.at(row).at(col) = symbol;
+void Area::setMapSymbol(unsigned int row, unsigned int col, Terrain terrain) {
+    map.at(row).at(col) = terrain;
 }
 
 void Area::setItemSymbol(unsigned int row, unsigned int col, char symbol) {
@@ -62,6 +62,10 @@ void Area::setEntitySymbol(unsigned int row, unsigned int col, char symbol) {
     entityLayer.at(row).at(col) = symbol;
 }
 
-const char Area::getMapSymbol(unsigned int row, unsigned int col) {
+const std::vector<chtype> Area::getMapSymbol(unsigned int row, unsigned int col) {
+    return map.at(row).at(col).getTerrainSymbols();
+}
+
+const Terrain Area::getMapTerrain(unsigned int row, unsigned int col) {
     return map.at(row).at(col);
 }

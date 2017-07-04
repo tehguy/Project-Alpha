@@ -18,25 +18,17 @@
 
 #pragma once
 
-#include <include/enums/enums.hpp>
+#include <include/core/frame.hpp>
 
-class Entity {
+class FrameGame : public Frame {
 public:
-    Entity(char _symbol, const chtype csymbol, unsigned int _curhp, unsigned int _maxhp);
+    FrameGame(int nr_rows, int nr_cols, int row_0, int col_0);
 
-    const unsigned int getSymbol();
-    const unsigned int getCurHP();
-    const unsigned int getMaxHP();
+    void drawArea(Area& area);
+    void genAreaWithPerlin(Area& area, const unsigned int &seed);
 
-    virtual void addHP(unsigned int amtToAdd);
-    virtual void remHP(unsigned int amtToRem);
+    void genPerlin(const unsigned int &seed);
 
-    const chtype getSymbolColor();
-
-private:
-    char symbol;
-
-    unsigned int curhp, maxhp;
-
-    chtype symbolColor;
+    void add();
+    void add(unsigned int row_0, unsigned int col_0);
 };

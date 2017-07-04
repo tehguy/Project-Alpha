@@ -19,24 +19,25 @@
 #include <include/entity/player.hpp>
 #include <include/core/core.hpp>
 
-Player::Player(int row_0, int col_0, unsigned int maxhp) : Entity(CORE::SYMBOL::PLAYER, CORE::CSYMBOL::CPLAYER,
-                                                                  maxhp, maxhp) {
+Player::Player(unsigned int row_0, unsigned int col_0, unsigned int maxhp) : Entity(CORE::SYMBOL::PLAYER,
+                                                                                    CORE::CSYMBOL::CPLAYER,
+                                                                                    maxhp, maxhp) {
     row = row_0;
     col = col_0;
     curExp = 0;
     expToNextLevel = 100;
 }
 
-void Player::pos(int row_0, int col_0) {
+void Player::pos(unsigned int row_0, unsigned int col_0) {
     row = row_0;
     col = col_0;
 }
 
-int Player::getRow() {
+unsigned int Player::getRow() {
     return row;
 }
 
-int Player::getCol() {
+unsigned int Player::getCol() {
     return col;
 }
 

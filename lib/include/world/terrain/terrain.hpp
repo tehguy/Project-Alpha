@@ -18,25 +18,21 @@
 
 #pragma once
 
+#include <ncurses.h>
+#include <vector>
+
 #include <include/enums/enums.hpp>
 
-class Entity {
+class Terrain {
 public:
-    Entity(char _symbol, const chtype csymbol, unsigned int _curhp, unsigned int _maxhp);
+    Terrain(chtype _symbol, chtype _csymbol);
 
-    const unsigned int getSymbol();
-    const unsigned int getCurHP();
-    const unsigned int getMaxHP();
+    chtype getSymbol() const;
+    chtype getCSymbol() const;
 
-    virtual void addHP(unsigned int amtToAdd);
-    virtual void remHP(unsigned int amtToRem);
-
-    const chtype getSymbolColor();
+    const std::vector<chtype> getTerrainSymbols();
 
 private:
-    char symbol;
 
-    unsigned int curhp, maxhp;
-
-    chtype symbolColor;
+    chtype symbol, csymbol;
 };
