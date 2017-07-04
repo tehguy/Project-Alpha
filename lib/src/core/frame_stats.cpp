@@ -22,26 +22,26 @@
 FrameStats::FrameStats(int nr_rows, int nr_cols, int row_0, int col_0) : Frame(nr_rows, nr_cols, row_0, col_0) {}
 
 void FrameStats::genStatWindow() {
-    for(int y = 0; y < height; ++y) {
-        mvwaddch(w, y, 0, '|');
-        mvwaddch(w, y, width - 1, '|');
+    for(int y = 0; y < getHeight(); ++y) {
+        mvwaddch(win(), y, 0, '|');
+        mvwaddch(win(), y, getWidth() - 1, '|');
     }
 
-    for(int x = 0; x < width; ++x) {
-        mvwaddch(w, 0, x, '-');
-        mvwaddch(w, height - 1, x, '-');
+    for(int x = 0; x < getWidth(); ++x) {
+        mvwaddch(win(), 0, x, '-');
+        mvwaddch(win(), getHeight() - 1, x, '-');
     }
 
-    mvwaddch(w, 0, 0, '+');
-    mvwaddch(w, 0, width-1, '+');
-    mvwaddch(w, height-1, 0, '+');
-    mvwaddch(w, height-1, width-1, '+');
+    mvwaddch(win(), 0, 0, '+');
+    mvwaddch(win(), 0, getWidth() - 1, '+');
+    mvwaddch(win(), getHeight() - 1, 0, '+');
+    mvwaddch(win(), getHeight() - 1, getWidth() - 1, '+');
 
-    mvwaddch(w, (height/2) - 1, 3, '[');
-    mvwaddch(w, (height/2) - 1, 14, ']');
+    mvwaddch(win(), (getHeight()/2) - 1, 3, '[');
+    mvwaddch(win(), (getHeight()/2) - 1, 14, ']');
 
-    mvwaddch(w, (height/2) + 1, 3, '[');
-    mvwaddch(w, (height/2) + 1, 14, ']');
+    mvwaddch(win(), (getHeight()/2) + 1, 3, '[');
+    mvwaddch(win(), (getHeight()/2) + 1, 14, ']');
 
     updateHealth();
     updateExperience();
@@ -52,7 +52,8 @@ void FrameStats::updateHealth() {
 }
 
 void FrameStats::updateExperience() {
-    updateStatsBar(1, MAIN::core.getPlayer()->getCurExp(), MAIN::core.getPlayer()->getExpToNextLevel(), CORE::COLOR::GREEN);
+    updateStatsBar(1, MAIN::core.getPlayer()->getCurExp(), MAIN::core.getPlayer()->getExpToNextLevel(),
+                   CORE::COLOR::GREEN);
 }
 
 void FrameStats::updateStatsBar(int rowOffset, unsigned int current, unsigned int max, int color) {
@@ -61,11 +62,11 @@ void FrameStats::updateStatsBar(int rowOffset, unsigned int current, unsigned in
 
     // Clear the current bar
     for(int i = 0; i < 10; i++){
-        mvwaddch(w, (height/2) + rowOffset, col_0 + i, ' ');
+        mvwaddch(win(), (getHeight()/2) + rowOffset, col_0 + i, ' ');
     }
 
     for(int i = 0; i < ratio; i++){
-        mvwaddch_color((height/2) + rowOffset, col_0 + i, '#', ('#' | COLOR_PAIR(color)));
+        mvwaddch_color((getHeight()/2) + rowOffset, col_0 + i, '#', ('#' | COLOR_PAIR(color)));
     }
     refresh();
 }

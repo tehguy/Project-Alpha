@@ -40,6 +40,11 @@ public:
     int getRow();
     int getCol();
 
+    void setWidth(int in);
+    void setHeight(int in);
+    void setRow(int in);
+    void setCol(int in);
+
     void fillWindow();
     void refresh();
     void move(int r, int c);
@@ -53,6 +58,7 @@ public:
 protected:
     void blankView();
 
+private:
     int height, width, row, col;
 
     WINDOW* w;

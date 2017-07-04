@@ -30,9 +30,7 @@ FrameGame::FrameGame(int nr_rows, int nr_cols, int row_0, int col_0) : Frame(nr_
 
 void FrameGame::drawArea(Area &area) {
     blankView();
-    wresize(w, area.getHeight(), area.getWidth());
-    height = area.getHeight();
-    width = area.getWidth();
+    resize(area.getHeight(), area.getWidth());
 
     for(unsigned int r = 0; r < area.getHeight(); r++) {
         for(unsigned int c = 0; c < area.getWidth(); c++) {
@@ -74,10 +72,10 @@ void FrameGame::genAreaWithPerlin(Area &area, const unsigned int &seed) {
 
 // Test function for use until actual world stuff is put in place
 void FrameGame::genPerlin(const unsigned int &seed) {
-    for(int i = 0; i < height; ++i) {     // y
-        for(int j = 0; j < width; ++j) {  // x
-            double x = (double)j/((double) width);
-            double y = (double)i/((double) height);
+    for(int i = 0; i < getHeight(); ++i) {     // y
+        for(int j = 0; j < getWidth(); ++j) {  // x
+            double x = (double)j/((double) getWidth());
+            double y = (double)i/((double) getHeight());
 
             double n = PerlinNoise::NoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
 
@@ -107,7 +105,7 @@ void FrameGame::add() {
 }
 
 void FrameGame::add(unsigned int row_0, unsigned int col_0) {
-    if((row_0 >= 0 && row_0 < height) && (col_0 >= 0 && col_0 < width)){
+    if((row_0 >= 0 && row_0 < getHeight()) && (col_0 >= 0 && col_0 < getWidth())){
 
         chtype target = MAIN::core.getCurrentArea()->getMapTerrain(row_0, col_0).getSymbol();
 

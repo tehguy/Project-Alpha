@@ -70,6 +70,22 @@ int Frame::getCol() {
     return col;
 }
 
+void Frame::setWidth(int in) {
+    width = in;
+}
+
+void Frame::setHeight(int in) {
+    height = in;
+}
+
+void Frame::setRow(int in) {
+    row = in;
+}
+
+void Frame::setCol(int in) {
+    col = in;
+}
+
 // Debug/Test function to see if your windows are how they should be
 void Frame::fillWindow() {
     int max_x = width/2;
