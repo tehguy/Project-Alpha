@@ -16,11 +16,19 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-int main() {
+class Screen {
+public:
+    Screen();
+    ~Screen();
 
-    MAIN::core.init();
+    void add(const char *message);
+    void clearScreen();
 
-	return 1;
-}
+    int getHeight();
+    int getWidth();
+
+private:
+    int height, width;
+};

@@ -16,11 +16,43 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#include <include/core/screen.hpp>
 
-int main() {
+#include <ncurses.h>
 
-    MAIN::core.init();
+Screen::Screen() {
+    initscr();
 
-	return 1;
+    if(has_colors()){
+        start_color();
+    }
+
+    clear();
+    noecho();
+    cbreak();
+    keypad(stdscr, true);
+    curs_set(0);
+
+    getmaxyx(stdscr, height, width);
+}
+
+Screen::~Screen() {
+    endwin();
+}
+
+void Screen::add(const char *message) {
+    printw(message);
+}
+
+void Screen::clearScreen() {
+    clear();
+    refresh();
+}
+
+int Screen::getHeight() {
+    return height;
+}
+
+int Screen::getWidth() {
+    return width;
 }

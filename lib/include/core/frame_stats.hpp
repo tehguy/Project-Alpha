@@ -16,11 +16,18 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-int main() {
+#include <include/core/frame.hpp>
 
-    MAIN::core.init();
+class FrameStats : public Frame {
+public:
+    FrameStats(int nr_rows, int nr_cols, int row_0, int col_0);
 
-	return 1;
-}
+    void genStatWindow();
+    void updateHealth();
+    void updateExperience();
+
+private:
+    void updateStatsBar(int rowOffset, unsigned int current, unsigned int max, int color);
+};

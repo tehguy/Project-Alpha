@@ -16,11 +16,22 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#include <include/world/location.hpp>
 
-int main() {
+Location::Location() {
 
-    MAIN::core.init();
+}
 
-	return 1;
+void Location::addSubLocation(Area& subLocation) {
+    subLocations.push_back(&subLocation);
+}
+
+const Area* Location::getSubLocation(std::string identifier) {
+    for(auto loc : subLocations){
+        if(loc->getIdentifier() == identifier){
+            return loc;
+        }
+    }
+
+    return nullptr;
 }

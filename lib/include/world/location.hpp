@@ -16,11 +16,21 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-int main() {
+#include <include/world/area.hpp>
 
-    MAIN::core.init();
+#include <memory>
 
-	return 1;
-}
+class Location {
+public:
+    Location();
+
+    void addSubLocation(Area& subLocation);
+
+    const Area* getSubLocation(std::string identifier);
+
+private:
+
+    std::vector<Area*> subLocations;
+};

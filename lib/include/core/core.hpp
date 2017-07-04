@@ -16,11 +16,40 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-int main() {
+#include <include/core/frame_stats.hpp>
+#include <include/core/screen.hpp>
 
-    MAIN::core.init();
+#include <include/entity/player.hpp>
 
-	return 1;
+#include <include/world/location.hpp>
+
+#include <memory>
+
+class Core {
+public:
+    Core();
+    ~Core();
+
+    void init();
+    void initColor(Screen& scr);
+
+    const std::shared_ptr<FrameStats>& getStatWindow();
+    const std::shared_ptr<Frame>& getGameMap();
+
+    const std::shared_ptr<Player>& getPlayer();
+
+private:
+    void gameLoop(int ch);
+
+    std::shared_ptr<Frame> game_map;
+    std::shared_ptr<Frame> game_viewport;
+    std::shared_ptr<FrameStats> stats_viewport;
+
+    std::shared_ptr<Player> player;
+};
+
+namespace MAIN {
+    extern Core core;
 }

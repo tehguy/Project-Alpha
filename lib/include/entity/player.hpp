@@ -16,11 +16,30 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-int main() {
+#include <include/entity/entity.hpp>
 
-    MAIN::core.init();
+class Player : public Entity{
+public:
+    Player(int row_0, int col_0, unsigned int maxhp);
 
-	return 1;
-}
+    void pos(int row_0, int col_0);
+
+    int getRow();
+    int getCol();
+
+    unsigned int getCurExp();
+    unsigned int getExpToNextLevel();
+
+    void addExpPoints(unsigned int amtToAdd);
+    void remExpPoints(unsigned int amtToRem);
+
+    void addHP(unsigned int amtToAdd);
+    void remHP(unsigned int amtToRem);
+
+private:
+    int row, col;
+
+    unsigned int curExp, expToNextLevel;
+};

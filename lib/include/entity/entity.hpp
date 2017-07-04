@@ -16,11 +16,27 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-int main() {
+#include <include/enums/enums.hpp>
 
-    MAIN::core.init();
+class Entity {
+public:
+    Entity(char _symbol, const chtype csymbol, unsigned int _curhp, unsigned int _maxhp);
 
-	return 1;
-}
+    const unsigned int getSymbol();
+    const unsigned int getCurHP();
+    const unsigned int getMaxHP();
+
+    void addHP(unsigned int amtToAdd);
+    void remHP(unsigned int amtToRem);
+
+    const chtype getSymbolColor();
+
+private:
+    char symbol;
+
+    unsigned int curhp, maxhp;
+
+    chtype symbolColor;
+};
