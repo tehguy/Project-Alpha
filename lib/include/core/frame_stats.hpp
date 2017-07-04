@@ -27,4 +27,7 @@ public:
     void genStatWindow();
     void updateHealth();
     void updateExperience();
+
+private:
+    void updateStatsBar(int rowOffset, unsigned int current, unsigned int max, int color);
 };

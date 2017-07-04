@@ -17,6 +17,7 @@
 */
 
 #include <include/core/core.hpp>
+#include <cmath>
 
 FrameStats::FrameStats(int nr_rows, int nr_cols, int row_0, int col_0) : Frame(nr_rows, nr_cols, row_0, col_0) {}
 
@@ -47,32 +48,24 @@ void FrameStats::genStatWindow() {
 }
 
 void FrameStats::updateHealth() {
-
-    float healthRatio = ((float)MAIN::core.getPlayer()->getCurHP() / (float)MAIN::core.getPlayer()->getMaxHP()) * 10;
-    int col_0 = 4;
-
-    // Clear the current bar
-    for(int i = 0; i < 10; i++){
-        mvwaddch(w, (height/2) - 1, col_0 + i, ' ');
-    }
-
-    for(int i = 0; i < healthRatio; i++){
-        mvwaddch_color((height/2) - 1, col_0 + i, '#', ('#' | COLOR_PAIR(CORE::COLOR::RED)));
-    }
-    refresh();
+    updateStatsBar(-1, MAIN::core.getPlayer()->getCurHP(), MAIN::core.getPlayer()->getMaxHP(), CORE::COLOR::RED);
 }
 
 void FrameStats::updateExperience() {
-    float expRatio = ((float)MAIN::core.getPlayer()->getCurExp() / (float)MAIN::core.getPlayer()->getExpToNextLevel()) * 10;
+    updateStatsBar(1, MAIN::core.getPlayer()->getCurExp(), MAIN::core.getPlayer()->getExpToNextLevel(), CORE::COLOR::GREEN);
+}
+
+void FrameStats::updateStatsBar(int rowOffset, unsigned int current, unsigned int max, int color) {
+    float ratio = std::floor(((float)current / (float)max) * 10);
     int col_0 = 4;
 
     // Clear the current bar
     for(int i = 0; i < 10; i++){
-        mvwaddch(w, (height/2) + 1, col_0 + i, ' ');
+        mvwaddch(w, (height/2) + rowOffset, col_0 + i, ' ');
     }
 
-    for(int i = 0; i < expRatio; i++){
-        mvwaddch_color((height/2) + 1, col_0 + i, '#', ('#' | COLOR_PAIR(CORE::COLOR::GREEN)));
+    for(int i = 0; i < ratio; i++){
+        mvwaddch_color((height/2) + rowOffset, col_0 + i, '#', ('#' | COLOR_PAIR(color)));
     }
     refresh();
 }

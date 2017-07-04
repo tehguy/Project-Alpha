@@ -161,7 +161,9 @@ void Frame::add(int row_0, int col_0) {
 }
 
 void Frame::erase() {
-    mvwaddch(w, MAIN::core.getPlayer()->getRow(), MAIN::core.getPlayer()->getCol(), ' ');
+    int row_0 = MAIN::core.getPlayer()->getRow();
+    int col_0 = MAIN::core.getPlayer()->getCol();
+    mvwaddch(w, row_0, col_0, ' ');
 }
 
 void Frame::center() {
@@ -194,7 +196,7 @@ void Frame::center() {
     }
 }
 
-// Test function for use until actual location stuff is put in place
+// Test function for use until actual world stuff is put in place
 void Frame::genPerlin(const unsigned int &seed) {
     for(int i = 0; i < height; ++i) {     // y
         for(int j = 0; j < width; ++j) {  // x
@@ -229,5 +231,68 @@ void Frame::mvwaddch_color(int row_0, int col_0, const chtype symbol, const chty
     }
     else{
         mvwaddch(w, row_0, col_0, symbol);
+    }
+}
+
+void Frame::drawArea(Area &area) {
+    blankView();
+    wresize(w, area.getHeight(), area.getWidth());
+
+    for(unsigned int r = 0; r < area.getHeight(); r++) {
+        for(unsigned int c = 0; c < area.getWidth(); c++) {
+            char symbol = area.getMapSymbol(r, c);
+
+            if(symbol == '~') {
+                mvwaddch_color(r, c, CORE::SYMBOL::WATER, CORE::CSYMBOL::CWATER);
+            }
+            else if(symbol == '.') {
+                mvwaddch_color(r, c, CORE::SYMBOL::GRASS, CORE::CSYMBOL::CGRASS);
+            }
+            else if(symbol == '#') {
+                mvwaddch_color(r, c, CORE::SYMBOL::WALL, CORE::CSYMBOL::CWALL);
+            }
+            else if(symbol == 'S') {
+                mvwaddch_color(r, c, CORE::SYMBOL::SNOW, CORE::CSYMBOL::CSNOW);
+            }
+
+        }
+    }
+}
+
+// Test function for use until actual world stuff is put in place
+void Frame::genAreaWithPerlin(Area &area, const unsigned int &seed) {
+    for(unsigned int i = 0; i < area.getHeight(); ++i) {     // y
+        for(unsigned int j = 0; j < area.getWidth(); ++j) {  // x
+            double x = (double)j/((double) area.getWidth());
+            double y = (double)i/((double) area.getHeight());
+
+            double n = PerlinNoise::NoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
+
+            // Watter (or a Lakes)
+            if(n < 0.35) {
+                area.setMapSymbol(i, j, CORE::SYMBOL::WATER);
+            }
+                // Floors (or Planes)
+            else if (n >= 0.35 && n < 0.6) {
+                area.setMapSymbol(i, j, CORE::SYMBOL::GRASS);
+            }
+                // Walls (or Mountains)
+            else if (n >= 0.6 && n < 0.8) {
+                area.setMapSymbol(i, j, CORE::SYMBOL::WALL);
+            }
+                // Ice (or Snow)
+            else {
+                area.setMapSymbol(i, j, CORE::SYMBOL::SNOW);
+            }
+        }
+    }
+}
+
+void Frame::blankView() {
+    for(int i = 0; i < height; i++){
+        for(int j = 0; j < width; j++){
+            mvwaddch(w, i, j, '!');
+            mvwaddch(w, i, j, ' ');
+        }
     }
 }

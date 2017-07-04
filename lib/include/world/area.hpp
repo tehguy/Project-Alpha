@@ -18,17 +18,32 @@
 
 #pragma once
 
-class Screen {
+#include <string>
+#include <vector>
+
+class Area {
 public:
-    Screen();
-    ~Screen();
+    Area(std::string id, unsigned int _width, unsigned int _height);
 
-    void add(const char *message);
-    void clearScreen();
+    const std::string& getIdentifier();
 
-    int getHeight();
-    int getWidth();
+    unsigned int getWidth();
+    unsigned int getHeight();
+
+    void setMapSymbol(unsigned int row, unsigned int col, char symbol);
+    void setItemSymbol(unsigned int row, unsigned int col, char symbol);
+    void setEntitySymbol(unsigned int row, unsigned int col, char symbol);
+
+    const char getMapSymbol(unsigned int row, unsigned int col);
 
 private:
-    int height, width;
+    void genBlankMap();
+
+    std::string identifier;
+
+    unsigned int width, height;
+
+    std::vector<std::vector<char>> map;
+    std::vector<std::vector<char>> itemLayer;
+    std::vector<std::vector<char>> entityLayer;
 };

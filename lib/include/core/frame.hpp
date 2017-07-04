@@ -22,6 +22,7 @@
 #include <ncurses.h>
 
 #include <include/entity/player.hpp>
+#include <include/world/area.hpp>
 
 class Frame {
 public:
@@ -49,6 +50,10 @@ public:
     void genPerlin(const unsigned int &seed);
 
     void mvwaddch_color(int row_0, int col_0, const chtype symbol, const chtype color);
+    void drawArea(Area& area);
+    void genAreaWithPerlin(Area& area, const unsigned int &seed);
+
+
 
 protected:
     int height, width, row, col;
@@ -57,4 +62,7 @@ protected:
     WINDOW* _super;
 
     bool _hasSuper;
+
+private:
+    void blankView();
 };

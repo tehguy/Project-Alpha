@@ -18,17 +18,19 @@
 
 #pragma once
 
-class Screen {
+#include <include/world/area.hpp>
+
+#include <memory>
+
+class Location {
 public:
-    Screen();
-    ~Screen();
+    Location();
 
-    void add(const char *message);
-    void clearScreen();
+    void addSubLocation(Area& subLocation);
 
-    int getHeight();
-    int getWidth();
+    const Area* getSubLocation(std::string identifier);
 
 private:
-    int height, width;
+
+    std::vector<Area*> subLocations;
 };

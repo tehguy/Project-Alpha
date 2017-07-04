@@ -44,6 +44,11 @@ void Screen::add(const char *message) {
     printw(message);
 }
 
+void Screen::clearScreen() {
+    clear();
+    refresh();
+}
+
 int Screen::getHeight() {
     return height;
 }

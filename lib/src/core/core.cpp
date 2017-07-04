@@ -41,15 +41,18 @@ void Core::init() {
 
     int ch = getch();
 
+    scr.clearScreen();
+
     game_map = std::shared_ptr<Frame>(new Frame(2 * scr.getHeight(), 2 * scr.getWidth(), 0, 0));
+
     game_viewport = std::shared_ptr<Frame>(new Frame(game_map, (scr.getHeight()/2) + 5, scr.getWidth(), 0, 0));
 
     stats_viewport = std::shared_ptr<FrameStats>(new FrameStats((scr.getHeight()/2) - 5, (scr.getWidth()/2) - 22, scr.getHeight()/2 + 5, 0));
 
-
-    player = std::shared_ptr<Player>(new Player(game_map->getHeight() / 2, game_map->getWidth() / 2, 20));
+    player = std::shared_ptr<Player>(new Player(0, 0, 20));
 
     game_map->genPerlin(237);
+
     stats_viewport->genStatWindow();
 
     gameLoop(ch);

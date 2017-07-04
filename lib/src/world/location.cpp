@@ -16,19 +16,22 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/world/location.hpp>
 
-class Screen {
-public:
-    Screen();
-    ~Screen();
+Location::Location() {
 
-    void add(const char *message);
-    void clearScreen();
+}
 
-    int getHeight();
-    int getWidth();
+void Location::addSubLocation(Area& subLocation) {
+    subLocations.push_back(&subLocation);
+}
 
-private:
-    int height, width;
-};
+const Area* Location::getSubLocation(std::string identifier) {
+    for(auto loc : subLocations){
+        if(loc->getIdentifier() == identifier){
+            return loc;
+        }
+    }
+
+    return nullptr;
+}

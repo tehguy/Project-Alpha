@@ -20,7 +20,10 @@
 
 #include <include/core/frame_stats.hpp>
 #include <include/core/screen.hpp>
+
 #include <include/entity/player.hpp>
+
+#include <include/world/location.hpp>
 
 #include <memory>
 
