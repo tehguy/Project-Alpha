@@ -17,16 +17,10 @@
 */
 
 #include <include/core/screen.hpp>
-
-#include <ncurses.h>
+#include <include/enums/enums.hpp>
 
 Screen::Screen() {
     initscr();
-
-    if(has_colors()){
-        start_color();
-    }
-
     clear();
     noecho();
     cbreak();
@@ -34,6 +28,22 @@ Screen::Screen() {
     curs_set(0);
 
     getmaxyx(stdscr, height, width);
+
+    if(has_colors()){
+        start_color();
+        init_pair(CORE::COLOR::BLUE, COLOR_BLUE, COLOR_BLACK);
+        init_pair(CORE::COLOR::GREEN, COLOR_GREEN, COLOR_BLACK);
+        init_pair(CORE::COLOR::YELLOW, COLOR_YELLOW, COLOR_BLACK);
+        init_pair(CORE::COLOR::WHITE, COLOR_WHITE, COLOR_BLACK);
+        init_pair(CORE::COLOR::RED, COLOR_RED, COLOR_BLACK);
+
+        attron(COLOR_PAIR(CORE::COLOR::GREEN));
+        add("We have colors wooo!!\n\n");
+        attroff(COLOR_PAIR(CORE::COLOR::GREEN));
+    }
+    else {
+        add("Info: Your terminal does not support colors...\n\n");
+    }
 }
 
 Screen::~Screen() {
@@ -42,6 +52,7 @@ Screen::~Screen() {
 
 void Screen::add(const char *message) {
     printw(message);
+    refresh();
 }
 
 void Screen::clearScreen() {

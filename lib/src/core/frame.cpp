@@ -136,7 +136,7 @@ void Frame::fillWindow() {
 }
 
 void Frame::refresh() {
-    if(_hasSuper){
+    if(hasSuper()){
         touchwin(super());
     }
     wrefresh(w);

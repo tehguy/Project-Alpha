@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <ncurses.h>
+#include <curses.h>
 
 namespace STATS {
     enum ABS {

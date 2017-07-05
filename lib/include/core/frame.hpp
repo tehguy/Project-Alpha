@@ -19,7 +19,7 @@
 #pragma once
 
 #include <memory>
-#include <ncurses.h>
+#include <curses.h>
 
 #include <include/entity/player.hpp>
 #include <include/world/area.hpp>

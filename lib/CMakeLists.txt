@@ -1,8 +1,8 @@
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
-find_package(Boost 1.64.0 COMPONENTS serialization REQUIRED)
-include_directories(${Boost_INCLUDE_DIR})
+#find_package(Boost 1.64.0 COMPONENTS serialization REQUIRED)
+#include_directories(${Boost_INCLUDE_DIR})
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../runtime/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ../runtime/lib)
@@ -23,6 +23,8 @@ set (SOURCE_FILES
 
                                                 include/enums/enums.hpp
 
+        src/item/item.cpp                       include/item/item.hpp
+
         src/world/area.cpp                      include/world/area.hpp
         src/world/location.cpp                  include/world/location.hpp
 
@@ -34,4 +36,4 @@ set (SOURCE_FILES
 
 add_library (engine SHARED ${SOURCE_FILES})
 target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(engine ${CURSES_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(engine ${CURSES_LIBRARIES})

@@ -16,23 +16,21 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/item/item.hpp>
 
-#include <curses.h>
-#include <vector>
+Item::Item(chtype _symbol, chtype _csymbol) {
+    symbol = _symbol;
+    csymbol = _csymbol;
+}
 
-#include <include/enums/enums.hpp>
+chtype Item::getSymbol() const {
+    return symbol;
+}
 
-class Terrain {
-public:
-    Terrain(chtype _symbol, chtype _csymbol);
+chtype Item::getCSymbol() const {
+    return csymbol;
+}
 
-    chtype getSymbol() const;
-    chtype getCSymbol() const;
-
-    const std::vector<chtype> getTerrainSymbols();
-
-private:
-
-    chtype symbol, csymbol;
-};
+const std::vector<chtype> Item::getItemSymbols() {
+    return {symbol, csymbol};
+}

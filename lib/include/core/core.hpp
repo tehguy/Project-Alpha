@@ -34,7 +34,6 @@ public:
     ~Core();
 
     void init();
-    void initColor(Screen& scr);
 
     const std::shared_ptr<FrameStats>& getStatWindow();
     const std::shared_ptr<FrameGame>& getGameMap();

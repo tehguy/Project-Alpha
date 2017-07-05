@@ -21,18 +21,15 @@
 #include <curses.h>
 #include <vector>
 
-#include <include/enums/enums.hpp>
-
-class Terrain {
+class Item {
 public:
-    Terrain(chtype _symbol, chtype _csymbol);
+    Item(chtype _symbol, chtype _csymbol);
 
     chtype getSymbol() const;
     chtype getCSymbol() const;
 
-    const std::vector<chtype> getTerrainSymbols();
+    const std::vector<chtype> getItemSymbols();
 
 private:
-
     chtype symbol, csymbol;
 };

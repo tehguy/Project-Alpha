@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <ncurses.h>
+#include <curses.h>
 
 #include <include/core/core.hpp>
 #include <include/core/randomnumbergenerator.hpp>
@@ -34,8 +34,6 @@ Core::~Core() {
 
 void Core::init() {
     Screen scr;
-
-    initColor(scr);
 
     scr.add("Welcome to the RR game.\nPress any key to start.\nIf you want to quit press \"q\" or \"Q\"");
 
@@ -95,23 +93,6 @@ void Core::gameLoop(int ch) {
         else if(ch == 'q' || ch == 'Q') {
             break;
         }
-    }
-}
-
-void Core::initColor(Screen& scr) {
-    if(!has_colors()){
-        scr.add("Info: Your terminal does not support colors...\n\n");
-    }
-    else{
-        init_pair(CORE::COLOR::BLUE, COLOR_BLUE, COLOR_BLACK);
-        init_pair(CORE::COLOR::GREEN, COLOR_GREEN, COLOR_BLACK);
-        init_pair(CORE::COLOR::YELLOW, COLOR_YELLOW, COLOR_BLACK);
-        init_pair(CORE::COLOR::WHITE, COLOR_WHITE, COLOR_BLACK);
-        init_pair(CORE::COLOR::RED, COLOR_RED, COLOR_BLACK);
-
-        attron(COLOR_PAIR(CORE::COLOR::GREEN));
-        scr.add("We have colors wooo!!\n\n");
-        attroff(COLOR_PAIR(CORE::COLOR::GREEN));
     }
 }
 
