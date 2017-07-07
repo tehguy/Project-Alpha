@@ -23,6 +23,11 @@ Area::Area(std::string id, unsigned int _width, unsigned int _height) {
     width = _width;
     height = _height;
 
+    areaNorth = nullptr;
+    areaEast = nullptr;
+    areaSouth = nullptr;
+    areaWest = nullptr;
+
     genBlankMap();
 }
 
@@ -68,4 +73,36 @@ const std::vector<chtype> Area::getMapSymbol(unsigned int row, unsigned int col)
 
 const Terrain Area::getMapTerrain(unsigned int row, unsigned int col) {
     return map.at(row).at(col);
+}
+
+void Area::setAreaNorth(std::shared_ptr<Area> &north) {
+    areaNorth = north;
+}
+
+void Area::setAreaEast(std::shared_ptr<Area> &east) {
+    areaEast = east;
+}
+
+void Area::setAreaSouth(std::shared_ptr<Area> &south) {
+    areaSouth = south;
+}
+
+void Area::setAreaWest(std::shared_ptr<Area> &west) {
+    areaWest = west;
+}
+
+std::shared_ptr<Area> &Area::getAreaNorth() {
+    return areaNorth;
+}
+
+std::shared_ptr<Area> &Area::getAreaEast() {
+    return areaEast;
+}
+
+std::shared_ptr<Area> &Area::getAreaSouth() {
+    return areaSouth;
+}
+
+std::shared_ptr<Area> &Area::getAreaWest() {
+    return areaWest;
 }

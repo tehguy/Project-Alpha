@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -41,6 +42,16 @@ public:
 
     const Terrain getMapTerrain(unsigned int row, unsigned int col);
 
+    void setAreaNorth(std::shared_ptr<Area> &north);
+    void setAreaEast(std::shared_ptr<Area> &east);
+    void setAreaSouth(std::shared_ptr<Area> &south);
+    void setAreaWest(std::shared_ptr<Area> &west);
+
+    std::shared_ptr<Area>& getAreaNorth();
+    std::shared_ptr<Area>& getAreaEast();
+    std::shared_ptr<Area>& getAreaSouth();
+    std::shared_ptr<Area>& getAreaWest();
+
 private:
     void genBlankMap();
 
@@ -51,4 +62,9 @@ private:
     std::vector<std::vector<Terrain>> map;
     std::vector<std::vector<char>> itemLayer;
     std::vector<std::vector<char>> entityLayer;
+
+    std::shared_ptr<Area> areaNorth;
+    std::shared_ptr<Area> areaEast;
+    std::shared_ptr<Area> areaSouth;
+    std::shared_ptr<Area> areaWest;
 };
