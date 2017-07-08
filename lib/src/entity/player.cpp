@@ -17,7 +17,6 @@
 */
 
 #include <include/entity/player.hpp>
-#include <include/core/core.hpp>
 
 Player::Player(unsigned int row_0, unsigned int col_0, unsigned int maxhp) : Entity(CORE::SYMBOL::PLAYER,
                                                                                     CORE::CSYMBOL::CPLAYER,
@@ -54,8 +53,6 @@ void Player::addExpPoints(unsigned int amtToAdd) {
     if(curExp > expToNextLevel){
         curExp = expToNextLevel;
     }
-
-    MAIN::core.getStatWindow()->updateExperience();
 }
 
 void Player::remExpPoints(unsigned int amtToRem) {
@@ -63,16 +60,12 @@ void Player::remExpPoints(unsigned int amtToRem) {
     if(curExp < 0){
         curExp = 0;
     }
-
-    MAIN::core.getStatWindow()->updateExperience();
 }
 
 void Player::addHP(unsigned int amtToAdd) {
     Entity::addHP(amtToAdd);
-    MAIN::core.getStatWindow()->updateHealth();
 }
 
 void Player::remHP(unsigned int amtToRem) {
     Entity::remHP(amtToRem);
-    MAIN::core.getStatWindow()->updateHealth();
 }

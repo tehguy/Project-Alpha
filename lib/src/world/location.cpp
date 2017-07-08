@@ -19,19 +19,27 @@
 #include <include/world/location.hpp>
 
 Location::Location() {
-    nullArea = nullptr;
+
 }
 
-void Location::addArea(std::shared_ptr<Area> area) {
-    areas.push_back(area);
+Location::~Location() {
+    for(auto& loc : areas){
+        loc->unlinkAreas();
+    }
+
+    areas.clear();
 }
 
-std::shared_ptr<Area>& Location::getSubLocation(std::string identifier) {
+void Location::addArea(Area area) {
+    areas.push_back(std::make_shared<Area>(area));
+}
+
+Area *Location::getAreaByID(std::string identifier) {
     for(auto& loc : areas){
         if(loc->getIdentifier() == identifier){
-            return loc;
+            return loc.get();
         }
     }
 
-    return nullArea;
+    return nullptr;
 }

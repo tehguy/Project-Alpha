@@ -25,14 +25,12 @@
 class Location {
 public:
     Location();
+    ~Location();
 
-    void addArea(std::shared_ptr<Area> area);
+    void addArea(Area area);
 
-    std::shared_ptr<Area>& getSubLocation(std::string identifier);
-
+    Area* getAreaByID(std::string identifier);
 private:
 
     std::vector<std::shared_ptr<Area>> areas;
-
-    std::shared_ptr<Area> nullArea;
 };

@@ -15,8 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <curses.h>
-
 #include <include/core/core.hpp>
 #include <include/core/randomnumbergenerator.hpp>
 
@@ -33,75 +31,37 @@ Core::~Core() {
 }
 
 void Core::init() {
-    Screen scr;
+    if(!initSDL()){
+        return;
+    }
 
-    scr.add("Welcome to the RR game.\nPress any key to start.\nIf you want to quit press \"q\" or \"Q\"");
+    gameLoop();
 
-    int ch = getch();
-
-    scr.clearScreen();
-
-    game_map = std::shared_ptr<FrameGame>(new FrameGame(2 * scr.getHeight(), 2 * scr.getWidth(), 0, 0));
-
-    game_viewport = std::shared_ptr<Frame>(new Frame(game_map, (scr.getHeight()/2) + 5, scr.getWidth(), 0, 0));
-
-    stats_viewport = std::shared_ptr<FrameStats>(new FrameStats((scr.getHeight()/2) - 5, (scr.getWidth()/2) - 22, scr.getHeight()/2 + 5, 0));
-
-    player = std::shared_ptr<Player>(new Player(0, 0, 20));
-
-    currentArea = std::shared_ptr<Area>(new Area("id", 50, 50));
-    game_map->genAreaWithPerlin(*currentArea, 237);
-
-    //game_map->genPerlin(237);
-
-    game_map->drawArea(*currentArea);
-    game_viewport->resize((unsigned int) (scr.getHeight()/2) + 5, (unsigned int) game_map->getWidth());
-
-    stats_viewport->genStatWindow();
-
-    gameLoop(ch);
+    SDL_DestroyWindow(screen.get());
+    SDL_Quit();
 }
 
-void Core::gameLoop(int ch) {
-    if(ch == 'q' || ch == 'Q') return;
+void Core::gameLoop() {
+    bool quit = false;
 
-    game_map->add();
-    game_viewport->center();
-    game_viewport->refresh();
-    stats_viewport->refresh();
+    SDL_Event e;
 
-    while(1){
-        ch = getch();
-
-        // Main character movements
-        if(ch == KEY_LEFT) {
-            game_map->add(player->getRow(), player->getCol() - 1);
-            game_viewport->center();
-        }
-        else if(ch == KEY_RIGHT) {
-            game_map->add(player->getRow(), player->getCol() + 1);
-            game_viewport->center();
-        }
-        else if(ch == KEY_UP) {
-            game_map->add(player->getRow() - 1, player->getCol());
-            game_viewport->center();
-        }
-        else if(ch == KEY_DOWN) {
-            game_map->add(player->getRow() + 1, player->getCol());
-            game_viewport->center();
-        }
-        else if(ch == 'q' || ch == 'Q') {
-            break;
+    while(!quit){
+        while(SDL_PollEvent(&e) != 0){
+            if(e.type == SDL_QUIT){
+                quit = true;
+            }
+            else if(e.type == SDL_KEYDOWN){
+                switch (e.key.keysym.sym){
+                    case SDLK_q:
+                        quit = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
-}
-
-const std::shared_ptr<FrameStats> &Core::getStatWindow() {
-    return stats_viewport;
-}
-
-const std::shared_ptr<FrameGame> &Core::getGameMap() {
-    return game_map;
 }
 
 const std::shared_ptr<Player> &Core::getPlayer() {
@@ -110,4 +70,23 @@ const std::shared_ptr<Player> &Core::getPlayer() {
 
 const std::shared_ptr<Area> &Core::getCurrentArea() {
     return currentArea;
+}
+
+bool Core::initSDL() {
+    if( SDL_Init( SDL_INIT_EVERYTHING ) == -1){
+        return false;
+    }
+
+    screen = sdl2::WindowShPtr(SDL_CreateWindow("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN));
+
+    if(screen == nullptr){
+        return false;
+    }
+    else {
+        screenSurface = sdl2::SurfaceShPtr(SDL_GetWindowSurface(screen.get()));
+
+        SDL_UpdateWindowSurface(screen.get());
+    }
+
+    return true;
 }

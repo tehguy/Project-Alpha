@@ -1,5 +1,10 @@
-find_package(Curses REQUIRED)
-include_directories(${CURSES_INCLUDE_DIR})
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+
+find_package(SDL2 REQUIRED)
+find_package(SDL2_ttf REQUIRED)
+
+include_directories(${SDL2_INCLUDE_DIR}
+        ${SDL2_TTF_INCLUDE_DIR})
 
 #find_package(Boost 1.64.0 COMPONENTS serialization REQUIRED)
 #include_directories(${Boost_INCLUDE_DIR})
@@ -11,12 +16,9 @@ set(CMAKE_INSTALL_RPATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 set (SOURCE_FILES
         src/core/core.cpp                       include/core/core.hpp
         src/core/diceroller.cpp                 include/core/diceroller.hpp
-        src/core/frame.cpp                      include/core/frame.hpp
-        src/core/frame_game.cpp                 include/core/frame_game.hpp
-        src/core/frame_stats.cpp                include/core/frame_stats.hpp
         src/core/perlinnoise.cpp                include/core/perlinnoise.hpp
         src/core/randomnumbergenerator.cpp      include/core/randomnumbergenerator.hpp
-        src/core/screen.cpp                     include/core/screen.hpp
+                                                include/core/sdl_structs.hpp
 
         src/entity/entity.cpp                   include/entity/entity.hpp
         src/entity/player.cpp                   include/entity/player.hpp
@@ -36,4 +38,4 @@ set (SOURCE_FILES
 
 add_library (engine SHARED ${SOURCE_FILES})
 target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(engine ${CURSES_LIBRARIES})
+target_link_libraries(engine ${SDL2_LIBRARY} ${SDL2_TTF_LIBRARIES})

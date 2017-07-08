@@ -27,6 +27,7 @@
 class Area {
 public:
     Area(std::string id, unsigned int _width, unsigned int _height);
+    ~Area();
 
     const std::string& getIdentifier();
 
@@ -42,16 +43,17 @@ public:
 
     const Terrain getMapTerrain(unsigned int row, unsigned int col);
 
-    void setAreaNorth(std::shared_ptr<Area> &north);
-    void setAreaEast(std::shared_ptr<Area> &east);
-    void setAreaSouth(std::shared_ptr<Area> &south);
-    void setAreaWest(std::shared_ptr<Area> &west);
+    void unlinkAreas();
+
+    void setAreaNorth(Area& area);
+    void setAreaEast(Area& area);
+    void setAreaSouth(Area& area);
+    void setAreaWest(Area& area);
 
     std::shared_ptr<Area>& getAreaNorth();
     std::shared_ptr<Area>& getAreaEast();
     std::shared_ptr<Area>& getAreaSouth();
     std::shared_ptr<Area>& getAreaWest();
-
 private:
     void genBlankMap();
 

@@ -18,15 +18,9 @@
 
 #pragma once
 
-#include <include/core/frame_game.hpp>
-#include <include/core/frame_stats.hpp>
-#include <include/core/screen.hpp>
-
+#include <include/core/sdl_structs.hpp>
 #include <include/entity/player.hpp>
-
 #include <include/world/location.hpp>
-
-#include <memory>
 
 class Core {
 public:
@@ -35,19 +29,16 @@ public:
 
     void init();
 
-    const std::shared_ptr<FrameStats>& getStatWindow();
-    const std::shared_ptr<FrameGame>& getGameMap();
-
     const std::shared_ptr<Player>& getPlayer();
 
     const std::shared_ptr<Area>& getCurrentArea();
 
 private:
-    void gameLoop(int ch);
+    void gameLoop();
+    bool initSDL();
 
-    std::shared_ptr<FrameGame> game_map;
-    std::shared_ptr<Frame> game_viewport;
-    std::shared_ptr<FrameStats> stats_viewport;
+    sdl2::WindowShPtr screen;
+    sdl2::SurfaceShPtr screenSurface;
 
     std::shared_ptr<Player> player;
 
