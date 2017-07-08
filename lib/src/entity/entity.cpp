@@ -18,19 +18,14 @@
 
 #include <include/entity/entity.hpp>
 
-Entity::Entity(char _symbol, const chtype csymbol, unsigned int _curhp, unsigned int _maxhp) {
+Entity::Entity(char _symbol, unsigned int _curhp, unsigned int _maxhp) {
     symbol = _symbol;
-    symbolColor = csymbol;
     curhp = _curhp;
     maxhp = _maxhp;
 }
 
 const unsigned int Entity::getSymbol() {
     return (const unsigned int) symbol;
-}
-
-const chtype Entity::getSymbolColor() {
-    return symbolColor;
 }
 
 const unsigned int Entity::getCurHP() {

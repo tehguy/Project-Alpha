@@ -18,6 +18,6 @@
 
 #include <include/world/terrain/wall.hpp>
 
-Wall::Wall() : Terrain(CORE::SYMBOL::WALL, CORE::CSYMBOL::CWALL) {
+Wall::Wall() : Terrain(CORE::SYMBOL::WALL) {
 
 }

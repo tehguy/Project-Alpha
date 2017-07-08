@@ -18,19 +18,14 @@
 
 #include <include/world/terrain/terrain.hpp>
 
-Terrain::Terrain(chtype _symbol, chtype _csymbol) {
+Terrain::Terrain(char _symbol) {
     symbol = _symbol;
-    csymbol = _csymbol;
 }
 
-chtype Terrain::getSymbol() const {
+char Terrain::getSymbol() const {
     return symbol;
 }
 
-chtype Terrain::getCSymbol() const {
-    return csymbol;
-}
-
-const std::vector <chtype, std::allocator<chtype>> Terrain::getTerrainSymbols() {
-    return {symbol, csymbol};
+const char Terrain::getTerrainSymbols() {
+    return symbol;
 }

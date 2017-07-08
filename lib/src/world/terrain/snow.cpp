@@ -18,6 +18,6 @@
 
 #include <include/world/terrain/snow.hpp>
 
-Snow::Snow() : Terrain(CORE::SYMBOL::SNOW, CORE::CSYMBOL::CSNOW){
+Snow::Snow() : Terrain(CORE::SYMBOL::SNOW){
 
 }

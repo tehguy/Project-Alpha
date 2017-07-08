@@ -19,6 +19,6 @@
 #include <include/enums/enums.hpp>
 #include <include/world/terrain/water.hpp>
 
-Water::Water() : Terrain(CORE::SYMBOL::WATER, CORE::CSYMBOL::CWATER){
+Water::Water() : Terrain(CORE::SYMBOL::WATER){
 
 }

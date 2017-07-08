@@ -54,7 +54,7 @@ void Area::genBlankMap() {
         map.at(i).reserve(width);
 
         for(unsigned int j = 0; j < width; j++){
-            map.at(i).push_back(Terrain(' ', ' '));
+            map.at(i).push_back(Terrain(' '));
         }
     }
 }
@@ -71,7 +71,7 @@ void Area::setEntitySymbol(unsigned int row, unsigned int col, char symbol) {
     entityLayer.at(row).at(col) = symbol;
 }
 
-const std::vector<chtype> Area::getMapSymbol(unsigned int row, unsigned int col) {
+const char Area::getMapSymbol(unsigned int row, unsigned int col) {
     return map.at(row).at(col).getTerrainSymbols();
 }
 

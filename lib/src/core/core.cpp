@@ -61,6 +61,11 @@ void Core::gameLoop() {
                 }
             }
         }
+
+        // TODO: blit surface stuff for the player's current area
+        // currentArea()->draw(); or something
+
+        SDL_UpdateWindowSurface(screen.get());
     }
 }
 
@@ -84,8 +89,6 @@ bool Core::initSDL() {
     }
     else {
         screenSurface = sdl2::SurfaceShPtr(SDL_GetWindowSurface(screen.get()));
-
-        SDL_UpdateWindowSurface(screen.get());
     }
 
     return true;

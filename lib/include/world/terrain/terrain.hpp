@@ -18,21 +18,19 @@
 
 #pragma once
 
-#include <curses.h>
 #include <vector>
 
 #include <include/enums/enums.hpp>
 
 class Terrain {
 public:
-    Terrain(chtype _symbol, chtype _csymbol);
+    Terrain(char _symbol);
 
-    chtype getSymbol() const;
-    chtype getCSymbol() const;
+    char getSymbol() const;
 
-    const std::vector<chtype> getTerrainSymbols();
+    const char getTerrainSymbols();
 
 private:
 
-    chtype symbol, csymbol;
+    char symbol;
 };

@@ -18,6 +18,6 @@
 
 #include <include/world/terrain/grass.hpp>
 
-Grass::Grass() : Terrain(CORE::SYMBOL::GRASS, CORE::CSYMBOL::CGRASS) {
+Grass::Grass() : Terrain(CORE::SYMBOL::GRASS) {
 
 }
