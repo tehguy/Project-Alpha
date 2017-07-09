@@ -39,7 +39,7 @@ public:
     void setItemSymbol(unsigned int row, unsigned int col, char symbol);
     void setEntitySymbol(unsigned int row, unsigned int col, char symbol);
 
-    const std::string getMapSymbol(unsigned int row, unsigned int col);
+    const CORE::SYMBOL getMapSymbol(unsigned int row, unsigned int col);
 
     const Terrain getMapTerrain(unsigned int row, unsigned int col);
 

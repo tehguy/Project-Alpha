@@ -34,10 +34,11 @@ public:
     const std::shared_ptr<Area>& getCurrentArea();
     const sdl2::RendererShPtr& getRenderer();
 
-    SDL_Rect& getCamrea();
+    SDL_Rect& getCamera();
     TileTexture& getTileTexture();
 
     bool checkCollision(SDL_Rect a, SDL_Rect b);
+    bool loadMedia();
 
     TTF_Font* getFont();
 

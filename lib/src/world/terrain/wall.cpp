@@ -18,6 +18,6 @@
 
 #include <include/world/terrain/wall.hpp>
 
-Wall::Wall(int x, int y) : Terrain(x, y, "#") {
-    setColor(255, 255, 0);
+Wall::Wall(int x, int y) : Terrain(x, y, CORE::SYMBOL::WALL) {
+
 }

@@ -18,6 +18,6 @@
 
 #include <include/world/terrain/water.hpp>
 
-Water::Water(int x, int y) : Terrain(x, y, "~"){
-    setColor(0, 0, 255);
+Water::Water(int x, int y) : Terrain(x, y, CORE::SYMBOL::WATER){
+
 }

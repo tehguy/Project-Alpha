@@ -18,8 +18,6 @@
 #include <include/core/core.hpp>
 #include <include/core/randomnumbergenerator.hpp>
 
-#include <SDL2/SDL_image.h>
-
 namespace MAIN {
     Core core;
 }
@@ -34,6 +32,7 @@ Core::~Core() {
 
 void Core::init() {
     if(!initSDL()){
+        printf("something broke...");
         return;
     }
 
@@ -127,6 +126,10 @@ bool Core::initSDL() {
                 if( !( IMG_Init(imgFlags) & imgFlags ) ){
                     return false;
                 }
+
+                if(!loadMedia()){
+                    return false;
+                }
             }
         }
     }
@@ -138,7 +141,7 @@ const sdl2::RendererShPtr &Core::getRenderer() {
     return gRender;
 }
 
-SDL_Rect &Core::getCamrea() {
+SDL_Rect &Core::getCamera() {
     return camera;
 }
 
@@ -183,6 +186,16 @@ bool Core::checkCollision(SDL_Rect a, SDL_Rect b) {
     return leftA < rightB;
 
 }
+
+bool Core::loadMedia() {
+    if(!gTileTexture.loadFromFile("./lib/spritesheet.png")){
+        printf("IMG Error: %s\n", IMG_GetError());
+        return false;
+    }
+
+    return true;
+}
+
 
 TTF_Font *Core::getFont() {
     return font;

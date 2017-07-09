@@ -26,23 +26,20 @@
 
 class Terrain {
 public:
-    Terrain(int x, int y, std::string _symbol);
+    Terrain(int x, int y, CORE::SYMBOL _symbol);
 
-    std::string getSymbol() const;
-
-    const std::string getTerrainSymbol();
+    CORE::SYMBOL getSymbol() const;
 
     void render(SDL_Rect& camera);
 
     SDL_Rect& getBox();
 
-    void setColor(Uint8 r, Uint8 g, Uint8 b);
-
 private:
     int xpos, ypos;
-    std::string symbol;
+
+    CORE::SYMBOL symbol;
+
+    int TILE_WIDTH = 16, TILE_HEIGHT = 16;
 
     SDL_Rect mbox;
-
-    SDL_Color color;
 };

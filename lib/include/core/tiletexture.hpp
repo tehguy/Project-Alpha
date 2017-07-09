@@ -20,15 +20,18 @@
 
 #include <include/core/sdl_structs.hpp>
 
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
+#include <vector>
 
 class TileTexture {
 public:
     TileTexture();
     ~TileTexture();
 
-    bool loadFromRenderedText(std::string texText, SDL_Color textColor);
+    bool loadFromFile(std::string path);
+    //bool loadFromRenderedText(std::string texText, SDL_Color textColor);
 
     void free();
     void setColor(Uint8 red, Uint8 green, Uint8 blue);
@@ -40,11 +43,20 @@ public:
     int getWidth();
     int getHeight();
 
+    SDL_Rect& getClip(unsigned int index);
+
 private:
+    void setClips();
+
     sdl2::TextureShPtr mTexture;
 
-    SDL_Color fontColor = {255, 255, 255};
+    //SDL_Color fontColor = {255, 255, 255};
 
     int width;
     int height;
+
+    const int TILE_WIDTH = 16;
+    const int TILE_HEIGHT = 16;
+
+    std::vector<SDL_Rect> gTileClips;
 };

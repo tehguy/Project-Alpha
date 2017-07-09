@@ -46,19 +46,11 @@ namespace STATS {
 }
 
 namespace CORE {
-    enum COLOR {
-        BLUE = 1,
-        GREEN,
-        YELLOW,
-        WHITE,
-        RED
-    };
-
     enum SYMBOL {
-        PLAYER = '@',
-        WATER = '~',
-        WALL = '#',
-        GRASS = '.',
-        SNOW = 'S'
+        NONE = -1,
+        GRASS = 0,
+        WATER,
+        WALL,
+        SNOW
     };
 }

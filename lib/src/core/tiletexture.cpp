@@ -29,7 +29,30 @@ TileTexture::~TileTexture() {
     free();
 }
 
-bool TileTexture::loadFromRenderedText(std::string texText, SDL_Color textColor) {
+bool TileTexture::loadFromFile(std::string path) {
+    free();
+
+    SDL_Texture* newTexture = nullptr;
+
+    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+    if(loadedSurface != nullptr){
+        SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0xFF, 0x0, 0x0));
+
+        newTexture = SDL_CreateTextureFromSurface(MAIN::core.getRenderer().get(), loadedSurface);
+        if(newTexture != nullptr){
+            width = loadedSurface->w;
+            height = loadedSurface->h;
+        }
+
+        SDL_FreeSurface(loadedSurface);
+    }
+    setClips();
+
+    mTexture = sdl2::TextureShPtr(newTexture);
+    return mTexture != nullptr;
+}
+
+/*bool TileTexture::loadFromRenderedText(std::string texText, SDL_Color textColor) {
     free();
 
     SDL_Surface* textSurface = TTF_RenderText_Solid(MAIN::core.getFont(), texText.c_str(), textColor);
@@ -45,7 +68,7 @@ bool TileTexture::loadFromRenderedText(std::string texText, SDL_Color textColor)
     }
 
     return mTexture != nullptr;
-}
+}*/
 
 void TileTexture::free() {
     if(mTexture != nullptr){
@@ -85,4 +108,15 @@ int TileTexture::getWidth() {
 
 int TileTexture::getHeight() {
     return height;
+}
+
+void TileTexture::setClips() {
+    gTileClips.push_back({0, 0, TILE_WIDTH, TILE_HEIGHT});
+    gTileClips.push_back({16, 0, TILE_WIDTH, TILE_HEIGHT});
+    gTileClips.push_back({32, 0, TILE_WIDTH, TILE_HEIGHT});
+    gTileClips.push_back({48, 0, TILE_WIDTH, TILE_HEIGHT});
+}
+
+SDL_Rect &TileTexture::getClip(unsigned int index) {
+    return gTileClips.at(index);
 }

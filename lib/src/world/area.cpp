@@ -39,7 +39,7 @@ Area::Area(std::string id, unsigned int _width, unsigned int _height) {
         map.at(i).reserve(width);
 
         for(unsigned int j = 0; j < width; j++){
-            map.at(i).push_back(Terrain(i, j, " "));
+            map.at(i).push_back(Terrain(i, j, CORE::SYMBOL::NONE));
         }
     }
 }
@@ -72,8 +72,8 @@ void Area::setEntitySymbol(unsigned int row, unsigned int col, char symbol) {
     entityLayer.at(row).at(col) = symbol;
 }
 
-const std::string Area::getMapSymbol(unsigned int row, unsigned int col) {
-    return map.at(row).at(col).getTerrainSymbol();
+const CORE::SYMBOL Area::getMapSymbol(unsigned int row, unsigned int col) {
+    return map.at(row).at(col).getSymbol();
 }
 
 const Terrain Area::getMapTerrain(unsigned int row, unsigned int col) {
@@ -122,7 +122,7 @@ std::shared_ptr<Area> &Area::getAreaWest() {
 void Area::draw() {
     for(auto& innerVec : map){
         for(auto& terrain : innerVec){
-            terrain.render(MAIN::core.getCamrea());
+            terrain.render(MAIN::core.getCamera());
         }
     }
 }

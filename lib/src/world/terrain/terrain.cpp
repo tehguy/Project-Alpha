@@ -18,32 +18,25 @@
 
 #include <include/core/core.hpp>
 
-Terrain::Terrain(int x, int y, std::string _symbol) {
+Terrain::Terrain(int x, int y, CORE::SYMBOL _symbol) {
     symbol = _symbol;
-    mbox.x = x + 1;
-    mbox.y = y + 1;
+    mbox.x = x;
+    mbox.y = y;
+    mbox.w = TILE_WIDTH;
+    mbox.h = TILE_HEIGHT;
 }
 
-std::string Terrain::getSymbol() const {
-    return symbol;
-}
-
-const std::string Terrain::getTerrainSymbol() {
+CORE::SYMBOL Terrain::getSymbol() const {
     return symbol;
 }
 
 void Terrain::render(SDL_Rect &camera) {
-    MAIN::core.getTileTexture().loadFromRenderedText(symbol, color);
-
     if(MAIN::core.checkCollision(camera, mbox)){
-        MAIN::core.getTileTexture().render((mbox.x - camera.x)*MAIN::TEXT_SIZE, (mbox.y - camera.y)*MAIN::TEXT_SIZE);
+        MAIN::core.getTileTexture().render((mbox.x - camera.x)*TILE_WIDTH, (mbox.y - camera.y)*TILE_HEIGHT,
+                                           &MAIN::core.getTileTexture().getClip(symbol));
     }
 }
 
 SDL_Rect &Terrain::getBox() {
     return mbox;
-}
-
-void Terrain::setColor(Uint8 r, Uint8 g, Uint8 b) {
-    color = {r, g, b};
 }

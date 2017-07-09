@@ -18,7 +18,7 @@
 
 #include <include/entity/player.hpp>
 
-Player::Player(unsigned int row_0, unsigned int col_0, unsigned int maxhp) : Entity(CORE::SYMBOL::PLAYER,
+Player::Player(unsigned int row_0, unsigned int col_0, unsigned int maxhp) : Entity('@',
                                                                                     maxhp, maxhp) {
     row = row_0;
     col = col_0;
