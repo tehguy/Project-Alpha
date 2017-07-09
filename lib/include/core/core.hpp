@@ -40,7 +40,7 @@ public:
     bool checkCollision(SDL_Rect a, SDL_Rect b);
     bool loadMedia();
 
-    TTF_Font* getFont();
+    //TTF_Font* getFont();
 
 private:
     void gameLoop();
@@ -55,7 +55,7 @@ private:
 
     SDL_Rect camera;
     TileTexture gTileTexture;
-    TTF_Font* font;
+    //TTF_Font* font;
 
     const int SCREEN_WIDTH = 800;
     const int SCREEN_HEIGHT = 600;

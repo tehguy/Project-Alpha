@@ -38,8 +38,8 @@ void Core::init() {
 
     camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
-    currentArea = std::shared_ptr<Area>(new Area("test", 50, 50));
-    currentArea->genRandom();
+    currentArea = std::shared_ptr<Area>(new Area("CPPAdventures", 50, 50));
+    currentArea->genRandom(237);
 
     gameLoop();
     close();
@@ -48,7 +48,7 @@ void Core::init() {
 void Core::close() {
     IMG_Quit();
     SDL_Quit();
-    TTF_Quit();
+    //TTF_Quit();
 }
 
 void Core::gameLoop() {
@@ -93,7 +93,7 @@ bool Core::initSDL() {
         return false;
     }
     else {
-        if(TTF_Init() < 0){
+        /*if(TTF_Init() < 0){
             printf("TTF error: %s\n", TTF_GetError());
             return false;
         }
@@ -102,7 +102,7 @@ bool Core::initSDL() {
             if(!font){
                 printf("TTF_Openfont: %s\n", TTF_GetError());
             }
-        }
+        }*/
 
         if( !SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear" )){
             return false;
@@ -197,6 +197,6 @@ bool Core::loadMedia() {
 }
 
 
-TTF_Font *Core::getFont() {
+/*TTF_Font *Core::getFont() {
     return font;
-}
+}*/

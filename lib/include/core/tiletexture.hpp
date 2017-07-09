@@ -21,7 +21,6 @@
 #include <include/core/sdl_structs.hpp>
 
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
 #include <string>
 #include <vector>
 

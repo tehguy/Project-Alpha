@@ -17,7 +17,7 @@
 */
 
 #include <include/core/core.hpp>
-#include <include/core/randomnumbergenerator.hpp>
+#include <include/core/perlinnoise.hpp>
 
 #include <include/world/terrain/grass.hpp>
 #include <include/world/terrain/snow.hpp>
@@ -127,27 +127,25 @@ void Area::draw() {
     }
 }
 
-void Area::genRandom() {
+void Area::genRandom(const unsigned int &seed) {
     for(unsigned int i = 0; i < height; i++){
         for(unsigned int j = 0; j < width; j++){
-            int num = RandomNumberGenerator::RollDice(0, 3);
+            double x = (double)j / ((double) width);
+            double y = (double)i / ((double) height);
 
-            switch (num){
-                case 0:
-                    map.at(i).at(j) = Grass(i, j);
-                    break;
-                case 1:
-                    map.at(i).at(j) = Snow(i, j);
-                    break;
-                case 2:
-                    map.at(i).at(j) = Wall(i, j);
-                    break;
-                case 3:
-                    map.at(i).at(j) = Water(i, j);
-                    break;
-                default:
-                    map.at(i).at(j) = Water(i, j);
-                    break;
+            double n = PerlinNoise::NoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
+
+            if(n < 0.35){
+                map.at(i).at(j) = Water(i, j);
+            }
+            else if(n >= 0.35 && n < 0.6){
+                map.at(i).at(j) = Grass(i, j);
+            }
+            else if(n >= 0.6 && n < 0.8){
+                map.at(i).at(j) = Wall(i, j);
+            }
+            else{
+                map.at(i).at(j) = Snow(i, j);
             }
         }
     }

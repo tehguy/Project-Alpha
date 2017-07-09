@@ -56,7 +56,7 @@ public:
     std::shared_ptr<Area>& getAreaWest();
 
     void draw();
-    void genRandom();
+    void genRandom(const unsigned int& seed);
 private:
 
     std::string identifier;
