@@ -22,5 +22,5 @@
 
 class Wall : public Terrain {
 public:
-    Wall();
+    Wall(int x, int y);
 };

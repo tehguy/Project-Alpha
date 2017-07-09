@@ -18,6 +18,8 @@
 #include <include/core/core.hpp>
 #include <include/core/randomnumbergenerator.hpp>
 
+#include <SDL2/SDL_image.h>
+
 namespace MAIN {
     Core core;
 }
@@ -35,10 +37,19 @@ void Core::init() {
         return;
     }
 
-    gameLoop();
+    camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
-    SDL_DestroyWindow(screen.get());
+    currentArea = std::shared_ptr<Area>(new Area("test", 50, 50));
+    currentArea->genRandom();
+
+    gameLoop();
+    close();
+}
+
+void Core::close() {
+    IMG_Quit();
     SDL_Quit();
+    TTF_Quit();
 }
 
 void Core::gameLoop() {
@@ -61,11 +72,12 @@ void Core::gameLoop() {
                 }
             }
         }
+        SDL_SetRenderDrawColor(gRender.get(), 0x0, 0x0, 0x0, 0x0);
+        SDL_RenderClear(gRender.get());
 
-        // TODO: blit surface stuff for the player's current area
-        // currentArea()->draw(); or something
+        currentArea->draw();
 
-        SDL_UpdateWindowSurface(screen.get());
+        SDL_RenderPresent(gRender.get());
     }
 }
 
@@ -78,18 +90,100 @@ const std::shared_ptr<Area> &Core::getCurrentArea() {
 }
 
 bool Core::initSDL() {
-    if( SDL_Init( SDL_INIT_EVERYTHING ) == -1){
-        return false;
-    }
-
-    screen = sdl2::WindowShPtr(SDL_CreateWindow("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN));
-
-    if(screen == nullptr){
+    if( (SDL_Init( SDL_INIT_VIDEO ) < 0) ){
         return false;
     }
     else {
-        screenSurface = sdl2::SurfaceShPtr(SDL_GetWindowSurface(screen.get()));
+        if(TTF_Init() < 0){
+            printf("TTF error: %s\n", TTF_GetError());
+            return false;
+        }
+        else{
+            font = TTF_OpenFont("./lib/Cuprum-Regular.ttf", MAIN::TEXT_SIZE);
+            if(!font){
+                printf("TTF_Openfont: %s\n", TTF_GetError());
+            }
+        }
+
+        if( !SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear" )){
+            return false;
+        }
+
+        screen = sdl2::WindowShPtr(SDL_CreateWindow("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                                    SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN));
+
+        if(screen == nullptr){
+            return false;
+        }
+        else {
+            gRender = sdl2::RendererShPtr(SDL_CreateRenderer(screen.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
+            if(gRender == nullptr){
+                return false;
+            }
+            else{
+                SDL_SetRenderDrawColor(gRender.get(), 0x0, 0x0, 0x0, 0x0);
+
+                int imgFlags = IMG_INIT_PNG;
+                if( !( IMG_Init(imgFlags) & imgFlags ) ){
+                    return false;
+                }
+            }
+        }
     }
 
     return true;
+}
+
+const sdl2::RendererShPtr &Core::getRenderer() {
+    return gRender;
+}
+
+SDL_Rect &Core::getCamrea() {
+    return camera;
+}
+
+TileTexture &Core::getTileTexture() {
+    return gTileTexture;
+}
+
+bool Core::checkCollision(SDL_Rect a, SDL_Rect b) {
+    //The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+
+    //Calculate the sides of rect A
+    leftA = a.x;
+    rightA = a.x + a.w;
+    topA = a.y;
+    bottomA = a.y + a.h;
+
+    //Calculate the sides of rect B
+    leftB = b.x;
+    rightB = b.x + b.w;
+    topB = b.y;
+    bottomB = b.y + b.h;
+
+    if( bottomA <= topB )
+    {
+        return false;
+    }
+
+    if( topA >= bottomB )
+    {
+        return false;
+    }
+
+    if( rightA <= leftB )
+    {
+        return false;
+    }
+
+    return leftA < rightB;
+
+}
+
+TTF_Font *Core::getFont() {
+    return font;
 }

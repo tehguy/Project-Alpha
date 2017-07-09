@@ -39,7 +39,7 @@ public:
     void setItemSymbol(unsigned int row, unsigned int col, char symbol);
     void setEntitySymbol(unsigned int row, unsigned int col, char symbol);
 
-    const char getMapSymbol(unsigned int row, unsigned int col);
+    const std::string getMapSymbol(unsigned int row, unsigned int col);
 
     const Terrain getMapTerrain(unsigned int row, unsigned int col);
 
@@ -54,8 +54,10 @@ public:
     std::shared_ptr<Area>& getAreaEast();
     std::shared_ptr<Area>& getAreaSouth();
     std::shared_ptr<Area>& getAreaWest();
+
+    void draw();
+    void genRandom();
 private:
-    void genBlankMap();
 
     std::string identifier;
 

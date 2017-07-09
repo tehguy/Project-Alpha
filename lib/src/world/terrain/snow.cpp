@@ -18,6 +18,6 @@
 
 #include <include/world/terrain/snow.hpp>
 
-Snow::Snow() : Terrain(CORE::SYMBOL::SNOW){
-
+Snow::Snow(int x, int y) : Terrain(x, y, "S"){
+    setColor(255, 255, 255);
 }

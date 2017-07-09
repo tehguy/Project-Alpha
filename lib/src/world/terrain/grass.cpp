@@ -18,6 +18,6 @@
 
 #include <include/world/terrain/grass.hpp>
 
-Grass::Grass() : Terrain(CORE::SYMBOL::GRASS) {
-
+Grass::Grass(int x, int y) : Terrain(x, y, ".") {
+    setColor(0, 255, 0);
 }

@@ -22,5 +22,5 @@
 
 class Snow : public Terrain {
 public:
-    Snow();
+    Snow(int x, int y);
 };

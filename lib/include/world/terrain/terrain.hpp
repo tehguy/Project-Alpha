@@ -18,19 +18,31 @@
 
 #pragma once
 
+#include <SDL2/SDL.h>
+#include <string>
 #include <vector>
 
 #include <include/enums/enums.hpp>
 
 class Terrain {
 public:
-    Terrain(char _symbol);
+    Terrain(int x, int y, std::string _symbol);
 
-    char getSymbol() const;
+    std::string getSymbol() const;
 
-    const char getTerrainSymbols();
+    const std::string getTerrainSymbol();
+
+    void render(SDL_Rect& camera);
+
+    SDL_Rect& getBox();
+
+    void setColor(Uint8 r, Uint8 g, Uint8 b);
 
 private:
+    int xpos, ypos;
+    std::string symbol;
 
-    char symbol;
+    SDL_Rect mbox;
+
+    SDL_Color color;
 };

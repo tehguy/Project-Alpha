@@ -22,6 +22,7 @@ Entity::Entity(char _symbol, unsigned int _curhp, unsigned int _maxhp) {
     symbol = _symbol;
     curhp = _curhp;
     maxhp = _maxhp;
+    size = 8;
 }
 
 const unsigned int Entity::getSymbol() {
@@ -48,4 +49,17 @@ void Entity::remHP(unsigned int amtToRem) {
     if(curhp < 0) {
         curhp = 0;
     }
+}
+
+void Entity::setPos(unsigned int _xpos, unsigned int _ypos) {
+    xpos = _xpos * size;
+    ypos = _ypos * size;
+}
+
+unsigned int Entity::getWorldXPos() {
+    return xpos;
+}
+
+unsigned int Entity::getWorldYPos() {
+    return ypos;
 }

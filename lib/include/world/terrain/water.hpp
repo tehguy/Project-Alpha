@@ -22,5 +22,5 @@
 
 class Water : public Terrain {
 public:
-    Water();
+    Water(int x, int y);
 };

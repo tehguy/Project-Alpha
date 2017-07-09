@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <include/core/sdl_structs.hpp>
+#include <include/core/tiletexture.hpp>
 #include <include/entity/player.hpp>
 #include <include/world/location.hpp>
 
@@ -28,23 +28,39 @@ public:
     ~Core();
 
     void init();
+    void close();
 
     const std::shared_ptr<Player>& getPlayer();
-
     const std::shared_ptr<Area>& getCurrentArea();
+    const sdl2::RendererShPtr& getRenderer();
+
+    SDL_Rect& getCamrea();
+    TileTexture& getTileTexture();
+
+    bool checkCollision(SDL_Rect a, SDL_Rect b);
+
+    TTF_Font* getFont();
 
 private:
     void gameLoop();
     bool initSDL();
 
     sdl2::WindowShPtr screen;
-    sdl2::SurfaceShPtr screenSurface;
+    sdl2::RendererShPtr gRender;
 
     std::shared_ptr<Player> player;
 
     std::shared_ptr<Area> currentArea;
+
+    SDL_Rect camera;
+    TileTexture gTileTexture;
+    TTF_Font* font;
+
+    const int SCREEN_WIDTH = 800;
+    const int SCREEN_HEIGHT = 600;
 };
 
 namespace MAIN {
     extern Core core;
+    const int TEXT_SIZE = 14;
 }

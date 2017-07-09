@@ -16,9 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/enums/enums.hpp>
 #include <include/world/terrain/water.hpp>
 
-Water::Water() : Terrain(CORE::SYMBOL::WATER){
-
+Water::Water(int x, int y) : Terrain(x, y, "~"){
+    setColor(0, 0, 255);
 }

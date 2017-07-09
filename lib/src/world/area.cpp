@@ -16,7 +16,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/world/area.hpp>
+#include <include/core/core.hpp>
+#include <include/core/randomnumbergenerator.hpp>
+
+#include <include/world/terrain/grass.hpp>
+#include <include/world/terrain/snow.hpp>
+#include <include/world/terrain/wall.hpp>
+#include <include/world/terrain/water.hpp>
 
 Area::Area(std::string id, unsigned int _width, unsigned int _height) {
     identifier = id;
@@ -28,7 +34,14 @@ Area::Area(std::string id, unsigned int _width, unsigned int _height) {
     areaSouth = nullptr;
     areaWest = nullptr;
 
-    genBlankMap();
+    for(unsigned int i = 0; i < height; i++){
+        map.push_back(std::vector<Terrain>());
+        map.at(i).reserve(width);
+
+        for(unsigned int j = 0; j < width; j++){
+            map.at(i).push_back(Terrain(i, j, " "));
+        }
+    }
 }
 
 Area::~Area() {
@@ -47,18 +60,6 @@ unsigned int Area::getHeight() {
     return height;
 }
 
-void Area::genBlankMap() {
-    map.reserve(height);
-    for(unsigned int i = 0; i < height; i++){
-        map.push_back(std::vector<Terrain>());
-        map.at(i).reserve(width);
-
-        for(unsigned int j = 0; j < width; j++){
-            map.at(i).push_back(Terrain(' '));
-        }
-    }
-}
-
 void Area::setMapSymbol(unsigned int row, unsigned int col, Terrain terrain) {
     map.at(row).at(col) = terrain;
 }
@@ -71,8 +72,8 @@ void Area::setEntitySymbol(unsigned int row, unsigned int col, char symbol) {
     entityLayer.at(row).at(col) = symbol;
 }
 
-const char Area::getMapSymbol(unsigned int row, unsigned int col) {
-    return map.at(row).at(col).getTerrainSymbols();
+const std::string Area::getMapSymbol(unsigned int row, unsigned int col) {
+    return map.at(row).at(col).getTerrainSymbol();
 }
 
 const Terrain Area::getMapTerrain(unsigned int row, unsigned int col) {
@@ -116,4 +117,38 @@ std::shared_ptr<Area> &Area::getAreaSouth() {
 
 std::shared_ptr<Area> &Area::getAreaWest() {
     return areaWest;
+}
+
+void Area::draw() {
+    for(auto& innerVec : map){
+        for(auto& terrain : innerVec){
+            terrain.render(MAIN::core.getCamrea());
+        }
+    }
+}
+
+void Area::genRandom() {
+    for(unsigned int i = 0; i < height; i++){
+        for(unsigned int j = 0; j < width; j++){
+            int num = RandomNumberGenerator::RollDice(0, 3);
+
+            switch (num){
+                case 0:
+                    map.at(i).at(j) = Grass(i, j);
+                    break;
+                case 1:
+                    map.at(i).at(j) = Snow(i, j);
+                    break;
+                case 2:
+                    map.at(i).at(j) = Wall(i, j);
+                    break;
+                case 3:
+                    map.at(i).at(j) = Water(i, j);
+                    break;
+                default:
+                    map.at(i).at(j) = Water(i, j);
+                    break;
+            }
+        }
+    }
 }

@@ -18,9 +18,33 @@
 
 #pragma once
 
-#include <include/world/terrain/terrain.hpp>
+#include <include/core/sdl_structs.hpp>
 
-class Grass : public Terrain {
+#include <SDL2/SDL_ttf.h>
+#include <string>
+
+class TileTexture {
 public:
-    Grass(int x, int y);
+    TileTexture();
+    ~TileTexture();
+
+    bool loadFromRenderedText(std::string texText, SDL_Color textColor);
+
+    void free();
+    void setColor(Uint8 red, Uint8 green, Uint8 blue);
+    void setBlendMode(SDL_BlendMode blendMode);
+    void setAlpha(Uint8 alpha);
+    void render(int x, int y, SDL_Rect* clip = nullptr, double angle = 0.0, SDL_Point* center = nullptr,
+                SDL_RendererFlip flip = SDL_FLIP_NONE);
+
+    int getWidth();
+    int getHeight();
+
+private:
+    sdl2::TextureShPtr mTexture;
+
+    SDL_Color fontColor = {255, 255, 255};
+
+    int width;
+    int height;
 };

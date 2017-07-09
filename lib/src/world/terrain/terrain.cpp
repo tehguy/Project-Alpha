@@ -16,16 +16,34 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/world/terrain/terrain.hpp>
+#include <include/core/core.hpp>
 
-Terrain::Terrain(char _symbol) {
+Terrain::Terrain(int x, int y, std::string _symbol) {
     symbol = _symbol;
+    mbox.x = x + 1;
+    mbox.y = y + 1;
 }
 
-char Terrain::getSymbol() const {
+std::string Terrain::getSymbol() const {
     return symbol;
 }
 
-const char Terrain::getTerrainSymbols() {
+const std::string Terrain::getTerrainSymbol() {
     return symbol;
+}
+
+void Terrain::render(SDL_Rect &camera) {
+    MAIN::core.getTileTexture().loadFromRenderedText(symbol, color);
+
+    if(MAIN::core.checkCollision(camera, mbox)){
+        MAIN::core.getTileTexture().render((mbox.x - camera.x)*MAIN::TEXT_SIZE, (mbox.y - camera.y)*MAIN::TEXT_SIZE);
+    }
+}
+
+SDL_Rect &Terrain::getBox() {
+    return mbox;
+}
+
+void Terrain::setColor(Uint8 r, Uint8 g, Uint8 b) {
+    color = {r, g, b};
 }

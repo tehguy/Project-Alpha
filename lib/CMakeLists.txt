@@ -1,9 +1,11 @@
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
 find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIR}
+        ${SDL2_IMAGE_INCLUDE_DIR}
         ${SDL2_TTF_INCLUDE_DIR})
 
 #find_package(Boost 1.64.0 COMPONENTS serialization REQUIRED)
@@ -19,6 +21,7 @@ set (SOURCE_FILES
         src/core/perlinnoise.cpp                include/core/perlinnoise.hpp
         src/core/randomnumbergenerator.cpp      include/core/randomnumbergenerator.hpp
                                                 include/core/sdl_structs.hpp
+        src/core/tiletexture.cpp                include/core/tiletexture.hpp
 
         src/entity/entity.cpp                   include/entity/entity.hpp
         src/entity/player.cpp                   include/entity/player.hpp
@@ -38,4 +41,4 @@ set (SOURCE_FILES
 
 add_library (engine SHARED ${SOURCE_FILES})
 target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(engine ${SDL2_LIBRARY} ${SDL2_TTF_LIBRARIES})
+target_link_libraries(engine ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES})
