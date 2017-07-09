@@ -32,13 +32,12 @@ Core::~Core() {
 
 void Core::init() {
     if(!initSDL()){
-        printf("something broke...");
         return;
     }
 
     camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
-    currentArea = std::shared_ptr<Area>(new Area("CPPAdventures", 50, 50));
+    currentArea = std::shared_ptr<Area>(new Area("test", 50, 50));
     currentArea->genRandom(237);
 
     gameLoop();
@@ -108,7 +107,7 @@ bool Core::initSDL() {
             return false;
         }
 
-        screen = sdl2::WindowShPtr(SDL_CreateWindow("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+        screen = sdl2::WindowShPtr(SDL_CreateWindow("CPPAdventures", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                                     SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN));
 
         if(screen == nullptr){
