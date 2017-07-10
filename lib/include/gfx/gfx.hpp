@@ -18,40 +18,14 @@
 
 #pragma once
 
-#include <include/gfx/gfx.hpp>
-#include <include/entity/player.hpp>
-#include <include/world/location.hpp>
+#include <include/core/sdl_structs.hpp>
+#include <include/gfx/tiletexture.hpp>
 
-class Core {
-public:
-    Core();
-    ~Core();
-
-    void init();
-    void close();
-
-    const std::shared_ptr<Player>& getPlayer();
-    const std::shared_ptr<Area>& getCurrentArea();
+namespace GFX {
+    extern sdl2::WindowShPtr screen;
+    extern sdl2::RendererShPtr gRender;
+    extern TileTexture gTileTexture;
+    extern SDL_Rect camera;
 
     bool checkCollision(SDL_Rect a, SDL_Rect b);
-    bool loadMedia();
-
-    //TTF_Font* getFont();
-
-private:
-    void gameLoop();
-    bool initSDL();
-
-    std::shared_ptr<Player> player;
-
-    std::shared_ptr<Area> currentArea;
-
-    //TTF_Font* font;
-
-    const int SCREEN_WIDTH = 800;
-    const int SCREEN_HEIGHT = 600;
-};
-
-namespace MAIN {
-    extern Core core;
 }

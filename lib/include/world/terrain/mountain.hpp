@@ -20,7 +20,7 @@
 
 #include <include/world/terrain/terrain.hpp>
 
-class Wall : public Terrain {
+class Mountain : public Terrain {
 public:
-    Wall(int x, int y);
+    Mountain(int x, int y);
 };

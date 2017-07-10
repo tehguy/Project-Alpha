@@ -18,40 +18,21 @@
 
 #pragma once
 
-#include <include/gfx/gfx.hpp>
-#include <include/entity/player.hpp>
-#include <include/world/location.hpp>
+#include <SDL2/SDL.h>
+#include <include/core/constants.hpp>
+#include <include/enums/enums.hpp>
 
-class Core {
+class Renderable {
 public:
-    Core();
-    ~Core();
+    Renderable(int x, int y, CORE::SYMBOL _symbol);
 
-    void init();
-    void close();
+    void render(SDL_Rect& camera);
 
-    const std::shared_ptr<Player>& getPlayer();
-    const std::shared_ptr<Area>& getCurrentArea();
-
-    bool checkCollision(SDL_Rect a, SDL_Rect b);
-    bool loadMedia();
-
-    //TTF_Font* getFont();
+    CORE::SYMBOL getSymbol();
 
 private:
-    void gameLoop();
-    bool initSDL();
 
-    std::shared_ptr<Player> player;
+    SDL_Rect mbox;
 
-    std::shared_ptr<Area> currentArea;
-
-    //TTF_Font* font;
-
-    const int SCREEN_WIDTH = 800;
-    const int SCREEN_HEIGHT = 600;
+    CORE::SYMBOL symbol;
 };
-
-namespace MAIN {
-    extern Core core;
-}

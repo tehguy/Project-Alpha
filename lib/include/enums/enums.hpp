@@ -50,7 +50,8 @@ namespace CORE {
         NONE = -1,
         GRASS = 0,
         WATER,
-        WALL,
-        SNOW
+        MOUNTAIN,
+        SNOW,
+        PLAYER
     };
 }

@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 
+#include <include/entity/entity.hpp>
 #include <include/world/terrain/terrain.hpp>
 
 class Area {
@@ -37,7 +38,7 @@ public:
     void setMapSymbol(unsigned int row, unsigned int col, Terrain terrain);
 
     void setItemSymbol(unsigned int row, unsigned int col, char symbol);
-    void setEntitySymbol(unsigned int row, unsigned int col, char symbol);
+    void setEntitySymbol(unsigned int row, unsigned int col, Entity& entity);
 
     const CORE::SYMBOL getMapSymbol(unsigned int row, unsigned int col);
 
@@ -65,7 +66,7 @@ private:
 
     std::vector<std::vector<Terrain>> map;
     std::vector<std::vector<char>> itemLayer;
-    std::vector<std::vector<char>> entityLayer;
+    std::vector<std::vector<Entity*>> entityLayer;
 
     std::shared_ptr<Area> areaNorth;
     std::shared_ptr<Area> areaEast;

@@ -16,12 +16,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
 #include <include/core/perlinnoise.hpp>
 
+#include <include/gfx/gfx.hpp>
+
+#include <include/world/area.hpp>
 #include <include/world/terrain/grass.hpp>
 #include <include/world/terrain/snow.hpp>
-#include <include/world/terrain/wall.hpp>
+#include <include/world/terrain/mountain.hpp>
 #include <include/world/terrain/water.hpp>
 
 Area::Area(std::string id, unsigned int _width, unsigned int _height) {
@@ -38,8 +40,12 @@ Area::Area(std::string id, unsigned int _width, unsigned int _height) {
         map.push_back(std::vector<Terrain>());
         map.at(i).reserve(width);
 
+        entityLayer.push_back(std::vector<Entity*>());
+        entityLayer.at(i).reserve(width);
+
         for(unsigned int j = 0; j < width; j++){
             map.at(i).push_back(Terrain(i, j, CORE::SYMBOL::NONE));
+            entityLayer.at(i).push_back(nullptr);
         }
     }
 }
@@ -68,8 +74,8 @@ void Area::setItemSymbol(unsigned int row, unsigned int col, char symbol) {
     itemLayer.at(row).at(col) = symbol;
 }
 
-void Area::setEntitySymbol(unsigned int row, unsigned int col, char symbol) {
-    entityLayer.at(row).at(col) = symbol;
+void Area::setEntitySymbol(unsigned int row, unsigned int col, Entity &entity) {
+    entityLayer.at(row).at(col) = &entity;
 }
 
 const CORE::SYMBOL Area::getMapSymbol(unsigned int row, unsigned int col) {
@@ -120,9 +126,14 @@ std::shared_ptr<Area> &Area::getAreaWest() {
 }
 
 void Area::draw() {
-    for(auto& innerVec : map){
-        for(auto& terrain : innerVec){
-            terrain.render(MAIN::core.getCamera());
+    for(unsigned int i = 0; i < height; i++){
+        for(unsigned int j = 0; j < width; j++){
+            if(entityLayer.at(i).at(j) != nullptr){
+                entityLayer.at(i).at(j)->render(GFX::camera);
+            }
+            else{
+                map.at(i).at(j).render(GFX::camera);
+            }
         }
     }
 }
@@ -142,7 +153,7 @@ void Area::genRandom(const unsigned int &seed) {
                 map.at(i).at(j) = Grass(i, j);
             }
             else if(n >= 0.6 && n < 0.8){
-                map.at(i).at(j) = Wall(i, j);
+                map.at(i).at(j) = Mountain(i, j);
             }
             else{
                 map.at(i).at(j) = Snow(i, j);

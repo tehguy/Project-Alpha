@@ -16,7 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#include <include/core/constants.hpp>
+#include <include/gfx/gfx.hpp>
 
 TileTexture::TileTexture() {
     mTexture = sdl2::TextureShPtr(nullptr);
@@ -38,7 +39,7 @@ bool TileTexture::loadFromFile(std::string path) {
     if(loadedSurface != nullptr){
         SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0xFF, 0x0, 0x0));
 
-        newTexture = SDL_CreateTextureFromSurface(MAIN::core.getRenderer().get(), loadedSurface);
+        newTexture = SDL_CreateTextureFromSurface(GFX::gRender.get(), loadedSurface);
         if(newTexture != nullptr){
             width = loadedSurface->w;
             height = loadedSurface->h;
@@ -99,7 +100,7 @@ void TileTexture::render(int x, int y, SDL_Rect *clip, double angle, SDL_Point *
         renderQuad.h = clip->h;
     }
 
-    SDL_RenderCopyEx(MAIN::core.getRenderer().get(), mTexture.get(), clip, &renderQuad, angle, center, flip);
+    SDL_RenderCopyEx(GFX::gRender.get(), mTexture.get(), clip, &renderQuad, angle, center, flip);
 }
 
 int TileTexture::getWidth() {
@@ -111,10 +112,11 @@ int TileTexture::getHeight() {
 }
 
 void TileTexture::setClips() {
-    gTileClips.push_back({0, 0, TILE_WIDTH, TILE_HEIGHT});
-    gTileClips.push_back({16, 0, TILE_WIDTH, TILE_HEIGHT});
-    gTileClips.push_back({32, 0, TILE_WIDTH, TILE_HEIGHT});
-    gTileClips.push_back({48, 0, TILE_WIDTH, TILE_HEIGHT});
+    gTileClips.push_back({0, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT});
+    gTileClips.push_back({16, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT});
+    gTileClips.push_back({32, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT});
+    gTileClips.push_back({48, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT});
+    gTileClips.push_back({0, 16, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT});
 }
 
 SDL_Rect &TileTexture::getClip(unsigned int index) {

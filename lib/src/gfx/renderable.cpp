@@ -16,42 +16,25 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
+#include <include/gfx/renderable.hpp>
 #include <include/gfx/gfx.hpp>
-#include <include/entity/player.hpp>
-#include <include/world/location.hpp>
 
-class Core {
-public:
-    Core();
-    ~Core();
+Renderable::Renderable(int x, int y, CORE::SYMBOL _symbol) {
+    mbox.x = x;
+    mbox.y = y;
+    mbox.w = CONSTANTS::TILE_WIDTH;
+    mbox.h = CONSTANTS::TILE_HEIGHT;
 
-    void init();
-    void close();
+    symbol = _symbol;
+}
 
-    const std::shared_ptr<Player>& getPlayer();
-    const std::shared_ptr<Area>& getCurrentArea();
+void Renderable::render(SDL_Rect &camera) {
+    if(GFX::checkCollision(camera, mbox)){
+        GFX::gTileTexture.render((mbox.x - camera.x)*mbox.w, (mbox.y - camera.y)*mbox.h,
+                                           &GFX::gTileTexture.getClip(symbol));
+    }
+}
 
-    bool checkCollision(SDL_Rect a, SDL_Rect b);
-    bool loadMedia();
-
-    //TTF_Font* getFont();
-
-private:
-    void gameLoop();
-    bool initSDL();
-
-    std::shared_ptr<Player> player;
-
-    std::shared_ptr<Area> currentArea;
-
-    //TTF_Font* font;
-
-    const int SCREEN_WIDTH = 800;
-    const int SCREEN_HEIGHT = 600;
-};
-
-namespace MAIN {
-    extern Core core;
+CORE::SYMBOL Renderable::getSymbol() {
+    return symbol;
 }

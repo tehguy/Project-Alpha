@@ -16,8 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/world/terrain/wall.hpp>
+#pragma once
 
-Wall::Wall(int x, int y) : Terrain(x, y, CORE::SYMBOL::WALL) {
+#include <include/core/sdl_structs.hpp>
 
+namespace CONSTANTS {
+    const int TILE_WIDTH = 16;
+    const int TILE_HEIGHT = 16;
 }

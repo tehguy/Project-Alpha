@@ -18,25 +18,10 @@
 
 #include <include/entity/player.hpp>
 
-Player::Player(unsigned int row_0, unsigned int col_0, unsigned int maxhp) : Entity('@',
+Player::Player(unsigned int row_0, unsigned int col_0, unsigned int maxhp) : Entity(CORE::SYMBOL::PLAYER, row_0, col_0,
                                                                                     maxhp, maxhp) {
-    row = row_0;
-    col = col_0;
     curExp = 0;
     expToNextLevel = 100;
-}
-
-void Player::pos(unsigned int row_0, unsigned int col_0) {
-    row = row_0;
-    col = col_0;
-}
-
-unsigned int Player::getRow() {
-    return row;
-}
-
-unsigned int Player::getCol() {
-    return col;
 }
 
 unsigned int Player::getCurExp() {

@@ -18,25 +18,6 @@
 
 #include <include/core/core.hpp>
 
-Terrain::Terrain(int x, int y, CORE::SYMBOL _symbol) {
-    symbol = _symbol;
-    mbox.x = x;
-    mbox.y = y;
-    mbox.w = TILE_WIDTH;
-    mbox.h = TILE_HEIGHT;
-}
+Terrain::Terrain(int x, int y, CORE::SYMBOL _symbol) : Renderable(x, y, _symbol) {
 
-CORE::SYMBOL Terrain::getSymbol() const {
-    return symbol;
-}
-
-void Terrain::render(SDL_Rect &camera) {
-    if(MAIN::core.checkCollision(camera, mbox)){
-        MAIN::core.getTileTexture().render((mbox.x - camera.x)*TILE_WIDTH, (mbox.y - camera.y)*TILE_HEIGHT,
-                                           &MAIN::core.getTileTexture().getClip(symbol));
-    }
-}
-
-SDL_Rect &Terrain::getBox() {
-    return mbox;
 }

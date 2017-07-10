@@ -24,11 +24,6 @@ class Player : public Entity{
 public:
     Player(unsigned int row_0, unsigned int col_0, unsigned int maxhp);
 
-    void pos(unsigned int row_0, unsigned int col_0);
-
-    unsigned int getRow();
-    unsigned int getCol();
-
     unsigned int getCurExp();
     unsigned int getExpToNextLevel();
 
@@ -39,8 +34,6 @@ public:
     void remHP(unsigned int amtToRem);
 
 private:
-    unsigned int col;
-    unsigned int row;
 
     unsigned int curExp, expToNextLevel;
 };

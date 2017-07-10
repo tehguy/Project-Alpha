@@ -16,12 +16,16 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ../runtime/lib)
 set(CMAKE_INSTALL_RPATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 set (SOURCE_FILES
+                                                include/core/constants.hpp
         src/core/core.cpp                       include/core/core.hpp
         src/core/diceroller.cpp                 include/core/diceroller.hpp
         src/core/perlinnoise.cpp                include/core/perlinnoise.hpp
         src/core/randomnumbergenerator.cpp      include/core/randomnumbergenerator.hpp
                                                 include/core/sdl_structs.hpp
-        src/core/tiletexture.cpp                include/core/tiletexture.hpp
+
+        src/gfx/gfx.cpp                         include/gfx/gfx.hpp
+        src/gfx/renderable.cpp                  include/gfx/renderable.hpp
+        src/gfx/tiletexture.cpp                 include/gfx/tiletexture.hpp
 
         src/entity/entity.cpp                   include/entity/entity.hpp
         src/entity/player.cpp                   include/entity/player.hpp
@@ -36,7 +40,7 @@ set (SOURCE_FILES
         src/world/terrain/grass.cpp             include/world/terrain/grass.hpp
         src/world/terrain/snow.cpp              include/world/terrain/snow.hpp
         src/world/terrain/terrain.cpp           include/world/terrain/terrain.hpp
-        src/world/terrain/wall.cpp              include/world/terrain/wall.hpp
+        src/world/terrain/mountain.cpp          include/world/terrain/mountain.hpp
         src/world/terrain/water.cpp             include/world/terrain/water.hpp)
 
 add_library (engine SHARED ${SOURCE_FILES})

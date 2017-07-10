@@ -18,15 +18,10 @@
 
 #include <include/entity/entity.hpp>
 
-Entity::Entity(char _symbol, unsigned int _curhp, unsigned int _maxhp) {
-    symbol = _symbol;
+Entity::Entity(CORE::SYMBOL _symbol, int x, int y, unsigned int _curhp, unsigned int _maxhp) : Renderable(x, y, _symbol) {
     curhp = _curhp;
     maxhp = _maxhp;
     size = 8;
-}
-
-const unsigned int Entity::getSymbol() {
-    return (const unsigned int) symbol;
 }
 
 const unsigned int Entity::getCurHP() {
@@ -52,8 +47,8 @@ void Entity::remHP(unsigned int amtToRem) {
 }
 
 void Entity::setPos(unsigned int _xpos, unsigned int _ypos) {
-    xpos = _xpos * size;
-    ypos = _ypos * size;
+    xpos = _xpos;
+    ypos = _ypos;
 }
 
 unsigned int Entity::getWorldXPos() {

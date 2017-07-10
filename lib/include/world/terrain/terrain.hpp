@@ -22,24 +22,12 @@
 #include <string>
 #include <vector>
 
+#include <include/core/constants.hpp>
 #include <include/enums/enums.hpp>
+#include <include/gfx/renderable.hpp>
 
-class Terrain {
+class Terrain : public Renderable {
 public:
     Terrain(int x, int y, CORE::SYMBOL _symbol);
 
-    CORE::SYMBOL getSymbol() const;
-
-    void render(SDL_Rect& camera);
-
-    SDL_Rect& getBox();
-
-private:
-    int xpos, ypos;
-
-    CORE::SYMBOL symbol;
-
-    int TILE_WIDTH = 16, TILE_HEIGHT = 16;
-
-    SDL_Rect mbox;
 };

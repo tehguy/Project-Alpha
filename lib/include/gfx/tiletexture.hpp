@@ -18,8 +18,6 @@
 
 #pragma once
 
-#include <include/core/sdl_structs.hpp>
-
 #include <SDL2/SDL_image.h>
 #include <string>
 #include <vector>
@@ -53,9 +51,6 @@ private:
 
     int width;
     int height;
-
-    const int TILE_WIDTH = 16;
-    const int TILE_HEIGHT = 16;
 
     std::vector<SDL_Rect> gTileClips;
 };

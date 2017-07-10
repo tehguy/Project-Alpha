@@ -16,7 +16,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <include/core/core.hpp>
-#include <include/core/randomnumbergenerator.hpp>
 
 namespace MAIN {
     Core core;
@@ -35,10 +34,13 @@ void Core::init() {
         return;
     }
 
-    camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    GFX::camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+
+    player = std::shared_ptr<Player>(new Player(25, 25, 20));
 
     currentArea = std::shared_ptr<Area>(new Area("test", 50, 50));
     currentArea->genRandom(237);
+    currentArea->setEntitySymbol(25, 25, *player);
 
     gameLoop();
     close();
@@ -70,12 +72,12 @@ void Core::gameLoop() {
                 }
             }
         }
-        SDL_SetRenderDrawColor(gRender.get(), 0x0, 0x0, 0x0, 0x0);
-        SDL_RenderClear(gRender.get());
+        SDL_SetRenderDrawColor(GFX::gRender.get(), 0x0, 0x0, 0x0, 0x0);
+        SDL_RenderClear(GFX::gRender.get());
 
         currentArea->draw();
 
-        SDL_RenderPresent(gRender.get());
+        SDL_RenderPresent(GFX::gRender.get());
     }
 }
 
@@ -107,19 +109,19 @@ bool Core::initSDL() {
             return false;
         }
 
-        screen = sdl2::WindowShPtr(SDL_CreateWindow("CPPAdventures", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+        GFX::screen = sdl2::WindowShPtr(SDL_CreateWindow("CPPAdventures", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                                     SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN));
 
-        if(screen == nullptr){
+        if(GFX::screen == nullptr){
             return false;
         }
         else {
-            gRender = sdl2::RendererShPtr(SDL_CreateRenderer(screen.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
-            if(gRender == nullptr){
+            GFX::gRender = sdl2::RendererShPtr(SDL_CreateRenderer(GFX::screen.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
+            if(GFX::gRender == nullptr){
                 return false;
             }
             else{
-                SDL_SetRenderDrawColor(gRender.get(), 0x0, 0x0, 0x0, 0x0);
+                SDL_SetRenderDrawColor(GFX::gRender.get(), 0x0, 0x0, 0x0, 0x0);
 
                 int imgFlags = IMG_INIT_PNG;
                 if( !( IMG_Init(imgFlags) & imgFlags ) ){
@@ -134,18 +136,6 @@ bool Core::initSDL() {
     }
 
     return true;
-}
-
-const sdl2::RendererShPtr &Core::getRenderer() {
-    return gRender;
-}
-
-SDL_Rect &Core::getCamera() {
-    return camera;
-}
-
-TileTexture &Core::getTileTexture() {
-    return gTileTexture;
 }
 
 bool Core::checkCollision(SDL_Rect a, SDL_Rect b) {
@@ -187,7 +177,7 @@ bool Core::checkCollision(SDL_Rect a, SDL_Rect b) {
 }
 
 bool Core::loadMedia() {
-    if(!gTileTexture.loadFromFile("./lib/spritesheet.png")){
+    if(!GFX::gTileTexture.loadFromFile("./lib/spritesheet.png")){
         printf("IMG Error: %s\n", IMG_GetError());
         return false;
     }

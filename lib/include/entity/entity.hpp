@@ -18,13 +18,15 @@
 
 #pragma once
 
+#include <include/core/constants.hpp>
 #include <include/enums/enums.hpp>
+#include <include/gfx/renderable.hpp>
+#include <SDL2/SDL.h>
 
-class Entity {
+class Entity : public Renderable {
 public:
-    Entity(char _symbol, unsigned int _curhp, unsigned int _maxhp);
+    Entity(CORE::SYMBOL _symbol, int x, int y, unsigned int _curhp, unsigned int _maxhp);
 
-    const unsigned int getSymbol();
     const unsigned int getCurHP();
     const unsigned int getMaxHP();
 
@@ -34,8 +36,8 @@ public:
     void setPos(unsigned int _xpos, unsigned int _ypos);
     unsigned int getWorldXPos();
     unsigned int getWorldYPos();
+
 private:
-    char symbol;
 
     unsigned int curhp, maxhp;
 
