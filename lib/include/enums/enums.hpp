@@ -47,7 +47,7 @@ namespace STATS {
 
 namespace CORE {
     enum SYMBOL {
-        NONE = -1,
+        NOSYM = -1,
         GRASS = 0,
         WATER,
         MOUNTAIN,

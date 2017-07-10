@@ -37,11 +37,11 @@ void Core::init() {
 
     GFX::camera = {0, 0, CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT};
 
-    player = std::shared_ptr<Player>(new Player(25, 25, 20));
+    player = std::shared_ptr<Player>(new Player(25, 24, 20));
 
     currentArea = std::shared_ptr<Area>(new Area("test", 50, 50));
     currentArea->genRandom(237);
-    currentArea->setEntitySymbol(25, 25, *player);
+    currentArea->setPlayerLocation(player->getWorldXPos(), player->getWorldYPos(), *player);
 
     gameLoop();
     close();
@@ -63,12 +63,22 @@ void Core::gameLoop() {
                 quit = true;
             }
             else if(e.type == SDL_KEYDOWN){
-                switch (e.key.keysym.sym){
-                    case SDLK_q:
-                        quit = true;
-                        break;
-                    default:
-                        break;
+                auto sym = e.key.keysym.sym;
+
+                if(sym == SDLK_q){
+                    quit = true;
+                }
+                else if(sym == SDLK_w || sym == SDLK_UP){
+                    movePlayer(player->getWorldXPos(), player->getWorldYPos() - 1);
+                }
+                else if(sym == SDLK_s || sym == SDLK_DOWN){
+                    movePlayer(player->getWorldXPos(), player->getWorldYPos() + 1);
+                }
+                else if(sym == SDLK_a || sym == SDLK_LEFT){
+                    movePlayer(player->getWorldXPos() - 1, player->getWorldYPos());
+                }
+                else if(sym == SDLK_d || sym == SDLK_RIGHT){
+                    movePlayer(player->getWorldXPos() + 1, player->getWorldYPos());
                 }
             }
         }
@@ -87,4 +97,8 @@ const std::shared_ptr<Player> &Core::getPlayer() {
 
 const std::shared_ptr<Area> &Core::getCurrentArea() {
     return currentArea;
+}
+
+void Core::movePlayer(unsigned int x, unsigned int y) {
+    currentArea->setPlayerLocation(x, y, *player);
 }

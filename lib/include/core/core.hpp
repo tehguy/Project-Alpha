@@ -33,6 +33,8 @@ public:
     const std::shared_ptr<Player>& getPlayer();
     const std::shared_ptr<Area>& getCurrentArea();
 
+    void movePlayer(unsigned int x, unsigned int y);
+
 private:
     void gameLoop();
 

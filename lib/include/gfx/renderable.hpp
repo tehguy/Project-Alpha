@@ -26,9 +26,11 @@ class Renderable {
 public:
     Renderable(int x, int y, CORE::SYMBOL _symbol);
 
-    void render(SDL_Rect& camera);
+    void render();
 
     CORE::SYMBOL getSymbol();
+
+    void setMboxPos(int x, int y);
 
 private:
 

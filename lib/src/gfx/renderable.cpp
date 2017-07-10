@@ -28,13 +28,18 @@ Renderable::Renderable(int x, int y, CORE::SYMBOL _symbol) {
     symbol = _symbol;
 }
 
-void Renderable::render(SDL_Rect &camera) {
-    if(GFX::checkCollision(camera, mbox)){
-        GFX::gTileTexture.render((mbox.x - camera.x)*mbox.w, (mbox.y - camera.y)*mbox.h,
+void Renderable::render() {
+    if(GFX::checkCollision(GFX::camera, mbox)){
+        GFX::gTileTexture.render((mbox.x - GFX::camera.x)*mbox.w, (mbox.y - GFX::camera.y)*mbox.h,
                                            &GFX::gTileTexture.getClip(symbol));
     }
 }
 
 CORE::SYMBOL Renderable::getSymbol() {
     return symbol;
+}
+
+void Renderable::setMboxPos(int x, int y) {
+    mbox.x = x;
+    mbox.y = y;
 }
