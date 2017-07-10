@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <include/core/constants.hpp>
 #include <include/gfx/gfx.hpp>
 
 namespace GFX {
@@ -60,5 +61,63 @@ namespace GFX {
 
         return leftA < rightB;
 
+    }
+
+    bool initSDL() {
+        if( (SDL_Init( SDL_INIT_VIDEO ) < 0) ){
+            return false;
+        }
+        else {
+            /*if(TTF_Init() < 0){
+                printf("TTF error: %s\n", TTF_GetError());
+                return false;
+            }
+            else{
+                font = TTF_OpenFont("./lib/Cuprum-Regular.ttf", MAIN::TEXT_SIZE);
+                if(!font){
+                    printf("TTF_Openfont: %s\n", TTF_GetError());
+                }
+            }*/
+
+            if( !SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear" )){
+                return false;
+            }
+
+            screen = sdl2::WindowShPtr(SDL_CreateWindow("CPPAdventures", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                                             CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT, SDL_WINDOW_SHOWN));
+
+            if(screen == nullptr){
+                return false;
+            }
+            else {
+                gRender = sdl2::RendererShPtr(SDL_CreateRenderer(GFX::screen.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
+                if(gRender == nullptr){
+                    return false;
+                }
+                else{
+                    SDL_SetRenderDrawColor(gRender.get(), 0x0, 0x0, 0x0, 0x0);
+
+                    int imgFlags = IMG_INIT_PNG;
+                    if( !( IMG_Init(imgFlags) & imgFlags ) ){
+                        return false;
+                    }
+
+                    if(!loadMedia()){
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    bool loadMedia() {
+        if(!gTileTexture.loadFromFile("./lib/spritesheet.png")){
+            printf("IMG Error: %s\n", IMG_GetError());
+            return false;
+        }
+
+        return true;
     }
 }

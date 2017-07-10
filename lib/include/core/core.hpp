@@ -33,23 +33,12 @@ public:
     const std::shared_ptr<Player>& getPlayer();
     const std::shared_ptr<Area>& getCurrentArea();
 
-    bool checkCollision(SDL_Rect a, SDL_Rect b);
-    bool loadMedia();
-
-    //TTF_Font* getFont();
-
 private:
     void gameLoop();
-    bool initSDL();
 
     std::shared_ptr<Player> player;
 
     std::shared_ptr<Area> currentArea;
-
-    //TTF_Font* font;
-
-    const int SCREEN_WIDTH = 800;
-    const int SCREEN_HEIGHT = 600;
 };
 
 namespace MAIN {

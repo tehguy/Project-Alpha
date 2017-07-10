@@ -28,4 +28,7 @@ namespace GFX {
     extern SDL_Rect camera;
 
     bool checkCollision(SDL_Rect a, SDL_Rect b);
+
+    bool initSDL();
+    bool loadMedia();
 }
