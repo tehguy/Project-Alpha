@@ -68,17 +68,6 @@ namespace GFX {
             return false;
         }
         else {
-            /*if(TTF_Init() < 0){
-                printf("TTF error: %s\n", TTF_GetError());
-                return false;
-            }
-            else{
-                font = TTF_OpenFont("./lib/Cuprum-Regular.ttf", MAIN::TEXT_SIZE);
-                if(!font){
-                    printf("TTF_Openfont: %s\n", TTF_GetError());
-                }
-            }*/
-
             if( !SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear" )){
                 return false;
             }
