@@ -112,18 +112,18 @@ void Core::movePlayer(unsigned int x, unsigned int y) {
 void Core::centerCameraAroundPlayer() {
     int cameraXCenter = (GFX::camera.x + GFX::camera.w) / (2 * CONSTANTS::TILE_WIDTH);
     int cameraYCenter = (GFX::camera.y + GFX::camera.h) / (2 * CONSTANTS::TILE_HEIGHT);
-    int adjWidth = GFX::camera.w / CONSTANTS::TILE_WIDTH;
-    int adjHeight = GFX::camera.h / CONSTANTS::TILE_HEIGHT;
+    int adjustedWidth = GFX::camera.w / CONSTANTS::TILE_WIDTH;
+    int adjustedHeight = GFX::camera.h / CONSTANTS::TILE_HEIGHT;
 
     int cameraX = GFX::camera.x;
     int cameraY = GFX::camera.y;
 
 
     if(cameraXCenter != player->getWorldXPos()){
-        cameraX = player->getWorldXPos() - adjWidth;
+        cameraX = player->getWorldXPos() - adjustedWidth;
     }
-    if((cameraX + adjWidth) > currentArea->getWidth()){
-        cameraX = currentArea->getWidth() - adjWidth;
+    if((cameraX + adjustedWidth) > currentArea->getWidth()){
+        cameraX = currentArea->getWidth() - adjustedWidth;
     }
     if(cameraX < 0){
         cameraX = 0;
@@ -132,8 +132,8 @@ void Core::centerCameraAroundPlayer() {
     if(cameraYCenter != player->getWorldYPos()){
         cameraY = player->getWorldYPos() - cameraYCenter;
     }
-    if((cameraY + adjHeight) > currentArea->getHeight()){
-        cameraY = currentArea->getHeight() - adjHeight;
+    if((cameraY + adjustedHeight) > currentArea->getHeight()){
+        cameraY = currentArea->getHeight() - adjustedHeight;
     }
     if(cameraY < 0){
         cameraY = 0;
