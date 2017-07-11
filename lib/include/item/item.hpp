@@ -18,18 +18,15 @@
 
 #pragma once
 
-#include <curses.h>
 #include <vector>
+#include <include/enums/enums.hpp>
 
 class Item {
 public:
-    Item(chtype _symbol, chtype _csymbol);
+    Item(CORE::SYMBOL _symbol);
 
-    chtype getSymbol() const;
-    chtype getCSymbol() const;
-
-    const std::vector<chtype> getItemSymbols();
+    CORE::SYMBOL getSymbol() const;
 
 private:
-    chtype symbol, csymbol;
+    CORE::SYMBOL symbol;
 };

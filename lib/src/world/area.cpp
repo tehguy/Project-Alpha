@@ -70,8 +70,8 @@ void Area::setMapSymbol(unsigned int x, unsigned int y, Terrain *terrain) {
     map.at(x).at(y) = terrain;
 }
 
-void Area::setItemSymbol(unsigned int x, unsigned int y, char symbol) {
-    itemLayer.at(x).at(y) = symbol;
+void Area::setItemSymbol(unsigned int x, unsigned int y, Item *item) {
+    itemLayer.at(x).at(y) = item;
 }
 
 void Area::setEntitySymbol(unsigned int x, unsigned int y, Entity *entity) {
@@ -102,7 +102,19 @@ bool Area::moveEntity(unsigned int x, unsigned int y, Entity &entity) {
 }
 
 const CORE::SYMBOL Area::getMapSymbol(unsigned int row, unsigned int col) {
-    return map.at(row).at(col)->getSymbol();
+    if(map.at(row).at(col) != nullptr){
+        return map.at(row).at(col)->getSymbol();
+    }
+
+    return CORE::SYMBOL::NOSYM;
+}
+
+const CORE::SYMBOL Area::getItemSymbol(unsigned int x, unsigned int y) {
+    if(itemLayer.at(x).at(y) != nullptr){
+        return itemLayer.at(x).at(y)->getSymbol();
+    }
+
+    return CORE::SYMBOL::NOSYM;
 }
 
 const CORE::SYMBOL Area::getEntitySymbol(unsigned int row, unsigned int col) {

@@ -23,6 +23,7 @@
 #include <vector>
 
 #include <include/entity/player.hpp>
+#include <include/item/item.hpp>
 #include <include/world/terrain/terrain.hpp>
 
 class Area {
@@ -36,11 +37,12 @@ public:
     unsigned int getHeight();
 
     void setMapSymbol(unsigned int x, unsigned int y, Terrain* terrain);
-    void setItemSymbol(unsigned int x, unsigned int y, char symbol);
+    void setItemSymbol(unsigned int x, unsigned int y, Item *item);
     void setEntitySymbol(unsigned int x, unsigned int y, Entity* entity);
     bool moveEntity(unsigned int x, unsigned int y, Entity& entity);
 
     const CORE::SYMBOL getMapSymbol(unsigned int row, unsigned int col);
+    const CORE::SYMBOL getItemSymbol(unsigned int x, unsigned int y);
     const CORE::SYMBOL getEntitySymbol(unsigned int row, unsigned int col);
 
     void unlinkAreas();
@@ -64,7 +66,7 @@ private:
     unsigned int width, height;
 
     std::vector<std::vector<Terrain*>> map;
-    std::vector<std::vector<char>> itemLayer;
+    std::vector<std::vector<Item*>> itemLayer;
     std::vector<std::vector<Entity*>> entityLayer;
 
     std::shared_ptr<Area> areaNorth;

@@ -24,13 +24,13 @@
 
 class Renderable {
 public:
-    Renderable(int x, int y, CORE::SYMBOL _symbol);
+    Renderable(unsigned int x, unsigned int y, CORE::SYMBOL _symbol);
 
     void render();
 
     CORE::SYMBOL getSymbol();
 
-    void setWorldPosition(int x, int y);
+    void setWorldPosition(unsigned int x, unsigned int y);
 
     unsigned int getWorldXPos();
     unsigned int getWorldYPos();

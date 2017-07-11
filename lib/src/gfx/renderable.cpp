@@ -16,16 +16,16 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/gfx/renderable.hpp>
 #include <include/gfx/gfx.hpp>
+#include <include/gfx/renderable.hpp>
 
-Renderable::Renderable(int x, int y, CORE::SYMBOL _symbol) {
+Renderable::Renderable(unsigned int x, unsigned int y, CORE::SYMBOL _symbol) {
     mbox.x = x;
     mbox.y = y;
     mbox.w = CONSTANTS::TILE_WIDTH;
     mbox.h = CONSTANTS::TILE_HEIGHT;
-    xpos = (unsigned int) x;
-    ypos = (unsigned int) y;
+    xpos = x;
+    ypos = y;
 
     symbol = _symbol;
 }
@@ -41,11 +41,11 @@ CORE::SYMBOL Renderable::getSymbol() {
     return symbol;
 }
 
-void Renderable::setWorldPosition(int x, int y) {
+void Renderable::setWorldPosition(unsigned int x, unsigned int y) {
     mbox.x = x;
     mbox.y = y;
-    xpos = (unsigned int) x;
-    ypos = (unsigned int) y;
+    xpos = x;
+    ypos = y;
 }
 
 unsigned int Renderable::getWorldXPos() {

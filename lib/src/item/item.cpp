@@ -18,19 +18,11 @@
 
 #include <include/item/item.hpp>
 
-Item::Item(chtype _symbol, chtype _csymbol) {
+Item::Item(CORE::SYMBOL _symbol) {
     symbol = _symbol;
-    csymbol = _csymbol;
 }
 
-chtype Item::getSymbol() const {
+CORE::SYMBOL Item::getSymbol() const {
     return symbol;
 }
 
-chtype Item::getCSymbol() const {
-    return csymbol;
-}
-
-const std::vector<chtype> Item::getItemSymbols() {
-    return {symbol, csymbol};
-}
