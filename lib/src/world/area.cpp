@@ -66,26 +66,33 @@ unsigned int Area::getHeight() {
     return height;
 }
 
-void Area::setMapSymbol(unsigned int row, unsigned int col, Terrain terrain) {
-    map.at(row).at(col) = &terrain;
+void Area::setMapSymbol(unsigned int x, unsigned int y, Terrain *terrain) {
+    map.at(x).at(y) = terrain;
 }
 
-void Area::setItemSymbol(unsigned int row, unsigned int col, char symbol) {
-    itemLayer.at(row).at(col) = symbol;
+void Area::setItemSymbol(unsigned int x, unsigned int y, char symbol) {
+    itemLayer.at(x).at(y) = symbol;
 }
 
-void Area::setEntitySymbol(unsigned int x, unsigned int y, Entity &entity) {
-    if((x >= 0 && x < width) && (y >= 0 && y < height)){
-        unsigned int prevXPos = entity.getWorldXPos();
-        unsigned int prevYPos = entity.getWorldYPos();
+void Area::setEntitySymbol(unsigned int x, unsigned int y, Entity *entity) {
+    entityLayer.at(x).at(y) = entity;
+}
 
-        if(entityLayer.at(prevXPos).at(prevYPos) != nullptr
-           && (entityLayer.at(prevXPos).at(prevYPos)->getSymbol() == entity.getSymbol())){
-            entityLayer.at(prevXPos).at(prevYPos) = nullptr;
+void Area::moveEntity(unsigned int x, unsigned int y, Entity &entity) {
+    CORE::SYMBOL target = getMapSymbol(x, y);
+
+    if(target != CORE::SYMBOL::WATER && target != CORE::SYMBOL::MOUNTAIN){
+        if((x >= 0 && x < width) && (y >= 0 && y < height)){
+            unsigned int prevXPos = entity.getWorldXPos();
+            unsigned int prevYPos = entity.getWorldYPos();
+
+            if(getEntitySymbol(prevXPos, prevYPos) == entity.getSymbol()){
+                setEntitySymbol(prevXPos, prevYPos, nullptr);
+            }
+
+            entity.setMboxPos(x, y);
+            setEntitySymbol(x, y, &entity);
         }
-
-        entity.setMboxPos(x, y);
-        entityLayer.at(x).at(y) = &entity;
     }
 }
 
@@ -99,10 +106,6 @@ const CORE::SYMBOL Area::getEntitySymbol(unsigned int row, unsigned int col) {
     }
 
     return CORE::SYMBOL::NOSYM;
-}
-
-const Terrain Area::getMapTerrain(unsigned int row, unsigned int col) {
-    return *map.at(row).at(col);
 }
 
 void Area::unlinkAreas() {
@@ -166,16 +169,16 @@ void Area::genRandom(const unsigned int &seed) {
             double n = PerlinNoise::NoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
 
             if(n < 0.35){
-                map.at(i).at(j) = new Water(i, j);
+                setMapSymbol(i, j, new Water(i, j));
             }
             else if(n >= 0.35 && n < 0.6){
-                map.at(i).at(j) = new Grass(i, j);
+                setMapSymbol(i, j, new Grass(i, j));
             }
             else if(n >= 0.6 && n < 0.8){
-                map.at(i).at(j) = new Mountain(i, j);
+                setMapSymbol(i, j, new Mountain(i, j));
             }
             else{
-                map.at(i).at(j) = new Snow(i, j);
+                setMapSymbol(i, j, new Snow(i, j));
             }
         }
     }

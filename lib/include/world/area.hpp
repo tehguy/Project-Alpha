@@ -35,15 +35,13 @@ public:
     unsigned int getWidth();
     unsigned int getHeight();
 
-    void setMapSymbol(unsigned int row, unsigned int col, Terrain terrain);
-
-    void setItemSymbol(unsigned int row, unsigned int col, char symbol);
-    void setEntitySymbol(unsigned int row, unsigned int col, Entity& entity);
+    void setMapSymbol(unsigned int x, unsigned int y, Terrain* terrain);
+    void setItemSymbol(unsigned int x, unsigned int y, char symbol);
+    void setEntitySymbol(unsigned int x, unsigned int y, Entity* entity);
+    void moveEntity(unsigned int x, unsigned int y, Entity& entity);
 
     const CORE::SYMBOL getMapSymbol(unsigned int row, unsigned int col);
     const CORE::SYMBOL getEntitySymbol(unsigned int row, unsigned int col);
-
-    const Terrain getMapTerrain(unsigned int row, unsigned int col);
 
     void unlinkAreas();
 

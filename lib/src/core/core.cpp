@@ -41,7 +41,7 @@ void Core::init() {
 
     currentArea = std::shared_ptr<Area>(new Area("test", 50, 50));
     currentArea->genRandom(237);
-    currentArea->setEntitySymbol(player->getWorldXPos(), player->getWorldYPos(), *player);
+    currentArea->setEntitySymbol(player->getWorldXPos(), player->getWorldYPos(), &(*player));
     centerCameraAroundPlayer();
 
     gameLoop();
@@ -106,7 +106,7 @@ const std::shared_ptr<Area> &Core::getCurrentArea() {
 }
 
 void Core::movePlayer(unsigned int x, unsigned int y) {
-    currentArea->setEntitySymbol(x, y, *player);
+    currentArea->moveEntity(x, y, *player);
 }
 
 void Core::centerCameraAroundPlayer() {
