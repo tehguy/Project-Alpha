@@ -34,6 +34,7 @@ public:
     const std::shared_ptr<Area>& getCurrentArea();
 
     void movePlayer(unsigned int x, unsigned int y);
+    void centerCameraAroundPlayer();
 
 private:
     void gameLoop();

@@ -39,7 +39,6 @@ public:
 
     void setItemSymbol(unsigned int row, unsigned int col, char symbol);
     void setEntitySymbol(unsigned int row, unsigned int col, Entity& entity);
-    void setPlayerLocation(unsigned int row, unsigned int col, Player& player);
 
     const CORE::SYMBOL getMapSymbol(unsigned int row, unsigned int col);
     const CORE::SYMBOL getEntitySymbol(unsigned int row, unsigned int col);

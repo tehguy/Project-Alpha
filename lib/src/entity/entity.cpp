@@ -21,7 +21,7 @@
 Entity::Entity(CORE::SYMBOL _symbol, int x, int y, unsigned int _curhp, unsigned int _maxhp) : Renderable(x, y, _symbol) {
     curhp = _curhp;
     maxhp = _maxhp;
-    setPos((unsigned int) x, (unsigned int) y);
+    setMboxPos((unsigned int) x, (unsigned int) y);
 }
 
 const unsigned int Entity::getCurHP() {
@@ -44,18 +44,4 @@ void Entity::remHP(unsigned int amtToRem) {
     if(curhp < 0) {
         curhp = 0;
     }
-}
-
-void Entity::setPos(unsigned int _xpos, unsigned int _ypos) {
-    xpos = _xpos;
-    ypos = _ypos;
-    setMboxPos(_xpos, _ypos);
-}
-
-unsigned int Entity::getWorldXPos() {
-    return xpos;
-}
-
-unsigned int Entity::getWorldYPos() {
-    return ypos;
 }

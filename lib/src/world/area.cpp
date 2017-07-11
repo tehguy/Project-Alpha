@@ -75,22 +75,18 @@ void Area::setItemSymbol(unsigned int row, unsigned int col, char symbol) {
 }
 
 void Area::setEntitySymbol(unsigned int x, unsigned int y, Entity &entity) {
-    entityLayer.at(x).at(y) = &entity;
-}
+    if((x >= 0 && x < width) && (y >= 0 && y < height)){
+        unsigned int prevXPos = entity.getWorldXPos();
+        unsigned int prevYPos = entity.getWorldYPos();
 
-void Area::setPlayerLocation(unsigned int x, unsigned int y, Player &player) {
-    unsigned int playerX = player.getWorldXPos();
-    unsigned int playerY = player.getWorldYPos();
+        if(entityLayer.at(prevXPos).at(prevYPos) != nullptr
+           && (entityLayer.at(prevXPos).at(prevYPos)->getSymbol() == entity.getSymbol())){
+            entityLayer.at(prevXPos).at(prevYPos) = nullptr;
+        }
 
-    if(entityLayer.at(playerX).at(playerY) != nullptr
-       && (entityLayer.at(playerX).at(playerY)->getSymbol() == CORE::SYMBOL::PLAYER)){
-        entityLayer.at(playerX).at(playerY) = nullptr;
-        //printf("X: %i | Y: %i\n", playerX, playerY);
+        entity.setMboxPos(x, y);
+        entityLayer.at(x).at(y) = &entity;
     }
-
-    player.setPos(x, y);
-
-    setEntitySymbol(x, y, player);
 }
 
 const CORE::SYMBOL Area::getMapSymbol(unsigned int row, unsigned int col) {

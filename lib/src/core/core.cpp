@@ -41,7 +41,8 @@ void Core::init() {
 
     currentArea = std::shared_ptr<Area>(new Area("test", 50, 50));
     currentArea->genRandom(237);
-    currentArea->setPlayerLocation(player->getWorldXPos(), player->getWorldYPos(), *player);
+    currentArea->setEntitySymbol(player->getWorldXPos(), player->getWorldYPos(), *player);
+    centerCameraAroundPlayer();
 
     gameLoop();
     close();
@@ -70,18 +71,23 @@ void Core::gameLoop() {
                 }
                 else if(sym == SDLK_w || sym == SDLK_UP){
                     movePlayer(player->getWorldXPos(), player->getWorldYPos() - 1);
+                    centerCameraAroundPlayer();
                 }
                 else if(sym == SDLK_s || sym == SDLK_DOWN){
                     movePlayer(player->getWorldXPos(), player->getWorldYPos() + 1);
+                    centerCameraAroundPlayer();
                 }
                 else if(sym == SDLK_a || sym == SDLK_LEFT){
                     movePlayer(player->getWorldXPos() - 1, player->getWorldYPos());
+                    centerCameraAroundPlayer();
                 }
                 else if(sym == SDLK_d || sym == SDLK_RIGHT){
                     movePlayer(player->getWorldXPos() + 1, player->getWorldYPos());
+                    centerCameraAroundPlayer();
                 }
             }
         }
+
         SDL_SetRenderDrawColor(GFX::gRender.get(), 0x0, 0x0, 0x0, 0x0);
         SDL_RenderClear(GFX::gRender.get());
 
@@ -100,5 +106,39 @@ const std::shared_ptr<Area> &Core::getCurrentArea() {
 }
 
 void Core::movePlayer(unsigned int x, unsigned int y) {
-    currentArea->setPlayerLocation(x, y, *player);
+    currentArea->setEntitySymbol(x, y, *player);
+}
+
+void Core::centerCameraAroundPlayer() {
+    int cameraXCenter = (GFX::camera.x + GFX::camera.w) / (2 * CONSTANTS::TILE_WIDTH);
+    int cameraYCenter = (GFX::camera.y + GFX::camera.h) / (2 * CONSTANTS::TILE_HEIGHT);
+    int adjWidth = GFX::camera.w / CONSTANTS::TILE_WIDTH;
+    int adjHeight = GFX::camera.h / CONSTANTS::TILE_HEIGHT;
+
+    int cameraX = GFX::camera.x;
+    int cameraY = GFX::camera.y;
+
+
+    if(cameraXCenter != player->getWorldXPos()){
+        cameraX = player->getWorldXPos() - adjWidth;
+    }
+    if((cameraX + adjWidth) > currentArea->getWidth()){
+        cameraX = currentArea->getWidth() - adjWidth;
+    }
+    if(cameraX < 0){
+        cameraX = 0;
+    }
+
+    if(cameraYCenter != player->getWorldYPos()){
+        cameraY = player->getWorldYPos() - cameraYCenter;
+    }
+    if((cameraY + adjHeight) > currentArea->getHeight()){
+        cameraY = currentArea->getHeight() - adjHeight;
+    }
+    if(cameraY < 0){
+        cameraY = 0;
+    }
+
+    GFX::camera.x = cameraX;
+    GFX::camera.y = cameraY;
 }

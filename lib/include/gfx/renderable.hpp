@@ -32,9 +32,14 @@ public:
 
     void setMboxPos(int x, int y);
 
+    unsigned int getWorldXPos();
+    unsigned int getWorldYPos();
+
 private:
 
     SDL_Rect mbox;
+
+    unsigned int xpos, ypos;
 
     CORE::SYMBOL symbol;
 };

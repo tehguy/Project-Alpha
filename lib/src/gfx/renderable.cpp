@@ -42,4 +42,14 @@ CORE::SYMBOL Renderable::getSymbol() {
 void Renderable::setMboxPos(int x, int y) {
     mbox.x = x;
     mbox.y = y;
+    xpos = (unsigned int) x;
+    ypos = (unsigned int) y;
+}
+
+unsigned int Renderable::getWorldXPos() {
+    return xpos;
+}
+
+unsigned int Renderable::getWorldYPos() {
+    return ypos;
 }

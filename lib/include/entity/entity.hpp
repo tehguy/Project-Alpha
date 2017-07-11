@@ -33,13 +33,7 @@ public:
     virtual void addHP(unsigned int amtToAdd);
     virtual void remHP(unsigned int amtToRem);
 
-    void setPos(unsigned int _xpos, unsigned int _ypos);
-    unsigned int getWorldXPos();
-    unsigned int getWorldYPos();
-
 private:
 
     unsigned int curhp, maxhp;
-
-    unsigned int xpos, ypos, size;
 };
