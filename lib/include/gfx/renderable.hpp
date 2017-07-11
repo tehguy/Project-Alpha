@@ -30,7 +30,7 @@ public:
 
     CORE::SYMBOL getSymbol();
 
-    void setMboxPos(int x, int y);
+    void setWorldPosition(int x, int y);
 
     unsigned int getWorldXPos();
     unsigned int getWorldYPos();

@@ -41,7 +41,7 @@ CORE::SYMBOL Renderable::getSymbol() {
     return symbol;
 }
 
-void Renderable::setMboxPos(int x, int y) {
+void Renderable::setWorldPosition(int x, int y) {
     mbox.x = x;
     mbox.y = y;
     xpos = (unsigned int) x;

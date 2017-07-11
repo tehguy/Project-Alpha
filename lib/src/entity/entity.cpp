@@ -21,7 +21,7 @@
 Entity::Entity(CORE::SYMBOL _symbol, int x, int y, unsigned int _curhp, unsigned int _maxhp) : Renderable(x, y, _symbol) {
     curhp = _curhp;
     maxhp = _maxhp;
-    setMboxPos((unsigned int) x, (unsigned int) y);
+    setWorldPosition((unsigned int) x, (unsigned int) y);
 
     prevX = 0;
     prevY = 0;

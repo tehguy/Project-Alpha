@@ -28,19 +28,21 @@ public:
     ~Core();
 
     void init();
-    void close();
 
     const std::shared_ptr<Player>& getPlayer();
+    const std::shared_ptr<Location>& getCurrentLocation();
     const std::shared_ptr<Area>& getCurrentArea();
+
+private:
+    void close();
+
+    void gameLoop();
 
     bool movePlayer(unsigned int x, unsigned int y);
     void centerCameraAroundPlayer(bool didPlayerMove);
 
-private:
-    void gameLoop();
-
     std::shared_ptr<Player> player;
-
+    std::shared_ptr<Location> currentLocation;
     std::shared_ptr<Area> currentArea;
 };
 

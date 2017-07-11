@@ -101,6 +101,10 @@ const std::shared_ptr<Player> &Core::getPlayer() {
     return player;
 }
 
+const std::shared_ptr<Location> &Core::getCurrentLocation() {
+    return currentLocation;
+}
+
 const std::shared_ptr<Area> &Core::getCurrentArea() {
     return currentArea;
 }
@@ -109,7 +113,7 @@ bool Core::movePlayer(unsigned int x, unsigned int y) {
     return currentArea->moveEntity(x, y, *player);
 }
 
-void Core::centerCameraAroundPlayer(bool didPlayerMove = false) {
+void Core::centerCameraAroundPlayer(bool didPlayerMove = true) {
     if(didPlayerMove){
         int cameraXCenter = (GFX::camera.x + (GFX::camera.w / CONSTANTS::TILE_WIDTH)) / 2;
         int cameraYCenter = (GFX::camera.y + (GFX::camera.h / CONSTANTS::TILE_HEIGHT)) / 2;

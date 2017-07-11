@@ -22,8 +22,6 @@
 #include <string>
 #include <vector>
 
-#include <include/core/constants.hpp>
-#include <include/enums/enums.hpp>
 #include <include/gfx/renderable.hpp>
 
 class Terrain : public Renderable {

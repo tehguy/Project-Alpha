@@ -91,7 +91,7 @@ bool Area::moveEntity(unsigned int x, unsigned int y, Entity &entity) {
                 setEntitySymbol(prevXPos, prevYPos, nullptr);
             }
 
-            entity.setMboxPos(x, y);
+            entity.setWorldPosition(x, y);
             setEntitySymbol(x, y, &entity);
 
             return true;
