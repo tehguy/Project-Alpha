@@ -24,6 +24,6 @@ namespace CONSTANTS {
     const int TILE_WIDTH = 16;
     const int TILE_HEIGHT = 16;
 
-    const int SCREEN_WIDTH = 800;
-    const int SCREEN_HEIGHT = 608;
+    const int SCREEN_WIDTH = 1280;
+    const int SCREEN_HEIGHT = 720;
 }

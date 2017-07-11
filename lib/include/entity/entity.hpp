@@ -33,7 +33,11 @@ public:
     virtual void addHP(unsigned int amtToAdd);
     virtual void remHP(unsigned int amtToRem);
 
-private:
+    void setPrevPos(int x, int y);
+    int getPrevX();
+    int getPrevY();
 
+private:
+    int prevX, prevY;
     unsigned int curhp, maxhp;
 };

@@ -34,6 +34,5 @@ public:
     void remHP(unsigned int amtToRem);
 
 private:
-
     unsigned int curExp, expToNextLevel;
 };

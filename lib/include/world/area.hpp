@@ -38,7 +38,7 @@ public:
     void setMapSymbol(unsigned int x, unsigned int y, Terrain* terrain);
     void setItemSymbol(unsigned int x, unsigned int y, char symbol);
     void setEntitySymbol(unsigned int x, unsigned int y, Entity* entity);
-    void moveEntity(unsigned int x, unsigned int y, Entity& entity);
+    bool moveEntity(unsigned int x, unsigned int y, Entity& entity);
 
     const CORE::SYMBOL getMapSymbol(unsigned int row, unsigned int col);
     const CORE::SYMBOL getEntitySymbol(unsigned int row, unsigned int col);

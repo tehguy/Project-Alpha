@@ -24,6 +24,8 @@ Renderable::Renderable(int x, int y, CORE::SYMBOL _symbol) {
     mbox.y = y;
     mbox.w = CONSTANTS::TILE_WIDTH;
     mbox.h = CONSTANTS::TILE_HEIGHT;
+    xpos = (unsigned int) x;
+    ypos = (unsigned int) y;
 
     symbol = _symbol;
 }

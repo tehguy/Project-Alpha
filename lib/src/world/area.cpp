@@ -36,14 +36,14 @@ Area::Area(std::string id, unsigned int _width, unsigned int _height) {
     areaSouth = nullptr;
     areaWest = nullptr;
 
-    for(unsigned int i = 0; i < height; i++){
+    for(unsigned int i = 0; i < width; i++){
         map.push_back(std::vector<Terrain*>());
-        map.at(i).reserve(width);
+        map.at(i).reserve(height);
 
         entityLayer.push_back(std::vector<Entity*>());
-        entityLayer.at(i).reserve(width);
+        entityLayer.at(i).reserve(height);
 
-        for(unsigned int j = 0; j < width; j++){
+        for(unsigned int j = 0; j < height; j++){
             map.at(i).push_back(nullptr);
             entityLayer.at(i).push_back(nullptr);
         }
@@ -78,13 +78,14 @@ void Area::setEntitySymbol(unsigned int x, unsigned int y, Entity *entity) {
     entityLayer.at(x).at(y) = entity;
 }
 
-void Area::moveEntity(unsigned int x, unsigned int y, Entity &entity) {
-    CORE::SYMBOL target = getMapSymbol(x, y);
+bool Area::moveEntity(unsigned int x, unsigned int y, Entity &entity) {
+    if((x >= 0 && x < width) && (y >= 0 && y < height)){
+        CORE::SYMBOL target = getMapSymbol(x, y);
 
-    if(target != CORE::SYMBOL::WATER && target != CORE::SYMBOL::MOUNTAIN){
-        if((x >= 0 && x < width) && (y >= 0 && y < height)){
+        if(target != CORE::SYMBOL::WATER && target != CORE::SYMBOL::MOUNTAIN){
             unsigned int prevXPos = entity.getWorldXPos();
             unsigned int prevYPos = entity.getWorldYPos();
+            entity.setPrevPos(prevXPos, prevYPos);
 
             if(getEntitySymbol(prevXPos, prevYPos) == entity.getSymbol()){
                 setEntitySymbol(prevXPos, prevYPos, nullptr);
@@ -92,8 +93,12 @@ void Area::moveEntity(unsigned int x, unsigned int y, Entity &entity) {
 
             entity.setMboxPos(x, y);
             setEntitySymbol(x, y, &entity);
+
+            return true;
         }
     }
+
+    return false;
 }
 
 const CORE::SYMBOL Area::getMapSymbol(unsigned int row, unsigned int col) {
@@ -148,8 +153,8 @@ std::shared_ptr<Area> &Area::getAreaWest() {
 }
 
 void Area::draw() {
-    for(unsigned int i = 0; i < height; i++){
-        for(unsigned int j = 0; j < width; j++){
+    for(unsigned int i = 0; i < width; i++){
+        for(unsigned int j = 0; j < height; j++){
             if(entityLayer.at(i).at(j)){
                 entityLayer.at(i).at(j)->render();
             }
@@ -161,10 +166,10 @@ void Area::draw() {
 }
 
 void Area::genRandom(const unsigned int &seed) {
-    for(unsigned int i = 0; i < height; i++){
-        for(unsigned int j = 0; j < width; j++){
-            double x = (double)j / ((double) width);
-            double y = (double)i / ((double) height);
+    for(unsigned int i = 0; i < width; i++){
+        for(unsigned int j = 0; j < height; j++){
+            double x = (double)j / ((double) height);
+            double y = (double)i / ((double) width);
 
             double n = PerlinNoise::NoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
 

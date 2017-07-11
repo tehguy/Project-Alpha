@@ -37,12 +37,12 @@ void Core::init() {
 
     GFX::camera = {0, 0, CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT};
 
-    player = std::shared_ptr<Player>(new Player(25, 24, 20));
+    player = std::shared_ptr<Player>(new Player(25, 22, 20));
 
-    currentArea = std::shared_ptr<Area>(new Area("test", 50, 50));
+    currentArea = std::shared_ptr<Area>(new Area("test", 80, 50));
     currentArea->genRandom(237);
     currentArea->setEntitySymbol(player->getWorldXPos(), player->getWorldYPos(), &(*player));
-    centerCameraAroundPlayer();
+    centerCameraAroundPlayer(true);
 
     gameLoop();
     close();
@@ -70,20 +70,20 @@ void Core::gameLoop() {
                     quit = true;
                 }
                 else if(sym == SDLK_w || sym == SDLK_UP){
-                    movePlayer(player->getWorldXPos(), player->getWorldYPos() - 1);
-                    centerCameraAroundPlayer();
+                    bool move = movePlayer(player->getWorldXPos(), player->getWorldYPos() - 1);
+                    centerCameraAroundPlayer(move);
                 }
                 else if(sym == SDLK_s || sym == SDLK_DOWN){
-                    movePlayer(player->getWorldXPos(), player->getWorldYPos() + 1);
-                    centerCameraAroundPlayer();
+                    bool move = movePlayer(player->getWorldXPos(), player->getWorldYPos() + 1);
+                    centerCameraAroundPlayer(move);
                 }
                 else if(sym == SDLK_a || sym == SDLK_LEFT){
-                    movePlayer(player->getWorldXPos() - 1, player->getWorldYPos());
-                    centerCameraAroundPlayer();
+                    bool move = movePlayer(player->getWorldXPos() - 1, player->getWorldYPos());
+                    centerCameraAroundPlayer(move);
                 }
                 else if(sym == SDLK_d || sym == SDLK_RIGHT){
-                    movePlayer(player->getWorldXPos() + 1, player->getWorldYPos());
-                    centerCameraAroundPlayer();
+                    bool move = movePlayer(player->getWorldXPos() + 1, player->getWorldYPos());
+                    centerCameraAroundPlayer(move);
                 }
             }
         }
@@ -105,40 +105,45 @@ const std::shared_ptr<Area> &Core::getCurrentArea() {
     return currentArea;
 }
 
-void Core::movePlayer(unsigned int x, unsigned int y) {
-    currentArea->moveEntity(x, y, *player);
+bool Core::movePlayer(unsigned int x, unsigned int y) {
+    return currentArea->moveEntity(x, y, *player);
 }
 
-void Core::centerCameraAroundPlayer() {
-    int cameraXCenter = (GFX::camera.x + GFX::camera.w) / (2 * CONSTANTS::TILE_WIDTH);
-    int cameraYCenter = (GFX::camera.y + GFX::camera.h) / (2 * CONSTANTS::TILE_HEIGHT);
-    int adjustedWidth = GFX::camera.w / CONSTANTS::TILE_WIDTH;
-    int adjustedHeight = GFX::camera.h / CONSTANTS::TILE_HEIGHT;
+void Core::centerCameraAroundPlayer(bool didPlayerMove = false) {
+    if(didPlayerMove){
+        int cameraXCenter = (GFX::camera.x + (GFX::camera.w / CONSTANTS::TILE_WIDTH)) / 2;
+        int cameraYCenter = (GFX::camera.y + (GFX::camera.h / CONSTANTS::TILE_HEIGHT)) / 2;
+        int adjustedWidth = GFX::camera.w / CONSTANTS::TILE_WIDTH;
+        int adjustedHeight = GFX::camera.h / CONSTANTS::TILE_HEIGHT;
 
-    int cameraX = GFX::camera.x;
-    int cameraY = GFX::camera.y;
+        int cameraX = GFX::camera.x;
+        int cameraY = GFX::camera.y;
 
+        if(player->getPrevX() != player->getWorldXPos()){
+            if(cameraXCenter != player->getWorldXPos()){
+                cameraX = player->getWorldXPos() - adjustedWidth;
+            }
+            if((cameraX + adjustedWidth) > currentArea->getWidth()){
+                cameraX = currentArea->getWidth() - adjustedWidth;
+            }
+            if(cameraX < 0){
+                cameraX = 0;
+            }
+        }
 
-    if(cameraXCenter != player->getWorldXPos()){
-        cameraX = player->getWorldXPos() - adjustedWidth;
-    }
-    if((cameraX + adjustedWidth) > currentArea->getWidth()){
-        cameraX = currentArea->getWidth() - adjustedWidth;
-    }
-    if(cameraX < 0){
-        cameraX = 0;
-    }
+        if(player->getPrevY() != player->getWorldYPos()){
+            if(cameraYCenter != player->getWorldYPos()){
+                cameraY = player->getWorldYPos() - cameraYCenter;
+            }
+            if((cameraY + adjustedHeight) > currentArea->getHeight()){
+                cameraY = currentArea->getHeight() - adjustedHeight;
+            }
+            if(cameraY < 0){
+                cameraY = 0;
+            }
+        }
 
-    if(cameraYCenter != player->getWorldYPos()){
-        cameraY = player->getWorldYPos() - cameraYCenter;
+        GFX::camera.x = cameraX;
+        GFX::camera.y = cameraY;
     }
-    if((cameraY + adjustedHeight) > currentArea->getHeight()){
-        cameraY = currentArea->getHeight() - adjustedHeight;
-    }
-    if(cameraY < 0){
-        cameraY = 0;
-    }
-
-    GFX::camera.x = cameraX;
-    GFX::camera.y = cameraY;
 }

@@ -22,6 +22,9 @@ Entity::Entity(CORE::SYMBOL _symbol, int x, int y, unsigned int _curhp, unsigned
     curhp = _curhp;
     maxhp = _maxhp;
     setMboxPos((unsigned int) x, (unsigned int) y);
+
+    prevX = 0;
+    prevY = 0;
 }
 
 const unsigned int Entity::getCurHP() {
@@ -44,4 +47,17 @@ void Entity::remHP(unsigned int amtToRem) {
     if(curhp < 0) {
         curhp = 0;
     }
+}
+
+void Entity::setPrevPos(int x, int y) {
+    prevX = x;
+    prevY = y;
+}
+
+int Entity::getPrevX() {
+    return prevX;
+}
+
+int Entity::getPrevY() {
+    return prevY;
 }

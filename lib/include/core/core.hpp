@@ -33,8 +33,8 @@ public:
     const std::shared_ptr<Player>& getPlayer();
     const std::shared_ptr<Area>& getCurrentArea();
 
-    void movePlayer(unsigned int x, unsigned int y);
-    void centerCameraAroundPlayer();
+    bool movePlayer(unsigned int x, unsigned int y);
+    void centerCameraAroundPlayer(bool didPlayerMove);
 
 private:
     void gameLoop();
