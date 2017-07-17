@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <include/core/core.hpp>
+#include <cmath>
 
 namespace MAIN {
     Core core;
@@ -28,7 +29,7 @@ void Core::init() {
 
     player = std::shared_ptr<Player>(new Player(25, 22, 20));
 
-    currentArea = std::shared_ptr<Area>(new Area("test", 80, 50));
+    currentArea = std::shared_ptr<Area>(new Area("test", 90, 60));
     currentArea->genRandom(237);
     currentArea->setEntitySymbol(player->getWorldXPos(), player->getWorldYPos(), &(*player));
     centerCameraAroundPlayer(true);
@@ -87,23 +88,38 @@ void Core::handleInput(int key) {
 void Core::centerCameraAroundPlayer(bool didPlayerMove) {
     if(didPlayerMove){
         sf::View camera = GFX::gfx.getWindow()->getView();
-        sf::Rect<int> cameraPort = GFX::gfx.getWindow()->getViewport(camera);
+        sf::Rect<int> cameraPort = GFX::gfx.getWindow()->getViewport(GFX::gfx.getWindow()->getView());
 
-        float adjustedCamCenterX = camera.getCenter().x / CONSTANTS::TILE_WIDTH;
-        float adjustedCamCenterY = camera.getCenter().y / CONSTANTS::TILE_HEIGHT;
+        float adjustedCamCenterX = std::floor(camera.getCenter().x / CONSTANTS::TILE_WIDTH);
+        float adjustedCamCenterY = std::floor(camera.getCenter().y / CONSTANTS::TILE_HEIGHT);
+
+        float xBufferInTiles = ((CONSTANTS::SCREEN_WIDTH / 2) / CONSTANTS::TILE_WIDTH);
+        float yBufferInTiles = ((CONSTANTS::SCREEN_HEIGHT / 2) / CONSTANTS::TILE_HEIGHT);
 
 
         sf::Vector2f offset;
 
         if(player->getPrevX() != player->getWorldXPos()){
             if(adjustedCamCenterX != player->getWorldXPos()){
-                offset.x = ((player->getWorldXPos() - adjustedCamCenterX) * CONSTANTS::TILE_WIDTH) + 8;
+                offset.x = ((player->getWorldXPos() - adjustedCamCenterX) * CONSTANTS::TILE_WIDTH);
+            }
+            if((adjustedCamCenterX + (offset.x / CONSTANTS::TILE_WIDTH)) < xBufferInTiles){
+                offset.x = 0;
+            }
+            if((currentArea->getWidth() - xBufferInTiles) < (adjustedCamCenterX + (offset.x / CONSTANTS::TILE_WIDTH))){
+                offset.x = 0;
             }
         }
 
         if(player->getPrevY() != player->getWorldYPos()){
             if(adjustedCamCenterY != player->getWorldYPos()){
-                offset.y = ((player->getWorldYPos() - adjustedCamCenterY) * CONSTANTS::TILE_HEIGHT) + 8;
+                offset.y = ((player->getWorldYPos() - adjustedCamCenterY) * CONSTANTS::TILE_HEIGHT);
+            }
+            if((adjustedCamCenterY + (offset.y / CONSTANTS::TILE_HEIGHT)) < yBufferInTiles){
+                offset.y = 0;
+            }
+            if((currentArea->getHeight() - yBufferInTiles) < (adjustedCamCenterY + 1 + (offset.y / CONSTANTS::TILE_HEIGHT))){
+                offset.y = 0;
             }
         }
         GFX::gfx.moveCamera(offset);

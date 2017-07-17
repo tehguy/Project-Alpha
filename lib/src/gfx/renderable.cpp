@@ -35,9 +35,7 @@ Renderable::Renderable(unsigned int x, unsigned int y, CORE::SYMBOL _symbol) {
 }
 
 void Renderable::render() {
-    if(GFX::gfx.checkWithinCamera(renderBox)){
-        GFX::gfx.getWindow()->draw(worldSprite);
-    }
+    GFX::gfx.getWindow()->draw(worldSprite);
 }
 
 CORE::SYMBOL Renderable::getSymbol() {
