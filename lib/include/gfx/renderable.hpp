@@ -39,8 +39,6 @@ private:
 
     sf::Rect<int> mbox;
 
-    unsigned int xpos, ypos;
-
     CORE::SYMBOL symbol;
 
     sf::Sprite worldSprite;

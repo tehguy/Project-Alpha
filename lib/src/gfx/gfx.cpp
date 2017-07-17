@@ -65,16 +65,27 @@ bool Graphics::checkCollision(sf::Rect<int> a, sf::Rect<int> b) {
 
 }
 
+bool Graphics::checkWithinCamera(sf::Rect<int> object) {
+    int left = (int) camera->getViewport().left;
+    int top = (int) camera->getViewport().top;
+    int width = (int) camera->getViewport().width;
+    int height = (int) camera->getViewport().height;
+
+    sf::Rect<int> cameraRect(left, top, width, height);
+
+    return checkCollision(cameraRect, object);
+}
+
 bool Graphics::initGFX() {
     window = std::shared_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(CONSTANTS::SCREEN_WIDTH,
                                                                       CONSTANTS::SCREEN_HEIGHT), "Window"));
     window->setFramerateLimit(60);
 
-    playerCamera = std::shared_ptr<sf::View>(new sf::View());
-    playerCamera->setSize(CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT);
-    playerCamera->setCenter(CONSTANTS::SCREEN_WIDTH/2, CONSTANTS::SCREEN_HEIGHT/2);
+    camera = std::shared_ptr<sf::View>(new sf::View());
+    camera->setSize(CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT);
+    camera->setCenter(CONSTANTS::SCREEN_WIDTH/2, CONSTANTS::SCREEN_HEIGHT/2);
 
-    window->setView(*playerCamera);
+    window->setView(*camera);
 
     setClips();
 
@@ -106,7 +117,7 @@ const std::shared_ptr<sf::RenderWindow> &Graphics::getWindow() {
 }
 
 const std::shared_ptr<sf::View> &Graphics::getPlayerCamera() {
-    return playerCamera;
+    return camera;
 }
 
 const sf::Sprite Graphics::createSprite(unsigned int clipIndex) {

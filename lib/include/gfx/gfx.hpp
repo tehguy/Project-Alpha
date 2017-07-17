@@ -27,6 +27,7 @@ public:
     Graphics();
 
     bool checkCollision(sf::Rect<int> a, sf::Rect<int> b);
+    bool checkWithinCamera(sf::Rect<int> object);
 
     bool initGFX();
     bool loadSpriteSheet();
@@ -38,7 +39,7 @@ public:
 
 private:
     std::shared_ptr<sf::RenderWindow> window;
-    std::shared_ptr<sf::View> playerCamera;
+    std::shared_ptr<sf::View> camera;
     sf::Texture tileTexture;
     std::vector<sf::Rect<int>> textureRects;
 };

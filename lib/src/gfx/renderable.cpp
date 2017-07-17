@@ -20,20 +20,19 @@
 #include <include/gfx/renderable.hpp>
 
 Renderable::Renderable(unsigned int x, unsigned int y, CORE::SYMBOL _symbol) {
-    mbox.left = x;
-    mbox.top = y;
+    mbox.left = x * CONSTANTS::TILE_WIDTH;
+    mbox.top = y * CONSTANTS::TILE_HEIGHT;
     mbox.width = CONSTANTS::TILE_WIDTH;
     mbox.height = CONSTANTS::TILE_HEIGHT;
-    xpos = x;
-    ypos = y;
 
     symbol = _symbol;
 
     worldSprite = GFX::gfx.createSprite(_symbol);
+    worldSprite.setPosition(mbox.left, mbox.top);
 }
 
 void Renderable::render() {
-
+    GFX::gfx.getWindow()->draw(worldSprite);
 }
 
 CORE::SYMBOL Renderable::getSymbol() {
@@ -41,18 +40,16 @@ CORE::SYMBOL Renderable::getSymbol() {
 }
 
 void Renderable::setWorldPosition(unsigned int x, unsigned int y) {
-    mbox.left = x;
-    mbox.top = y;
-    xpos = x;
-    ypos = y;
+    mbox.left = x * CONSTANTS::TILE_WIDTH;
+    mbox.top = y * CONSTANTS::TILE_HEIGHT;
 
-    worldSprite.setPosition(sf::Vector2f(x, y));
+    worldSprite.setPosition(sf::Vector2f(mbox.left, mbox.top));
 }
 
 unsigned int Renderable::getWorldXPos() {
-    return xpos;
+    return (unsigned int) mbox.left;
 }
 
 unsigned int Renderable::getWorldYPos() {
-    return ypos;
+    return (unsigned int) mbox.top;
 }

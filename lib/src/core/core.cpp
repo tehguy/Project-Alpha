@@ -34,6 +34,9 @@ void Core::init() {
         return;
     }
 
+    currentArea = std::shared_ptr<Area>(new Area("test", 80, 50));
+    currentArea->genRandom(237);
+
     gameLoop();
 }
 
@@ -51,8 +54,10 @@ void Core::gameLoop() {
         }
 
         GFX::gfx.getWindow()->setActive();
+        GFX::gfx.getWindow()->clear(sf::Color::Black);
 
         //OGL drawing commands
+        currentArea->draw();
 
         GFX::gfx.getWindow()->display();
     }
