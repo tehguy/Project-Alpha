@@ -20,21 +20,20 @@
 #include <include/gfx/renderable.hpp>
 
 Renderable::Renderable(unsigned int x, unsigned int y, CORE::SYMBOL _symbol) {
-    mbox.x = x;
-    mbox.y = y;
-    mbox.w = CONSTANTS::TILE_WIDTH;
-    mbox.h = CONSTANTS::TILE_HEIGHT;
+    mbox.left = x;
+    mbox.top = y;
+    mbox.width = CONSTANTS::TILE_WIDTH;
+    mbox.height = CONSTANTS::TILE_HEIGHT;
     xpos = x;
     ypos = y;
 
     symbol = _symbol;
+
+    worldSprite = GFX::gfx.createSprite(_symbol);
 }
 
 void Renderable::render() {
-    if(GFX::checkCollision(GFX::camera, mbox)){
-        GFX::gTileTexture.render((mbox.x - GFX::camera.x)*mbox.w, (mbox.y - GFX::camera.y)*mbox.h,
-                                           &GFX::gTileTexture.getClip(symbol));
-    }
+
 }
 
 CORE::SYMBOL Renderable::getSymbol() {
@@ -42,10 +41,12 @@ CORE::SYMBOL Renderable::getSymbol() {
 }
 
 void Renderable::setWorldPosition(unsigned int x, unsigned int y) {
-    mbox.x = x;
-    mbox.y = y;
+    mbox.left = x;
+    mbox.top = y;
     xpos = x;
     ypos = y;
+
+    worldSprite.setPosition(sf::Vector2f(x, y));
 }
 
 unsigned int Renderable::getWorldXPos() {

@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <SDL2/SDL.h>
 #include <include/core/constants.hpp>
 #include <include/enums/enums.hpp>
+#include <SFML/Graphics.hpp>
 
 class Renderable {
 public:
@@ -37,9 +37,11 @@ public:
 
 private:
 
-    SDL_Rect mbox;
+    sf::Rect<int> mbox;
 
     unsigned int xpos, ypos;
 
     CORE::SYMBOL symbol;
+
+    sf::Sprite worldSprite;
 };

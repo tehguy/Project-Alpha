@@ -39,7 +39,6 @@ private:
     void gameLoop();
 
     bool movePlayer(unsigned int x, unsigned int y);
-    void centerCameraAroundPlayer(bool didPlayerMove);
 
     std::shared_ptr<Player> player;
     std::shared_ptr<Location> currentLocation;

@@ -1,16 +1,8 @@
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
-find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
-find_package(SOIL REQUIRED)
+find_package(SFML COMPONENTS system graphics window REQUIRED)
 
-include_directories(${SDL2_INCLUDE_DIR}
-        ${SDL2_IMAGE_INCLUDE_DIR}
-        ${OPENGL_INCLUDE_DIR}
-        ${GLEW_INCLUDE_DIRS}
-        ${SOIL_INCLUDE_DIRS})
+include_directories(${SFML_INCLUDE_DIR})
 
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../runtime/lib)
@@ -23,11 +15,9 @@ set (SOURCE_FILES
         src/core/diceroller.cpp                 include/core/diceroller.hpp
         src/core/perlinnoise.cpp                include/core/perlinnoise.hpp
         src/core/randomnumbergenerator.cpp      include/core/randomnumbergenerator.hpp
-                                                include/core/sdl_structs.hpp
 
         src/gfx/gfx.cpp                         include/gfx/gfx.hpp
         src/gfx/renderable.cpp                  include/gfx/renderable.hpp
-        src/gfx/tiletexture.cpp                 include/gfx/tiletexture.hpp
 
         src/entity/entity.cpp                   include/entity/entity.hpp
         src/entity/player.cpp                   include/entity/player.hpp
@@ -48,8 +38,4 @@ set (SOURCE_FILES
 add_library (engine SHARED ${SOURCE_FILES})
 target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(engine
-        ${SDL2_LIBRARY}
-        ${SDL2_IMAGE_LIBRARIES}
-        ${OPENGL_LIBRARIES}
-        ${GLEW_LIBRARIES}
-        ${SOIL_LIBRARIES})
+        ${SFML_LIBRARIES})
