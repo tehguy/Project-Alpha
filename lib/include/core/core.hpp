@@ -24,24 +24,16 @@
 
 class Core {
 public:
-    Core();
-    ~Core();
-
     void init();
 
-    const std::shared_ptr<Player>& getPlayer();
-    const std::shared_ptr<Location>& getCurrentLocation();
-    const std::shared_ptr<Area>& getCurrentArea();
-
 private:
-    void close();
-
     void gameLoop();
 
     bool movePlayer(unsigned int x, unsigned int y);
+    void handleInput(int key);
+    void centerCameraAroundPlayer(bool didPlayerMove);
 
     std::shared_ptr<Player> player;
-    std::shared_ptr<Location> currentLocation;
     std::shared_ptr<Area> currentArea;
 };
 

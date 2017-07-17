@@ -20,19 +20,24 @@
 #include <include/gfx/renderable.hpp>
 
 Renderable::Renderable(unsigned int x, unsigned int y, CORE::SYMBOL _symbol) {
-    mbox.left = x * CONSTANTS::TILE_WIDTH;
-    mbox.top = y * CONSTANTS::TILE_HEIGHT;
-    mbox.width = CONSTANTS::TILE_WIDTH;
-    mbox.height = CONSTANTS::TILE_HEIGHT;
+    renderBox.left = x * CONSTANTS::TILE_WIDTH;
+    renderBox.top = y * CONSTANTS::TILE_HEIGHT;
+    renderBox.width = CONSTANTS::TILE_WIDTH;
+    renderBox.height = CONSTANTS::TILE_HEIGHT;
+
+    worldX = x;
+    worldY = y;
 
     symbol = _symbol;
 
     worldSprite = GFX::gfx.createSprite(_symbol);
-    worldSprite.setPosition(mbox.left, mbox.top);
+    worldSprite.setPosition(renderBox.left, renderBox.top);
 }
 
 void Renderable::render() {
-    GFX::gfx.getWindow()->draw(worldSprite);
+    if(GFX::gfx.checkWithinCamera(renderBox)){
+        GFX::gfx.getWindow()->draw(worldSprite);
+    }
 }
 
 CORE::SYMBOL Renderable::getSymbol() {
@@ -40,16 +45,19 @@ CORE::SYMBOL Renderable::getSymbol() {
 }
 
 void Renderable::setWorldPosition(unsigned int x, unsigned int y) {
-    mbox.left = x * CONSTANTS::TILE_WIDTH;
-    mbox.top = y * CONSTANTS::TILE_HEIGHT;
+    renderBox.left = x * CONSTANTS::TILE_WIDTH;
+    renderBox.top = y * CONSTANTS::TILE_HEIGHT;
 
-    worldSprite.setPosition(sf::Vector2f(mbox.left, mbox.top));
+    worldX = x;
+    worldY = y;
+
+    worldSprite.setPosition(sf::Vector2f(renderBox.left, renderBox.top));
 }
 
 unsigned int Renderable::getWorldXPos() {
-    return (unsigned int) mbox.left;
+    return worldX;
 }
 
 unsigned int Renderable::getWorldYPos() {
-    return (unsigned int) mbox.top;
+    return worldY;
 }

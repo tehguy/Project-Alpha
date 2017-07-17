@@ -21,60 +21,91 @@ namespace MAIN {
     Core core;
 }
 
-Core::Core() {
-
-}
-
-Core::~Core() {
-
-}
-
 void Core::init() {
     if(!GFX::gfx.initGFX()){
         return;
     }
 
+    player = std::shared_ptr<Player>(new Player(25, 22, 20));
+
     currentArea = std::shared_ptr<Area>(new Area("test", 80, 50));
     currentArea->genRandom(237);
+    currentArea->setEntitySymbol(player->getWorldXPos(), player->getWorldYPos(), &(*player));
+    centerCameraAroundPlayer(true);
 
     gameLoop();
 }
 
-void Core::close() {
-
-}
-
 void Core::gameLoop() {
+    GFX::gfx.getWindow()->setActive();
     while(GFX::gfx.getWindow()->isOpen()){
         sf::Event event;
         while(GFX::gfx.getWindow()->pollEvent(event)){
             if(event.type == sf::Event::Closed){
                 GFX::gfx.getWindow()->close();
             }
+            else if(event.type == sf::Event::KeyPressed){
+                handleInput(event.key.code);
+            }
         }
-
-        GFX::gfx.getWindow()->setActive();
         GFX::gfx.getWindow()->clear(sf::Color::Black);
 
-        //OGL drawing commands
         currentArea->draw();
 
         GFX::gfx.getWindow()->display();
     }
 }
 
-const std::shared_ptr<Player> &Core::getPlayer() {
-    return player;
-}
-
-const std::shared_ptr<Location> &Core::getCurrentLocation() {
-    return currentLocation;
-}
-
-const std::shared_ptr<Area> &Core::getCurrentArea() {
-    return currentArea;
-}
-
 bool Core::movePlayer(unsigned int x, unsigned int y) {
     return currentArea->moveEntity(x, y, *player);
+}
+
+void Core::handleInput(int key) {
+    bool didMove = false;
+    switch (key){
+        case sf::Keyboard::Q: case sf::Keyboard::Escape:
+            GFX::gfx.getWindow()->close();
+            break;
+        case sf::Keyboard::Up: case sf::Keyboard::W:
+            didMove = movePlayer(player->getWorldXPos(), player->getWorldYPos() - 1);
+            break;
+        case sf::Keyboard::Right: case sf::Keyboard::D:
+            didMove = movePlayer(player->getWorldXPos() + 1, player->getWorldYPos());
+            break;
+        case sf::Keyboard::Down: case sf::Keyboard::S:
+            didMove = movePlayer(player->getWorldXPos(), player->getWorldYPos() + 1);
+            break;
+        case sf::Keyboard::Left: case sf::Keyboard::A:
+            didMove = movePlayer(player->getWorldXPos() - 1, player->getWorldYPos());
+            break;
+        default:
+            break;
+    }
+    centerCameraAroundPlayer(didMove);
+}
+
+void Core::centerCameraAroundPlayer(bool didPlayerMove) {
+    if(didPlayerMove){
+        sf::View camera = GFX::gfx.getWindow()->getView();
+        sf::Rect<int> cameraPort = GFX::gfx.getWindow()->getViewport(camera);
+
+        float adjustedCamCenterX = camera.getCenter().x / CONSTANTS::TILE_WIDTH;
+        float adjustedCamCenterY = camera.getCenter().y / CONSTANTS::TILE_HEIGHT;
+
+
+        sf::Vector2f offset;
+
+        if(player->getPrevX() != player->getWorldXPos()){
+            if(adjustedCamCenterX != player->getWorldXPos()){
+                offset.x = ((player->getWorldXPos() - adjustedCamCenterX) * CONSTANTS::TILE_WIDTH) + 8;
+            }
+        }
+
+        if(player->getPrevY() != player->getWorldYPos()){
+            if(adjustedCamCenterY != player->getWorldYPos()){
+                offset.y = ((player->getWorldYPos() - adjustedCamCenterY) * CONSTANTS::TILE_HEIGHT) + 8;
+            }
+        }
+        GFX::gfx.moveCamera(offset);
+    }
 }

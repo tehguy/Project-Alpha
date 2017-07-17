@@ -31,15 +31,15 @@ public:
 
     bool initGFX();
     bool loadSpriteSheet();
-    void setClips();
 
     const std::shared_ptr<sf::RenderWindow>& getWindow();
-    const std::shared_ptr<sf::View>& getPlayerCamera();
     const sf::Sprite createSprite(unsigned int clipIndex);
+
+    void moveCamera(sf::Vector2f& offset);
 
 private:
     std::shared_ptr<sf::RenderWindow> window;
-    std::shared_ptr<sf::View> camera;
+    sf::View camera;
     sf::Texture tileTexture;
     std::vector<sf::Rect<int>> textureRects;
 };

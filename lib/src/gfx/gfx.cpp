@@ -66,14 +66,7 @@ bool Graphics::checkCollision(sf::Rect<int> a, sf::Rect<int> b) {
 }
 
 bool Graphics::checkWithinCamera(sf::Rect<int> object) {
-    int left = (int) camera->getViewport().left;
-    int top = (int) camera->getViewport().top;
-    int width = (int) camera->getViewport().width;
-    int height = (int) camera->getViewport().height;
-
-    sf::Rect<int> cameraRect(left, top, width, height);
-
-    return checkCollision(cameraRect, object);
+    return checkCollision(window->getViewport(camera), object);
 }
 
 bool Graphics::initGFX() {
@@ -81,21 +74,16 @@ bool Graphics::initGFX() {
                                                                       CONSTANTS::SCREEN_HEIGHT), "Window"));
     window->setFramerateLimit(60);
 
-    camera = std::shared_ptr<sf::View>(new sf::View());
-    camera->setSize(CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT);
-    camera->setCenter(CONSTANTS::SCREEN_WIDTH/2, CONSTANTS::SCREEN_HEIGHT/2);
+    camera.setSize(CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT);
+    camera.setCenter(CONSTANTS::SCREEN_WIDTH/2, CONSTANTS::SCREEN_HEIGHT/2);
 
-    window->setView(*camera);
-
-    setClips();
+    window->setView(camera);
 
     return loadSpriteSheet();
 }
 
 bool Graphics::loadSpriteSheet() {
-    sf::Image image;
-
-    if(!image.loadFromFile("./lib/spritesheet.png")){
+    if(!tileTexture.loadFromFile("./lib/spritesheet.png")){
         return false;
     }
 
@@ -105,19 +93,11 @@ bool Graphics::loadSpriteSheet() {
     textureRects.push_back(sf::Rect<int>(48, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
     textureRects.push_back(sf::Rect<int>(0, 16, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
 
-    return tileTexture.loadFromImage(image);
-}
-
-void Graphics::setClips() {
-
+    return true;
 }
 
 const std::shared_ptr<sf::RenderWindow> &Graphics::getWindow() {
     return window;
-}
-
-const std::shared_ptr<sf::View> &Graphics::getPlayerCamera() {
-    return camera;
 }
 
 const sf::Sprite Graphics::createSprite(unsigned int clipIndex) {
@@ -127,4 +107,10 @@ const sf::Sprite Graphics::createSprite(unsigned int clipIndex) {
     sprite.setTextureRect(textureRects.at(clipIndex));
 
     return sprite;
+}
+
+void Graphics::moveCamera(sf::Vector2f &offset) {
+    sf::View view = window->getView();
+    view.move(offset);
+    window->setView(view);
 }

@@ -37,7 +37,9 @@ public:
 
 private:
 
-    sf::Rect<int> mbox;
+    sf::Rect<int> renderBox;
+
+    unsigned int worldX, worldY;
 
     CORE::SYMBOL symbol;
 
