@@ -20,20 +20,23 @@
 #include <include/gfx/renderable.hpp>
 
 Renderable::Renderable(unsigned int x, unsigned int y, CORE::SYMBOL _symbol) {
-    mbox.x = x;
-    mbox.y = y;
-    mbox.w = CONSTANTS::TILE_WIDTH;
-    mbox.h = CONSTANTS::TILE_HEIGHT;
-    xpos = x;
-    ypos = y;
+    renderBox.left = x * CONSTANTS::TILE_WIDTH;
+    renderBox.top = y * CONSTANTS::TILE_HEIGHT;
+    renderBox.width = CONSTANTS::TILE_WIDTH;
+    renderBox.height = CONSTANTS::TILE_HEIGHT;
+
+    worldX = x;
+    worldY = y;
 
     symbol = _symbol;
+
+    worldSprite = GFX::gfx.createSprite(_symbol);
+    worldSprite.setPosition(renderBox.left, renderBox.top);
 }
 
 void Renderable::render() {
-    if(GFX::checkCollision(GFX::camera, mbox)){
-        GFX::gTileTexture.render((mbox.x - GFX::camera.x)*mbox.w, (mbox.y - GFX::camera.y)*mbox.h,
-                                           &GFX::gTileTexture.getClip(symbol));
+    if(GFX::gfx.checkWithinCamera(renderBox)){
+        GFX::gfx.getWindow()->draw(worldSprite);
     }
 }
 
@@ -42,16 +45,19 @@ CORE::SYMBOL Renderable::getSymbol() {
 }
 
 void Renderable::setWorldPosition(unsigned int x, unsigned int y) {
-    mbox.x = x;
-    mbox.y = y;
-    xpos = x;
-    ypos = y;
+    renderBox.left = x * CONSTANTS::TILE_WIDTH;
+    renderBox.top = y * CONSTANTS::TILE_HEIGHT;
+
+    worldX = x;
+    worldY = y;
+
+    worldSprite.setPosition(sf::Vector2f(renderBox.left, renderBox.top));
 }
 
 unsigned int Renderable::getWorldXPos() {
-    return xpos;
+    return worldX;
 }
 
 unsigned int Renderable::getWorldYPos() {
-    return ypos;
+    return worldY;
 }

@@ -21,7 +21,6 @@
 #include <include/core/constants.hpp>
 #include <include/enums/enums.hpp>
 #include <include/gfx/renderable.hpp>
-#include <SDL2/SDL.h>
 
 class Entity : public Renderable {
 public:

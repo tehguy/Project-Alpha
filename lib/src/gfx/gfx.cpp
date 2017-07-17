@@ -20,93 +20,102 @@
 #include <include/gfx/gfx.hpp>
 
 namespace GFX {
-    sdl2::WindowShPtr screen = sdl2::WindowShPtr(nullptr);
-    sdl2::RendererShPtr gRender = sdl2::RendererShPtr(nullptr);
-    TileTexture gTileTexture;
-    SDL_Rect camera;
+    Graphics gfx;
+}
 
-    bool checkCollision(SDL_Rect a, SDL_Rect b) {
-        //The sides of the rectangles
-        int leftA, leftB;
-        int rightA, rightB;
-        int topA, topB;
-        int bottomA, bottomB;
+Graphics::Graphics() {
 
-        //Calculate the sides of rect A
-        leftA = a.x;
-        rightA = a.x + a.w;
-        topA = a.y;
-        bottomA = a.y + a.h;
+}
 
-        //Calculate the sides of rect B
-        leftB = b.x;
-        rightB = b.x + b.w;
-        topB = b.y;
-        bottomB = b.y + b.h;
+bool Graphics::checkCollision(sf::Rect<int> a, sf::Rect<int> b) {
+    //The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
 
-        if( bottomA <= topB )
-        {
-            return false;
-        }
+    //Calculate the sides of rect A
+    leftA = a.left;
+    rightA = a.left + a.width;
+    topA = a.top;
+    bottomA = a.top + a.height;
 
-        if( topA >= bottomB )
-        {
-            return false;
-        }
+    //Calculate the sides of rect B
+    leftB = b.left;
+    rightB = b.left + b.width;
+    topB = b.top;
+    bottomB = b.top + b.height;
 
-        if( rightA <= leftB )
-        {
-            return false;
-        }
-
-        return leftA < rightB;
-
+    if( bottomA <= topB )
+    {
+        return false;
     }
 
-    bool initSDL() {
-        if( (SDL_Init( SDL_INIT_VIDEO ) < 0) ){
-            return false;
-        }
-        else {
-            if( !SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear" )){
-                return false;
-            }
-
-            screen = sdl2::WindowShPtr(SDL_CreateWindow("CPPAdventures", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                                             CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT, SDL_WINDOW_SHOWN));
-
-            if(screen == nullptr){
-                return false;
-            }
-            else {
-                gRender = sdl2::RendererShPtr(SDL_CreateRenderer(GFX::screen.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
-                if(gRender == nullptr){
-                    return false;
-                }
-                else{
-                    SDL_SetRenderDrawColor(gRender.get(), 0x0, 0x0, 0x0, 0x0);
-
-                    int imgFlags = IMG_INIT_PNG;
-                    if( !( IMG_Init(imgFlags) & imgFlags ) ){
-                        return false;
-                    }
-
-                    if(!loadMedia()){
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return true;
+    if( topA >= bottomB )
+    {
+        return false;
     }
 
-    bool loadMedia() {
-        if(!gTileTexture.loadFromFile("./lib/spritesheet.png")){
-            printf("IMG Error: %s\n", IMG_GetError());
-            return false;
-        }
-
-        return true;
+    if( rightA <= leftB )
+    {
+        return false;
     }
+
+    return leftA < rightB;
+
+}
+
+bool Graphics::checkWithinCamera(sf::Rect<int> object) {
+    return checkCollision(actualCameraBounds, object);
+}
+
+bool Graphics::initGFX() {
+    window = std::shared_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(CONSTANTS::SCREEN_WIDTH,
+                                                                      CONSTANTS::SCREEN_HEIGHT), "Window"));
+    window->setFramerateLimit(60);
+
+    camera.setSize(CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT);
+    camera.setCenter(CONSTANTS::SCREEN_WIDTH/2, CONSTANTS::SCREEN_HEIGHT/2);
+
+    window->setView(camera);
+
+    actualCameraBounds.left = 0;
+    actualCameraBounds.top = 0;
+    actualCameraBounds.width = CONSTANTS::SCREEN_WIDTH;
+    actualCameraBounds.height = CONSTANTS::SCREEN_HEIGHT;
+
+    return loadSpriteSheet();
+}
+
+bool Graphics::loadSpriteSheet() {
+    if(!tileTexture.loadFromFile("./lib/spritesheet.png")){
+        return false;
+    }
+
+    textureRects.push_back(sf::Rect<int>(0, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
+    textureRects.push_back(sf::Rect<int>(16, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
+    textureRects.push_back(sf::Rect<int>(32, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
+    textureRects.push_back(sf::Rect<int>(48, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
+    textureRects.push_back(sf::Rect<int>(0, 16, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
+
+    return true;
+}
+
+const std::shared_ptr<sf::RenderWindow> &Graphics::getWindow() {
+    return window;
+}
+
+const sf::Sprite Graphics::createSprite(unsigned int clipIndex) {
+    sf::Sprite sprite;
+
+    sprite.setTexture(tileTexture);
+    sprite.setTextureRect(textureRects.at(clipIndex));
+
+    return sprite;
+}
+
+void Graphics::moveCamera(sf::Vector2f &offset) {
+    sf::View view = window->getView();
+    view.move(offset);
+    window->setView(view);
 }

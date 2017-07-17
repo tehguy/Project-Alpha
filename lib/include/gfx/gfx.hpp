@@ -18,17 +18,34 @@
 
 #pragma once
 
-#include <include/core/sdl_structs.hpp>
-#include <include/gfx/tiletexture.hpp>
+#include <memory>
+#include <SFML/Graphics.hpp>
+#include <vector>
+
+class Graphics {
+public:
+    Graphics();
+
+    bool checkCollision(sf::Rect<int> a, sf::Rect<int> b);
+    bool checkWithinCamera(sf::Rect<int> object);
+
+    bool initGFX();
+    bool loadSpriteSheet();
+
+    const std::shared_ptr<sf::RenderWindow>& getWindow();
+    const sf::Sprite createSprite(unsigned int clipIndex);
+
+    void moveCamera(sf::Vector2f& offset);
+
+    sf::Rect<int> actualCameraBounds;
+
+private:
+    std::shared_ptr<sf::RenderWindow> window;
+    sf::View camera;
+    sf::Texture tileTexture;
+    std::vector<sf::Rect<int>> textureRects;
+};
 
 namespace GFX {
-    extern sdl2::WindowShPtr screen;
-    extern sdl2::RendererShPtr gRender;
-    extern TileTexture gTileTexture;
-    extern SDL_Rect camera;
-
-    bool checkCollision(SDL_Rect a, SDL_Rect b);
-
-    bool initSDL();
-    bool loadMedia();
+    extern Graphics gfx;
 }

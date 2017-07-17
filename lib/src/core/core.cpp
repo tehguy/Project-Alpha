@@ -15,139 +15,116 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <include/core/constants.hpp>
 #include <include/core/core.hpp>
+#include <cmath>
 
 namespace MAIN {
     Core core;
 }
 
-Core::Core() {
-
-}
-
-Core::~Core() {
-
-}
-
 void Core::init() {
-    if(!GFX::initSDL()){
+    if(!GFX::gfx.initGFX()){
         return;
     }
 
-    GFX::camera = {0, 0, CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT};
-
     player = std::shared_ptr<Player>(new Player(25, 22, 20));
 
-    currentArea = std::shared_ptr<Area>(new Area("test", 80, 50));
+    currentArea = std::shared_ptr<Area>(new Area("test", 90, 60));
     currentArea->genRandom(237);
     currentArea->setEntitySymbol(player->getWorldXPos(), player->getWorldYPos(), &(*player));
     centerCameraAroundPlayer(true);
 
     gameLoop();
-    close();
-}
-
-void Core::close() {
-    IMG_Quit();
-    SDL_Quit();
 }
 
 void Core::gameLoop() {
-    bool quit = false;
-
-    SDL_Event e;
-
-    while(!quit){
-        while(SDL_PollEvent(&e) != 0){
-            if(e.type == SDL_QUIT){
-                quit = true;
+    GFX::gfx.getWindow()->setActive();
+    while(GFX::gfx.getWindow()->isOpen()){
+        sf::Event event;
+        while(GFX::gfx.getWindow()->pollEvent(event)){
+            if(event.type == sf::Event::Closed){
+                GFX::gfx.getWindow()->close();
             }
-            else if(e.type == SDL_KEYDOWN){
-                auto sym = e.key.keysym.sym;
-
-                if(sym == SDLK_q){
-                    quit = true;
-                }
-                else if(sym == SDLK_w || sym == SDLK_UP){
-                    bool move = movePlayer(player->getWorldXPos(), player->getWorldYPos() - 1);
-                    centerCameraAroundPlayer(move);
-                }
-                else if(sym == SDLK_s || sym == SDLK_DOWN){
-                    bool move = movePlayer(player->getWorldXPos(), player->getWorldYPos() + 1);
-                    centerCameraAroundPlayer(move);
-                }
-                else if(sym == SDLK_a || sym == SDLK_LEFT){
-                    bool move = movePlayer(player->getWorldXPos() - 1, player->getWorldYPos());
-                    centerCameraAroundPlayer(move);
-                }
-                else if(sym == SDLK_d || sym == SDLK_RIGHT){
-                    bool move = movePlayer(player->getWorldXPos() + 1, player->getWorldYPos());
-                    centerCameraAroundPlayer(move);
-                }
+            else if(event.type == sf::Event::KeyPressed){
+                handleInput(event.key.code);
             }
         }
-
-        SDL_SetRenderDrawColor(GFX::gRender.get(), 0x0, 0x0, 0x0, 0x0);
-        SDL_RenderClear(GFX::gRender.get());
+        GFX::gfx.getWindow()->clear(sf::Color::Black);
 
         currentArea->draw();
 
-        SDL_RenderPresent(GFX::gRender.get());
+        GFX::gfx.getWindow()->display();
     }
-}
-
-const std::shared_ptr<Player> &Core::getPlayer() {
-    return player;
-}
-
-const std::shared_ptr<Location> &Core::getCurrentLocation() {
-    return currentLocation;
-}
-
-const std::shared_ptr<Area> &Core::getCurrentArea() {
-    return currentArea;
 }
 
 bool Core::movePlayer(unsigned int x, unsigned int y) {
     return currentArea->moveEntity(x, y, *player);
 }
 
-void Core::centerCameraAroundPlayer(bool didPlayerMove = true) {
-    if(didPlayerMove){
-        int cameraXCenter = (GFX::camera.x + (GFX::camera.w / CONSTANTS::TILE_WIDTH)) / 2;
-        int cameraYCenter = (GFX::camera.y + (GFX::camera.h / CONSTANTS::TILE_HEIGHT)) / 2;
-        int adjustedWidth = GFX::camera.w / CONSTANTS::TILE_WIDTH;
-        int adjustedHeight = GFX::camera.h / CONSTANTS::TILE_HEIGHT;
+void Core::handleInput(int key) {
+    bool didMove = false;
+    switch (key){
+        case sf::Keyboard::Q: case sf::Keyboard::Escape:
+            GFX::gfx.getWindow()->close();
+            break;
+        case sf::Keyboard::Up: case sf::Keyboard::W:
+            didMove = movePlayer(player->getWorldXPos(), player->getWorldYPos() - 1);
+            break;
+        case sf::Keyboard::Right: case sf::Keyboard::D:
+            didMove = movePlayer(player->getWorldXPos() + 1, player->getWorldYPos());
+            break;
+        case sf::Keyboard::Down: case sf::Keyboard::S:
+            didMove = movePlayer(player->getWorldXPos(), player->getWorldYPos() + 1);
+            break;
+        case sf::Keyboard::Left: case sf::Keyboard::A:
+            didMove = movePlayer(player->getWorldXPos() - 1, player->getWorldYPos());
+            break;
+        default:
+            break;
+    }
+    centerCameraAroundPlayer(didMove);
+}
 
-        int cameraX = GFX::camera.x;
-        int cameraY = GFX::camera.y;
+void Core::centerCameraAroundPlayer(bool didPlayerMove) {
+    if(didPlayerMove){
+        sf::View camera = GFX::gfx.getWindow()->getView();
+
+        float adjustedCamCenterX = std::floor(camera.getCenter().x / CONSTANTS::TILE_WIDTH);
+        float adjustedCamCenterY = std::floor(camera.getCenter().y / CONSTANTS::TILE_HEIGHT);
+
+        float xBufferInTiles = ((CONSTANTS::SCREEN_WIDTH / 2) / CONSTANTS::TILE_WIDTH);
+        float yBufferInTiles = ((CONSTANTS::SCREEN_HEIGHT / 2) / CONSTANTS::TILE_HEIGHT);
+
+
+        sf::Vector2f offset;
 
         if(player->getPrevX() != player->getWorldXPos()){
-            if(cameraXCenter != player->getWorldXPos()){
-                cameraX = player->getWorldXPos() - adjustedWidth;
+            if(adjustedCamCenterX != player->getWorldXPos()){
+                offset.x = ((player->getWorldXPos() - adjustedCamCenterX) * CONSTANTS::TILE_WIDTH);
             }
-            if((cameraX + adjustedWidth) > currentArea->getWidth()){
-                cameraX = currentArea->getWidth() - adjustedWidth;
+            if((adjustedCamCenterX + (offset.x / CONSTANTS::TILE_WIDTH)) < xBufferInTiles){
+                offset.x = 0;
             }
-            if(cameraX < 0){
-                cameraX = 0;
+            if((currentArea->getWidth() - xBufferInTiles) < (adjustedCamCenterX + (offset.x / CONSTANTS::TILE_WIDTH))){
+                offset.x = 0;
             }
+
+            GFX::gfx.actualCameraBounds.left += offset.x;
         }
 
         if(player->getPrevY() != player->getWorldYPos()){
-            if(cameraYCenter != player->getWorldYPos()){
-                cameraY = player->getWorldYPos() - cameraYCenter;
+            if(adjustedCamCenterY != player->getWorldYPos()){
+                offset.y = ((player->getWorldYPos() - adjustedCamCenterY) * CONSTANTS::TILE_HEIGHT);
             }
-            if((cameraY + adjustedHeight) > currentArea->getHeight()){
-                cameraY = currentArea->getHeight() - adjustedHeight;
+            if((adjustedCamCenterY + (offset.y / CONSTANTS::TILE_HEIGHT)) < yBufferInTiles){
+                offset.y = 0;
             }
-            if(cameraY < 0){
-                cameraY = 0;
+            if((currentArea->getHeight() - yBufferInTiles) < (adjustedCamCenterY + 1 + (offset.y / CONSTANTS::TILE_HEIGHT))){
+                offset.y = 0;
             }
-        }
 
-        GFX::camera.x = cameraX;
-        GFX::camera.y = cameraY;
+            GFX::gfx.actualCameraBounds.top += offset.y;
+        }
+        GFX::gfx.moveCamera(offset);
     }
 }

@@ -18,8 +18,6 @@
 
 #pragma once
 
-#include <include/core/sdl_structs.hpp>
-
 namespace CONSTANTS {
     const int TILE_WIDTH = 16;
     const int TILE_HEIGHT = 16;

@@ -22,5 +22,5 @@ int main() {
 
     MAIN::core.init();
 
-	return 1;
+	return 0;
 }
