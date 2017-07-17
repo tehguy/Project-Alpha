@@ -66,7 +66,7 @@ bool Graphics::checkCollision(sf::Rect<int> a, sf::Rect<int> b) {
 }
 
 bool Graphics::checkWithinCamera(sf::Rect<int> object) {
-    return checkCollision(window->getViewport(camera), object);
+    return checkCollision(actualCameraBounds, object);
 }
 
 bool Graphics::initGFX() {
@@ -78,6 +78,11 @@ bool Graphics::initGFX() {
     camera.setCenter(CONSTANTS::SCREEN_WIDTH/2, CONSTANTS::SCREEN_HEIGHT/2);
 
     window->setView(camera);
+
+    actualCameraBounds.left = 0;
+    actualCameraBounds.top = 0;
+    actualCameraBounds.width = CONSTANTS::SCREEN_WIDTH;
+    actualCameraBounds.height = CONSTANTS::SCREEN_HEIGHT;
 
     return loadSpriteSheet();
 }

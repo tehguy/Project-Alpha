@@ -37,6 +37,8 @@ public:
 
     void moveCamera(sf::Vector2f& offset);
 
+    sf::Rect<int> actualCameraBounds;
+
 private:
     std::shared_ptr<sf::RenderWindow> window;
     sf::View camera;

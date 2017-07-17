@@ -88,7 +88,6 @@ void Core::handleInput(int key) {
 void Core::centerCameraAroundPlayer(bool didPlayerMove) {
     if(didPlayerMove){
         sf::View camera = GFX::gfx.getWindow()->getView();
-        sf::Rect<int> cameraPort = GFX::gfx.getWindow()->getViewport(GFX::gfx.getWindow()->getView());
 
         float adjustedCamCenterX = std::floor(camera.getCenter().x / CONSTANTS::TILE_WIDTH);
         float adjustedCamCenterY = std::floor(camera.getCenter().y / CONSTANTS::TILE_HEIGHT);
@@ -109,6 +108,8 @@ void Core::centerCameraAroundPlayer(bool didPlayerMove) {
             if((currentArea->getWidth() - xBufferInTiles) < (adjustedCamCenterX + (offset.x / CONSTANTS::TILE_WIDTH))){
                 offset.x = 0;
             }
+
+            GFX::gfx.actualCameraBounds.left += offset.x;
         }
 
         if(player->getPrevY() != player->getWorldYPos()){
@@ -121,6 +122,8 @@ void Core::centerCameraAroundPlayer(bool didPlayerMove) {
             if((currentArea->getHeight() - yBufferInTiles) < (adjustedCamCenterY + 1 + (offset.y / CONSTANTS::TILE_HEIGHT))){
                 offset.y = 0;
             }
+
+            GFX::gfx.actualCameraBounds.top += offset.y;
         }
         GFX::gfx.moveCamera(offset);
     }
