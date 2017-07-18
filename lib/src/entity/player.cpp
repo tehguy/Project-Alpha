@@ -18,8 +18,7 @@
 
 #include <include/entity/player.hpp>
 
-Player::Player(unsigned int row_0, unsigned int col_0, unsigned int maxhp) : Entity(CORE::SYMBOL::PLAYER, row_0, col_0,
-                                                                                    maxhp, maxhp) {
+Player::Player(unsigned int maxhp) : Entity(CORE::SYMBOL::PLAYER, maxhp, maxhp) {
     curExp = 0;
     expToNextLevel = 100;
 }

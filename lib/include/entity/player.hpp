@@ -22,7 +22,7 @@
 
 class Player : public Entity{
 public:
-    Player(unsigned int row_0, unsigned int col_0, unsigned int maxhp);
+    Player(unsigned int maxhp);
 
     unsigned int getCurExp();
     unsigned int getExpToNextLevel();

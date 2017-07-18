@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include <include/core/core.hpp>
 #include <include/gfx/gfx.hpp>
 
@@ -27,14 +28,14 @@ void Core::init() {
         return;
     }
 
-    player = std::shared_ptr<Player>(new Player(5, 5, 20));
+    player = std::shared_ptr<Player>(new Player(20));
 
     currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 1));
     Area area1("Test1", 10, 10);
     Area area2("Test2", 20, 22);
 
     area1.genRandom(288);
-    area1.setEntitySymbol(5, 5, &(*player));
+    area1.movePlayer(5, 5, *player);
     area2.genRandom(156);
 
     currentLocation->placeArea(0, 0, area1);

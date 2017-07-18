@@ -43,16 +43,16 @@ public:
     bool moveEntity(int x, int y, Entity& entity);
     bool movePlayer(int xOffset, int yOffset, Entity &player);
 
-    const CORE::SYMBOL getMapSymbol(unsigned int row, unsigned int col);
-    const CORE::SYMBOL getItemSymbol(unsigned int x, unsigned int y);
-    const CORE::SYMBOL getEntitySymbol(unsigned int row, unsigned int col);
-
     void draw();
     void genRandom(const unsigned int& seed);
 
     void setLocationalPosition(sf::Vector2i pos);
     sf::Vector2i getLocationalPosition();
+
 private:
+    const CORE::SYMBOL getMapSymbol(unsigned int row, unsigned int col);
+    const CORE::SYMBOL getItemSymbol(unsigned int x, unsigned int y);
+    const CORE::SYMBOL getEntitySymbol(unsigned int row, unsigned int col);
 
     std::string areaName;
 

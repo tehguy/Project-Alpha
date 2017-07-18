@@ -85,7 +85,6 @@ bool Area::moveEntity(int x, int y, Entity &entity) {
             if(getEntitySymbol((unsigned int) prevXPos, (unsigned int) prevYPos) == entity.getSymbol()){
                 setEntitySymbol((unsigned int) prevXPos, (unsigned int) prevYPos, nullptr);
             }
-
             entity.setWorldPosition((unsigned int) x, (unsigned int) y);
             setEntitySymbol((unsigned int) x, (unsigned int) y, &entity);
 
@@ -97,7 +96,9 @@ bool Area::moveEntity(int x, int y, Entity &entity) {
 }
 
 bool Area::movePlayer(int xOffset, int yOffset, Entity &player) {
-    return moveEntity((player.getWorldPosition().x + xOffset), (player.getWorldPosition().y + yOffset), player);
+    int xTarget = player.getWorldPosition().x + xOffset;
+    int yTarget = player.getWorldPosition().y + yOffset;
+    return moveEntity(xTarget, yTarget, player);
 }
 
 const CORE::SYMBOL Area::getMapSymbol(unsigned int row, unsigned int col) {

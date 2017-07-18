@@ -30,16 +30,12 @@ public:
 
     CORE::SYMBOL getSymbol();
 
-    void setWorldPosition(unsigned int x, unsigned int y);
-
-    sf::Vector2i getWorldPosition();
+    void setRenderPosition(unsigned int x, unsigned int y);
 
 private:
 
-    sf::Rect<int> renderBox;
-
     CORE::SYMBOL symbol;
 
+    sf::Rect<int> renderBox;
     sf::Sprite worldSprite;
-    sf::Vector2i worldPosition;
 };

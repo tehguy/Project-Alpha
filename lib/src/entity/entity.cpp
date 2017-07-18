@@ -16,15 +16,18 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <include/gfx/renderable.hpp>
 #include <include/entity/entity.hpp>
 
-Entity::Entity(CORE::SYMBOL _symbol, int x, int y, unsigned int _curhp, unsigned int _maxhp) : Renderable(x, y, _symbol) {
+
+Entity::Entity(CORE::SYMBOL _symbol, unsigned int _curhp, unsigned int _maxhp) : Renderable(0, 0, _symbol) {
     curhp = _curhp;
     maxhp = _maxhp;
-    setWorldPosition((unsigned int) x, (unsigned int) y);
 
     prevPosition.x = 0;
     prevPosition.y = 0;
+
+    setWorldPosition(0, 0);
 }
 
 const unsigned int Entity::getCurHP() {
@@ -56,4 +59,15 @@ void Entity::setPrevPos(int x, int y) {
 
 sf::Vector2i Entity::getPreviousPosition() {
     return prevPosition;
+}
+
+void Entity::setWorldPosition(unsigned int x, unsigned int y) {
+    worldPosition.x = x;
+    worldPosition.y = y;
+
+    setRenderPosition(x, y);
+}
+
+sf::Vector2i Entity::getWorldPosition() {
+    return worldPosition;
 }

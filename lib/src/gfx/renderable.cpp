@@ -20,18 +20,13 @@
 #include <include/gfx/renderable.hpp>
 
 Renderable::Renderable(unsigned int x, unsigned int y, CORE::SYMBOL _symbol) {
-    renderBox.left = x * CONSTANTS::TILE_WIDTH;
-    renderBox.top = y * CONSTANTS::TILE_HEIGHT;
-    renderBox.width = CONSTANTS::TILE_WIDTH;
-    renderBox.height = CONSTANTS::TILE_HEIGHT;
-
-    worldPosition.x = x;
-    worldPosition.y = y;
-
     symbol = _symbol;
 
     worldSprite = GFX::gfx.createSprite(_symbol);
-    worldSprite.setPosition(renderBox.left, renderBox.top);
+    setRenderPosition(x, y);
+
+    renderBox.width = CONSTANTS::TILE_WIDTH;
+    renderBox.height = CONSTANTS::TILE_HEIGHT;
 }
 
 void Renderable::render() {
@@ -44,16 +39,10 @@ CORE::SYMBOL Renderable::getSymbol() {
     return symbol;
 }
 
-void Renderable::setWorldPosition(unsigned int x, unsigned int y) {
+void Renderable::setRenderPosition(unsigned int x, unsigned int y) {
     renderBox.left = x * CONSTANTS::TILE_WIDTH;
     renderBox.top = y * CONSTANTS::TILE_HEIGHT;
 
-    worldPosition.x = x;
-    worldPosition.y = y;
-
-    worldSprite.setPosition(sf::Vector2f(renderBox.left, renderBox.top));
+    worldSprite.setPosition(renderBox.left, renderBox.top);
 }
 
-sf::Vector2i Renderable::getWorldPosition() {
-    return worldPosition;
-}

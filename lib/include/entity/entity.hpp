@@ -24,7 +24,7 @@
 
 class Entity : public Renderable {
 public:
-    Entity(CORE::SYMBOL _symbol, int x, int y, unsigned int _curhp, unsigned int _maxhp);
+    Entity(CORE::SYMBOL _symbol, unsigned int _curhp, unsigned int _maxhp);
 
     const unsigned int getCurHP();
     const unsigned int getMaxHP();
@@ -35,8 +35,13 @@ public:
     void setPrevPos(int x, int y);
     sf::Vector2i getPreviousPosition();
 
+    void setWorldPosition(unsigned int x, unsigned int y);
+
+    sf::Vector2i getWorldPosition();
+
 private:
     unsigned int curhp, maxhp;
 
     sf::Vector2i prevPosition;
+    sf::Vector2i worldPosition;
 };
