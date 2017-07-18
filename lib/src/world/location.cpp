@@ -18,28 +18,40 @@
 
 #include <include/world/location.hpp>
 
-Location::Location() {
+Location::Location(int width, int height) {
+    dimensions.x = width;
+    dimensions.y = height;
 
+    for(unsigned int i = 0; i < dimensions.x; i++){
+        areas.push_back(std::vector<std::shared_ptr<Area>>());
+        areas.at(i).reserve((unsigned long) dimensions.y);
+
+        for(unsigned int j = 0; j < dimensions.y; j++){
+            areas.at(i).push_back(nullptr);
+        }
+    }
 }
 
 Location::~Location() {
-    for(auto& loc : areas){
-        loc->unlinkAreas();
-    }
-
     areas.clear();
 }
 
-void Location::addArea(Area area) {
-    areas.push_back(std::make_shared<Area>(area));
+sf::Vector2i Location::getDimensions() {
+    return dimensions;
 }
 
-Area *Location::getAreaByID(std::string identifier) {
-    for(auto& loc : areas){
-        if(loc->getIdentifier() == identifier){
-            return loc.get();
-        }
+void Location::placeArea(unsigned int x, unsigned int y, Area area) {
+    if((x >= 0) && (x < dimensions.x) && (y >= 0) && (y < dimensions.y)){
+        areas.at(x).at(y) = std::make_shared<Area>(area);
     }
+}
 
-    return nullptr;
+const std::shared_ptr<Area> &Location::getArea(unsigned int x, unsigned int y) {
+    if((x >= 0) && (x < dimensions.x) && (y >= 0) && (y < dimensions.y)){
+        return areas.at(x).at(y);
+    }
+}
+
+std::string &Location::getName() {
+    return locationName;
 }

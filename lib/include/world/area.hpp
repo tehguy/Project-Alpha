@@ -24,16 +24,17 @@
 
 #include <include/entity/player.hpp>
 #include <include/item/item.hpp>
+
+#include <include/world/special/specialtile.hpp>
 #include <include/world/terrain/terrain.hpp>
 
 class Area {
 public:
-    Area(std::string id, unsigned int _width, unsigned int _height);
+    Area(std::string name, unsigned int _width, unsigned int _height);
     ~Area();
 
-    const std::string& getIdentifier();
-
     sf::Vector2i getDimensions();
+    std::string& getAreaName();
 
     void setMapSymbol(unsigned int x, unsigned int y, Terrain* terrain);
     void setItemSymbol(unsigned int x, unsigned int y, Item *item);
@@ -44,33 +45,16 @@ public:
     const CORE::SYMBOL getItemSymbol(unsigned int x, unsigned int y);
     const CORE::SYMBOL getEntitySymbol(unsigned int row, unsigned int col);
 
-    void unlinkAreas();
-
-    void setAreaNorth(Area& area);
-    void setAreaEast(Area& area);
-    void setAreaSouth(Area& area);
-    void setAreaWest(Area& area);
-
-    std::shared_ptr<Area>& getAreaNorth();
-    std::shared_ptr<Area>& getAreaEast();
-    std::shared_ptr<Area>& getAreaSouth();
-    std::shared_ptr<Area>& getAreaWest();
-
     void draw();
     void genRandom(const unsigned int& seed);
 private:
 
-    std::string identifier;
+    std::string areaName;
 
-    //unsigned int width, height;
     sf::Vector2i dimensions;
 
     std::vector<std::vector<Terrain*>> map;
+    std::vector<std::vector<SpecialTile*>> specialMap;
     std::vector<std::vector<Item*>> itemLayer;
     std::vector<std::vector<Entity*>> entityLayer;
-
-    std::shared_ptr<Area> areaNorth;
-    std::shared_ptr<Area> areaEast;
-    std::shared_ptr<Area> areaSouth;
-    std::shared_ptr<Area> areaWest;
 };

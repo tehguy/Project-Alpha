@@ -17,7 +17,6 @@
 */
 #include <include/core/core.hpp>
 #include <include/gfx/gfx.hpp>
-#include <cmath>
 
 namespace MAIN {
     Core core;
@@ -35,6 +34,8 @@ void Core::init() {
     currentArea->setEntitySymbol((unsigned int) player->getWorldPosition().x,
                                  (unsigned int) player->getWorldPosition().y, &(*player));
     centerCameraAroundPlayer(true);
+
+    //TODO: set up a location and add some areas to it; put/edit keybinds to move between areas for testing
 
     gameLoop();
 }

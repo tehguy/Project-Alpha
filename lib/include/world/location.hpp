@@ -24,13 +24,20 @@
 
 class Location {
 public:
-    Location();
+    Location(int width, int height);
     ~Location();
 
-    void addArea(Area area);
+    sf::Vector2i getDimensions();
 
-    Area* getAreaByID(std::string identifier);
+    void placeArea(unsigned int x, unsigned int y, Area area);
+
+    const std::shared_ptr<Area>& getArea(unsigned int x, unsigned int y);
+
+    std::string& getName();
 private:
+    std::vector<std::vector<std::shared_ptr<Area>>> areas;
 
-    std::vector<std::shared_ptr<Area>> areas;
+    sf::Vector2i dimensions;
+
+    std::string locationName;
 };

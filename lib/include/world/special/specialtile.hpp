@@ -16,8 +16,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-Terrain::Terrain(int x, int y, CORE::SYMBOL _symbol) : Renderable((unsigned int) x, (unsigned int) y, _symbol) {
+#include <include/gfx/renderable.hpp>
 
-}
+class SpecialTile : public Renderable {
+public:
+    SpecialTile(int x, int y, CORE::SYMBOL _symbol);
+
+    //TODO: set up special tiles for use as movement between areas and locations
+};

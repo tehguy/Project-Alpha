@@ -52,6 +52,7 @@ namespace CORE {
         WATER,
         MOUNTAIN,
         SNOW,
-        PLAYER
+        PLAYER,
+        TRANSFER
     };
 }

@@ -26,25 +26,24 @@
 #include <include/world/terrain/mountain.hpp>
 #include <include/world/terrain/water.hpp>
 
-Area::Area(std::string id, unsigned int _width, unsigned int _height) {
-    identifier = id;
+Area::Area(std::string name, unsigned int _width, unsigned int _height) {
+    areaName = name;
     dimensions.x = _width;
     dimensions.y = _height;
-
-    areaNorth = nullptr;
-    areaEast = nullptr;
-    areaSouth = nullptr;
-    areaWest = nullptr;
 
     for(unsigned int i = 0; i < dimensions.x; i++){
         map.push_back(std::vector<Terrain*>());
         map.at(i).reserve((unsigned long) dimensions.y);
+
+        specialMap.push_back(std::vector<SpecialTile*>());
+        specialMap.at(i).reserve((unsigned long) dimensions.y);
 
         entityLayer.push_back(std::vector<Entity*>());
         entityLayer.at(i).reserve((unsigned long) dimensions.y);
 
         for(unsigned int j = 0; j < dimensions.y; j++){
             map.at(i).push_back(nullptr);
+            specialMap.at(i).push_back(nullptr);
             entityLayer.at(i).push_back(nullptr);
         }
     }
@@ -54,12 +53,12 @@ Area::~Area() {
 
 }
 
-const std::string &Area::getIdentifier() {
-    return identifier;
-}
-
 sf::Vector2i Area::getDimensions() {
     return dimensions;
+}
+
+std::string &Area::getAreaName() {
+    return areaName;
 }
 
 void Area::setMapSymbol(unsigned int x, unsigned int y, Terrain *terrain) {
@@ -119,45 +118,6 @@ const CORE::SYMBOL Area::getEntitySymbol(unsigned int row, unsigned int col) {
     }
 
     return CORE::SYMBOL::NOSYM;
-}
-
-void Area::unlinkAreas() {
-    areaNorth = nullptr;
-    areaEast = nullptr;
-    areaSouth = nullptr;
-    areaWest = nullptr;
-}
-
-void Area::setAreaNorth(Area &area) {
-    *areaNorth = area;
-}
-
-void Area::setAreaEast(Area &area) {
-    *areaEast = area;
-}
-
-void Area::setAreaSouth(Area &area) {
-    *areaSouth = area;
-}
-
-void Area::setAreaWest(Area &area) {
-    *areaWest = area;
-}
-
-std::shared_ptr<Area> &Area::getAreaNorth() {
-    return areaNorth;
-}
-
-std::shared_ptr<Area> &Area::getAreaEast() {
-    return areaEast;
-}
-
-std::shared_ptr<Area> &Area::getAreaSouth() {
-    return areaSouth;
-}
-
-std::shared_ptr<Area> &Area::getAreaWest() {
-    return areaWest;
 }
 
 void Area::draw() {

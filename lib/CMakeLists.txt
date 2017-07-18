@@ -28,6 +28,8 @@ set (SOURCE_FILES
         src/world/area.cpp                      include/world/area.hpp
         src/world/location.cpp                  include/world/location.hpp
 
+        src/world/special/specialtile.cpp       include/world/special/specialtile.hpp
+
         src/world/terrain/grass.cpp             include/world/terrain/grass.hpp
         src/world/terrain/snow.cpp              include/world/terrain/snow.hpp
         src/world/terrain/terrain.cpp           include/world/terrain/terrain.hpp
