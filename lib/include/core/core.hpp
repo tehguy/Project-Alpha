@@ -28,12 +28,12 @@ public:
 private:
     void gameLoop();
 
-    bool movePlayer(int x, int y);
+    bool movePlayer(int xOffset, int yOffset);
     void handleInput(int key);
-    void centerCameraAroundPlayer(bool didPlayerMove);
+    void centerCameraAroundPlayer(bool playerMoved);
 
     std::shared_ptr<Player> player;
-    std::shared_ptr<Area> currentArea;
+    std::shared_ptr<Location> currentLocation;
 };
 
 namespace MAIN {

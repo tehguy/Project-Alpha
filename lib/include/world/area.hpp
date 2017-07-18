@@ -37,9 +37,11 @@ public:
     std::string& getAreaName();
 
     void setMapSymbol(unsigned int x, unsigned int y, Terrain* terrain);
-    void setItemSymbol(unsigned int x, unsigned int y, Item *item);
+    void setItemSymbol(unsigned int x, unsigned int y, Item* item);
     void setEntitySymbol(unsigned int x, unsigned int y, Entity* entity);
-    bool moveEntity(unsigned int x, unsigned int y, Entity& entity);
+
+    bool moveEntity(int x, int y, Entity& entity);
+    bool movePlayer(int xOffset, int yOffset, Entity &player);
 
     const CORE::SYMBOL getMapSymbol(unsigned int row, unsigned int col);
     const CORE::SYMBOL getItemSymbol(unsigned int x, unsigned int y);
@@ -47,11 +49,15 @@ public:
 
     void draw();
     void genRandom(const unsigned int& seed);
+
+    void setLocationalPosition(sf::Vector2i pos);
+    sf::Vector2i getLocationalPosition();
 private:
 
     std::string areaName;
 
     sf::Vector2i dimensions;
+    sf::Vector2i locationalPosition;
 
     std::vector<std::vector<Terrain*>> map;
     std::vector<std::vector<SpecialTile*>> specialMap;

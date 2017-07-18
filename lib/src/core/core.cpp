@@ -27,15 +27,19 @@ void Core::init() {
         return;
     }
 
-    player = std::shared_ptr<Player>(new Player(25, 22, 20));
+    player = std::shared_ptr<Player>(new Player(5, 5, 20));
 
-    currentArea = std::shared_ptr<Area>(new Area("test", 90, 60));
-    currentArea->genRandom(237);
-    currentArea->setEntitySymbol((unsigned int) player->getWorldPosition().x,
-                                 (unsigned int) player->getWorldPosition().y, &(*player));
-    centerCameraAroundPlayer(true);
+    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 1));
+    Area area1("Test1", 10, 10);
+    Area area2("Test2", 20, 22);
 
-    //TODO: set up a location and add some areas to it; put/edit keybinds to move between areas for testing
+    area1.genRandom(288);
+    area1.setEntitySymbol(5, 5, &(*player));
+    area2.genRandom(156);
+
+    currentLocation->placeArea(0, 0, area1);
+    currentLocation->placeArea(1, 0, area2);
+    currentLocation->setCurrentArea(0, 0);
 
     gameLoop();
 }
@@ -54,42 +58,45 @@ void Core::gameLoop() {
         }
         GFX::gfx.getWindow()->clear(sf::Color::Black);
 
-        currentArea->draw();
+        currentLocation->getCurrentArea()->draw();
 
         GFX::gfx.getWindow()->display();
     }
 }
 
-bool Core::movePlayer(int x, int y) {
-    return currentArea->moveEntity((unsigned int) x, (unsigned int) y, *player);
+bool Core::movePlayer(int xOffset, int yOffset) {
+    return currentLocation->getCurrentArea()->movePlayer(xOffset, yOffset, *player);
 }
 
 void Core::handleInput(int key) {
-    bool didMove = false;
+    bool playerMoved = false;
     switch (key){
         case sf::Keyboard::Q: case sf::Keyboard::Escape:
             GFX::gfx.getWindow()->close();
             break;
         case sf::Keyboard::Up: case sf::Keyboard::W:
-            didMove = movePlayer(player->getWorldPosition().x, player->getWorldPosition().y - 1);
+            playerMoved = movePlayer(0, (-1));
             break;
         case sf::Keyboard::Right: case sf::Keyboard::D:
-            didMove = movePlayer(player->getWorldPosition().x + 1, player->getWorldPosition().y);
+            playerMoved = movePlayer(1, 0);
             break;
         case sf::Keyboard::Down: case sf::Keyboard::S:
-            didMove = movePlayer(player->getWorldPosition().x, player->getWorldPosition().y + 1);
+            playerMoved = movePlayer(0, 1);
             break;
         case sf::Keyboard::Left: case sf::Keyboard::A:
-            didMove = movePlayer(player->getWorldPosition().x - 1, player->getWorldPosition().y);
+            playerMoved = movePlayer((-1), 0);
             break;
         default:
             break;
     }
-    centerCameraAroundPlayer(didMove);
+    centerCameraAroundPlayer(playerMoved);
 }
 
-void Core::centerCameraAroundPlayer(bool didPlayerMove) {
-    if(didPlayerMove){
-        GFX::gfx.centerCamera(player->getPreviousPosition(), player->getWorldPosition(), currentArea->getDimensions());
+void Core::centerCameraAroundPlayer(bool playerMoved) {
+    if(playerMoved){
+        sf::Vector2i playerPrevPos = player->getPreviousPosition();
+        sf::Vector2i playerCurPos = player->getWorldPosition();
+        sf::Vector2i areaDim = currentLocation->getCurrentArea()->getDimensions();
+        GFX::gfx.centerCamera(playerPrevPos, playerCurPos, areaDim);
     }
 }

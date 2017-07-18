@@ -24,17 +24,23 @@
 
 class Location {
 public:
-    Location(int width, int height);
+    Location(std::string name, int width, int height);
     ~Location();
 
     sf::Vector2i getDimensions();
 
     void placeArea(unsigned int x, unsigned int y, Area area);
 
-    const std::shared_ptr<Area>& getArea(unsigned int x, unsigned int y);
-
     std::string& getName();
+
+    void setCurrentArea(int x, int y);
+    const std::shared_ptr<Area>& getCurrentArea();
+    void moveToArea(int xOffset, int yOffset);
 private:
+    const std::shared_ptr<Area> getArea(unsigned int x, unsigned int y);
+
+    std::shared_ptr<Area> currentArea;
+
     std::vector<std::vector<std::shared_ptr<Area>>> areas;
 
     sf::Vector2i dimensions;

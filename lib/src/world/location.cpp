@@ -18,7 +18,8 @@
 
 #include <include/world/location.hpp>
 
-Location::Location(int width, int height) {
+Location::Location(std::string name, int width, int height) {
+    locationName = name;
     dimensions.x = width;
     dimensions.y = height;
 
@@ -41,17 +42,34 @@ sf::Vector2i Location::getDimensions() {
 }
 
 void Location::placeArea(unsigned int x, unsigned int y, Area area) {
-    if((x >= 0) && (x < dimensions.x) && (y >= 0) && (y < dimensions.y)){
+    if((x >= 0) && (x < getDimensions().x) && (y >= 0) && (y < getDimensions().y)){
+        area.setLocationalPosition(sf::Vector2i(x, y));
         areas.at(x).at(y) = std::make_shared<Area>(area);
     }
 }
 
-const std::shared_ptr<Area> &Location::getArea(unsigned int x, unsigned int y) {
-    if((x >= 0) && (x < dimensions.x) && (y >= 0) && (y < dimensions.y)){
-        return areas.at(x).at(y);
-    }
+const std::shared_ptr<Area> Location::getArea(unsigned int x, unsigned int y) {
+    return areas.at(x).at(y);
 }
 
 std::string &Location::getName() {
     return locationName;
+}
+
+void Location::setCurrentArea(int x, int y) {
+    if(getArea((unsigned int) x, (unsigned int) y) != nullptr){
+        currentArea = getArea((unsigned int) x, (unsigned int) y);
+    }
+}
+const std::shared_ptr<Area> &Location::getCurrentArea() {
+    return currentArea;
+}
+
+void Location::moveToArea(int xOffset, int yOffset) {
+    int xTarget = currentArea->getLocationalPosition().x + xOffset;
+    int yTarget = currentArea->getLocationalPosition().y + yOffset;
+
+    if((xTarget >= 0) && (xTarget < getDimensions().x) && (yTarget >= 0) && (yTarget < getDimensions().y)){
+        setCurrentArea(xTarget, yTarget);
+    }
 }

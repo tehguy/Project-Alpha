@@ -73,9 +73,9 @@ void Area::setEntitySymbol(unsigned int x, unsigned int y, Entity *entity) {
     entityLayer.at(x).at(y) = entity;
 }
 
-bool Area::moveEntity(unsigned int x, unsigned int y, Entity &entity) {
+bool Area::moveEntity(int x, int y, Entity &entity) {
     if((x >= 0 && x < dimensions.x) && (y >= 0 && y < dimensions.y)){
-        CORE::SYMBOL target = getMapSymbol(x, y);
+        CORE::SYMBOL target = getMapSymbol((unsigned int) x, (unsigned int) y);
 
         if(target != CORE::SYMBOL::WATER && target != CORE::SYMBOL::MOUNTAIN){
             int prevXPos = entity.getWorldPosition().x;
@@ -86,14 +86,18 @@ bool Area::moveEntity(unsigned int x, unsigned int y, Entity &entity) {
                 setEntitySymbol((unsigned int) prevXPos, (unsigned int) prevYPos, nullptr);
             }
 
-            entity.setWorldPosition(x, y);
-            setEntitySymbol(x, y, &entity);
+            entity.setWorldPosition((unsigned int) x, (unsigned int) y);
+            setEntitySymbol((unsigned int) x, (unsigned int) y, &entity);
 
             return true;
         }
     }
 
     return false;
+}
+
+bool Area::movePlayer(int xOffset, int yOffset, Entity &player) {
+    return moveEntity((player.getWorldPosition().x + xOffset), (player.getWorldPosition().y + yOffset), player);
 }
 
 const CORE::SYMBOL Area::getMapSymbol(unsigned int row, unsigned int col) {
@@ -155,4 +159,12 @@ void Area::genRandom(const unsigned int &seed) {
             }
         }
     }
+}
+
+void Area::setLocationalPosition(sf::Vector2i pos) {
+    locationalPosition = pos;
+}
+
+sf::Vector2i Area::getLocationalPosition() {
+    return locationalPosition;
 }
