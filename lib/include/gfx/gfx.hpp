@@ -26,7 +26,6 @@ class Graphics {
 public:
     Graphics();
 
-    bool checkCollision(sf::Rect<int> a, sf::Rect<int> b);
     bool checkWithinCamera(sf::Rect<int> object);
 
     bool initGFX();
@@ -35,15 +34,18 @@ public:
     const std::shared_ptr<sf::RenderWindow>& getWindow();
     const sf::Sprite createSprite(unsigned int clipIndex);
 
-    void moveCamera(sf::Vector2f& offset);
-
-    sf::Rect<int> actualCameraBounds;
+    void centerCamera(sf::Vector2i playerPrevPos, sf::Vector2i playerCurrentPos, sf::Vector2i areaDimensions);
 
 private:
+    bool checkCollision(sf::Rect<int> a, sf::Rect<int> b);
+    void moveCamera(sf::Vector2f& offset);
+
     std::shared_ptr<sf::RenderWindow> window;
     sf::View camera;
     sf::Texture tileTexture;
     std::vector<sf::Rect<int>> textureRects;
+
+    sf::Rect<int> actualCameraBounds;
 };
 
 namespace GFX {

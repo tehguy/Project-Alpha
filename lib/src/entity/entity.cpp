@@ -23,8 +23,8 @@ Entity::Entity(CORE::SYMBOL _symbol, int x, int y, unsigned int _curhp, unsigned
     maxhp = _maxhp;
     setWorldPosition((unsigned int) x, (unsigned int) y);
 
-    prevX = 0;
-    prevY = 0;
+    prevPosition.x = 0;
+    prevPosition.y = 0;
 }
 
 const unsigned int Entity::getCurHP() {
@@ -50,14 +50,10 @@ void Entity::remHP(unsigned int amtToRem) {
 }
 
 void Entity::setPrevPos(int x, int y) {
-    prevX = x;
-    prevY = y;
+    prevPosition.x = x;
+    prevPosition.y = y;
 }
 
-int Entity::getPrevX() {
-    return prevX;
-}
-
-int Entity::getPrevY() {
-    return prevY;
+sf::Vector2i Entity::getPreviousPosition() {
+    return prevPosition;
 }

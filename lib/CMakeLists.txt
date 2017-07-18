@@ -12,7 +12,6 @@ set(CMAKE_INSTALL_RPATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 set (SOURCE_FILES
                                                 include/core/constants.hpp
         src/core/core.cpp                       include/core/core.hpp
-        src/core/diceroller.cpp                 include/core/diceroller.hpp
         src/core/perlinnoise.cpp                include/core/perlinnoise.hpp
         src/core/randomnumbergenerator.cpp      include/core/randomnumbergenerator.hpp
 

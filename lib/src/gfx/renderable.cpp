@@ -25,8 +25,8 @@ Renderable::Renderable(unsigned int x, unsigned int y, CORE::SYMBOL _symbol) {
     renderBox.width = CONSTANTS::TILE_WIDTH;
     renderBox.height = CONSTANTS::TILE_HEIGHT;
 
-    worldX = x;
-    worldY = y;
+    worldPosition.x = x;
+    worldPosition.y = y;
 
     symbol = _symbol;
 
@@ -48,16 +48,12 @@ void Renderable::setWorldPosition(unsigned int x, unsigned int y) {
     renderBox.left = x * CONSTANTS::TILE_WIDTH;
     renderBox.top = y * CONSTANTS::TILE_HEIGHT;
 
-    worldX = x;
-    worldY = y;
+    worldPosition.x = x;
+    worldPosition.y = y;
 
     worldSprite.setPosition(sf::Vector2f(renderBox.left, renderBox.top));
 }
 
-unsigned int Renderable::getWorldXPos() {
-    return worldX;
-}
-
-unsigned int Renderable::getWorldYPos() {
-    return worldY;
+sf::Vector2i Renderable::getWorldPosition() {
+    return worldPosition;
 }

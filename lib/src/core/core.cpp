@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <include/core/core.hpp>
+#include <include/gfx/gfx.hpp>
 #include <cmath>
 
 namespace MAIN {
@@ -31,7 +32,8 @@ void Core::init() {
 
     currentArea = std::shared_ptr<Area>(new Area("test", 90, 60));
     currentArea->genRandom(237);
-    currentArea->setEntitySymbol(player->getWorldXPos(), player->getWorldYPos(), &(*player));
+    currentArea->setEntitySymbol((unsigned int) player->getWorldPosition().x,
+                                 (unsigned int) player->getWorldPosition().y, &(*player));
     centerCameraAroundPlayer(true);
 
     gameLoop();
@@ -57,8 +59,8 @@ void Core::gameLoop() {
     }
 }
 
-bool Core::movePlayer(unsigned int x, unsigned int y) {
-    return currentArea->moveEntity(x, y, *player);
+bool Core::movePlayer(int x, int y) {
+    return currentArea->moveEntity((unsigned int) x, (unsigned int) y, *player);
 }
 
 void Core::handleInput(int key) {
@@ -68,16 +70,16 @@ void Core::handleInput(int key) {
             GFX::gfx.getWindow()->close();
             break;
         case sf::Keyboard::Up: case sf::Keyboard::W:
-            didMove = movePlayer(player->getWorldXPos(), player->getWorldYPos() - 1);
+            didMove = movePlayer(player->getWorldPosition().x, player->getWorldPosition().y - 1);
             break;
         case sf::Keyboard::Right: case sf::Keyboard::D:
-            didMove = movePlayer(player->getWorldXPos() + 1, player->getWorldYPos());
+            didMove = movePlayer(player->getWorldPosition().x + 1, player->getWorldPosition().y);
             break;
         case sf::Keyboard::Down: case sf::Keyboard::S:
-            didMove = movePlayer(player->getWorldXPos(), player->getWorldYPos() + 1);
+            didMove = movePlayer(player->getWorldPosition().x, player->getWorldPosition().y + 1);
             break;
         case sf::Keyboard::Left: case sf::Keyboard::A:
-            didMove = movePlayer(player->getWorldXPos() - 1, player->getWorldYPos());
+            didMove = movePlayer(player->getWorldPosition().x - 1, player->getWorldPosition().y);
             break;
         default:
             break;
@@ -87,44 +89,6 @@ void Core::handleInput(int key) {
 
 void Core::centerCameraAroundPlayer(bool didPlayerMove) {
     if(didPlayerMove){
-        sf::View camera = GFX::gfx.getWindow()->getView();
-
-        float adjustedCamCenterX = std::floor(camera.getCenter().x / CONSTANTS::TILE_WIDTH);
-        float adjustedCamCenterY = std::floor(camera.getCenter().y / CONSTANTS::TILE_HEIGHT);
-
-        float xBufferInTiles = ((CONSTANTS::SCREEN_WIDTH / 2) / CONSTANTS::TILE_WIDTH);
-        float yBufferInTiles = ((CONSTANTS::SCREEN_HEIGHT / 2) / CONSTANTS::TILE_HEIGHT);
-
-
-        sf::Vector2f offset;
-
-        if(player->getPrevX() != player->getWorldXPos()){
-            if(adjustedCamCenterX != player->getWorldXPos()){
-                offset.x = ((player->getWorldXPos() - adjustedCamCenterX) * CONSTANTS::TILE_WIDTH);
-            }
-            if((adjustedCamCenterX + (offset.x / CONSTANTS::TILE_WIDTH)) < xBufferInTiles){
-                offset.x = 0;
-            }
-            if((currentArea->getWidth() - xBufferInTiles) < (adjustedCamCenterX + (offset.x / CONSTANTS::TILE_WIDTH))){
-                offset.x = 0;
-            }
-
-            GFX::gfx.actualCameraBounds.left += offset.x;
-        }
-
-        if(player->getPrevY() != player->getWorldYPos()){
-            if(adjustedCamCenterY != player->getWorldYPos()){
-                offset.y = ((player->getWorldYPos() - adjustedCamCenterY) * CONSTANTS::TILE_HEIGHT);
-            }
-            if((adjustedCamCenterY + (offset.y / CONSTANTS::TILE_HEIGHT)) < yBufferInTiles){
-                offset.y = 0;
-            }
-            if((currentArea->getHeight() - yBufferInTiles) < (adjustedCamCenterY + 1 + (offset.y / CONSTANTS::TILE_HEIGHT))){
-                offset.y = 0;
-            }
-
-            GFX::gfx.actualCameraBounds.top += offset.y;
-        }
-        GFX::gfx.moveCamera(offset);
+        GFX::gfx.centerCamera(player->getPreviousPosition(), player->getWorldPosition(), currentArea->getDimensions());
     }
 }

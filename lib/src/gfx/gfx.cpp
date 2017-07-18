@@ -19,6 +19,8 @@
 #include <include/core/constants.hpp>
 #include <include/gfx/gfx.hpp>
 
+#include <cmath>
+
 namespace GFX {
     Graphics gfx;
 }
@@ -71,7 +73,7 @@ bool Graphics::checkWithinCamera(sf::Rect<int> object) {
 
 bool Graphics::initGFX() {
     window = std::shared_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(CONSTANTS::SCREEN_WIDTH,
-                                                                      CONSTANTS::SCREEN_HEIGHT), "Window"));
+                                                                      CONSTANTS::SCREEN_HEIGHT), "CPPAdventures"));
     window->setFramerateLimit(60);
 
     camera.setSize(CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT);
@@ -115,7 +117,49 @@ const sf::Sprite Graphics::createSprite(unsigned int clipIndex) {
 }
 
 void Graphics::moveCamera(sf::Vector2f &offset) {
+    actualCameraBounds.left += offset.x;
+    actualCameraBounds.top += offset.y;
+
     sf::View view = window->getView();
     view.move(offset);
     window->setView(view);
+}
+
+void Graphics::centerCamera(sf::Vector2i playerPrevPos, sf::Vector2i playerCurrentPos, sf::Vector2i areaDimensions) {
+    sf::View currentCam = window->getView();
+
+    float adjustedCamCenterX = std::floor(currentCam.getCenter().x / CONSTANTS::TILE_WIDTH);
+    float adjustedCamCenterY = std::floor(currentCam.getCenter().y / CONSTANTS::TILE_HEIGHT);
+
+    float xBufferInTiles = ((CONSTANTS::SCREEN_WIDTH / 2) / CONSTANTS::TILE_WIDTH);
+    float yBufferInTiles = ((CONSTANTS::SCREEN_HEIGHT / 2) / CONSTANTS::TILE_HEIGHT);
+
+
+    sf::Vector2f offset;
+
+    if(playerPrevPos.x != playerCurrentPos.x){
+        if(adjustedCamCenterX != playerCurrentPos.x){
+            offset.x = ((playerCurrentPos.x - adjustedCamCenterX) * CONSTANTS::TILE_WIDTH);
+        }
+        if((adjustedCamCenterX + (offset.x / CONSTANTS::TILE_WIDTH)) < xBufferInTiles){
+            offset.x = 0;
+        }
+        if((areaDimensions.x - xBufferInTiles) < (adjustedCamCenterX + (offset.x / CONSTANTS::TILE_WIDTH))){
+            offset.x = 0;
+        }
+    }
+
+    if(playerPrevPos.y != playerCurrentPos.y){
+        if(adjustedCamCenterY != playerCurrentPos.y){
+            offset.y = ((playerCurrentPos.y - adjustedCamCenterY) * CONSTANTS::TILE_HEIGHT);
+        }
+        if((adjustedCamCenterY + (offset.y / CONSTANTS::TILE_HEIGHT)) < yBufferInTiles){
+            offset.y = 0;
+        }
+        if((areaDimensions.y - yBufferInTiles) < (adjustedCamCenterY + 1 + (offset.y / CONSTANTS::TILE_HEIGHT))){
+            offset.y = 0;
+        }
+    }
+
+    moveCamera(offset);
 }

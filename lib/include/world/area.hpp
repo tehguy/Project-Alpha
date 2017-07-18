@@ -33,8 +33,7 @@ public:
 
     const std::string& getIdentifier();
 
-    unsigned int getWidth();
-    unsigned int getHeight();
+    sf::Vector2i getDimensions();
 
     void setMapSymbol(unsigned int x, unsigned int y, Terrain* terrain);
     void setItemSymbol(unsigned int x, unsigned int y, Item *item);
@@ -63,7 +62,8 @@ private:
 
     std::string identifier;
 
-    unsigned int width, height;
+    //unsigned int width, height;
+    sf::Vector2i dimensions;
 
     std::vector<std::vector<Terrain*>> map;
     std::vector<std::vector<Item*>> itemLayer;

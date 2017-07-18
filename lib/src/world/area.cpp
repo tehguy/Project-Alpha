@@ -28,22 +28,22 @@
 
 Area::Area(std::string id, unsigned int _width, unsigned int _height) {
     identifier = id;
-    width = _width;
-    height = _height;
+    dimensions.x = _width;
+    dimensions.y = _height;
 
     areaNorth = nullptr;
     areaEast = nullptr;
     areaSouth = nullptr;
     areaWest = nullptr;
 
-    for(unsigned int i = 0; i < width; i++){
+    for(unsigned int i = 0; i < dimensions.x; i++){
         map.push_back(std::vector<Terrain*>());
-        map.at(i).reserve(height);
+        map.at(i).reserve((unsigned long) dimensions.y);
 
         entityLayer.push_back(std::vector<Entity*>());
-        entityLayer.at(i).reserve(height);
+        entityLayer.at(i).reserve((unsigned long) dimensions.y);
 
-        for(unsigned int j = 0; j < height; j++){
+        for(unsigned int j = 0; j < dimensions.y; j++){
             map.at(i).push_back(nullptr);
             entityLayer.at(i).push_back(nullptr);
         }
@@ -58,12 +58,8 @@ const std::string &Area::getIdentifier() {
     return identifier;
 }
 
-unsigned int Area::getWidth() {
-    return width;
-}
-
-unsigned int Area::getHeight() {
-    return height;
+sf::Vector2i Area::getDimensions() {
+    return dimensions;
 }
 
 void Area::setMapSymbol(unsigned int x, unsigned int y, Terrain *terrain) {
@@ -79,16 +75,16 @@ void Area::setEntitySymbol(unsigned int x, unsigned int y, Entity *entity) {
 }
 
 bool Area::moveEntity(unsigned int x, unsigned int y, Entity &entity) {
-    if((x >= 0 && x < width) && (y >= 0 && y < height)){
+    if((x >= 0 && x < dimensions.x) && (y >= 0 && y < dimensions.y)){
         CORE::SYMBOL target = getMapSymbol(x, y);
 
         if(target != CORE::SYMBOL::WATER && target != CORE::SYMBOL::MOUNTAIN){
-            unsigned int prevXPos = entity.getWorldXPos();
-            unsigned int prevYPos = entity.getWorldYPos();
+            int prevXPos = entity.getWorldPosition().x;
+            int prevYPos = entity.getWorldPosition().y;
             entity.setPrevPos(prevXPos, prevYPos);
 
-            if(getEntitySymbol(prevXPos, prevYPos) == entity.getSymbol()){
-                setEntitySymbol(prevXPos, prevYPos, nullptr);
+            if(getEntitySymbol((unsigned int) prevXPos, (unsigned int) prevYPos) == entity.getSymbol()){
+                setEntitySymbol((unsigned int) prevXPos, (unsigned int) prevYPos, nullptr);
             }
 
             entity.setWorldPosition(x, y);
@@ -165,8 +161,8 @@ std::shared_ptr<Area> &Area::getAreaWest() {
 }
 
 void Area::draw() {
-    for(unsigned int i = 0; i < width; i++){
-        for(unsigned int j = 0; j < height; j++){
+    for(unsigned int i = 0; i < dimensions.x; i++){
+        for(unsigned int j = 0; j < dimensions.y; j++){
             if(entityLayer.at(i).at(j)){
                 entityLayer.at(i).at(j)->render();
             }
@@ -178,10 +174,10 @@ void Area::draw() {
 }
 
 void Area::genRandom(const unsigned int &seed) {
-    for(unsigned int i = 0; i < width; i++){
-        for(unsigned int j = 0; j < height; j++){
-            double x = (double)j / ((double) height);
-            double y = (double)i / ((double) width);
+    for(unsigned int i = 0; i < dimensions.x; i++){
+        for(unsigned int j = 0; j < dimensions.y; j++){
+            double x = (double)j / ((double) dimensions.y);
+            double y = (double)i / ((double) dimensions.x);
 
             double n = PerlinNoise::NoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
 

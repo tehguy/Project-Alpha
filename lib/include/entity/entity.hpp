@@ -33,10 +33,10 @@ public:
     virtual void remHP(unsigned int amtToRem);
 
     void setPrevPos(int x, int y);
-    int getPrevX();
-    int getPrevY();
+    sf::Vector2i getPreviousPosition();
 
 private:
-    int prevX, prevY;
     unsigned int curhp, maxhp;
+
+    sf::Vector2i prevPosition;
 };

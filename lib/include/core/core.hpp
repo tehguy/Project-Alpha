@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include <include/gfx/gfx.hpp>
 #include <include/entity/player.hpp>
 #include <include/world/location.hpp>
 
@@ -29,7 +28,7 @@ public:
 private:
     void gameLoop();
 
-    bool movePlayer(unsigned int x, unsigned int y);
+    bool movePlayer(int x, int y);
     void handleInput(int key);
     void centerCameraAroundPlayer(bool didPlayerMove);
 
