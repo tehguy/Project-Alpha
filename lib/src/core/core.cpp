@@ -28,18 +28,13 @@ void Core::init() {
         return;
     }
 
-    player = std::shared_ptr<Player>(new Player(20));
-
-    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 1));
-    Area area1("Test1", 10, 10);
-    Area area2("Test2", 20, 22);
+    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 1, 1));
+    Area area1("Test1", 50, 80);
 
     area1.genRandom(288);
-    area1.movePlayer(5, 5, *player);
-    area2.genRandom(156);
+    area1.spawnPlayer(5, 5, 20);
 
     currentLocation->placeArea(0, 0, area1);
-    currentLocation->placeArea(1, 0, area2);
     currentLocation->setCurrentArea(0, 0);
 
     gameLoop();
@@ -65,39 +60,28 @@ void Core::gameLoop() {
     }
 }
 
-bool Core::movePlayer(int xOffset, int yOffset) {
-    return currentLocation->getCurrentArea()->movePlayer(xOffset, yOffset, *player);
+void Core::movePlayer(int xOffset, int yOffset) {
+    currentLocation->getCurrentArea()->movePlayer(xOffset, yOffset);
 }
 
 void Core::handleInput(int key) {
-    bool playerMoved = false;
     switch (key){
         case sf::Keyboard::Q: case sf::Keyboard::Escape:
             GFX::gfx.getWindow()->close();
             break;
         case sf::Keyboard::Up: case sf::Keyboard::W:
-            playerMoved = movePlayer(0, (-1));
+            movePlayer(0, (-1));
             break;
         case sf::Keyboard::Right: case sf::Keyboard::D:
-            playerMoved = movePlayer(1, 0);
+            movePlayer(1, 0);
             break;
         case sf::Keyboard::Down: case sf::Keyboard::S:
-            playerMoved = movePlayer(0, 1);
+            movePlayer(0, 1);
             break;
         case sf::Keyboard::Left: case sf::Keyboard::A:
-            playerMoved = movePlayer((-1), 0);
+            movePlayer((-1), 0);
             break;
         default:
             break;
-    }
-    centerCameraAroundPlayer(playerMoved);
-}
-
-void Core::centerCameraAroundPlayer(bool playerMoved) {
-    if(playerMoved){
-        sf::Vector2i playerPrevPos = player->getPreviousPosition();
-        sf::Vector2i playerCurPos = player->getWorldPosition();
-        sf::Vector2i areaDim = currentLocation->getCurrentArea()->getDimensions();
-        GFX::gfx.centerCamera(playerPrevPos, playerCurPos, areaDim);
     }
 }

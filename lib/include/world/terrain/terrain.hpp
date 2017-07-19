@@ -25,6 +25,10 @@
 
 class Terrain : public Renderable {
 public:
-    Terrain(int x, int y, CORE::SYMBOL _symbol);
+    Terrain(int x, int y, CORE::SYMBOL _symbol, bool isPassable);
 
+    bool isPassable();
+
+private:
+    bool passable;
 };

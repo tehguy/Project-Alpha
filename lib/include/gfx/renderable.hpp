@@ -30,7 +30,7 @@ public:
 
     CORE::SYMBOL getSymbol();
 
-    void setRenderPosition(unsigned int x, unsigned int y);
+    void setRenderPosition(int x, int y);
 
 private:
 

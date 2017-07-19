@@ -31,8 +31,10 @@ Area::Area(std::string name, unsigned int _width, unsigned int _height) {
     dimensions.x = _width;
     dimensions.y = _height;
 
+    player = std::shared_ptr<Player>(nullptr);
+
     for(unsigned int i = 0; i < dimensions.x; i++){
-        map.push_back(std::vector<Terrain*>());
+        map.push_back(std::vector<std::shared_ptr<Terrain>>());
         map.at(i).reserve((unsigned long) dimensions.y);
 
         specialMap.push_back(std::vector<SpecialTile*>());
@@ -61,32 +63,40 @@ std::string &Area::getAreaName() {
     return areaName;
 }
 
-void Area::setMapSymbol(unsigned int x, unsigned int y, Terrain *terrain) {
-    map.at(x).at(y) = terrain;
+void Area::setMapTile(unsigned int x, unsigned int y, Terrain *terrain) {
+    map.at(x).at(y) = std::shared_ptr<Terrain>(terrain);
 }
 
-void Area::setItemSymbol(unsigned int x, unsigned int y, Item *item) {
+void Area::setItem(unsigned int x, unsigned int y, Item *item) {
     itemLayer.at(x).at(y) = item;
 }
 
-void Area::setEntitySymbol(unsigned int x, unsigned int y, Entity *entity) {
-    entityLayer.at(x).at(y) = entity;
+void Area::setEntity(int x, int y, Entity *entity) {
+    entityLayer.at((unsigned long) x).at((unsigned long) y) = entity;
+}
+
+void Area::spawnPlayer(int x, int y, unsigned int hp) {
+    if(player == nullptr){
+        player = std::shared_ptr<Player>(new Player(hp));
+        movePlayer(x, y);
+    }
+    else{
+        movePlayer(x, y);
+    }
 }
 
 bool Area::moveEntity(int x, int y, Entity &entity) {
     if((x >= 0 && x < dimensions.x) && (y >= 0 && y < dimensions.y)){
-        CORE::SYMBOL target = getMapSymbol((unsigned int) x, (unsigned int) y);
-
-        if(target != CORE::SYMBOL::WATER && target != CORE::SYMBOL::MOUNTAIN){
+        if(getMapTile(x, y)->isPassable()){
             int prevXPos = entity.getWorldPosition().x;
             int prevYPos = entity.getWorldPosition().y;
             entity.setPrevPos(prevXPos, prevYPos);
 
-            if(getEntitySymbol((unsigned int) prevXPos, (unsigned int) prevYPos) == entity.getSymbol()){
-                setEntitySymbol((unsigned int) prevXPos, (unsigned int) prevYPos, nullptr);
+            if(getEntitySymbol(prevXPos, prevYPos) == entity.getSymbol()){
+                setEntity(prevXPos, prevYPos, nullptr);
             }
-            entity.setWorldPosition((unsigned int) x, (unsigned int) y);
-            setEntitySymbol((unsigned int) x, (unsigned int) y, &entity);
+            entity.setWorldPosition(x, y);
+            setEntity(x, y, &entity);
 
             return true;
         }
@@ -95,18 +105,16 @@ bool Area::moveEntity(int x, int y, Entity &entity) {
     return false;
 }
 
-bool Area::movePlayer(int xOffset, int yOffset, Entity &player) {
-    int xTarget = player.getWorldPosition().x + xOffset;
-    int yTarget = player.getWorldPosition().y + yOffset;
-    return moveEntity(xTarget, yTarget, player);
+void Area::movePlayer(int xOffset, int yOffset) {
+    int xTarget = player->getWorldPosition().x + xOffset;
+    int yTarget = player->getWorldPosition().y + yOffset;
+    if(moveEntity(xTarget, yTarget, *player)){
+        GFX::gfx.centerCamera(player->getPreviousPosition(), player->getWorldPosition(), dimensions);
+    }
 }
 
-const CORE::SYMBOL Area::getMapSymbol(unsigned int row, unsigned int col) {
-    if(map.at(row).at(col) != nullptr){
-        return map.at(row).at(col)->getSymbol();
-    }
-
-    return CORE::SYMBOL::NOSYM;
+const std::shared_ptr<Terrain> Area::getMapTile(int row, int col) {
+    return map.at((unsigned long) row).at((unsigned long) col);
 }
 
 const CORE::SYMBOL Area::getItemSymbol(unsigned int x, unsigned int y) {
@@ -117,9 +125,9 @@ const CORE::SYMBOL Area::getItemSymbol(unsigned int x, unsigned int y) {
     return CORE::SYMBOL::NOSYM;
 }
 
-const CORE::SYMBOL Area::getEntitySymbol(unsigned int row, unsigned int col) {
-    if(entityLayer.at(row).at(col) != nullptr){
-        return entityLayer.at(row).at(col)->getSymbol();
+const CORE::SYMBOL Area::getEntitySymbol(int row, int col) {
+    if(entityLayer.at((unsigned long) row).at((unsigned long) col) != nullptr){
+        return entityLayer.at((unsigned long) row).at((unsigned long) col)->getSymbol();
     }
 
     return CORE::SYMBOL::NOSYM;
@@ -147,16 +155,16 @@ void Area::genRandom(const unsigned int &seed) {
             double n = PerlinNoise::NoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
 
             if(n < 0.35){
-                setMapSymbol(i, j, new Water(i, j));
+                setMapTile(i, j, new Water(i, j));
             }
             else if(n >= 0.35 && n < 0.6){
-                setMapSymbol(i, j, new Grass(i, j));
+                setMapTile(i, j, new Grass(i, j));
             }
             else if(n >= 0.6 && n < 0.8){
-                setMapSymbol(i, j, new Mountain(i, j));
+                setMapTile(i, j, new Mountain(i, j));
             }
             else{
-                setMapSymbol(i, j, new Snow(i, j));
+                setMapTile(i, j, new Snow(i, j));
             }
         }
     }

@@ -18,6 +18,11 @@
 
 #include <include/core/core.hpp>
 
-Terrain::Terrain(int x, int y, CORE::SYMBOL _symbol) : Renderable((unsigned int) x, (unsigned int) y, _symbol) {
+Terrain::Terrain(int x, int y, CORE::SYMBOL _symbol, bool isPassable) :
+        Renderable((unsigned int) x, (unsigned int) y, _symbol) {
+    passable = isPassable;
+}
 
+bool Terrain::isPassable() {
+    return passable;
 }

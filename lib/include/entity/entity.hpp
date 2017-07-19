@@ -35,7 +35,7 @@ public:
     void setPrevPos(int x, int y);
     sf::Vector2i getPreviousPosition();
 
-    void setWorldPosition(unsigned int x, unsigned int y);
+    void setWorldPosition(int x, int y);
 
     sf::Vector2i getWorldPosition();
 

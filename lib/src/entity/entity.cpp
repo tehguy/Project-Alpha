@@ -61,7 +61,7 @@ sf::Vector2i Entity::getPreviousPosition() {
     return prevPosition;
 }
 
-void Entity::setWorldPosition(unsigned int x, unsigned int y) {
+void Entity::setWorldPosition(int x, int y) {
     worldPosition.x = x;
     worldPosition.y = y;
 

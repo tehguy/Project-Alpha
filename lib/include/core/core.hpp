@@ -28,11 +28,9 @@ public:
 private:
     void gameLoop();
 
-    bool movePlayer(int xOffset, int yOffset);
+    void movePlayer(int xOffset, int yOffset);
     void handleInput(int key);
-    void centerCameraAroundPlayer(bool playerMoved);
 
-    std::shared_ptr<Player> player;
     std::shared_ptr<Location> currentLocation;
 };
 

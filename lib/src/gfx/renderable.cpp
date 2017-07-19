@@ -39,7 +39,7 @@ CORE::SYMBOL Renderable::getSymbol() {
     return symbol;
 }
 
-void Renderable::setRenderPosition(unsigned int x, unsigned int y) {
+void Renderable::setRenderPosition(int x, int y) {
     renderBox.left = x * CONSTANTS::TILE_WIDTH;
     renderBox.top = y * CONSTANTS::TILE_HEIGHT;
 
