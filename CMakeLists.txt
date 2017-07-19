@@ -3,3 +3,4 @@ project(CPPAdventures)
 
 add_subdirectory(main)
 add_subdirectory(lib)
+add_subdirectory(tools)
