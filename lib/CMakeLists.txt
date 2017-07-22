@@ -21,14 +21,8 @@ set (SOURCE_FILES
         src/entity/entity.cpp                   include/entity/entity.hpp
         src/entity/player.cpp                   include/entity/player.hpp
 
-                                                include/enums/enums.hpp
-
-        src/item/item.cpp                       include/item/item.hpp
-
         src/world/area.cpp                      include/world/area.hpp
         src/world/location.cpp                  include/world/location.hpp
-
-        src/world/special/specialtile.cpp       include/world/special/specialtile.hpp
 
         src/world/terrain/grass.cpp             include/world/terrain/grass.hpp
         src/world/terrain/snow.cpp              include/world/terrain/snow.hpp

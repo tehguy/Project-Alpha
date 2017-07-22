@@ -19,22 +19,17 @@
 #pragma once
 
 #include <include/core/constants.hpp>
-#include <include/enums/enums.hpp>
 #include <SFML/Graphics.hpp>
 
 class Renderable {
 public:
-    Renderable(unsigned int x, unsigned int y, CORE::SYMBOL _symbol);
+    Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect);
 
     void render();
-
-    CORE::SYMBOL getSymbol();
 
     void setRenderPosition(int x, int y);
 
 private:
-
-    CORE::SYMBOL symbol;
 
     sf::Rect<int> renderBox;
     sf::Sprite worldSprite;

@@ -90,28 +90,19 @@ bool Graphics::initGFX() {
 }
 
 bool Graphics::loadSpriteSheet() {
-    if(!tileTexture.loadFromFile("./lib/spritesheet.png")){
-        return false;
-    }
+    return tileTexture.loadFromFile("./res/spritesheet.png");
 
-    textureRects.push_back(sf::Rect<int>(0, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
-    textureRects.push_back(sf::Rect<int>(16, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
-    textureRects.push_back(sf::Rect<int>(32, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
-    textureRects.push_back(sf::Rect<int>(48, 0, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
-    textureRects.push_back(sf::Rect<int>(0, 16, CONSTANTS::TILE_WIDTH, CONSTANTS::TILE_HEIGHT));
-
-    return true;
 }
 
 const std::shared_ptr<sf::RenderWindow> &Graphics::getWindow() {
     return window;
 }
 
-const sf::Sprite Graphics::createSprite(unsigned int clipIndex) {
+const sf::Sprite Graphics::createSprite(sf::Rect<int> spriteRect) {
     sf::Sprite sprite;
 
     sprite.setTexture(tileTexture);
-    sprite.setTextureRect(textureRects.at(clipIndex));
+    sprite.setTextureRect(spriteRect);
 
     return sprite;
 }

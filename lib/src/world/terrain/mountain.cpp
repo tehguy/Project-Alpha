@@ -18,6 +18,6 @@
 
 #include <include/world/terrain/mountain.hpp>
 
-Mountain::Mountain(int x, int y) : Terrain(x, y, CORE::SYMBOL::MOUNTAIN, false) {
+Mountain::Mountain(int x, int y) : Terrain(x, y, CONSTANTS::MOUNTAIN_SPRITE_RECT, false) {
 
 }

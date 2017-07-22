@@ -19,12 +19,11 @@
 #pragma once
 
 #include <include/core/constants.hpp>
-#include <include/enums/enums.hpp>
 #include <include/gfx/renderable.hpp>
 
 class Entity : public Renderable {
 public:
-    Entity(CORE::SYMBOL _symbol, unsigned int _curhp, unsigned int _maxhp);
+    Entity(sf::Rect<int> spriteRect, unsigned int _curhp, unsigned int _maxhp);
 
     const unsigned int getCurHP();
     const unsigned int getMaxHP();

@@ -18,7 +18,7 @@
 
 #include <include/entity/player.hpp>
 
-Player::Player(unsigned int maxhp) : Entity(CORE::SYMBOL::PLAYER, maxhp, maxhp) {
+Player::Player(unsigned int maxhp) : Entity(CONSTANTS::PLAYER_SPRITE_RECT, maxhp, maxhp) {
     curExp = 0;
     expToNextLevel = 100;
 }

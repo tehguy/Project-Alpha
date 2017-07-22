@@ -32,7 +32,7 @@ public:
     bool loadSpriteSheet();
 
     const std::shared_ptr<sf::RenderWindow>& getWindow();
-    const sf::Sprite createSprite(unsigned int clipIndex);
+    const sf::Sprite createSprite(sf::Rect<int> spriteRect);
 
     void centerCamera(sf::Vector2i playerPrevPos, sf::Vector2i playerCurrentPos, sf::Vector2i areaDimensions);
 
@@ -43,7 +43,6 @@ private:
     std::shared_ptr<sf::RenderWindow> window;
     sf::View camera;
     sf::Texture tileTexture;
-    std::vector<sf::Rect<int>> textureRects;
 
     sf::Rect<int> actualCameraBounds;
 };

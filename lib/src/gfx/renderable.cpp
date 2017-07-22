@@ -19,10 +19,9 @@
 #include <include/gfx/gfx.hpp>
 #include <include/gfx/renderable.hpp>
 
-Renderable::Renderable(unsigned int x, unsigned int y, CORE::SYMBOL _symbol) {
-    symbol = _symbol;
+Renderable::Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect) {
 
-    worldSprite = GFX::gfx.createSprite(_symbol);
+    worldSprite = GFX::gfx.createSprite(spriteRect);
     setRenderPosition(x, y);
 
     renderBox.width = CONSTANTS::TILE_WIDTH;
@@ -33,10 +32,6 @@ void Renderable::render() {
     if(GFX::gfx.checkWithinCamera(renderBox)){
         GFX::gfx.getWindow()->draw(worldSprite);
     }
-}
-
-CORE::SYMBOL Renderable::getSymbol() {
-    return symbol;
 }
 
 void Renderable::setRenderPosition(int x, int y) {

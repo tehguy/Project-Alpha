@@ -25,7 +25,7 @@
 
 class Terrain : public Renderable {
 public:
-    Terrain(int x, int y, CORE::SYMBOL _symbol, bool isPassable);
+    Terrain(int x, int y, sf::Rect<int> spriteRect, bool isPassable);
 
     bool isPassable();
 

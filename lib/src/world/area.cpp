@@ -37,15 +37,11 @@ Area::Area(std::string name, unsigned int _width, unsigned int _height) {
         map.push_back(std::vector<std::shared_ptr<Terrain>>());
         map.at(i).reserve((unsigned long) dimensions.y);
 
-        specialMap.push_back(std::vector<SpecialTile*>());
-        specialMap.at(i).reserve((unsigned long) dimensions.y);
-
         entityLayer.push_back(std::vector<Entity*>());
         entityLayer.at(i).reserve((unsigned long) dimensions.y);
 
         for(unsigned int j = 0; j < dimensions.y; j++){
             map.at(i).push_back(nullptr);
-            specialMap.at(i).push_back(nullptr);
             entityLayer.at(i).push_back(nullptr);
         }
     }
@@ -65,10 +61,6 @@ std::string &Area::getAreaName() {
 
 void Area::setMapTile(unsigned int x, unsigned int y, Terrain *terrain) {
     map.at(x).at(y) = std::shared_ptr<Terrain>(terrain);
-}
-
-void Area::setItem(unsigned int x, unsigned int y, Item *item) {
-    itemLayer.at(x).at(y) = item;
 }
 
 void Area::setEntity(int x, int y, Entity *entity) {
@@ -92,9 +84,7 @@ bool Area::moveEntity(int x, int y, Entity &entity) {
             int prevYPos = entity.getWorldPosition().y;
             entity.setPrevPos(prevXPos, prevYPos);
 
-            if(getEntitySymbol(prevXPos, prevYPos) == entity.getSymbol()){
-                setEntity(prevXPos, prevYPos, nullptr);
-            }
+            setEntity(prevXPos, prevYPos, nullptr);
             entity.setWorldPosition(x, y);
             setEntity(x, y, &entity);
 
@@ -115,22 +105,6 @@ void Area::movePlayer(int xOffset, int yOffset) {
 
 const std::shared_ptr<Terrain> Area::getMapTile(int row, int col) {
     return map.at((unsigned long) row).at((unsigned long) col);
-}
-
-const CORE::SYMBOL Area::getItemSymbol(unsigned int x, unsigned int y) {
-    if(itemLayer.at(x).at(y) != nullptr){
-        return itemLayer.at(x).at(y)->getSymbol();
-    }
-
-    return CORE::SYMBOL::NOSYM;
-}
-
-const CORE::SYMBOL Area::getEntitySymbol(int row, int col) {
-    if(entityLayer.at((unsigned long) row).at((unsigned long) col) != nullptr){
-        return entityLayer.at((unsigned long) row).at((unsigned long) col)->getSymbol();
-    }
-
-    return CORE::SYMBOL::NOSYM;
 }
 
 void Area::draw() {

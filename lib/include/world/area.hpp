@@ -23,9 +23,7 @@
 #include <vector>
 
 #include <include/entity/player.hpp>
-#include <include/item/item.hpp>
 
-#include <include/world/special/specialtile.hpp>
 #include <include/world/terrain/terrain.hpp>
 
 class Area {
@@ -37,7 +35,7 @@ public:
     std::string& getAreaName();
 
     void setMapTile(unsigned int x, unsigned int y, Terrain* terrain);
-    void setItem(unsigned int x, unsigned int y, Item *item);
+
     void setEntity(int x, int y, Entity *entity);
     void spawnPlayer(int x, int y, unsigned int hp);
 
@@ -52,8 +50,6 @@ public:
 
 private:
     const std::shared_ptr<Terrain> getMapTile(int row, int col);
-    const CORE::SYMBOL getItemSymbol(unsigned int x, unsigned int y);
-    const CORE::SYMBOL getEntitySymbol(int row, int col);
 
     std::string areaName;
 
@@ -61,8 +57,6 @@ private:
     sf::Vector2i locationalPosition;
 
     std::vector<std::vector<std::shared_ptr<Terrain>>> map;
-    std::vector<std::vector<SpecialTile*>> specialMap;
-    std::vector<std::vector<Item*>> itemLayer;
     std::vector<std::vector<Entity*>> entityLayer;
 
     std::shared_ptr<Player> player;

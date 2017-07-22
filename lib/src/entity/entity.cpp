@@ -20,7 +20,7 @@
 #include <include/entity/entity.hpp>
 
 
-Entity::Entity(CORE::SYMBOL _symbol, unsigned int _curhp, unsigned int _maxhp) : Renderable(0, 0, _symbol) {
+Entity::Entity(sf::Rect<int> spriteRect, unsigned int _curhp, unsigned int _maxhp) : Renderable(0, 0, spriteRect) {
     curhp = _curhp;
     maxhp = _maxhp;
 
