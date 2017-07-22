@@ -28,14 +28,20 @@ void Core::init() {
         return;
     }
 
-    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 1, 1));
+    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 1));
     Area area1("Test1", 50, 80);
+    Area area2("Test2", 50, 50);
 
     area1.genRandom(288);
-    area1.spawnPlayer(5, 5, 20);
+
+    area2.genRandom(243);
+    area2.spawnPlayer(0, 0, 20);
 
     currentLocation->placeArea(0, 0, area1);
-    currentLocation->setCurrentArea(0, 0);
+    currentLocation->placeArea(1, 0, area2);
+    currentLocation->setCurrentArea(1, 0);
+
+    GFX::gfx.forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
 
     gameLoop();
 }
@@ -54,14 +60,14 @@ void Core::gameLoop() {
         }
         GFX::gfx.getWindow()->clear(sf::Color::Black);
 
-        currentLocation->getCurrentArea()->draw();
+        currentLocation->drawChunk();
 
         GFX::gfx.getWindow()->display();
     }
 }
 
 void Core::movePlayer(int xOffset, int yOffset) {
-    currentLocation->getCurrentArea()->movePlayer(xOffset, yOffset);
+    currentLocation->movePlayer(xOffset, yOffset);
 }
 
 void Core::handleInput(int key) {

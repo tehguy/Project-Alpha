@@ -34,7 +34,8 @@ public:
     const std::shared_ptr<sf::RenderWindow>& getWindow();
     const sf::Sprite createSprite(sf::Rect<int> spriteRect);
 
-    void centerCamera(sf::Vector2i playerPrevPos, sf::Vector2i playerCurrentPos, sf::Vector2i areaDimensions);
+    void centerCamera(sf::Vector2i playerPrevPos, sf::Vector2i playerCurrentPos);
+    void forceCenterCamera(sf::Vector2i playerCurrentPos);
 
 private:
     bool checkCollision(sf::Rect<int> a, sf::Rect<int> b);

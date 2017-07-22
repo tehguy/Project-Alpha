@@ -34,13 +34,17 @@ public:
     sf::Vector2i getDimensions();
     std::string& getAreaName();
 
-    void setMapTile(unsigned int x, unsigned int y, Terrain* terrain);
+    void setMapTile(unsigned int x, unsigned int y, std::shared_ptr<Terrain> terrain);
 
-    void setEntity(int x, int y, Entity *entity);
+    void setEntity(int x, int y, const std::shared_ptr<Entity> entity);
     void spawnPlayer(int x, int y, unsigned int hp);
 
-    bool moveEntity(int x, int y, Entity& entity);
-    void movePlayer(int xOffset, int yOffset);
+    void despawnPlayer();
+    Player passPlayer();
+
+    bool moveEntity(int x, int y, const std::shared_ptr<Entity> &entity);
+    bool movePlayer(int xOffset, int yOffset);
+    bool movePlayerToOtherArea(int xOffset, int yOffset, const std::shared_ptr<Area>& prevArea);
 
     void draw();
     void genRandom(const unsigned int& seed);
@@ -48,8 +52,12 @@ public:
     void setLocationalPosition(sf::Vector2i pos);
     sf::Vector2i getLocationalPosition();
 
+    void resetRenderPos(int x, int y);
+
+    const std::shared_ptr<Player>& getPlayer();
+
 private:
-    const std::shared_ptr<Terrain> getMapTile(int row, int col);
+    const std::shared_ptr<Terrain> & getMapTile(int row, int col);
 
     std::string areaName;
 
@@ -57,7 +65,7 @@ private:
     sf::Vector2i locationalPosition;
 
     std::vector<std::vector<std::shared_ptr<Terrain>>> map;
-    std::vector<std::vector<Entity*>> entityLayer;
+    std::vector<std::vector<std::shared_ptr<Entity>>> entityLayer;
 
     std::shared_ptr<Player> player;
 };

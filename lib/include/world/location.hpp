@@ -36,10 +36,20 @@ public:
     void setCurrentArea(int x, int y);
     const std::shared_ptr<Area>& getCurrentArea();
     void moveToArea(int xOffset, int yOffset);
+
+    void loadAdjacentAreas();
+    void drawChunk();
+
+    void movePlayer(int xOffset, int yOffset);
+
 private:
-    const std::shared_ptr<Area> getArea(unsigned int x, unsigned int y);
+    const std::shared_ptr<Area> & getArea(int x, int y);
 
     std::shared_ptr<Area> currentArea;
+    std::shared_ptr<Area> nArea;
+    std::shared_ptr<Area> eArea;
+    std::shared_ptr<Area> sArea;
+    std::shared_ptr<Area> wArea;
 
     std::vector<std::vector<std::shared_ptr<Area>>> areas;
 
