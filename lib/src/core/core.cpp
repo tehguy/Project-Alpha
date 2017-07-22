@@ -28,18 +28,19 @@ void Core::init() {
         return;
     }
 
-    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 1));
-    Area area1("Test1", 50, 80);
-    Area area2("Test2", 50, 50);
+    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 2));
+    Area area1("Test1");
+    Area area2("Test2");
 
     area1.genRandom(288);
-
     area2.genRandom(243);
-    area2.spawnPlayer(0, 0, 20);
 
     currentLocation->placeArea(0, 0, area1);
     currentLocation->placeArea(1, 0, area2);
-    currentLocation->setCurrentArea(1, 0);
+    currentLocation->placeArea(0, 1, area2);
+    currentLocation->placeArea(1, 1, area1);
+    currentLocation->setCurrentArea(1, 1);
+    currentLocation->getCurrentArea()->spawnPlayer(0, 0, 20);
 
     GFX::gfx.forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
 

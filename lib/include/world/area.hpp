@@ -28,7 +28,7 @@
 
 class Area {
 public:
-    Area(std::string name, unsigned int _width, unsigned int _height);
+    Area(std::string name);
     ~Area();
 
     sf::Vector2i getDimensions();
@@ -44,7 +44,7 @@ public:
 
     bool moveEntity(int x, int y, const std::shared_ptr<Entity> &entity);
     bool movePlayer(int xOffset, int yOffset);
-    bool movePlayerToOtherArea(int xOffset, int yOffset, const std::shared_ptr<Area>& prevArea);
+    bool movePlayerToThisArea(int xOffset, int yOffset, const std::shared_ptr<Area> &prevArea);
 
     void draw();
     void genRandom(const unsigned int& seed);

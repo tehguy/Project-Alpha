@@ -90,31 +90,43 @@ void Location::loadAdjacentAreas() {
     if(areaLoc.x > 0){
         wArea = getArea(areaLoc.x - 1, areaLoc.y);
         if(wArea != nullptr){
-            int xOffset = (-1) * wArea->getDimensions().x;
+            int xOffset = (-1) * CONSTANTS::AREA_WIDTH;
             wArea->resetRenderPos(xOffset, 0);
         }
+    }
+    else {
+        wArea = nullptr;
     }
 
     if(areaLoc.x < (dimensions.x - 1)){
         eArea = getArea(areaLoc.x + 1, areaLoc.y);
         if(eArea != nullptr){
-            eArea->resetRenderPos(getCurrentArea()->getDimensions().x, 0);
+            eArea->resetRenderPos(CONSTANTS::AREA_WIDTH, 0);
         }
+    }
+    else {
+        eArea = nullptr;
     }
 
     if(areaLoc.y > 0){
         nArea = getArea(areaLoc.x, areaLoc.y - 1);
         if(nArea != nullptr){
-            int yOffset = (-1) * nArea->getDimensions().x;
+            int yOffset = (-1) * CONSTANTS::AREA_HEIGHT;
             nArea->resetRenderPos(0, yOffset);
         }
+    }
+    else {
+        nArea = nullptr;
     }
 
     if(areaLoc.y < (dimensions.y - 1)){
         sArea = getArea(areaLoc.x, areaLoc.y + 1);
         if(sArea != nullptr){
-            sArea->resetRenderPos(0, getCurrentArea()->getDimensions().y);
+            sArea->resetRenderPos(0, CONSTANTS::AREA_HEIGHT);
         }
+    }
+    else {
+        sArea = nullptr;
     }
 }
 
@@ -145,16 +157,22 @@ void Location::movePlayer(int xOffset, int yOffset) {
 
     if(xTarget < 0){
         if(wArea != nullptr){
-            if(wArea->movePlayerToOtherArea((wArea->getDimensions().x - 1), player->getWorldPosition().y, currentArea)){
+            if(wArea->movePlayerToThisArea((wArea->getDimensions().x - 1), player->getWorldPosition().y, currentArea)){
                 moveToArea((-1), 0);
+                return;
+            }
+            else{
                 return;
             }
         }
     }
     else if(xTarget > (currentArea->getDimensions().x - 1)){
         if(eArea != nullptr){
-            if(eArea->movePlayerToOtherArea(0, player->getWorldPosition().y, currentArea)){
+            if(eArea->movePlayerToThisArea(0, player->getWorldPosition().y, currentArea)){
                 moveToArea(1, 0);
+                return;
+            }
+            else{
                 return;
             }
         }
@@ -163,16 +181,22 @@ void Location::movePlayer(int xOffset, int yOffset) {
 
     if(yTarget < 0){
         if(nArea != nullptr){
-            if(nArea->movePlayerToOtherArea(player->getWorldPosition().x, (nArea->getDimensions().y - 1), currentArea)){
+            if(nArea->movePlayerToThisArea(player->getWorldPosition().x, (nArea->getDimensions().y - 1), currentArea)){
                 moveToArea(0, (-1));
+                return;
+            }
+            else{
                 return;
             }
         }
     }
     else if(yTarget > (currentArea->getDimensions().y - 1)){
         if(sArea != nullptr){
-            if(sArea->movePlayerToOtherArea(player->getWorldPosition().x, 0, currentArea)){
+            if(sArea->movePlayerToThisArea(player->getWorldPosition().x, 0, currentArea)){
                 moveToArea(0, 1);
+                return;
+            }
+            else{
                 return;
             }
         }

@@ -4,7 +4,6 @@ find_package(SFML COMPONENTS system graphics window REQUIRED)
 
 include_directories(${SFML_INCLUDE_DIR})
 
-
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../runtime/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ../runtime/lib)
 set(CMAKE_INSTALL_RPATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})

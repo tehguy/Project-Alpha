@@ -26,10 +26,10 @@
 #include <include/world/terrain/mountain.hpp>
 #include <include/world/terrain/water.hpp>
 
-Area::Area(std::string name, unsigned int _width, unsigned int _height) {
+Area::Area(std::string name) {
     areaName = name;
-    dimensions.x = _width;
-    dimensions.y = _height;
+    dimensions.x = CONSTANTS::AREA_WIDTH;
+    dimensions.y = CONSTANTS::AREA_HEIGHT;
 
     player = std::shared_ptr<Player>(nullptr);
 
@@ -79,6 +79,7 @@ void Area::spawnPlayer(int x, int y, unsigned int hp) {
 
 void Area::despawnPlayer() {
     setEntity(player->getWorldPosition().x, player->getWorldPosition().y, std::shared_ptr<Entity>(nullptr));
+
     player = nullptr;
 }
 
@@ -115,11 +116,21 @@ bool Area::movePlayer(int xOffset, int yOffset) {
     return false;
 }
 
-bool Area::movePlayerToOtherArea(int xOffset, int yOffset, const std::shared_ptr<Area> &prevArea) {
+bool Area::movePlayerToThisArea(int xOffset, int yOffset, const std::shared_ptr<Area> &prevArea) {
     player = std::make_shared<Player>(prevArea->passPlayer());
-    prevArea->despawnPlayer();
+
+    sf::Vector2i prevPos = player->getWorldPosition();
+
     player->setWorldPosition(0, 0);
-    return movePlayer(xOffset, yOffset);
+
+    if(movePlayer(xOffset, yOffset)){
+        prevArea->despawnPlayer();
+        return true;
+    }
+
+    player->setWorldPosition(prevPos.x, prevPos.y);
+    player = std::shared_ptr<Player>(nullptr);
+    return false;
 }
 
 const std::shared_ptr<Terrain> & Area::getMapTile(int row, int col) {
