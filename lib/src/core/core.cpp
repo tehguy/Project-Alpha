@@ -31,14 +31,18 @@ void Core::init() {
     currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 2));
     Area area1("Test1");
     Area area2("Test2");
+    Area area3("Test3");
+    Area area4("Test4");
 
     area1.genRandom(288);
     area2.genRandom(243);
+    area3.genRandom(146);
+    area4.genRandom(723);
 
     currentLocation->placeArea(0, 0, area1);
     currentLocation->placeArea(1, 0, area2);
-    currentLocation->placeArea(0, 1, area2);
-    currentLocation->placeArea(1, 1, area1);
+    currentLocation->placeArea(0, 1, area3);
+    currentLocation->placeArea(1, 1, area4);
     currentLocation->setCurrentArea(1, 1);
     currentLocation->getCurrentArea()->spawnPlayer(0, 0, 20);
 

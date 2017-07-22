@@ -59,7 +59,7 @@ std::string &Area::getAreaName() {
     return areaName;
 }
 
-void Area::setMapTile(unsigned int x, unsigned int y, std::shared_ptr<Terrain> terrain) {
+void Area::setMapTile(unsigned int x, unsigned int y, std::shared_ptr<Terrain> &terrain) {
     map.at(x).at(y) = terrain;
 }
 
@@ -158,18 +158,22 @@ void Area::genRandom(const unsigned int &seed) {
 
             double n = PerlinNoise::NoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
 
+            std::shared_ptr<Terrain> tempPtr = std::shared_ptr<Terrain>(nullptr);
+
             if(n < 0.35){
-                setMapTile(i, j, std::shared_ptr<Terrain>(new Water(i, j)));
+                tempPtr = std::shared_ptr<Terrain>(new Water(i, j));
             }
             else if(n >= 0.35 && n < 0.6){
-                setMapTile(i, j, std::shared_ptr<Terrain>(new Grass(i, j)));
+                tempPtr = std::shared_ptr<Terrain>(new Grass(i, j));
             }
             else if(n >= 0.6 && n < 0.8){
-                setMapTile(i, j, std::shared_ptr<Terrain>(new Mountain(i, j)));
+                tempPtr = std::shared_ptr<Terrain>(new Mountain(i, j));
             }
             else{
-                setMapTile(i, j, std::shared_ptr<Terrain>(new Snow(i, j)));
+                tempPtr = std::shared_ptr<Terrain>(new Snow(i, j));
             }
+
+            setMapTile(i, j, tempPtr);
         }
     }
 }
@@ -185,7 +189,9 @@ sf::Vector2i Area::getLocationalPosition() {
 void Area::resetRenderPos(int x, int y) {
     for(int i = 0; i < dimensions.x; i++){
         for(int j = 0; j < dimensions.y; j++){
-            getMapTile(i, j)->setRenderPosition((i + x), (j + y));
+            int xTarget = i + x;
+            int yTarget = j + y;
+            getMapTile(i, j)->setRenderPosition(xTarget, yTarget);
         }
     }
 }

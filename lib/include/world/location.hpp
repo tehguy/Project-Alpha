@@ -51,6 +51,11 @@ private:
     std::shared_ptr<Area> sArea;
     std::shared_ptr<Area> wArea;
 
+    std::shared_ptr<Area> neArea;
+    std::shared_ptr<Area> seArea;
+    std::shared_ptr<Area> swArea;
+    std::shared_ptr<Area> nwArea;
+
     std::vector<std::vector<std::shared_ptr<Area>>> areas;
 
     sf::Vector2i dimensions;

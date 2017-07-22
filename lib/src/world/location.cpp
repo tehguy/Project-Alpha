@@ -38,6 +38,11 @@ Location::Location(std::string name, int width, int height) {
     eArea = std::shared_ptr<Area>(nullptr);
     sArea = std::shared_ptr<Area>(nullptr);
     wArea = std::shared_ptr<Area>(nullptr);
+
+    neArea = std::shared_ptr<Area>(nullptr);
+    seArea = std::shared_ptr<Area>(nullptr);
+    swArea = std::shared_ptr<Area>(nullptr);
+    nwArea = std::shared_ptr<Area>(nullptr);
 }
 
 Location::~Location() {
@@ -80,33 +85,12 @@ void Location::moveToArea(int xOffset, int yOffset) {
 
     if((xTarget >= 0) && (xTarget < getDimensions().x) && (yTarget >= 0) && (yTarget < getDimensions().y)){
         setCurrentArea(xTarget, yTarget);
-        GFX::gfx.forceCenterCamera(getCurrentArea()->passPlayer().getWorldPosition());
+        GFX::gfx.forceCenterCamera(getCurrentArea()->getPlayer()->getWorldPosition());
     }
 }
 
 void Location::loadAdjacentAreas() {
     sf::Vector2i areaLoc = getCurrentArea()->getLocationalPosition();
-
-    if(areaLoc.x > 0){
-        wArea = getArea(areaLoc.x - 1, areaLoc.y);
-        if(wArea != nullptr){
-            int xOffset = (-1) * CONSTANTS::AREA_WIDTH;
-            wArea->resetRenderPos(xOffset, 0);
-        }
-    }
-    else {
-        wArea = nullptr;
-    }
-
-    if(areaLoc.x < (dimensions.x - 1)){
-        eArea = getArea(areaLoc.x + 1, areaLoc.y);
-        if(eArea != nullptr){
-            eArea->resetRenderPos(CONSTANTS::AREA_WIDTH, 0);
-        }
-    }
-    else {
-        eArea = nullptr;
-    }
 
     if(areaLoc.y > 0){
         nArea = getArea(areaLoc.x, areaLoc.y - 1);
@@ -119,6 +103,17 @@ void Location::loadAdjacentAreas() {
         nArea = nullptr;
     }
 
+    if(areaLoc.x < (dimensions.x - 1)){
+        eArea = getArea(areaLoc.x + 1, areaLoc.y);
+        if(eArea != nullptr){
+            eArea->resetRenderPos(CONSTANTS::AREA_WIDTH, 0);
+        }
+    }
+    else {
+        eArea = nullptr;
+    }
+
+
     if(areaLoc.y < (dimensions.y - 1)){
         sArea = getArea(areaLoc.x, areaLoc.y + 1);
         if(sArea != nullptr){
@@ -127,6 +122,61 @@ void Location::loadAdjacentAreas() {
     }
     else {
         sArea = nullptr;
+    }
+
+    if(areaLoc.x > 0){
+        wArea = getArea(areaLoc.x - 1, areaLoc.y);
+        if(wArea != nullptr){
+            int xOffset = (-1) * CONSTANTS::AREA_WIDTH;
+            wArea->resetRenderPos(xOffset, 0);
+        }
+    }
+    else {
+        wArea = nullptr;
+    }
+
+    if((areaLoc.x < (dimensions.x - 1)) && areaLoc.y > 0){
+        neArea = getArea(areaLoc.x + 1, areaLoc.y - 1);
+        if(neArea != nullptr){
+            int yOffset = (-1) * CONSTANTS::AREA_HEIGHT;
+            neArea->resetRenderPos(CONSTANTS::AREA_WIDTH, yOffset);
+        }
+    }
+    else{
+        neArea = nullptr;
+    }
+
+    if((areaLoc.x < (dimensions.x - 1)) && (areaLoc.y < (dimensions.y - 1))){
+        seArea = getArea(areaLoc.x + 1, areaLoc.y + 1);
+        if(seArea != nullptr){
+            seArea->resetRenderPos(CONSTANTS::AREA_WIDTH, CONSTANTS::AREA_HEIGHT);
+        }
+    }
+    else{
+        seArea = nullptr;
+    }
+
+    if(areaLoc.x > 0 && (areaLoc.y < (dimensions.y - 1))){
+        swArea = getArea(areaLoc.x - 1, areaLoc.y + 1);
+        if(swArea != nullptr){
+            int xOffset = (-1) * CONSTANTS::AREA_WIDTH;
+            swArea->resetRenderPos(xOffset, CONSTANTS::AREA_HEIGHT);
+        }
+    }
+    else{
+        swArea = nullptr;
+    }
+
+    if(areaLoc.x > 0 && areaLoc.y > 0){
+        nwArea = getArea(areaLoc.x - 1, areaLoc.y - 1);
+        if(nwArea != nullptr){
+            int xOffset = (-1) * CONSTANTS::AREA_WIDTH;
+            int yOffset = (-1) * CONSTANTS::AREA_HEIGHT;
+            nwArea->resetRenderPos(xOffset, yOffset);
+        }
+    }
+    else{
+        nwArea = nullptr;
     }
 }
 
@@ -137,16 +187,32 @@ void Location::drawChunk() {
         nArea->draw();
     }
 
+    if(neArea != nullptr){
+        neArea->draw();
+    }
+
     if(eArea != nullptr){
         eArea->draw();
+    }
+
+    if(seArea != nullptr){
+        seArea->draw();
     }
 
     if(sArea != nullptr){
         sArea->draw();
     }
 
+    if(swArea != nullptr){
+        swArea->draw();
+    }
+
     if(wArea != nullptr){
         wArea->draw();
+    }
+
+    if(nwArea != nullptr){
+        nwArea->draw();
     }
 }
 
