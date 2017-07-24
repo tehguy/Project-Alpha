@@ -17,6 +17,8 @@
 */
 
 #include <include/core/core.hpp>
+#include <include/core/worldsaver.hpp>
+
 #include <include/gfx/gfx.hpp>
 
 namespace MAIN {
@@ -91,6 +93,11 @@ void Core::handleInput(int key) {
             break;
         case sf::Keyboard::Left: case sf::Keyboard::A:
             movePlayer((-1), 0);
+            break;
+        case sf::Keyboard::P:
+            if(!SAVE::worldSaver.saveLocation(currentLocation)){
+                printf("Something broke...\n");
+            }
             break;
         default:
             break;

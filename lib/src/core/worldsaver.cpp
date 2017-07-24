@@ -29,8 +29,7 @@ WorldSaver::WorldSaver() {
 
 bool WorldSaver::openSaveFile(std::string fileName) {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
-    std::cout << fileName << std::endl;
-    saveWriter.open(fileName, std::ios::out | std::ios::app);
+    saveWriter.open(fileName);
     return saveWriter.is_open();
 }
 
@@ -39,17 +38,33 @@ void WorldSaver::closeSaveFile() {
     google::protobuf::ShutdownProtobufLibrary();
 }
 
-bool WorldSaver::saveLocation(Location &locationToSave) {
+bool WorldSaver::saveLocation(const std::shared_ptr<Location> &locationToSave) {
     bool result = false;
 
-    if(openSaveFile(locationToSave.genFileName())){
+    std::string locName = locationToSave->getName();
+    std::string saveFileName = "./save/" + locName + ".map";
+
+    if(openSaveFile(saveFileName)){
         world::Location locationSaver;
 
-        locationSaver.set_name(locationToSave.getName());
-        locationSaver.set_width(locationToSave.getDimensions().x);
-        locationSaver.set_height(locationToSave.getDimensions().y);
+        int width = locationToSave->getDimensions().x;
+        int height = locationToSave->getDimensions().y;
 
-        result = saveArea(locationToSave, &locationSaver);
+        locationSaver.set_name(locName);
+        locationSaver.set_width(width);
+        locationSaver.set_height(height);
+
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
+                result = saveArea(locationToSave->getArea(i, j), locationSaver.add_areas());
+
+                if(!result){
+                    return false;
+                }
+            }
+        }
+
+        result = google::protobuf::util::SerializeDelimitedToOstream(locationSaver, &saveWriter);
     }
 
     closeSaveFile();
@@ -57,18 +72,41 @@ bool WorldSaver::saveLocation(Location &locationToSave) {
     return result;
 }
 
-bool WorldSaver::saveArea(Location &locationToSave, world::Location *areaSaver) {
+bool WorldSaver::saveArea(const std::shared_ptr<Area> &areaToSave, world::Location_Area *areaSaver) {
+    areaSaver->set_name(areaToSave->getAreaName());
 
+    bool result;
 
-    return false;
+    for(int i = 0; i < areaToSave->getDimensions().x; i++){
+        for(int j = 0; j < areaToSave->getDimensions().y; j++){
+            std::shared_ptr<Terrain> terrain = areaToSave->getMapTile(i, j);
+
+            if(terrain != nullptr){
+                result = saveTerrainObject(i, j, areaToSave->getMapTile(i, j), areaSaver->add_terrain());
+
+                if(!result){
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
 }
 
-bool WorldSaver::saveTerrainObjects(std::vector<std::vector<std::shared_ptr<Terrain>>> &terrainMap,
-                                    world::Location_Area_Terrain *areaTerrainSaver) {
+bool WorldSaver::saveTerrainObject(int xLoc, int yLoc, const std::shared_ptr<Terrain> &terrain,
+                                   world::Location_Area_Terrain *areaTerrainSaver) {
+    bool result;
 
+    try{
+        areaTerrainSaver->set_xloc(xLoc);
+        areaTerrainSaver->set_yloc(yLoc);
+        areaTerrainSaver->set_ttype(terrain->getType());
 
-    //bool result = google::protobuf::util::SerializeDelimitedToOstream(terrainLayer, &saveWriter);
-    closeSaveFile();
+        result = true;
+    } catch (...){
+        result = false;
+    }
 
-    return false;
+    return result;
 }

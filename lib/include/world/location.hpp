@@ -30,7 +30,6 @@ public:
     sf::Vector2i getDimensions();
 
     void placeArea(unsigned int x, unsigned int y, Area area);
-
     const std::shared_ptr<Area> & getArea(int x, int y);
 
     std::string getName();
@@ -41,8 +40,6 @@ public:
     void drawChunk();
 
     void movePlayer(int xOffset, int yOffset);
-
-    std::string genFileName();
 
 private:
     void initAreaVector();

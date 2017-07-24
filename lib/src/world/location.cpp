@@ -16,8 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/worldsaver.hpp>
 #include <include/gfx/gfx.hpp>
+#include <include/world/location.hpp>
 
 Location::Location(std::string name, int width, int height) {
     locationName = name;
@@ -267,7 +267,3 @@ void Location::movePlayer(int xOffset, int yOffset) {
     getCurrentArea()->movePlayer(xOffset, yOffset);
 }
 
-std::string Location::genFileName() {
-    std::string filePath = "./save" + locationName + ".map";
-    return filePath;
-}

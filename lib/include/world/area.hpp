@@ -35,6 +35,7 @@ public:
     std::string getAreaName();
 
     void setMapTile(unsigned int x, unsigned int y, std::shared_ptr<Terrain> &terrain);
+    const std::shared_ptr<Terrain> & getMapTile(int row, int col);
 
     void setEntity(int x, int y, const std::shared_ptr<Entity> entity);
     void spawnPlayer(int x, int y, unsigned int hp);
@@ -56,10 +57,7 @@ public:
 
     const std::shared_ptr<Player>& getPlayer();
 
-    const std::vector<std::vector<std::shared_ptr<Terrain>>>& getMapLayer();
-
 private:
-    const std::shared_ptr<Terrain> & getMapTile(int row, int col);
 
     std::string areaName;
 

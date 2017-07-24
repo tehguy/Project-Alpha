@@ -51,6 +51,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area_Terrain, xloc_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area_Terrain, yloc_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area_Terrain, ttype_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area, _internal_metadata_),
@@ -58,7 +60,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area, name_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area, map_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area, terrain_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -72,8 +74,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(Location_Area_Terrain)},
-  { 6, -1, sizeof(Location_Area)},
-  { 13, -1, sizeof(Location)},
+  { 8, -1, sizeof(Location_Area)},
+  { 15, -1, sizeof(Location)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -130,15 +132,16 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\013world.proto\022\005world\"\267\001\n\010Location\022\014\n\004nam"
+      "\n\013world.proto\022\005world\"\327\001\n\010Location\022\014\n\004nam"
       "e\030\001 \001(\t\022\r\n\005width\030\002 \001(\005\022\016\n\006height\030\003 \001(\005\022#"
-      "\n\005areas\030\004 \003(\0132\024.world.Location.Area\032Y\n\004A"
-      "rea\022\014\n\004name\030\001 \001(\t\022)\n\003map\030\002 \003(\0132\034.world.L"
-      "ocation.Area.Terrain\032\030\n\007Terrain\022\r\n\005ttype"
-      "\030\001 \001(\005b\006proto3"
+      "\n\005areas\030\004 \003(\0132\024.world.Location.Area\032y\n\004A"
+      "rea\022\014\n\004name\030\001 \001(\t\022-\n\007terrain\030\002 \003(\0132\034.wor"
+      "ld.Location.Area.Terrain\0324\n\007Terrain\022\014\n\004x"
+      "Loc\030\001 \001(\005\022\014\n\004yLoc\030\002 \001(\005\022\r\n\005ttype\030\003 \001(\005b\006"
+      "proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 214);
+      descriptor, 246);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "world.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -161,6 +164,8 @@ struct StaticDescriptorInitializer {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int Location_Area_Terrain::kXLocFieldNumber;
+const int Location_Area_Terrain::kYLocFieldNumber;
 const int Location_Area_Terrain::kTtypeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -177,12 +182,15 @@ Location_Area_Terrain::Location_Area_Terrain(const Location_Area_Terrain& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ttype_ = from.ttype_;
+  ::memcpy(&xloc_, &from.xloc_,
+    reinterpret_cast<char*>(&ttype_) -
+    reinterpret_cast<char*>(&xloc_) + sizeof(ttype_));
   // @@protoc_insertion_point(copy_constructor:world.Location.Area.Terrain)
 }
 
 void Location_Area_Terrain::SharedCtor() {
-  ttype_ = 0;
+  ::memset(&xloc_, 0, reinterpret_cast<char*>(&ttype_) -
+    reinterpret_cast<char*>(&xloc_) + sizeof(ttype_));
   _cached_size_ = 0;
 }
 
@@ -219,7 +227,8 @@ Location_Area_Terrain* Location_Area_Terrain::New(::google::protobuf::Arena* are
 
 void Location_Area_Terrain::Clear() {
 // @@protoc_insertion_point(message_clear_start:world.Location.Area.Terrain)
-  ttype_ = 0;
+  ::memset(&xloc_, 0, reinterpret_cast<char*>(&ttype_) -
+    reinterpret_cast<char*>(&xloc_) + sizeof(ttype_));
 }
 
 bool Location_Area_Terrain::MergePartialFromCodedStream(
@@ -232,10 +241,38 @@ bool Location_Area_Terrain::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int32 ttype = 1;
+      // int32 xLoc = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(8u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &xloc_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 yLoc = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &yloc_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 ttype = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -273,9 +310,19 @@ void Location_Area_Terrain::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 ttype = 1;
+  // int32 xLoc = 1;
+  if (this->xloc() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->xloc(), output);
+  }
+
+  // int32 yLoc = 2;
+  if (this->yloc() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->yloc(), output);
+  }
+
+  // int32 ttype = 3;
   if (this->ttype() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->ttype(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->ttype(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:world.Location.Area.Terrain)
@@ -288,9 +335,19 @@ void Location_Area_Terrain::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 ttype = 1;
+  // int32 xLoc = 1;
+  if (this->xloc() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->xloc(), target);
+  }
+
+  // int32 yLoc = 2;
+  if (this->yloc() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->yloc(), target);
+  }
+
+  // int32 ttype = 3;
   if (this->ttype() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->ttype(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->ttype(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:world.Location.Area.Terrain)
@@ -301,7 +358,21 @@ size_t Location_Area_Terrain::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:world.Location.Area.Terrain)
   size_t total_size = 0;
 
-  // int32 ttype = 1;
+  // int32 xLoc = 1;
+  if (this->xloc() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->xloc());
+  }
+
+  // int32 yLoc = 2;
+  if (this->yloc() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->yloc());
+  }
+
+  // int32 ttype = 3;
   if (this->ttype() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
@@ -337,6 +408,12 @@ void Location_Area_Terrain::MergeFrom(const Location_Area_Terrain& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.xloc() != 0) {
+    set_xloc(from.xloc());
+  }
+  if (from.yloc() != 0) {
+    set_yloc(from.yloc());
+  }
   if (from.ttype() != 0) {
     set_ttype(from.ttype());
   }
@@ -365,6 +442,8 @@ void Location_Area_Terrain::Swap(Location_Area_Terrain* other) {
   InternalSwap(other);
 }
 void Location_Area_Terrain::InternalSwap(Location_Area_Terrain* other) {
+  std::swap(xloc_, other->xloc_);
+  std::swap(yloc_, other->yloc_);
   std::swap(ttype_, other->ttype_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -377,7 +456,35 @@ void Location_Area_Terrain::InternalSwap(Location_Area_Terrain* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Location_Area_Terrain
 
-// int32 ttype = 1;
+// int32 xLoc = 1;
+void Location_Area_Terrain::clear_xloc() {
+  xloc_ = 0;
+}
+::google::protobuf::int32 Location_Area_Terrain::xloc() const {
+  // @@protoc_insertion_point(field_get:world.Location.Area.Terrain.xLoc)
+  return xloc_;
+}
+void Location_Area_Terrain::set_xloc(::google::protobuf::int32 value) {
+  
+  xloc_ = value;
+  // @@protoc_insertion_point(field_set:world.Location.Area.Terrain.xLoc)
+}
+
+// int32 yLoc = 2;
+void Location_Area_Terrain::clear_yloc() {
+  yloc_ = 0;
+}
+::google::protobuf::int32 Location_Area_Terrain::yloc() const {
+  // @@protoc_insertion_point(field_get:world.Location.Area.Terrain.yLoc)
+  return yloc_;
+}
+void Location_Area_Terrain::set_yloc(::google::protobuf::int32 value) {
+  
+  yloc_ = value;
+  // @@protoc_insertion_point(field_set:world.Location.Area.Terrain.yLoc)
+}
+
+// int32 ttype = 3;
 void Location_Area_Terrain::clear_ttype() {
   ttype_ = 0;
 }
@@ -397,7 +504,7 @@ void Location_Area_Terrain::set_ttype(::google::protobuf::int32 value) {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Location_Area::kNameFieldNumber;
-const int Location_Area::kMapFieldNumber;
+const int Location_Area::kTerrainFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Location_Area::Location_Area()
@@ -411,7 +518,7 @@ Location_Area::Location_Area()
 Location_Area::Location_Area(const Location_Area& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      map_(from.map_),
+      terrain_(from.terrain_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -460,7 +567,7 @@ Location_Area* Location_Area::New(::google::protobuf::Arena* arena) const {
 
 void Location_Area::Clear() {
 // @@protoc_insertion_point(message_clear_start:world.Location.Area)
-  map_.Clear();
+  terrain_.Clear();
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -490,12 +597,12 @@ bool Location_Area::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .world.Location.Area.Terrain map = 2;
+      // repeated .world.Location.Area.Terrain terrain = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_map()));
+                input, add_terrain()));
         } else {
           goto handle_unusual;
         }
@@ -539,10 +646,10 @@ void Location_Area::SerializeWithCachedSizes(
       1, this->name(), output);
   }
 
-  // repeated .world.Location.Area.Terrain map = 2;
-  for (unsigned int i = 0, n = this->map_size(); i < n; i++) {
+  // repeated .world.Location.Area.Terrain terrain = 2;
+  for (unsigned int i = 0, n = this->terrain_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->map(i), output);
+      2, this->terrain(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:world.Location.Area)
@@ -566,11 +673,11 @@ void Location_Area::SerializeWithCachedSizes(
         1, this->name(), target);
   }
 
-  // repeated .world.Location.Area.Terrain map = 2;
-  for (unsigned int i = 0, n = this->map_size(); i < n; i++) {
+  // repeated .world.Location.Area.Terrain terrain = 2;
+  for (unsigned int i = 0, n = this->terrain_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        2, this->map(i), deterministic, target);
+        2, this->terrain(i), deterministic, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:world.Location.Area)
@@ -581,14 +688,14 @@ size_t Location_Area::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:world.Location.Area)
   size_t total_size = 0;
 
-  // repeated .world.Location.Area.Terrain map = 2;
+  // repeated .world.Location.Area.Terrain terrain = 2;
   {
-    unsigned int count = this->map_size();
+    unsigned int count = this->terrain_size();
     total_size += 1UL * count;
     for (unsigned int i = 0; i < count; i++) {
       total_size +=
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->map(i));
+          this->terrain(i));
     }
   }
 
@@ -628,7 +735,7 @@ void Location_Area::MergeFrom(const Location_Area& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  map_.MergeFrom(from.map_);
+  terrain_.MergeFrom(from.terrain_);
   if (from.name().size() > 0) {
 
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
@@ -658,7 +765,7 @@ void Location_Area::Swap(Location_Area* other) {
   InternalSwap(other);
 }
 void Location_Area::InternalSwap(Location_Area* other) {
-  map_.InternalSwap(&other->map_);
+  terrain_.InternalSwap(&other->terrain_);
   name_.Swap(&other->name_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -724,34 +831,34 @@ void Location_Area::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:world.Location.Area.name)
 }
 
-// repeated .world.Location.Area.Terrain map = 2;
-int Location_Area::map_size() const {
-  return map_.size();
+// repeated .world.Location.Area.Terrain terrain = 2;
+int Location_Area::terrain_size() const {
+  return terrain_.size();
 }
-void Location_Area::clear_map() {
-  map_.Clear();
+void Location_Area::clear_terrain() {
+  terrain_.Clear();
 }
-const ::world::Location_Area_Terrain& Location_Area::map(int index) const {
-  // @@protoc_insertion_point(field_get:world.Location.Area.map)
-  return map_.Get(index);
+const ::world::Location_Area_Terrain& Location_Area::terrain(int index) const {
+  // @@protoc_insertion_point(field_get:world.Location.Area.terrain)
+  return terrain_.Get(index);
 }
-::world::Location_Area_Terrain* Location_Area::mutable_map(int index) {
-  // @@protoc_insertion_point(field_mutable:world.Location.Area.map)
-  return map_.Mutable(index);
+::world::Location_Area_Terrain* Location_Area::mutable_terrain(int index) {
+  // @@protoc_insertion_point(field_mutable:world.Location.Area.terrain)
+  return terrain_.Mutable(index);
 }
-::world::Location_Area_Terrain* Location_Area::add_map() {
-  // @@protoc_insertion_point(field_add:world.Location.Area.map)
-  return map_.Add();
+::world::Location_Area_Terrain* Location_Area::add_terrain() {
+  // @@protoc_insertion_point(field_add:world.Location.Area.terrain)
+  return terrain_.Add();
 }
 ::google::protobuf::RepeatedPtrField< ::world::Location_Area_Terrain >*
-Location_Area::mutable_map() {
-  // @@protoc_insertion_point(field_mutable_list:world.Location.Area.map)
-  return &map_;
+Location_Area::mutable_terrain() {
+  // @@protoc_insertion_point(field_mutable_list:world.Location.Area.terrain)
+  return &terrain_;
 }
 const ::google::protobuf::RepeatedPtrField< ::world::Location_Area_Terrain >&
-Location_Area::map() const {
-  // @@protoc_insertion_point(field_list:world.Location.Area.map)
-  return map_;
+Location_Area::terrain() const {
+  // @@protoc_insertion_point(field_list:world.Location.Area.terrain)
+  return terrain_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

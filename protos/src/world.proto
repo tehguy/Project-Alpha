@@ -11,10 +11,12 @@ message Location {
         string name = 1;
 
         message Terrain {
-            int32 ttype = 1;
+            int32 xLoc = 1;
+            int32 yLoc = 2;
+            int32 ttype = 3;
         }
 
-        repeated Terrain map = 2;
+        repeated Terrain terrain = 2;
     }
 
     repeated Area areas = 4;

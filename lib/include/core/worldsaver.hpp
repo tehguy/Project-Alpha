@@ -29,15 +29,16 @@ class WorldSaver {
 public:
     WorldSaver();
 
+    bool saveLocation(const std::shared_ptr<Location> &locationToSave);
+
+private:
     bool openSaveFile(std::string fileName);
     void closeSaveFile();
 
-    bool saveLocation(Location& locationToSave);
-    bool saveArea(Location &areaToSave, world::Location *areaSaver);
-    bool saveTerrainObjects(std::vector<std::vector<std::shared_ptr<Terrain>>> &terrainMap,
-                            world::Location_Area_Terrain *areaTerrainSaver);
+    bool saveArea(const std::shared_ptr<Area> &areaToSave, world::Location_Area *areaSaver);
+    bool saveTerrainObject(int xLoc, int yLoc, const std::shared_ptr<Terrain> &terrain,
+                           world::Location_Area_Terrain *areaTerrainSaver);
 
-private:
     std::ofstream saveWriter;
 };
 

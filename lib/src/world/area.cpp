@@ -200,6 +200,3 @@ const std::shared_ptr<Player> &Area::getPlayer() {
     return player;
 }
 
-const std::vector<std::vector<std::shared_ptr<Terrain>>> &Area::getMapLayer() {
-    return map;
-}
