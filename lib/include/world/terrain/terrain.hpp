@@ -25,10 +25,20 @@
 
 class Terrain : public Renderable {
 public:
-    Terrain(int x, int y, sf::Rect<int> spriteRect, bool isPassable);
+    enum TYPE {
+        GRASS = 1,
+        WATER,
+        MOUNTAIN,
+        SNOW
+    };
+
+    Terrain(int x, int y, sf::Rect<int> spriteRect, bool isPassable, TYPE type);
 
     bool isPassable();
+    int getType();
 
 private:
     bool passable;
+
+    TYPE ttype;
 };

@@ -18,6 +18,6 @@
 
 #include <include/world/terrain/water.hpp>
 
-Water::Water(int x, int y) : Terrain(x, y, CONSTANTS::WATER_SPRITE_RECT, false){
+Water::Water(int x, int y) : Terrain(x, y, CONSTANTS::WATER_SPRITE_RECT, false, TYPE::WATER){
 
 }

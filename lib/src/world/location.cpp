@@ -16,8 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/entity/player.hpp>
-#include <include/world/location.hpp>
+#include <include/core/worldsaver.hpp>
 #include <include/gfx/gfx.hpp>
 
 Location::Location(std::string name, int width, int height) {
@@ -64,7 +63,7 @@ const std::shared_ptr<Area> & Location::getArea(int x, int y) {
     return areas.at((unsigned long) x).at((unsigned long) y);
 }
 
-std::string &Location::getName() {
+std::string Location::getName() {
     return locationName;
 }
 
@@ -269,4 +268,9 @@ void Location::movePlayer(int xOffset, int yOffset) {
     }
 
     currentArea->movePlayer(xOffset, yOffset);
+}
+
+std::string Location::genFileName() {
+    std::string filePath = "./save" + locationName + ".map";
+    return filePath;
 }

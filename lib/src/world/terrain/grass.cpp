@@ -18,6 +18,6 @@
 
 #include <include/world/terrain/grass.hpp>
 
-Grass::Grass(int x, int y) : Terrain(x, y, CONSTANTS::GRASS_SPRITE_RECT, true) {
+Grass::Grass(int x, int y) : Terrain(x, y, CONSTANTS::GRASS_SPRITE_RECT, true, TYPE::GRASS) {
 
 }

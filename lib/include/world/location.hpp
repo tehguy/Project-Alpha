@@ -31,7 +31,9 @@ public:
 
     void placeArea(unsigned int x, unsigned int y, Area area);
 
-    std::string& getName();
+    const std::shared_ptr<Area> & getArea(int x, int y);
+
+    std::string getName();
 
     void setCurrentArea(int x, int y);
     const std::shared_ptr<Area>& getCurrentArea();
@@ -42,8 +44,9 @@ public:
 
     void movePlayer(int xOffset, int yOffset);
 
+    std::string genFileName();
+
 private:
-    const std::shared_ptr<Area> & getArea(int x, int y);
 
     std::shared_ptr<Area> currentArea;
     std::shared_ptr<Area> nArea;

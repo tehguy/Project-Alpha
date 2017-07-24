@@ -55,7 +55,7 @@ sf::Vector2i Area::getDimensions() {
     return dimensions;
 }
 
-std::string &Area::getAreaName() {
+std::string Area::getAreaName() {
     return areaName;
 }
 
@@ -198,4 +198,8 @@ void Area::resetRenderPos(int x, int y) {
 
 const std::shared_ptr<Player> &Area::getPlayer() {
     return player;
+}
+
+const std::vector<std::vector<std::shared_ptr<Terrain>>> &Area::getMapLayer() {
+    return map;
 }

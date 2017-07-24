@@ -18,11 +18,16 @@
 
 #include <include/core/core.hpp>
 
-Terrain::Terrain(int x, int y, sf::Rect<int> spriteRect, bool isPassable) :
+Terrain::Terrain(int x, int y, sf::Rect<int> spriteRect, bool isPassable, TYPE type) :
         Renderable((unsigned int) x, (unsigned int) y, spriteRect) {
     passable = isPassable;
+    ttype = type;
 }
 
 bool Terrain::isPassable() {
     return passable;
+}
+
+int Terrain::getType() {
+    return ttype;
 }

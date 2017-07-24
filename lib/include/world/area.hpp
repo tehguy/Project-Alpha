@@ -32,7 +32,7 @@ public:
     ~Area();
 
     sf::Vector2i getDimensions();
-    std::string& getAreaName();
+    std::string getAreaName();
 
     void setMapTile(unsigned int x, unsigned int y, std::shared_ptr<Terrain> &terrain);
 
@@ -55,6 +55,8 @@ public:
     void resetRenderPos(int x, int y);
 
     const std::shared_ptr<Player>& getPlayer();
+
+    const std::vector<std::vector<std::shared_ptr<Terrain>>>& getMapLayer();
 
 private:
     const std::shared_ptr<Terrain> & getMapTile(int row, int col);

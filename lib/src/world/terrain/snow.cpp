@@ -18,6 +18,6 @@
 
 #include <include/world/terrain/snow.hpp>
 
-Snow::Snow(int x, int y) : Terrain(x, y, CONSTANTS::SNOW_SPRITE_RECT, true){
+Snow::Snow(int x, int y) : Terrain(x, y, CONSTANTS::SNOW_SPRITE_RECT, true, TYPE::SNOW){
 
 }

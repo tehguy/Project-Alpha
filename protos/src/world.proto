@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package world;
+
+message Location {
+    string name = 1;
+    int32 width = 2;
+    int32 height = 3;
+
+    message Area {
+        string name = 1;
+
+        message Terrain {
+            int32 ttype = 1;
+        }
+
+        repeated Terrain map = 2;
+    }
+
+    repeated Area areas = 4;
+}

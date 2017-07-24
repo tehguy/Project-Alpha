@@ -16,8 +16,31 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/world/terrain/mountain.hpp>
+#pragma once
 
-Mountain::Mountain(int x, int y) : Terrain(x, y, CONSTANTS::MOUNTAIN_SPRITE_RECT, false, TYPE::MOUNTAIN) {
+#include <google/protobuf/util/delimited_message_util.h>
+#include <include/world/location.hpp>
+#include <protos/world.pb.h>
 
+#include <fstream>
+#include <vector>
+
+class WorldSaver {
+public:
+    WorldSaver();
+
+    bool openSaveFile(std::string fileName);
+    void closeSaveFile();
+
+    bool saveLocation(Location& locationToSave);
+    bool saveArea(Location &areaToSave, world::Location *areaSaver);
+    bool saveTerrainObjects(std::vector<std::vector<std::shared_ptr<Terrain>>> &terrainMap,
+                            world::Location_Area_Terrain *areaTerrainSaver);
+
+private:
+    std::ofstream saveWriter;
+};
+
+namespace SAVE {
+    extern WorldSaver worldSaver;
 }
