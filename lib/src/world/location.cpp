@@ -24,6 +24,12 @@ Location::Location(std::string name, int width, int height) {
     dimensions.x = width;
     dimensions.y = height;
 
+    initAreaVector();
+
+    initChunk();
+}
+
+void Location::initAreaVector() {
     for(unsigned int i = 0; i < dimensions.x; i++){
         areas.push_back(std::vector<std::shared_ptr<Area>>());
         areas.at(i).reserve((unsigned long) dimensions.y);
@@ -32,16 +38,17 @@ Location::Location(std::string name, int width, int height) {
             areas.at(i).push_back(nullptr);
         }
     }
+}
 
-    nArea = std::shared_ptr<Area>(nullptr);
-    eArea = std::shared_ptr<Area>(nullptr);
-    sArea = std::shared_ptr<Area>(nullptr);
-    wArea = std::shared_ptr<Area>(nullptr);
+void Location::initChunk() {
+    for(unsigned long i = 0; i < 3; i++){
+        chunk.push_back(std::vector<std::shared_ptr<Area>>());
+        chunk.at(i).reserve(3);
 
-    neArea = std::shared_ptr<Area>(nullptr);
-    seArea = std::shared_ptr<Area>(nullptr);
-    swArea = std::shared_ptr<Area>(nullptr);
-    nwArea = std::shared_ptr<Area>(nullptr);
+        for(unsigned long j = 0; j < 3; j++){
+            chunk.at(i).push_back(nullptr);
+        }
+    }
 }
 
 Location::~Location() {
@@ -69,13 +76,14 @@ std::string Location::getName() {
 
 void Location::setCurrentArea(int x, int y) {
     if(getArea((unsigned int) x, (unsigned int) y) != nullptr){
-        currentArea = getArea((unsigned int) x, (unsigned int) y);
+        std::shared_ptr<Area> currentArea = getArea((unsigned int) x, (unsigned int) y);
         currentArea->resetRenderPos(0, 0);
+        chunk.at(1).at(1) = currentArea;
         loadAdjacentAreas();
     }
 }
 const std::shared_ptr<Area> &Location::getCurrentArea() {
-    return currentArea;
+    return chunk.at(1).at(1);
 }
 
 void Location::moveToArea(int xOffset, int yOffset) {
@@ -91,6 +99,16 @@ void Location::moveToArea(int xOffset, int yOffset) {
 void Location::loadAdjacentAreas() {
     sf::Vector2i areaLoc = getCurrentArea()->getLocationalPosition();
 
+    std::shared_ptr<Area> nArea;
+    std::shared_ptr<Area> eArea;
+    std::shared_ptr<Area> sArea;
+    std::shared_ptr<Area> wArea;
+
+    std::shared_ptr<Area> neArea;
+    std::shared_ptr<Area> seArea;
+    std::shared_ptr<Area> swArea;
+    std::shared_ptr<Area> nwArea;
+
     if(areaLoc.y > 0){
         nArea = getArea(areaLoc.x, areaLoc.y - 1);
         if(nArea != nullptr){
@@ -102,6 +120,8 @@ void Location::loadAdjacentAreas() {
         nArea = nullptr;
     }
 
+    chunk.at(1).at(0) = nArea;
+
     if(areaLoc.x < (dimensions.x - 1)){
         eArea = getArea(areaLoc.x + 1, areaLoc.y);
         if(eArea != nullptr){
@@ -112,6 +132,7 @@ void Location::loadAdjacentAreas() {
         eArea = nullptr;
     }
 
+    chunk.at(2).at(1) = eArea;
 
     if(areaLoc.y < (dimensions.y - 1)){
         sArea = getArea(areaLoc.x, areaLoc.y + 1);
@@ -122,6 +143,8 @@ void Location::loadAdjacentAreas() {
     else {
         sArea = nullptr;
     }
+
+    chunk.at(1).at(2) = sArea;
 
     if(areaLoc.x > 0){
         wArea = getArea(areaLoc.x - 1, areaLoc.y);
@@ -134,6 +157,8 @@ void Location::loadAdjacentAreas() {
         wArea = nullptr;
     }
 
+    chunk.at(0).at(1) = wArea;
+
     if((areaLoc.x < (dimensions.x - 1)) && areaLoc.y > 0){
         neArea = getArea(areaLoc.x + 1, areaLoc.y - 1);
         if(neArea != nullptr){
@@ -145,6 +170,8 @@ void Location::loadAdjacentAreas() {
         neArea = nullptr;
     }
 
+    chunk.at(2).at(0) = neArea;
+
     if((areaLoc.x < (dimensions.x - 1)) && (areaLoc.y < (dimensions.y - 1))){
         seArea = getArea(areaLoc.x + 1, areaLoc.y + 1);
         if(seArea != nullptr){
@@ -154,6 +181,8 @@ void Location::loadAdjacentAreas() {
     else{
         seArea = nullptr;
     }
+
+    chunk.at(2).at(2) = seArea;
 
     if(areaLoc.x > 0 && (areaLoc.y < (dimensions.y - 1))){
         swArea = getArea(areaLoc.x - 1, areaLoc.y + 1);
@@ -166,6 +195,8 @@ void Location::loadAdjacentAreas() {
         swArea = nullptr;
     }
 
+    chunk.at(0).at(2) = swArea;
+
     if(areaLoc.x > 0 && areaLoc.y > 0){
         nwArea = getArea(areaLoc.x - 1, areaLoc.y - 1);
         if(nwArea != nullptr){
@@ -177,97 +208,63 @@ void Location::loadAdjacentAreas() {
     else{
         nwArea = nullptr;
     }
+
+    chunk.at(0).at(0) = nwArea;
 }
 
 void Location::drawChunk() {
-    currentArea->draw();
-
-    if(nArea != nullptr){
-        nArea->draw();
-    }
-
-    if(neArea != nullptr){
-        neArea->draw();
-    }
-
-    if(eArea != nullptr){
-        eArea->draw();
-    }
-
-    if(seArea != nullptr){
-        seArea->draw();
-    }
-
-    if(sArea != nullptr){
-        sArea->draw();
-    }
-
-    if(swArea != nullptr){
-        swArea->draw();
-    }
-
-    if(wArea != nullptr){
-        wArea->draw();
-    }
-
-    if(nwArea != nullptr){
-        nwArea->draw();
+    for(auto& innerVec : chunk){
+        for(auto& area : innerVec){
+            if(area != nullptr){
+                area->draw();
+            }
+        }
     }
 }
 
 void Location::movePlayer(int xOffset, int yOffset) {
-    std::shared_ptr<Player> player = std::make_shared<Player>(currentArea->passPlayer());
+    std::shared_ptr<Player> player = std::make_shared<Player>(getCurrentArea()->passPlayer());
     int xTarget = player->getWorldPosition().x + xOffset;
     int yTarget = player->getWorldPosition().y + yOffset;
 
     if(xTarget < 0){
-        if(wArea != nullptr){
-            if(wArea->movePlayerToThisArea((wArea->getDimensions().x - 1), player->getWorldPosition().y, currentArea)){
+        if(chunk.at(0).at(1) != nullptr){
+            if(chunk.at(0).at(1)->movePlayerToThisArea((chunk.at(0).at(1)->getDimensions().x - 1),
+                                                       player->getWorldPosition().y, getCurrentArea())){
                 moveToArea((-1), 0);
-                return;
             }
-            else{
-                return;
-            }
+            return;
         }
     }
-    else if(xTarget > (currentArea->getDimensions().x - 1)){
-        if(eArea != nullptr){
-            if(eArea->movePlayerToThisArea(0, player->getWorldPosition().y, currentArea)){
+    else if(xTarget > (getCurrentArea()->getDimensions().x - 1)){
+        if(chunk.at(2).at(1) != nullptr){
+            if(chunk.at(2).at(1)->movePlayerToThisArea(0, player->getWorldPosition().y, getCurrentArea())){
                 moveToArea(1, 0);
-                return;
             }
-            else{
-                return;
-            }
+            return;
         }
     }
 
 
     if(yTarget < 0){
-        if(nArea != nullptr){
-            if(nArea->movePlayerToThisArea(player->getWorldPosition().x, (nArea->getDimensions().y - 1), currentArea)){
+        if(chunk.at(1).at(0) != nullptr){
+            if(chunk.at(1).at(0)->movePlayerToThisArea(player->getWorldPosition().x,
+                                                       (chunk.at(1).at(0)->getDimensions().y - 1), getCurrentArea())){
                 moveToArea(0, (-1));
-                return;
             }
-            else{
-                return;
-            }
+            return;
         }
     }
-    else if(yTarget > (currentArea->getDimensions().y - 1)){
-        if(sArea != nullptr){
-            if(sArea->movePlayerToThisArea(player->getWorldPosition().x, 0, currentArea)){
+    else if(yTarget > (getCurrentArea()->getDimensions().y - 1)){
+        if(chunk.at(1).at(2) != nullptr){
+            if(chunk.at(1).at(2)->movePlayerToThisArea(player->getWorldPosition().x, 0, getCurrentArea())){
                 moveToArea(0, 1);
-                return;
             }
-            else{
-                return;
-            }
+            return;
         }
     }
 
-    currentArea->movePlayer(xOffset, yOffset);
+    getCurrentArea()->movePlayer(xOffset, yOffset);
 }
 
 std::string Location::genFileName() {
