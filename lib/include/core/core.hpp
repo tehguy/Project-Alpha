@@ -20,7 +20,9 @@
 
 #include <include/core/io/worldloader.hpp>
 #include <include/core/io/worldsaver.hpp>
+
 #include <include/entity/player.hpp>
+#include <include/gfx/gfx.hpp>
 #include <include/world/location.hpp>
 
 
@@ -28,11 +30,12 @@ class Core {
 public:
     void init();
 
+    void handleInput(int key);
+
+    void draw();
 private:
-    void gameLoop();
 
     void movePlayer(int xOffset, int yOffset);
-    void handleInput(int key);
 
     void genTestArea();
 

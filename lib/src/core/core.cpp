@@ -18,42 +18,12 @@
 
 #include <include/core/core.hpp>
 
-#include <include/gfx/gfx.hpp>
-
 namespace MAIN {
     Core core;
 }
 
 void Core::init() {
-    if(!GFX::gfx.initGFX()){
-        return;
-    }
-
     genTestArea();
-
-    gameLoop();
-}
-
-void Core::gameLoop() {
-    GFX::gfx.getWindow()->setActive();
-    while(GFX::gfx.getWindow()->isOpen()){
-        sf::Event event;
-        while(GFX::gfx.getWindow()->pollEvent(event)){
-            if(event.type == sf::Event::Closed){
-                GFX::gfx.getWindow()->close();
-            }
-            else if(event.type == sf::Event::KeyPressed){
-                handleInput(event.key.code);
-            }
-        }
-        GFX::gfx.getWindow()->clear(sf::Color::Black);
-
-        if(currentLocation != nullptr){
-            currentLocation->drawChunk();
-        }
-
-        GFX::gfx.getWindow()->display();
-    }
 }
 
 void Core::movePlayer(int xOffset, int yOffset) {
@@ -104,4 +74,14 @@ void Core::genTestArea() {
     currentLocation->getCurrentArea()->spawnPlayer(0, 0, 20);
 
     GFX::gfx.forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
+}
+
+void Core::draw() {
+    GFX::gfx.getWindow()->clear(sf::Color::Black);
+
+    if(currentLocation != nullptr){
+        currentLocation->drawChunk();
+    }
+
+    GFX::gfx.getWindow()->display();
 }

@@ -18,9 +18,33 @@
 
 #include <include/core/core.hpp>
 
+void gameLoop();
+
 int main() {
+
+    if(!GFX::gfx.initGFX()){
+        return 1;
+    }
 
     MAIN::core.init();
 
+    gameLoop();
+
 	return 0;
+}
+
+void gameLoop() {
+    GFX::gfx.getWindow()->setActive();
+    while(GFX::gfx.getWindow()->isOpen()){
+        sf::Event event;
+        while(GFX::gfx.getWindow()->pollEvent(event)){
+            if(event.type == sf::Event::Closed){
+                GFX::gfx.getWindow()->close();
+            }
+            else if(event.type == sf::Event::KeyPressed){
+                MAIN::core.handleInput(event.key.code);
+            }
+        }
+        MAIN::core.draw();
+    }
 }
