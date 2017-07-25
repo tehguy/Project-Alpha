@@ -220,10 +220,10 @@ class Location_Area : public ::google::protobuf::Message /* @@protoc_insertion_p
 
   // accessors -------------------------------------------------------
 
-  // repeated .world.Location.Area.Terrain terrain = 2;
+  // repeated .world.Location.Area.Terrain terrain = 4;
   int terrain_size() const;
   void clear_terrain();
-  static const int kTerrainFieldNumber = 2;
+  static const int kTerrainFieldNumber = 4;
   const ::world::Location_Area_Terrain& terrain(int index) const;
   ::world::Location_Area_Terrain* mutable_terrain(int index);
   ::world::Location_Area_Terrain* add_terrain();
@@ -246,12 +246,26 @@ class Location_Area : public ::google::protobuf::Message /* @@protoc_insertion_p
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
+  // int32 xLoc = 2;
+  void clear_xloc();
+  static const int kXLocFieldNumber = 2;
+  ::google::protobuf::int32 xloc() const;
+  void set_xloc(::google::protobuf::int32 value);
+
+  // int32 yLoc = 3;
+  void clear_yloc();
+  static const int kYLocFieldNumber = 3;
+  ::google::protobuf::int32 yloc() const;
+  void set_yloc(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:world.Location.Area)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::RepeatedPtrField< ::world::Location_Area_Terrain > terrain_;
   ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::int32 xloc_;
+  ::google::protobuf::int32 yloc_;
   mutable int _cached_size_;
   friend struct protobuf_world_2eproto::TableStruct;
 };
@@ -479,7 +493,35 @@ inline void Location_Area::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:world.Location.Area.name)
 }
 
-// repeated .world.Location.Area.Terrain terrain = 2;
+// int32 xLoc = 2;
+inline void Location_Area::clear_xloc() {
+  xloc_ = 0;
+}
+inline ::google::protobuf::int32 Location_Area::xloc() const {
+  // @@protoc_insertion_point(field_get:world.Location.Area.xLoc)
+  return xloc_;
+}
+inline void Location_Area::set_xloc(::google::protobuf::int32 value) {
+  
+  xloc_ = value;
+  // @@protoc_insertion_point(field_set:world.Location.Area.xLoc)
+}
+
+// int32 yLoc = 3;
+inline void Location_Area::clear_yloc() {
+  yloc_ = 0;
+}
+inline ::google::protobuf::int32 Location_Area::yloc() const {
+  // @@protoc_insertion_point(field_get:world.Location.Area.yLoc)
+  return yloc_;
+}
+inline void Location_Area::set_yloc(::google::protobuf::int32 value) {
+  
+  yloc_ = value;
+  // @@protoc_insertion_point(field_set:world.Location.Area.yLoc)
+}
+
+// repeated .world.Location.Area.Terrain terrain = 4;
 inline int Location_Area::terrain_size() const {
   return terrain_.size();
 }

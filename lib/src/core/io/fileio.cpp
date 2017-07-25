@@ -16,28 +16,26 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <include/core/io/fileio.hpp>
 
-#include <include/core/io/worldsaver.hpp>
-#include <include/entity/player.hpp>
-#include <include/world/location.hpp>
+FileIO::FileIO() {
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
+}
 
+bool FileIO::openFile(std::string filePath, std::ofstream *stream) {
+    stream->open(filePath);
+    return stream->is_open();
+}
 
-class Core {
-public:
-    void init();
+bool FileIO::openFile(std::string filePath, std::ifstream *stream) {
+    stream->open(filePath);
+    return stream->is_open();
+}
 
-private:
-    void gameLoop();
+void FileIO::closeFile(std::ofstream *stream) {
+    stream->close();
+}
 
-    void movePlayer(int xOffset, int yOffset);
-    void handleInput(int key);
-
-    std::shared_ptr<Location> currentLocation;
-
-    WorldSaver worldSaver;
-};
-
-namespace MAIN {
-    extern Core core;
+void FileIO::closeFile(std::ifstream *stream) {
+    stream->close();
 }

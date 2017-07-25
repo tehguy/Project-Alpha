@@ -34,7 +34,7 @@ public:
     sf::Vector2i getDimensions();
     std::string getAreaName();
 
-    void setMapTile(unsigned int x, unsigned int y, std::shared_ptr<Terrain> &terrain);
+    void setMapTile(int x, int y, std::shared_ptr<Terrain> &terrain);
     const std::shared_ptr<Terrain> & getMapTile(int row, int col);
 
     void setEntity(int x, int y, const std::shared_ptr<Entity> entity);

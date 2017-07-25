@@ -18,26 +18,20 @@
 
 #pragma once
 
-#include <include/core/io/worldsaver.hpp>
-#include <include/entity/player.hpp>
-#include <include/world/location.hpp>
+#include <include/core/io/fileio.hpp>
+#include <vector>
 
-
-class Core {
+class WorldSaver : public FileIO {
 public:
-    void init();
+    WorldSaver();
+
+    bool saveLocation(const std::shared_ptr<Location> &locationToSave);
 
 private:
-    void gameLoop();
 
-    void movePlayer(int xOffset, int yOffset);
-    void handleInput(int key);
+    bool saveArea(const std::shared_ptr<Area> &areaToSave, world::Location_Area *areaSaver);
+    bool saveTerrainObject(int xLoc, int yLoc, const std::shared_ptr<Terrain> &terrain,
+                           world::Location_Area_Terrain *areaTerrainSaver);
 
-    std::shared_ptr<Location> currentLocation;
-
-    WorldSaver worldSaver;
+    std::ofstream saveWriter;
 };
-
-namespace MAIN {
-    extern Core core;
-}

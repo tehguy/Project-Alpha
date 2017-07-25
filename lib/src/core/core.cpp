@@ -17,7 +17,6 @@
 */
 
 #include <include/core/core.hpp>
-#include <include/core/worldsaver.hpp>
 
 #include <include/gfx/gfx.hpp>
 
@@ -74,7 +73,9 @@ void Core::gameLoop() {
 }
 
 void Core::movePlayer(int xOffset, int yOffset) {
-    currentLocation->movePlayer(xOffset, yOffset);
+    if(currentLocation != nullptr){
+        currentLocation->movePlayer(xOffset, yOffset);
+    }
 }
 
 void Core::handleInput(int key) {
@@ -95,7 +96,7 @@ void Core::handleInput(int key) {
             movePlayer((-1), 0);
             break;
         case sf::Keyboard::P:
-            if(!SAVE::worldSaver.saveLocation(currentLocation)){
+            if(!worldSaver.saveLocation(currentLocation)){
                 printf("Something broke...\n");
             }
             break;

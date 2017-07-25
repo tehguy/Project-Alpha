@@ -16,35 +16,23 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/worldsaver.hpp>
-#include <iostream>
+#include <include/core/io/worldsaver.hpp>
 
-namespace SAVE {
-    WorldSaver worldSaver;
-}
+WorldSaver::WorldSaver() : FileIO(){
 
-WorldSaver::WorldSaver() {
-
-}
-
-bool WorldSaver::openSaveFile(std::string fileName) {
-    GOOGLE_PROTOBUF_VERIFY_VERSION;
-    saveWriter.open(fileName);
-    return saveWriter.is_open();
-}
-
-void WorldSaver::closeSaveFile() {
-    saveWriter.close();
-    google::protobuf::ShutdownProtobufLibrary();
 }
 
 bool WorldSaver::saveLocation(const std::shared_ptr<Location> &locationToSave) {
+    if(locationToSave == nullptr){
+        return false;
+    }
+
     bool result = false;
 
     std::string locName = locationToSave->getName();
-    std::string saveFileName = "./save/" + locName + ".map";
+    std::string saveFileName = "./save/test.map";
 
-    if(openSaveFile(saveFileName)){
+    if(openFile(saveFileName, &saveWriter)){
         world::Location locationSaver;
 
         int width = locationToSave->getDimensions().x;
@@ -67,7 +55,7 @@ bool WorldSaver::saveLocation(const std::shared_ptr<Location> &locationToSave) {
         result = google::protobuf::util::SerializeDelimitedToOstream(locationSaver, &saveWriter);
     }
 
-    closeSaveFile();
+    closeFile(&saveWriter);
 
     return result;
 }
@@ -75,18 +63,22 @@ bool WorldSaver::saveLocation(const std::shared_ptr<Location> &locationToSave) {
 bool WorldSaver::saveArea(const std::shared_ptr<Area> &areaToSave, world::Location_Area *areaSaver) {
     areaSaver->set_name(areaToSave->getAreaName());
 
+    int x = areaToSave->getLocationalPosition().x;
+    int y = areaToSave->getLocationalPosition().y;
+
+    areaSaver->set_xloc(x);
+    areaSaver->set_yloc(y);
+
     bool result;
 
     for(int i = 0; i < areaToSave->getDimensions().x; i++){
         for(int j = 0; j < areaToSave->getDimensions().y; j++){
             std::shared_ptr<Terrain> terrain = areaToSave->getMapTile(i, j);
 
-            if(terrain != nullptr){
-                result = saveTerrainObject(i, j, areaToSave->getMapTile(i, j), areaSaver->add_terrain());
+            result = saveTerrainObject(i, j, terrain, areaSaver->add_terrain());
 
-                if(!result){
-                    return false;
-                }
+            if(!result){
+                return false;
             }
         }
     }
@@ -101,7 +93,13 @@ bool WorldSaver::saveTerrainObject(int xLoc, int yLoc, const std::shared_ptr<Ter
     try{
         areaTerrainSaver->set_xloc(xLoc);
         areaTerrainSaver->set_yloc(yLoc);
-        areaTerrainSaver->set_ttype(terrain->getType());
+
+        if(terrain != nullptr){
+            areaTerrainSaver->set_ttype(terrain->getType());
+        }
+        else{
+            areaTerrainSaver->set_ttype(0);
+        }
 
         result = true;
     } catch (...){

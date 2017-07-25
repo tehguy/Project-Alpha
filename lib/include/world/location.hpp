@@ -29,7 +29,7 @@ public:
 
     sf::Vector2i getDimensions();
 
-    void placeArea(unsigned int x, unsigned int y, Area area);
+    void placeArea(int x, int y, Area area);
     const std::shared_ptr<Area> & getArea(int x, int y);
 
     std::string getName();

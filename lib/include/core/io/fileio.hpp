@@ -18,26 +18,19 @@
 
 #pragma once
 
-#include <include/core/io/worldsaver.hpp>
-#include <include/entity/player.hpp>
+#include <google/protobuf/util/delimited_message_util.h>
 #include <include/world/location.hpp>
+#include <protos/world.pb.h>
 
+#include <fstream>
 
-class Core {
+class FileIO {
 public:
-    void init();
+    FileIO();
 
-private:
-    void gameLoop();
+    bool openFile(std::string filePath, std::ofstream *stream);
+    bool openFile(std::string filePath, std::ifstream *stream);
 
-    void movePlayer(int xOffset, int yOffset);
-    void handleInput(int key);
-
-    std::shared_ptr<Location> currentLocation;
-
-    WorldSaver worldSaver;
+    void closeFile(std::ofstream *stream);
+    void closeFile(std::ifstream *stream);
 };
-
-namespace MAIN {
-    extern Core core;
-}

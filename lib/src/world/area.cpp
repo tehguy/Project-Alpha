@@ -59,8 +59,8 @@ std::string Area::getAreaName() {
     return areaName;
 }
 
-void Area::setMapTile(unsigned int x, unsigned int y, std::shared_ptr<Terrain> &terrain) {
-    map.at(x).at(y) = terrain;
+void Area::setMapTile(int x, int y, std::shared_ptr<Terrain> &terrain) {
+    map.at((unsigned long) x).at((unsigned long) y) = terrain;
 }
 
 void Area::setEntity(int x, int y, const std::shared_ptr<Entity> entity) {

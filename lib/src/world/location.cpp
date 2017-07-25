@@ -59,10 +59,10 @@ sf::Vector2i Location::getDimensions() {
     return dimensions;
 }
 
-void Location::placeArea(unsigned int x, unsigned int y, Area area) {
+void Location::placeArea(int x, int y, Area area) {
     if((x >= 0) && (x < getDimensions().x) && (y >= 0) && (y < getDimensions().y)){
         area.setLocationalPosition(sf::Vector2i(x, y));
-        areas.at(x).at(y) = std::make_shared<Area>(area);
+        areas.at((unsigned long) x).at((unsigned long) y) = std::make_shared<Area>(area);
     }
 }
 
