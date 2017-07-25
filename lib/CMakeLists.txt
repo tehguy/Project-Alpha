@@ -17,7 +17,10 @@ set (SOURCE_FILES
         src/core/core.cpp                       include/core/core.hpp
         src/core/perlinnoise.cpp                include/core/perlinnoise.hpp
         src/core/randomnumbergenerator.cpp      include/core/randomnumbergenerator.hpp
-        src/core/worldsaver.cpp                 include/core/worldsaver.hpp
+
+        src/core/io/fileio.cpp                  include/core/io/fileio.hpp
+        src/core/io/worldloader.cpp             include/core/io/worldloader.hpp
+        src/core/io/worldsaver.cpp              include/core/io/worldsaver.hpp
 
         src/gfx/gfx.cpp                         include/gfx/gfx.hpp
         src/gfx/renderable.cpp                  include/gfx/renderable.hpp

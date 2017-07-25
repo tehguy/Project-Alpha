@@ -18,20 +18,31 @@
 
 #pragma once
 
+#include <include/core/io/worldloader.hpp>
+#include <include/core/io/worldsaver.hpp>
+
 #include <include/entity/player.hpp>
+#include <include/gfx/gfx.hpp>
 #include <include/world/location.hpp>
+
 
 class Core {
 public:
     void init();
 
-private:
-    void gameLoop();
-
-    void movePlayer(int xOffset, int yOffset);
     void handleInput(int key);
 
+    void draw();
+private:
+
+    void movePlayer(int xOffset, int yOffset);
+
+    void genTestArea();
+
     std::shared_ptr<Location> currentLocation;
+
+    WorldLoader worldLoader;
+    WorldSaver worldSaver;
 };
 
 namespace MAIN {

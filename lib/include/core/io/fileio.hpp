@@ -16,35 +16,21 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-void gameLoop();
+#include <google/protobuf/util/delimited_message_util.h>
+#include <include/world/location.hpp>
+#include <protos/world.pb.h>
 
-int main() {
+#include <fstream>
 
-    if(!GFX::gfx.initGFX()){
-        return 1;
-    }
+class FileIO {
+public:
+    FileIO();
 
-    MAIN::core.init();
+    bool openFile(std::string filePath, std::ofstream *stream);
+    bool openFile(std::string filePath, std::ifstream *stream);
 
-    gameLoop();
-
-	return 0;
-}
-
-void gameLoop() {
-    GFX::gfx.getWindow()->setActive();
-    while(GFX::gfx.getWindow()->isOpen()){
-        sf::Event event;
-        while(GFX::gfx.getWindow()->pollEvent(event)){
-            if(event.type == sf::Event::Closed){
-                GFX::gfx.getWindow()->close();
-            }
-            else if(event.type == sf::Event::KeyPressed){
-                MAIN::core.handleInput(event.key.code);
-            }
-        }
-        MAIN::core.draw();
-    }
-}
+    void closeFile(std::ofstream *stream);
+    void closeFile(std::ifstream *stream);
+};

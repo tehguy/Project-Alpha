@@ -18,30 +18,17 @@
 
 #pragma once
 
-#include <google/protobuf/util/delimited_message_util.h>
-#include <include/world/location.hpp>
-#include <protos/world.pb.h>
+#include <include/core/io/fileio.hpp>
 
-#include <fstream>
-#include <vector>
-
-class WorldSaver {
+class WorldLoader : public FileIO {
 public:
-    WorldSaver();
+    WorldLoader();
 
-    bool saveLocation(const std::shared_ptr<Location> &locationToSave);
+    std::shared_ptr<Location> loadLocation();
 
 private:
-    bool openSaveFile(std::string fileName);
-    void closeSaveFile();
+    void loadArea(world::Location &locationLoader, std::shared_ptr<Location> &loadedLocation);
+    void loadTerrain(const world::Location::Area &areaLoader, Area &loadedArea);
 
-    bool saveArea(const std::shared_ptr<Area> &areaToSave, world::Location_Area *areaSaver);
-    bool saveTerrainObject(int xLoc, int yLoc, const std::shared_ptr<Terrain> &terrain,
-                           world::Location_Area_Terrain *areaTerrainSaver);
-
-    std::ofstream saveWriter;
+    std::ifstream fileReader;
 };
-
-namespace SAVE {
-    extern WorldSaver worldSaver;
-}

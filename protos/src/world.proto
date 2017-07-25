@@ -9,6 +9,8 @@ message Location {
 
     message Area {
         string name = 1;
+        int32 xLoc = 2;
+        int32 yLoc = 3;
 
         message Terrain {
             int32 xLoc = 1;
@@ -16,8 +18,11 @@ message Location {
             int32 ttype = 3;
         }
 
-        repeated Terrain terrain = 2;
+        repeated Terrain terrain = 4;
     }
 
     repeated Area areas = 4;
+
+    int32 current_area_x = 5;
+    int32 current_area_y = 6;
 }

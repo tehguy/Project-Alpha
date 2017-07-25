@@ -16,35 +16,26 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#include <include/core/io/fileio.hpp>
 
-void gameLoop();
-
-int main() {
-
-    if(!GFX::gfx.initGFX()){
-        return 1;
-    }
-
-    MAIN::core.init();
-
-    gameLoop();
-
-	return 0;
+FileIO::FileIO() {
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
 }
 
-void gameLoop() {
-    GFX::gfx.getWindow()->setActive();
-    while(GFX::gfx.getWindow()->isOpen()){
-        sf::Event event;
-        while(GFX::gfx.getWindow()->pollEvent(event)){
-            if(event.type == sf::Event::Closed){
-                GFX::gfx.getWindow()->close();
-            }
-            else if(event.type == sf::Event::KeyPressed){
-                MAIN::core.handleInput(event.key.code);
-            }
-        }
-        MAIN::core.draw();
-    }
+bool FileIO::openFile(std::string filePath, std::ofstream *stream) {
+    stream->open(filePath);
+    return stream->is_open();
+}
+
+bool FileIO::openFile(std::string filePath, std::ifstream *stream) {
+    stream->open(filePath);
+    return stream->is_open();
+}
+
+void FileIO::closeFile(std::ofstream *stream) {
+    stream->close();
+}
+
+void FileIO::closeFile(std::ifstream *stream) {
+    stream->close();
 }

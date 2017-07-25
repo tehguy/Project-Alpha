@@ -16,35 +16,22 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-void gameLoop();
+#include <include/core/io/fileio.hpp>
+#include <vector>
 
-int main() {
+class WorldSaver : public FileIO {
+public:
+    WorldSaver();
 
-    if(!GFX::gfx.initGFX()){
-        return 1;
-    }
+    bool saveLocation(const std::shared_ptr<Location> &locationToSave);
 
-    MAIN::core.init();
+private:
 
-    gameLoop();
+    bool saveArea(const std::shared_ptr<Area> &areaToSave, world::Location::Area *areaSaver);
+    bool saveTerrainObject(int xLoc, int yLoc, const std::shared_ptr<Terrain> &terrain,
+                           world::Location::Area::Terrain *areaTerrainSaver);
 
-	return 0;
-}
-
-void gameLoop() {
-    GFX::gfx.getWindow()->setActive();
-    while(GFX::gfx.getWindow()->isOpen()){
-        sf::Event event;
-        while(GFX::gfx.getWindow()->pollEvent(event)){
-            if(event.type == sf::Event::Closed){
-                GFX::gfx.getWindow()->close();
-            }
-            else if(event.type == sf::Event::KeyPressed){
-                MAIN::core.handleInput(event.key.code);
-            }
-        }
-        MAIN::core.draw();
-    }
-}
+    std::ofstream saveWriter;
+};

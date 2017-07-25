@@ -17,64 +17,19 @@
 */
 
 #include <include/core/core.hpp>
-#include <include/core/worldsaver.hpp>
-
-#include <include/gfx/gfx.hpp>
 
 namespace MAIN {
     Core core;
 }
 
 void Core::init() {
-    if(!GFX::gfx.initGFX()){
-        return;
-    }
-
-    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 2));
-    Area area1("Test1");
-    Area area2("Test2");
-    Area area3("Test3");
-    Area area4("Test4");
-
-    area1.genRandom(288);
-    area2.genRandom(243);
-    area3.genRandom(146);
-    area4.genRandom(723);
-
-    currentLocation->placeArea(0, 0, area1);
-    currentLocation->placeArea(1, 0, area2);
-    currentLocation->placeArea(0, 1, area3);
-    currentLocation->placeArea(1, 1, area4);
-    currentLocation->setCurrentArea(1, 1);
-    currentLocation->getCurrentArea()->spawnPlayer(0, 0, 20);
-
-    GFX::gfx.forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
-
-    gameLoop();
-}
-
-void Core::gameLoop() {
-    GFX::gfx.getWindow()->setActive();
-    while(GFX::gfx.getWindow()->isOpen()){
-        sf::Event event;
-        while(GFX::gfx.getWindow()->pollEvent(event)){
-            if(event.type == sf::Event::Closed){
-                GFX::gfx.getWindow()->close();
-            }
-            else if(event.type == sf::Event::KeyPressed){
-                handleInput(event.key.code);
-            }
-        }
-        GFX::gfx.getWindow()->clear(sf::Color::Black);
-
-        currentLocation->drawChunk();
-
-        GFX::gfx.getWindow()->display();
-    }
+    genTestArea();
 }
 
 void Core::movePlayer(int xOffset, int yOffset) {
-    currentLocation->movePlayer(xOffset, yOffset);
+    if(currentLocation != nullptr){
+        currentLocation->movePlayer(xOffset, yOffset);
+    }
 }
 
 void Core::handleInput(int key) {
@@ -94,12 +49,39 @@ void Core::handleInput(int key) {
         case sf::Keyboard::Left: case sf::Keyboard::A:
             movePlayer((-1), 0);
             break;
-        case sf::Keyboard::P:
-            if(!SAVE::worldSaver.saveLocation(currentLocation)){
-                printf("Something broke...\n");
-            }
-            break;
         default:
             break;
     }
+}
+
+void Core::genTestArea() {
+    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 2));
+    Area area1("Test1");
+    Area area2("Test2");
+    Area area3("Test3");
+    Area area4("Test4");
+
+    area1.genRandom(288);
+    area2.genRandom(243);
+    area3.genRandom(146);
+    area4.genRandom(723);
+
+    currentLocation->placeArea(0, 0, area1);
+    currentLocation->placeArea(1, 0, area2);
+    currentLocation->placeArea(0, 1, area3);
+    currentLocation->placeArea(1, 1, area4);
+    currentLocation->setCurrentArea(1, 1);
+    currentLocation->getCurrentArea()->spawnPlayer(0, 0, 20);
+
+    GFX::gfx.forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
+}
+
+void Core::draw() {
+    GFX::gfx.getWindow()->clear(sf::Color::Black);
+
+    if(currentLocation != nullptr){
+        currentLocation->drawChunk();
+    }
+
+    GFX::gfx.getWindow()->display();
 }
