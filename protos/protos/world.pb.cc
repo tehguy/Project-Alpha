@@ -72,6 +72,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location, width_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location, height_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location, areas_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location, current_area_x_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location, current_area_y_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
@@ -134,16 +136,18 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\013world.proto\022\005world\"\364\001\n\010Location\022\014\n\004nam"
+      "\n\013world.proto\022\005world\"\244\002\n\010Location\022\014\n\004nam"
       "e\030\001 \001(\t\022\r\n\005width\030\002 \001(\005\022\016\n\006height\030\003 \001(\005\022#"
-      "\n\005areas\030\004 \003(\0132\024.world.Location.Area\032\225\001\n\004"
-      "Area\022\014\n\004name\030\001 \001(\t\022\014\n\004xLoc\030\002 \001(\005\022\014\n\004yLoc"
-      "\030\003 \001(\005\022-\n\007terrain\030\004 \003(\0132\034.world.Location"
-      ".Area.Terrain\0324\n\007Terrain\022\014\n\004xLoc\030\001 \001(\005\022\014"
-      "\n\004yLoc\030\002 \001(\005\022\r\n\005ttype\030\003 \001(\005b\006proto3"
+      "\n\005areas\030\004 \003(\0132\024.world.Location.Area\022\026\n\016c"
+      "urrent_area_x\030\005 \001(\005\022\026\n\016current_area_y\030\006 "
+      "\001(\005\032\225\001\n\004Area\022\014\n\004name\030\001 \001(\t\022\014\n\004xLoc\030\002 \001(\005"
+      "\022\014\n\004yLoc\030\003 \001(\005\022-\n\007terrain\030\004 \003(\0132\034.world."
+      "Location.Area.Terrain\0324\n\007Terrain\022\014\n\004xLoc"
+      "\030\001 \001(\005\022\014\n\004yLoc\030\002 \001(\005\022\r\n\005ttype\030\003 \001(\005b\006pro"
+      "to3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 275);
+      descriptor, 323);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "world.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -979,6 +983,8 @@ const int Location::kNameFieldNumber;
 const int Location::kWidthFieldNumber;
 const int Location::kHeightFieldNumber;
 const int Location::kAreasFieldNumber;
+const int Location::kCurrentAreaXFieldNumber;
+const int Location::kCurrentAreaYFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Location::Location()
@@ -1000,15 +1006,15 @@ Location::Location(const Location& from)
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   ::memcpy(&width_, &from.width_,
-    reinterpret_cast<char*>(&height_) -
-    reinterpret_cast<char*>(&width_) + sizeof(height_));
+    reinterpret_cast<char*>(&current_area_y_) -
+    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
   // @@protoc_insertion_point(copy_constructor:world.Location)
 }
 
 void Location::SharedCtor() {
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&width_, 0, reinterpret_cast<char*>(&height_) -
-    reinterpret_cast<char*>(&width_) + sizeof(height_));
+  ::memset(&width_, 0, reinterpret_cast<char*>(&current_area_y_) -
+    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
   _cached_size_ = 0;
 }
 
@@ -1048,8 +1054,8 @@ void Location::Clear() {
 // @@protoc_insertion_point(message_clear_start:world.Location)
   areas_.Clear();
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&width_, 0, reinterpret_cast<char*>(&height_) -
-    reinterpret_cast<char*>(&width_) + sizeof(height_));
+  ::memset(&width_, 0, reinterpret_cast<char*>(&current_area_y_) -
+    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
 }
 
 bool Location::MergePartialFromCodedStream(
@@ -1118,6 +1124,34 @@ bool Location::MergePartialFromCodedStream(
         break;
       }
 
+      // int32 current_area_x = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(40u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &current_area_x_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 current_area_y = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(48u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &current_area_y_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0 ||
@@ -1171,6 +1205,16 @@ void Location::SerializeWithCachedSizes(
       4, this->areas(i), output);
   }
 
+  // int32 current_area_x = 5;
+  if (this->current_area_x() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->current_area_x(), output);
+  }
+
+  // int32 current_area_y = 6;
+  if (this->current_area_y() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->current_area_y(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:world.Location)
 }
 
@@ -1207,6 +1251,16 @@ void Location::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         4, this->areas(i), deterministic, target);
+  }
+
+  // int32 current_area_x = 5;
+  if (this->current_area_x() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->current_area_x(), target);
+  }
+
+  // int32 current_area_y = 6;
+  if (this->current_area_y() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->current_area_y(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:world.Location)
@@ -1249,6 +1303,20 @@ size_t Location::ByteSizeLong() const {
         this->height());
   }
 
+  // int32 current_area_x = 5;
+  if (this->current_area_x() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->current_area_x());
+  }
+
+  // int32 current_area_y = 6;
+  if (this->current_area_y() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->current_area_y());
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -1289,6 +1357,12 @@ void Location::MergeFrom(const Location& from) {
   if (from.height() != 0) {
     set_height(from.height());
   }
+  if (from.current_area_x() != 0) {
+    set_current_area_x(from.current_area_x());
+  }
+  if (from.current_area_y() != 0) {
+    set_current_area_y(from.current_area_y());
+  }
 }
 
 void Location::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1318,6 +1392,8 @@ void Location::InternalSwap(Location* other) {
   name_.Swap(&other->name_);
   std::swap(width_, other->width_);
   std::swap(height_, other->height_);
+  std::swap(current_area_x_, other->current_area_x_);
+  std::swap(current_area_y_, other->current_area_y_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -1438,6 +1514,34 @@ const ::google::protobuf::RepeatedPtrField< ::world::Location_Area >&
 Location::areas() const {
   // @@protoc_insertion_point(field_list:world.Location.areas)
   return areas_;
+}
+
+// int32 current_area_x = 5;
+void Location::clear_current_area_x() {
+  current_area_x_ = 0;
+}
+::google::protobuf::int32 Location::current_area_x() const {
+  // @@protoc_insertion_point(field_get:world.Location.current_area_x)
+  return current_area_x_;
+}
+void Location::set_current_area_x(::google::protobuf::int32 value) {
+  
+  current_area_x_ = value;
+  // @@protoc_insertion_point(field_set:world.Location.current_area_x)
+}
+
+// int32 current_area_y = 6;
+void Location::clear_current_area_y() {
+  current_area_y_ = 0;
+}
+::google::protobuf::int32 Location::current_area_y() const {
+  // @@protoc_insertion_point(field_get:world.Location.current_area_y)
+  return current_area_y_;
+}
+void Location::set_current_area_y(::google::protobuf::int32 value) {
+  
+  current_area_y_ = value;
+  // @@protoc_insertion_point(field_set:world.Location.current_area_y)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

@@ -23,6 +23,8 @@
 #include <include/world/terrain/mountain.hpp>
 #include <include/world/terrain/water.hpp>
 
+#include <iostream>
+
 WorldLoader::WorldLoader() : FileIO() {
 
 }
@@ -43,9 +45,16 @@ std::shared_ptr<Location> WorldLoader::loadLocation() {
         int xDim = locationLoader.width();
         int yDim = locationLoader.height();
 
+        int currentAreaX = locationLoader.current_area_x();
+        int currentAreaY = locationLoader.current_area_y();
+
         loadedLocation = std::shared_ptr<Location>(new Location(name, xDim, yDim));
 
         loadArea(locationLoader, loadedLocation);
+
+        closeFile(&fileReader);
+
+        loadedLocation->setCurrentArea(currentAreaX, currentAreaY);
     }
 
     return loadedLocation;

@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include <include/core/io/worldloader.hpp>
 #include <include/core/io/worldsaver.hpp>
 #include <include/entity/player.hpp>
 #include <include/world/location.hpp>
@@ -33,8 +34,11 @@ private:
     void movePlayer(int xOffset, int yOffset);
     void handleInput(int key);
 
+    void genTestArea();
+
     std::shared_ptr<Location> currentLocation;
 
+    WorldLoader worldLoader;
     WorldSaver worldSaver;
 };
 

@@ -29,25 +29,7 @@ void Core::init() {
         return;
     }
 
-    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 2));
-    Area area1("Test1");
-    Area area2("Test2");
-    Area area3("Test3");
-    Area area4("Test4");
-
-    area1.genRandom(288);
-    area2.genRandom(243);
-    area3.genRandom(146);
-    area4.genRandom(723);
-
-    currentLocation->placeArea(0, 0, area1);
-    currentLocation->placeArea(1, 0, area2);
-    currentLocation->placeArea(0, 1, area3);
-    currentLocation->placeArea(1, 1, area4);
-    currentLocation->setCurrentArea(1, 1);
-    currentLocation->getCurrentArea()->spawnPlayer(0, 0, 20);
-
-    GFX::gfx.forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
+    genTestArea();
 
     gameLoop();
 }
@@ -66,7 +48,9 @@ void Core::gameLoop() {
         }
         GFX::gfx.getWindow()->clear(sf::Color::Black);
 
-        currentLocation->drawChunk();
+        if(currentLocation != nullptr){
+            currentLocation->drawChunk();
+        }
 
         GFX::gfx.getWindow()->display();
     }
@@ -95,12 +79,29 @@ void Core::handleInput(int key) {
         case sf::Keyboard::Left: case sf::Keyboard::A:
             movePlayer((-1), 0);
             break;
-        case sf::Keyboard::P:
-            if(!worldSaver.saveLocation(currentLocation)){
-                printf("Something broke...\n");
-            }
-            break;
         default:
             break;
     }
+}
+
+void Core::genTestArea() {
+    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 2));
+    Area area1("Test1");
+    Area area2("Test2");
+    Area area3("Test3");
+    Area area4("Test4");
+
+    area1.genRandom(288);
+    area2.genRandom(243);
+    area3.genRandom(146);
+    area4.genRandom(723);
+
+    currentLocation->placeArea(0, 0, area1);
+    currentLocation->placeArea(1, 0, area2);
+    currentLocation->placeArea(0, 1, area3);
+    currentLocation->placeArea(1, 1, area4);
+    currentLocation->setCurrentArea(1, 1);
+    currentLocation->getCurrentArea()->spawnPlayer(0, 0, 20);
+
+    GFX::gfx.forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
 }

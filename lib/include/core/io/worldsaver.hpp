@@ -29,9 +29,9 @@ public:
 
 private:
 
-    bool saveArea(const std::shared_ptr<Area> &areaToSave, world::Location_Area *areaSaver);
+    bool saveArea(const std::shared_ptr<Area> &areaToSave, world::Location::Area *areaSaver);
     bool saveTerrainObject(int xLoc, int yLoc, const std::shared_ptr<Terrain> &terrain,
-                           world::Location_Area_Terrain *areaTerrainSaver);
+                           world::Location::Area::Terrain *areaTerrainSaver);
 
     std::ofstream saveWriter;
 };

@@ -375,6 +375,18 @@ class Location : public ::google::protobuf::Message /* @@protoc_insertion_point(
   ::google::protobuf::int32 height() const;
   void set_height(::google::protobuf::int32 value);
 
+  // int32 current_area_x = 5;
+  void clear_current_area_x();
+  static const int kCurrentAreaXFieldNumber = 5;
+  ::google::protobuf::int32 current_area_x() const;
+  void set_current_area_x(::google::protobuf::int32 value);
+
+  // int32 current_area_y = 6;
+  void clear_current_area_y();
+  static const int kCurrentAreaYFieldNumber = 6;
+  ::google::protobuf::int32 current_area_y() const;
+  void set_current_area_y(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:world.Location)
  private:
 
@@ -383,6 +395,8 @@ class Location : public ::google::protobuf::Message /* @@protoc_insertion_point(
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::int32 width_;
   ::google::protobuf::int32 height_;
+  ::google::protobuf::int32 current_area_x_;
+  ::google::protobuf::int32 current_area_y_;
   mutable int _cached_size_;
   friend struct protobuf_world_2eproto::TableStruct;
 };
@@ -664,6 +678,34 @@ inline const ::google::protobuf::RepeatedPtrField< ::world::Location_Area >&
 Location::areas() const {
   // @@protoc_insertion_point(field_list:world.Location.areas)
   return areas_;
+}
+
+// int32 current_area_x = 5;
+inline void Location::clear_current_area_x() {
+  current_area_x_ = 0;
+}
+inline ::google::protobuf::int32 Location::current_area_x() const {
+  // @@protoc_insertion_point(field_get:world.Location.current_area_x)
+  return current_area_x_;
+}
+inline void Location::set_current_area_x(::google::protobuf::int32 value) {
+  
+  current_area_x_ = value;
+  // @@protoc_insertion_point(field_set:world.Location.current_area_x)
+}
+
+// int32 current_area_y = 6;
+inline void Location::clear_current_area_y() {
+  current_area_y_ = 0;
+}
+inline ::google::protobuf::int32 Location::current_area_y() const {
+  // @@protoc_insertion_point(field_get:world.Location.current_area_y)
+  return current_area_y_;
+}
+inline void Location::set_current_area_y(::google::protobuf::int32 value) {
+  
+  current_area_y_ = value;
+  // @@protoc_insertion_point(field_set:world.Location.current_area_y)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS

@@ -22,4 +22,7 @@ message Location {
     }
 
     repeated Area areas = 4;
+
+    int32 current_area_x = 5;
+    int32 current_area_y = 6;
 }

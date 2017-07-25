@@ -38,6 +38,9 @@ bool WorldSaver::saveLocation(const std::shared_ptr<Location> &locationToSave) {
         int width = locationToSave->getDimensions().x;
         int height = locationToSave->getDimensions().y;
 
+        int currentAreaX = locationToSave->getCurrentArea()->getLocationalPosition().x;
+        int currentAreaY = locationToSave->getCurrentArea()->getLocationalPosition().y;
+
         locationSaver.set_name(locName);
         locationSaver.set_width(width);
         locationSaver.set_height(height);
@@ -52,15 +55,22 @@ bool WorldSaver::saveLocation(const std::shared_ptr<Location> &locationToSave) {
             }
         }
 
-        result = google::protobuf::util::SerializeDelimitedToOstream(locationSaver, &saveWriter);
-    }
+        locationSaver.set_current_area_x(currentAreaX);
+        locationSaver.set_current_area_y(currentAreaY);
 
-    closeFile(&saveWriter);
+        result = google::protobuf::util::SerializeDelimitedToOstream(locationSaver, &saveWriter);
+
+        closeFile(&saveWriter);
+    }
 
     return result;
 }
 
-bool WorldSaver::saveArea(const std::shared_ptr<Area> &areaToSave, world::Location_Area *areaSaver) {
+bool WorldSaver::saveArea(const std::shared_ptr<Area> &areaToSave, world::Location::Area *areaSaver) {
+    if(areaToSave == nullptr){
+        return true;
+    }
+
     areaSaver->set_name(areaToSave->getAreaName());
 
     int x = areaToSave->getLocationalPosition().x;
@@ -87,7 +97,7 @@ bool WorldSaver::saveArea(const std::shared_ptr<Area> &areaToSave, world::Locati
 }
 
 bool WorldSaver::saveTerrainObject(int xLoc, int yLoc, const std::shared_ptr<Terrain> &terrain,
-                                   world::Location_Area_Terrain *areaTerrainSaver) {
+                                   world::Location::Area::Terrain *areaTerrainSaver) {
     bool result;
 
     try{
