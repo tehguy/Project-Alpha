@@ -41,7 +41,12 @@ set(PROTO_SRC
         ${PROTOBUF_COMPILED_DIR}/protos/world.pb.cc         ${PROTOBUF_COMPILED_DIR}/protos/world.pb.h)
 
 add_library (engine SHARED ${SOURCE_FILES} ${PROTO_SRC})
-target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${PROTOBUF_COMPILED_DIR})
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+set(BUILD_SHARED_LIBS TRUE)
+
+target_include_directories (engine PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${PROTOBUF_COMPILED_DIR})
 target_link_libraries(engine
         ${SFML_LIBRARIES}
         ${Protobuf_LIBRARIES})
