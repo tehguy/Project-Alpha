@@ -28,14 +28,18 @@ public:
 
     bool checkWithinCamera(sf::Rect<int> object);
 
-    bool initGFX();
-    bool loadSpriteSheet();
+    virtual bool initGFX();
 
     const std::shared_ptr<sf::RenderWindow>& getWindow();
     const sf::Sprite createSprite(sf::Rect<int> spriteRect);
 
     void centerCamera(sf::Vector2i playerPrevPos, sf::Vector2i playerCurrentPos);
     void forceCenterCamera(sf::Vector2i playerCurrentPos);
+
+protected:
+    bool loadSpriteSheet(std::string filePath);
+    void setWindow(std::shared_ptr<sf::RenderWindow> _window);
+    void initCamera(int w, int h);
 
 private:
     bool checkCollision(sf::Rect<int> a, sf::Rect<int> b);
@@ -49,5 +53,5 @@ private:
 };
 
 namespace GFX {
-    extern Graphics gfx;
+    extern std::shared_ptr<Graphics> gfx;
 }

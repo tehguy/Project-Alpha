@@ -92,7 +92,7 @@ void Location::moveToArea(int xOffset, int yOffset) {
 
     if((xTarget >= 0) && (xTarget < getDimensions().x) && (yTarget >= 0) && (yTarget < getDimensions().y)){
         setCurrentArea(xTarget, yTarget);
-        GFX::gfx.forceCenterCamera(getCurrentArea()->getPlayer()->getWorldPosition());
+        GFX::gfx->forceCenterCamera(getCurrentArea()->getPlayer()->getWorldPosition());
     }
 }
 

@@ -1,4 +1,4 @@
-set(RUNTIME CPPAdventures)
+set(RUNTIME CPPClient)
 
 set (SOURCE_FILES
         src/main.cpp)

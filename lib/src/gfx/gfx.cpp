@@ -22,7 +22,7 @@
 #include <cmath>
 
 namespace GFX {
-    Graphics gfx;
+    std::shared_ptr<Graphics> gfx = std::shared_ptr<Graphics>(new Graphics());
 }
 
 Graphics::Graphics() {
@@ -81,16 +81,13 @@ bool Graphics::initGFX() {
 
     window->setView(camera);
 
-    actualCameraBounds.left = 0;
-    actualCameraBounds.top = 0;
-    actualCameraBounds.width = CONSTANTS::SCREEN_WIDTH;
-    actualCameraBounds.height = CONSTANTS::SCREEN_HEIGHT;
+    initCamera(CONSTANTS::SCREEN_WIDTH, CONSTANTS::SCREEN_HEIGHT);
 
-    return loadSpriteSheet();
+    return loadSpriteSheet("./res/spritesheet.png");
 }
 
-bool Graphics::loadSpriteSheet() {
-    return tileTexture.loadFromFile("./res/spritesheet.png");
+bool Graphics::loadSpriteSheet(std::string filePath) {
+    return tileTexture.loadFromFile(filePath);
 
 }
 
@@ -157,4 +154,15 @@ void Graphics::forceCenterCamera(sf::Vector2i playerCurrentPos) {
     }
 
     moveCamera(offset);
+}
+
+void Graphics::setWindow(std::shared_ptr<sf::RenderWindow> _window) {
+    window = _window;
+}
+
+void Graphics::initCamera(int w, int h) {
+    actualCameraBounds.left = 0;
+    actualCameraBounds.top = 0;
+    actualCameraBounds.width = w;
+    actualCameraBounds.height = h;
 }

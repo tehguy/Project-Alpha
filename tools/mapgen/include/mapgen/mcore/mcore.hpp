@@ -16,28 +16,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/gfx/gfx.hpp>
-#include <include/gfx/renderable.hpp>
+#pragma once
 
-Renderable::Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect) {
+#include <include/core/core.hpp>
 
-    worldSprite = GFX::gfx->createSprite(spriteRect);
-    setRenderPosition(x, y);
+class MCore : public Core{
+public:
+    int init();
+};
 
-    renderBox.width = CONSTANTS::TILE_WIDTH;
-    renderBox.height = CONSTANTS::TILE_HEIGHT;
+namespace MAPGEN {
+    extern MCore mcore;
 }
-
-void Renderable::render() {
-    if(GFX::gfx->checkWithinCamera(renderBox)){
-        GFX::gfx->getWindow()->draw(worldSprite);
-    }
-}
-
-void Renderable::setRenderPosition(int x, int y) {
-    renderBox.left = x * CONSTANTS::TILE_WIDTH;
-    renderBox.top = y * CONSTANTS::TILE_HEIGHT;
-
-    worldSprite.setPosition(renderBox.left, renderBox.top);
-}
-

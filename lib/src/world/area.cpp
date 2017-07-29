@@ -117,7 +117,7 @@ bool Area::movePlayer(int xOffset, int yOffset) {
     int xTarget = player->getWorldPosition().x + xOffset;
     int yTarget = player->getWorldPosition().y + yOffset;
     if(moveEntity(xTarget, yTarget, player)){
-        GFX::gfx.centerCamera(player->getPreviousPosition(), player->getWorldPosition());
+        GFX::gfx->centerCamera(player->getPreviousPosition(), player->getWorldPosition());
         return true;
     }
 

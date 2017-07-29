@@ -16,28 +16,20 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/gfx/gfx.hpp>
-#include <include/gfx/renderable.hpp>
+#include <include/mapgen/mcore/mcore.hpp>
+#include <include/mapgen/mgfx/mgfx.hpp>
 
-Renderable::Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect) {
-
-    worldSprite = GFX::gfx->createSprite(spriteRect);
-    setRenderPosition(x, y);
-
-    renderBox.width = CONSTANTS::TILE_WIDTH;
-    renderBox.height = CONSTANTS::TILE_HEIGHT;
+namespace MAPGEN {
+    MCore mcore;
 }
 
-void Renderable::render() {
-    if(GFX::gfx->checkWithinCamera(renderBox)){
-        GFX::gfx->getWindow()->draw(worldSprite);
+int MCore::init() {
+    if(!MGFX::mgfx->initGFX()){
+        return 1;
     }
+
+    Core::setGFX(MGFX::mgfx);
+    Core::gameLoop();
+
+    return 0;
 }
-
-void Renderable::setRenderPosition(int x, int y) {
-    renderBox.left = x * CONSTANTS::TILE_WIDTH;
-    renderBox.top = y * CONSTANTS::TILE_HEIGHT;
-
-    worldSprite.setPosition(renderBox.left, renderBox.top);
-}
-

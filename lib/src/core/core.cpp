@@ -23,30 +23,31 @@ namespace MAIN {
 }
 
 int Core::init() {
-    if(!GFX::gfx.initGFX()){
+    if(!GFX::gfx->initGFX()){
         return 1;
     }
 
     genTestArea();
 
+    setGFX(GFX::gfx);
     gameLoop();
 
     return 0;
 }
 
 void Core::gameLoop() {
-    GFX::gfx.getWindow()->setActive();
-    while(GFX::gfx.getWindow()->isOpen()){
+    gfx->getWindow()->setActive();
+    while(gfx->getWindow()->isOpen()){
         sf::Event event;
-        while(GFX::gfx.getWindow()->pollEvent(event)){
+        while(gfx->getWindow()->pollEvent(event)){
             if(event.type == sf::Event::Closed){
-                GFX::gfx.getWindow()->close();
+                gfx->getWindow()->close();
             }
             else if(event.type == sf::Event::KeyPressed){
-                MAIN::core.handleInput(event.key.code);
+                handleInput(event.key.code);
             }
         }
-        MAIN::core.draw();
+        draw();
     }
 }
 
@@ -59,7 +60,7 @@ void Core::movePlayer(int xOffset, int yOffset) {
 void Core::handleInput(int key) {
     switch (key){
         case sf::Keyboard::Q: case sf::Keyboard::Escape:
-            GFX::gfx.getWindow()->close();
+            gfx->getWindow()->close();
             break;
         case sf::Keyboard::Up: case sf::Keyboard::W:
             movePlayer(0, (-1));
@@ -97,15 +98,27 @@ void Core::genTestArea() {
     currentLocation->setCurrentArea(1, 1);
     currentLocation->getCurrentArea()->spawnPlayer(0, 0, 20);
 
-    GFX::gfx.forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
+    GFX::gfx->forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
+}
+
+void Core::setGFX(const std::shared_ptr<Graphics> _gfx) {
+    gfx = _gfx;
 }
 
 void Core::draw() {
-    GFX::gfx.getWindow()->clear(sf::Color::Black);
+    gfx->getWindow()->clear(sf::Color::Black);
 
     if(currentLocation != nullptr){
         currentLocation->drawChunk();
     }
 
-    GFX::gfx.getWindow()->display();
+    gfx->getWindow()->display();
+}
+
+WorldLoader &Core::getWorldLoader() {
+    return worldLoader;
+}
+
+WorldSaver &Core::getWorldSaver() {
+    return worldSaver;
 }
