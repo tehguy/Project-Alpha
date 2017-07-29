@@ -33,7 +33,7 @@ bool WorldSaver::saveLocation(const std::shared_ptr<Location> &locationToSave) {
     std::string saveFileName = "./save/test.map";
 
     if(openFile(saveFileName, &saveWriter)){
-        world::Location locationSaver;
+        WORLD::Location locationSaver;
 
         int width = locationToSave->getDimensions().x;
         int height = locationToSave->getDimensions().y;
@@ -66,7 +66,7 @@ bool WorldSaver::saveLocation(const std::shared_ptr<Location> &locationToSave) {
     return result;
 }
 
-bool WorldSaver::saveArea(const std::shared_ptr<Area> &areaToSave, world::Location::Area *areaSaver) {
+bool WorldSaver::saveArea(const std::shared_ptr<Area> &areaToSave, WORLD::Area *areaSaver) {
     if(areaToSave == nullptr){
         return true;
     }
@@ -83,9 +83,9 @@ bool WorldSaver::saveArea(const std::shared_ptr<Area> &areaToSave, world::Locati
 
     for(int i = 0; i < areaToSave->getDimensions().x; i++){
         for(int j = 0; j < areaToSave->getDimensions().y; j++){
-            std::shared_ptr<Terrain> terrain = areaToSave->getMapTile(i, j);
+            std::shared_ptr<Tile> terrain = areaToSave->getMapTile(i, j);
 
-            result = saveTerrainObject(i, j, terrain, areaSaver->add_terrain());
+            result = saveTileObject(i, j, terrain, areaSaver->add_tile());
 
             if(!result){
                 return false;
@@ -96,8 +96,13 @@ bool WorldSaver::saveArea(const std::shared_ptr<Area> &areaToSave, world::Locati
     return true;
 }
 
+bool WorldSaver::saveTileObject(int xLoc, int yLoc, const std::shared_ptr<Tile> &tile, WORLD::Tile *tileSaver) {
+    std::shared_ptr<Terrain> tToSave = tile->getTerrain();
+    return saveTerrainObject(xLoc, yLoc, tToSave, tileSaver->mutable_terrain());
+}
+
 bool WorldSaver::saveTerrainObject(int xLoc, int yLoc, const std::shared_ptr<Terrain> &terrain,
-                                   world::Location::Area::Terrain *areaTerrainSaver) {
+                                   WORLD::Terrain *areaTerrainSaver) {
     bool result;
 
     try{

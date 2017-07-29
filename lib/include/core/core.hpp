@@ -28,12 +28,13 @@
 
 class Core {
 public:
-    void init();
+    int init();
 
     void handleInput(int key);
 
     void draw();
 private:
+    void gameLoop();
 
     void movePlayer(int xOffset, int yOffset);
 

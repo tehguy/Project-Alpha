@@ -34,14 +34,14 @@ Area::Area(std::string name) {
     player = std::shared_ptr<Player>(nullptr);
 
     for(unsigned int i = 0; i < dimensions.x; i++){
-        map.push_back(std::vector<std::shared_ptr<Terrain>>());
+        map.push_back(std::vector<std::shared_ptr<Tile>>());
         map.at(i).reserve((unsigned long) dimensions.y);
 
         entityLayer.push_back(std::vector<std::shared_ptr<Entity>>());
         entityLayer.at(i).reserve((unsigned long) dimensions.y);
 
         for(unsigned int j = 0; j < dimensions.y; j++){
-            map.at(i).push_back(nullptr);
+            map.at(i).push_back(std::shared_ptr<Tile>(new Tile()));
             entityLayer.at(i).push_back(nullptr);
         }
     }
@@ -59,12 +59,16 @@ std::string Area::getAreaName() {
     return areaName;
 }
 
-void Area::setMapTile(int x, int y, std::shared_ptr<Terrain> &terrain) {
+void Area::setMapTile(int x, int y, std::shared_ptr<Tile> &terrain) {
     map.at((unsigned long) x).at((unsigned long) y) = terrain;
 }
 
+const std::shared_ptr<Tile> & Area::getMapTile(int row, int col) {
+    return map.at((unsigned long) row).at((unsigned long) col);
+}
+
 void Area::setEntity(int x, int y, const std::shared_ptr<Entity> entity) {
-    entityLayer.at((unsigned long) x).at((unsigned long) y) = entity;
+    map.at((unsigned long) x).at((unsigned long) y)->setEntityHere(entity);
 }
 
 void Area::spawnPlayer(int x, int y, unsigned int hp) {
@@ -89,16 +93,20 @@ Player Area::passPlayer() {
 
 bool Area::moveEntity(int x, int y, const std::shared_ptr<Entity> &entity) {
     if((x >= 0 && x < dimensions.x) && (y >= 0 && y < dimensions.y)){
-        if(getMapTile(x, y)->isPassable()){
-            int prevXPos = entity->getWorldPosition().x;
-            int prevYPos = entity->getWorldPosition().y;
-            entity->setPrevPos(prevXPos, prevYPos);
+        std::shared_ptr<Tile> target = getMapTile(x, y);
 
-            setEntity(prevXPos, prevYPos, std::shared_ptr<Entity>(nullptr));
-            entity->setWorldPosition(x, y);
-            setEntity(x, y, entity);
+        if(target != nullptr){
+            if(target->isPassable()){
+                int prevXPos = entity->getWorldPosition().x;
+                int prevYPos = entity->getWorldPosition().y;
+                entity->setPrevPos(prevXPos, prevYPos);
 
-            return true;
+                getMapTile(prevXPos, prevYPos)->removeEntityHere();
+                entity->setWorldPosition(x, y);
+                setEntity(x, y, entity);
+
+                return true;
+            }
         }
     }
 
@@ -133,19 +141,10 @@ bool Area::movePlayerToThisArea(int xOffset, int yOffset, const std::shared_ptr<
     return false;
 }
 
-const std::shared_ptr<Terrain> & Area::getMapTile(int row, int col) {
-    return map.at((unsigned long) row).at((unsigned long) col);
-}
-
 void Area::draw() {
-    for(unsigned int i = 0; i < dimensions.x; i++){
-        for(unsigned int j = 0; j < dimensions.y; j++){
-            if(entityLayer.at(i).at(j) != nullptr){
-                entityLayer.at(i).at(j)->render();
-            }
-            else if(map.at(i).at(j) != nullptr){
-                map.at(i).at(j)->render();
-            }
+    for(auto& innerVec : map){
+        for(auto& tile : innerVec){
+            tile->draw();
         }
     }
 }
@@ -158,19 +157,19 @@ void Area::genRandom(const unsigned int &seed) {
 
             double n = PerlinNoise::NoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
 
-            std::shared_ptr<Terrain> tempPtr = std::shared_ptr<Terrain>(nullptr);
+            std::shared_ptr<Tile> tempPtr = std::shared_ptr<Tile>(new Tile());
 
             if(n < 0.35){
-                tempPtr = std::shared_ptr<Terrain>(new Water(i, j));
+                tempPtr->setTerrain(std::shared_ptr<Terrain>(new Water(i, j)));
             }
             else if(n >= 0.35 && n < 0.6){
-                tempPtr = std::shared_ptr<Terrain>(new Grass(i, j));
+                tempPtr->setTerrain(std::shared_ptr<Terrain>(new Grass(i, j)));
             }
             else if(n >= 0.6 && n < 0.8){
-                tempPtr = std::shared_ptr<Terrain>(new Mountain(i, j));
+                tempPtr->setTerrain(std::shared_ptr<Terrain>(new Mountain(i, j)));
             }
             else{
-                tempPtr = std::shared_ptr<Terrain>(new Snow(i, j));
+                tempPtr->setTerrain(std::shared_ptr<Terrain>(new Snow(i, j)));
             }
 
             setMapTile(i, j, tempPtr);
@@ -191,7 +190,7 @@ void Area::resetRenderPos(int x, int y) {
         for(int j = 0; j < dimensions.y; j++){
             int xTarget = i + x;
             int yTarget = j + y;
-            getMapTile(i, j)->setRenderPosition(xTarget, yTarget);
+            getMapTile(i, j)->resetRenderPosition(xTarget, yTarget);
         }
     }
 }

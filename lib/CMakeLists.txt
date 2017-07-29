@@ -1,7 +1,7 @@
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
 find_package(SFML COMPONENTS system graphics window REQUIRED)
-find_package(Protobuf REQUIRED)
+find_package(Protobuf REQUIRED STATIC)
 
 include_directories(${SFML_INCLUDE_DIR}
         ${Protobuf_INCLUDE_DIRS})
@@ -30,6 +30,7 @@ set (SOURCE_FILES
 
         src/world/area.cpp                      include/world/area.hpp
         src/world/location.cpp                  include/world/location.hpp
+        src/world/tile.cpp                      include/world/tile.hpp
 
         src/world/terrain/grass.cpp             include/world/terrain/grass.hpp
         src/world/terrain/snow.cpp              include/world/terrain/snow.hpp
@@ -42,7 +43,6 @@ set(PROTO_SRC
 
 add_library (engine SHARED ${SOURCE_FILES} ${PROTO_SRC})
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
-set(BUILD_SHARED_LIBS TRUE)
 
 target_include_directories (engine PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}

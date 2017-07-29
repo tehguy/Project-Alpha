@@ -22,8 +22,32 @@ namespace MAIN {
     Core core;
 }
 
-void Core::init() {
+int Core::init() {
+    if(!GFX::gfx.initGFX()){
+        return 1;
+    }
+
     genTestArea();
+
+    gameLoop();
+
+    return 0;
+}
+
+void Core::gameLoop() {
+    GFX::gfx.getWindow()->setActive();
+    while(GFX::gfx.getWindow()->isOpen()){
+        sf::Event event;
+        while(GFX::gfx.getWindow()->pollEvent(event)){
+            if(event.type == sf::Event::Closed){
+                GFX::gfx.getWindow()->close();
+            }
+            else if(event.type == sf::Event::KeyPressed){
+                MAIN::core.handleInput(event.key.code);
+            }
+        }
+        MAIN::core.draw();
+    }
 }
 
 void Core::movePlayer(int xOffset, int yOffset) {

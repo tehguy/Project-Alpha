@@ -27,8 +27,8 @@ public:
     std::shared_ptr<Location> loadLocation();
 
 private:
-    void loadArea(world::Location &locationLoader, std::shared_ptr<Location> &loadedLocation);
-    void loadTerrain(const world::Location::Area &areaLoader, Area &loadedArea);
+    void loadArea(WORLD::Location &locationLoader, std::shared_ptr<Location> &loadedLocation);
+    void loadTerrain(const WORLD::Area &areaLoader, Area &loadedArea);
 
     std::ifstream fileReader;
 };
