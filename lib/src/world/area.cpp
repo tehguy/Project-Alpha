@@ -144,7 +144,9 @@ bool Area::movePlayerToThisArea(int xOffset, int yOffset, const std::shared_ptr<
 void Area::draw() {
     for(auto& innerVec : map){
         for(auto& tile : innerVec){
-            tile->draw();
+            if(tile != nullptr){
+                tile->draw();
+            }
         }
     }
 }
@@ -190,7 +192,11 @@ void Area::resetRenderPos(int x, int y) {
         for(int j = 0; j < dimensions.y; j++){
             int xTarget = i + x;
             int yTarget = j + y;
-            getMapTile(i, j)->resetRenderPosition(xTarget, yTarget);
+            std::shared_ptr<Tile> target= getMapTile(i, j);
+
+            if(target != nullptr){
+                target->resetRenderPosition(xTarget, yTarget);
+            }
         }
     }
 }

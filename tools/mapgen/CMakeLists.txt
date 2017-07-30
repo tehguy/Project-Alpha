@@ -16,7 +16,9 @@ set(SOURCE_FILES
 
         src/mcore/mcore.cpp         include/mapgen/mcore/mcore.hpp
 
-        src/mgfx/mgfx.cpp           include/mapgen/mgfx/mgfx.hpp)
+        src/mgfx/mgfx.cpp           include/mapgen/mgfx/mgfx.hpp
+
+        src/mworld/marea.cpp        include/mapgen/mworld/marea.hpp)
 
 add_executable(${RUNTIME} ${SOURCE_FILES})
 target_include_directories(${RUNTIME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${PROTOBUF_COMPILED_DIR})

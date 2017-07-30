@@ -25,6 +25,7 @@ set (SOURCE_FILES
         src/gfx/gfx.cpp                         include/gfx/gfx.hpp
         src/gfx/renderable.cpp                  include/gfx/renderable.hpp
 
+        src/entity/cursor.cpp                   include/entity/cursor.hpp
         src/entity/entity.cpp                   include/entity/entity.hpp
         src/entity/player.cpp                   include/entity/player.hpp
 

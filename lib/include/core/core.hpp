@@ -46,10 +46,11 @@ protected:
     WorldLoader& getWorldLoader();
     WorldSaver& getWorldSaver();
 
+    void setCurrentLocation(const std::shared_ptr<Location> location);
+    const std::shared_ptr<Location> getCurrentLocation();
+
 private:
     std::shared_ptr<Location> currentLocation;
-
-    std::shared_ptr<Graphics> gfx;
 
     WorldLoader worldLoader;
     WorldSaver worldSaver;

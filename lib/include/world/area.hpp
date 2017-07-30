@@ -47,7 +47,7 @@ public:
     bool movePlayer(int xOffset, int yOffset);
     bool movePlayerToThisArea(int xOffset, int yOffset, const std::shared_ptr<Area> &prevArea);
 
-    void draw();
+    virtual void draw();
     void genRandom(const unsigned int& seed);
 
     void setLocationalPosition(sf::Vector2i pos);

@@ -29,19 +29,18 @@ int Core::init() {
 
     genTestArea();
 
-    setGFX(GFX::gfx);
     gameLoop();
 
     return 0;
 }
 
 void Core::gameLoop() {
-    gfx->getWindow()->setActive();
-    while(gfx->getWindow()->isOpen()){
+    GFX::gfx->getWindow()->setActive();
+    while(GFX::gfx->getWindow()->isOpen()){
         sf::Event event;
-        while(gfx->getWindow()->pollEvent(event)){
+        while(GFX::gfx->getWindow()->pollEvent(event)){
             if(event.type == sf::Event::Closed){
-                gfx->getWindow()->close();
+                GFX::gfx->getWindow()->close();
             }
             else if(event.type == sf::Event::KeyPressed){
                 handleInput(event.key.code);
@@ -60,7 +59,7 @@ void Core::movePlayer(int xOffset, int yOffset) {
 void Core::handleInput(int key) {
     switch (key){
         case sf::Keyboard::Q: case sf::Keyboard::Escape:
-            gfx->getWindow()->close();
+            GFX::gfx->getWindow()->close();
             break;
         case sf::Keyboard::Up: case sf::Keyboard::W:
             movePlayer(0, (-1));
@@ -102,17 +101,17 @@ void Core::genTestArea() {
 }
 
 void Core::setGFX(const std::shared_ptr<Graphics> _gfx) {
-    gfx = _gfx;
+    GFX::gfx = _gfx;
 }
 
 void Core::draw() {
-    gfx->getWindow()->clear(sf::Color::Black);
+    GFX::gfx->getWindow()->clear(sf::Color::Black);
 
     if(currentLocation != nullptr){
         currentLocation->drawChunk();
     }
 
-    gfx->getWindow()->display();
+    GFX::gfx->getWindow()->display();
 }
 
 WorldLoader &Core::getWorldLoader() {
@@ -121,4 +120,12 @@ WorldLoader &Core::getWorldLoader() {
 
 WorldSaver &Core::getWorldSaver() {
     return worldSaver;
+}
+
+void Core::setCurrentLocation(const std::shared_ptr<Location> location) {
+    currentLocation = location;
+}
+
+const std::shared_ptr<Location> Core::getCurrentLocation() {
+    return currentLocation;
 }
