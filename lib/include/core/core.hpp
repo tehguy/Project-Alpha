@@ -28,11 +28,9 @@
 
 class Core {
 public:
-    virtual int init();
+    int init();
 
-protected:
-    void setGFX(const std::shared_ptr<Graphics> gfx);
-
+private:
     void gameLoop();
 
     void handleInput(int key);
@@ -43,13 +41,9 @@ protected:
 
     void genTestArea();
 
-    WorldLoader& getWorldLoader();
-    WorldSaver& getWorldSaver();
-
     void setCurrentLocation(const std::shared_ptr<Location> location);
     const std::shared_ptr<Location> getCurrentLocation();
 
-private:
     std::shared_ptr<Location> currentLocation;
 
     WorldLoader worldLoader;

@@ -22,6 +22,8 @@ set (SOURCE_FILES
         src/core/io/worldloader.cpp             include/core/io/worldloader.hpp
         src/core/io/worldsaver.cpp              include/core/io/worldsaver.hpp
 
+                                                include/enums/enums.hpp
+
         src/gfx/gfx.cpp                         include/gfx/gfx.hpp
         src/gfx/renderable.cpp                  include/gfx/renderable.hpp
 

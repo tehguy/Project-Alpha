@@ -19,6 +19,11 @@
 #include <include/gfx/gfx.hpp>
 #include <include/mapgen/mworld/marea.hpp>
 
+#include <include/world/terrain/grass.hpp>
+#include <include/world/terrain/mountain.hpp>
+#include <include/world/terrain/snow.hpp>
+#include <include/world/terrain/water.hpp>
+
 MArea::MArea(std::string name) : Area(name) {
     cursor = std::shared_ptr<Cursor>(nullptr);
 
@@ -36,6 +41,7 @@ void MArea::spawnCursor(int x, int y) {
     if(cursor == nullptr){
         cursor = std::shared_ptr<Cursor>(new Cursor());
         moveCursor(x, y);
+        GFX::gfx->forceCenterCamera(cursor->getWorldPosition());
     }
     else{
         moveCursor(x, y);
@@ -100,4 +106,42 @@ void MArea::draw() {
     }
 
     Area::draw();
+}
+
+const std::shared_ptr<Cursor> &MArea::getCursor() {
+    return cursor;
+}
+
+void MArea::createTileAtCursor(ENUMS::TTYPE ttype) {
+    int xpos = cursor->getWorldPosition().x;
+    int ypos = cursor->getWorldPosition().y;
+
+    if(ttype == ENUMS::TTYPE::BLANK){
+        if(getMapTile(xpos, ypos) != nullptr){
+            setMapTile(xpos, ypos, std::shared_ptr<Tile>(nullptr));
+        }
+    }
+
+    std::shared_ptr<Tile> tile = std::shared_ptr<Tile>(nullptr);
+
+    if(ttype == ENUMS::TTYPE::GRASS){
+        tile = std::shared_ptr<Tile>(new Tile());
+        tile->setTerrain(std::shared_ptr<Terrain>(new Grass(xpos, ypos)));
+    }
+    else if(ttype == ENUMS::TTYPE::MOUNTAIN){
+        tile = std::shared_ptr<Tile>(new Tile());
+        tile->setTerrain(std::shared_ptr<Terrain>(new Mountain(xpos, ypos)));
+    }
+    else if(ttype == ENUMS::TTYPE::SNOW){
+        tile = std::shared_ptr<Tile>(new Tile());
+        tile->setTerrain(std::shared_ptr<Terrain>(new Snow(xpos, ypos)));
+    }
+    else if(ttype == ENUMS::TTYPE::WATER){
+        tile = std::shared_ptr<Tile>(new Tile());
+        tile->setTerrain(std::shared_ptr<Terrain>(new Water(xpos, ypos)));
+    }
+
+    if(tile != nullptr){
+        setMapTile(xpos, ypos, tile);
+    }
 }

@@ -41,7 +41,7 @@ Area::Area(std::string name) {
         entityLayer.at(i).reserve((unsigned long) dimensions.y);
 
         for(unsigned int j = 0; j < dimensions.y; j++){
-            map.at(i).push_back(std::shared_ptr<Tile>(new Tile()));
+            map.at(i).push_back(std::shared_ptr<Tile>(nullptr));
             entityLayer.at(i).push_back(nullptr);
         }
     }
@@ -59,7 +59,7 @@ std::string Area::getAreaName() {
     return areaName;
 }
 
-void Area::setMapTile(int x, int y, std::shared_ptr<Tile> &terrain) {
+void Area::setMapTile(int x, int y, const std::shared_ptr<Tile> terrain) {
     map.at((unsigned long) x).at((unsigned long) y) = terrain;
 }
 

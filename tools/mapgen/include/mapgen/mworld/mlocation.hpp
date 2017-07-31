@@ -18,37 +18,40 @@
 
 #pragma once
 
-#include <include/core/io/worldloader.hpp>
-#include <include/core/io/worldsaver.hpp>
+#include <include/mapgen/mworld/marea.hpp>
 
-#include <include/enums/enums.hpp>
-
-#include <include/mapgen/mworld/mlocation.hpp>
-
-class MCore {
+class MLocation {
 public:
-    int init(std::string name, int width, int height);
+    MLocation(std::string name, int width, int height);
 
-private:
-    void gameLoop();
+    sf::Vector2i getDimensions();
 
-    void handleInput(int key);
+    void createArea();
+    void placeArea(int x, int y, MArea area);
+    const std::shared_ptr<MArea> & getArea(int x, int y);
 
-    void draw();
+    std::string getName();
+
+    void setCurrentArea(int x, int y);
+    const std::shared_ptr<MArea>& getCurrentArea();
+
+    void drawChunk();
 
     void moveCursor(int xOffset, int yOffset);
 
-    void setCurrentLocation(const std::shared_ptr<MLocation> location);
-    const std::shared_ptr<MLocation> getCurrentLocation();
+private:
+    void initAreaVector();
+    void initChunk();
 
-    void createTile(ENUMS::TTYPE ttype);
+    void moveToArea(int xOffset, int yOffset);
 
-    std::shared_ptr<MLocation> currentLocation;
+    void loadAdjacentAreas();
 
-    WorldLoader worldLoader;
-    WorldSaver worldSaver;
+    std::vector<std::vector<std::shared_ptr<MArea>>> chunk;
+
+    std::vector<std::vector<std::shared_ptr<MArea>>> areas;
+
+    sf::Vector2i dimensions;
+
+    std::string locationName;
 };
-
-namespace MAPGEN {
-    extern MCore mcore;
-}

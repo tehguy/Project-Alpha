@@ -100,10 +100,6 @@ void Core::genTestArea() {
     GFX::gfx->forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
 }
 
-void Core::setGFX(const std::shared_ptr<Graphics> _gfx) {
-    GFX::gfx = _gfx;
-}
-
 void Core::draw() {
     GFX::gfx->getWindow()->clear(sf::Color::Black);
 
@@ -112,14 +108,6 @@ void Core::draw() {
     }
 
     GFX::gfx->getWindow()->display();
-}
-
-WorldLoader &Core::getWorldLoader() {
-    return worldLoader;
-}
-
-WorldSaver &Core::getWorldSaver() {
-    return worldSaver;
 }
 
 void Core::setCurrentLocation(const std::shared_ptr<Location> location) {

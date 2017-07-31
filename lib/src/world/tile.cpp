@@ -48,7 +48,9 @@ void Tile::draw() {
 }
 
 void Tile::resetRenderPosition(int x, int y) {
-    terrain->setRenderPosition(x, y);
+    if(terrain != nullptr){
+        terrain->setRenderPosition(x, y);
+    }
 }
 
 bool Tile::isPassable() {

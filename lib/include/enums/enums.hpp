@@ -15,24 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <include/mapgen/mcore/mcore.hpp>
 
-#include <iostream>
+#pragma once
 
-int main(int argc, char* argv[]){
-    std::string name = "";
-    int width = 1, height = 1;
-
-    std::cout << "Enter location name: ";
-    std::getline(std::cin, name);
-    std::cin.clear();
-
-    std::cout << "Enter width and height: ";
-    std::cin >> width >> height;
-    std::cin.clear();
-    std::cin.ignore(10, '\n');
-
-    MAPGEN::mcore.init(name, width, height);
-
-    return 0;
+namespace ENUMS {
+    enum TTYPE {
+        BLANK,
+        GRASS,
+        WATER,
+        MOUNTAIN,
+        SNOW
+    };
 }

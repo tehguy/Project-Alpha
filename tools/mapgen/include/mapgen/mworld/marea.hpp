@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include <include/enums/enums.hpp>
 #include <include/entity/cursor.hpp>
 #include <include/world/area.hpp>
 
@@ -34,6 +35,10 @@ public:
     Cursor passCursor();
 
     void draw();
+
+    const std::shared_ptr<Cursor>& getCursor();
+
+    void createTileAtCursor(ENUMS::TTYPE ttype);
 private:
     void setCursorMap(int x, int y, const std::shared_ptr<Cursor> set);
 
