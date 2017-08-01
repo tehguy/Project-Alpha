@@ -1,6 +1,6 @@
 /*
-    CPPAdventures
-    Copyright (C) 2017  TehGuy
+    Project Alpha
+    Copyright (C) 2017  Pixima Development
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ namespace MAIN {
 }
 
 int Core::init() {
-    if(!GFX::gfx->initGFX("./res/spritesheet.png", "CPPAdventures")){
+    if(!GFX::gfx->initGFX("./res/spritesheet.png", "Project Alpha")){
         return 1;
     }
 
