@@ -18,28 +18,26 @@
 
 #pragma once
 
-#include <include/world/area.hpp>
+#include <include/mapgen/mworld/marea.hpp>
 
-#include <memory>
-
-class Location {
+class MLocation {
 public:
-    Location(std::string name, int width, int height);
-    ~Location();
+    MLocation(std::string name, int width, int height);
 
     sf::Vector2i getDimensions();
 
-    void placeArea(int x, int y, Area area);
-    const std::shared_ptr<Area> & getArea(int x, int y);
+    void createArea();
+    void placeArea(int x, int y, MArea area);
+    const std::shared_ptr<MArea> & getArea(int x, int y);
 
     std::string getName();
 
     void setCurrentArea(int x, int y);
-    const std::shared_ptr<Area>& getCurrentArea();
+    const std::shared_ptr<MArea>& getCurrentArea();
 
     void drawChunk();
 
-    void movePlayer(int xOffset, int yOffset);
+    void moveCursor(int xOffset, int yOffset);
 
 private:
     void initAreaVector();
@@ -49,9 +47,9 @@ private:
 
     void loadAdjacentAreas();
 
-    std::vector<std::vector<std::shared_ptr<Area>>> chunk;
+    std::vector<std::vector<std::shared_ptr<MArea>>> chunk;
 
-    std::vector<std::vector<std::shared_ptr<Area>>> areas;
+    std::vector<std::vector<std::shared_ptr<MArea>>> areas;
 
     sf::Vector2i dimensions;
 

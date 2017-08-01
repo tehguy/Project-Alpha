@@ -1,3 +1,3 @@
-# CPPAdventures
+# Project Alpha
 
-Simple ASCII-style top-down RPG written from the ground up using C++ and SFML
+Simple ASCII-style top-down RPG engine written from the ground up using C++ and SFML

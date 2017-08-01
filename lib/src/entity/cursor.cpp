@@ -16,13 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#include <include/entity/cursor.hpp>
 
+Cursor::Cursor() : Entity(CONSTANTS::CURSOR_SPRITE_RECT, 1, 1) {
 
-
-int main() {
-
-    MAIN::core.init();
-
-	return 0;
 }

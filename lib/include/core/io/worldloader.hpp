@@ -1,6 +1,6 @@
 /*
-    CPPAdventures
-    Copyright (C) 2017  TehGuy
+    Project Alpha
+    Copyright (C) 2017  Pixima Development
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,8 +27,8 @@ public:
     std::shared_ptr<Location> loadLocation();
 
 private:
-    void loadArea(world::Location &locationLoader, std::shared_ptr<Location> &loadedLocation);
-    void loadTerrain(const world::Location::Area &areaLoader, Area &loadedArea);
+    void loadArea(WORLD::Location &locationLoader, std::shared_ptr<Location> &loadedLocation);
+    void loadTerrain(const WORLD::Area &areaLoader, Area &loadedArea);
 
     std::ifstream fileReader;
 };

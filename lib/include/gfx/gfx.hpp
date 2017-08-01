@@ -1,6 +1,6 @@
 /*
-    CPPAdventures
-    Copyright (C) 2017  TehGuy
+    Project Alpha
+    Copyright (C) 2017  Pixima Development
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,22 +22,27 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+#include <include/core/constants.hpp>
+
 class Graphics {
 public:
     Graphics();
 
     bool checkWithinCamera(sf::Rect<int> object);
 
-    bool initGFX();
-    bool loadSpriteSheet();
+    bool initGFX(std::string tileTexturePath, std::string windowName, unsigned int screenWidth = CONSTANTS::SCREEN_WIDTH,
+                             unsigned int screenHeight = CONSTANTS::SCREEN_HEIGHT, unsigned int framerate = 60);
 
     const std::shared_ptr<sf::RenderWindow>& getWindow();
     const sf::Sprite createSprite(sf::Rect<int> spriteRect);
 
-    void centerCamera(sf::Vector2i playerPrevPos, sf::Vector2i playerCurrentPos);
-    void forceCenterCamera(sf::Vector2i playerCurrentPos);
+    void centerCamera(sf::Vector2i prevPos, sf::Vector2i currentPos);
+    void forceCenterCamera(sf::Vector2i posToCenterOn);
 
 private:
+    bool loadSpriteSheet(std::string filePath);
+
+    void initCamera(int w, int h);
     bool checkCollision(sf::Rect<int> a, sf::Rect<int> b);
     void moveCamera(sf::Vector2f& offset);
 
@@ -49,5 +54,5 @@ private:
 };
 
 namespace GFX {
-    extern Graphics gfx;
+    extern std::shared_ptr<Graphics> gfx;
 }

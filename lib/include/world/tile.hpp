@@ -16,13 +16,28 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
+#include <include/entity/entity.hpp>
+#include <include/world/terrain/terrain.hpp>
+#include <memory>
 
+class Tile {
+public:
+    Tile();
 
-int main() {
+    void setTerrain(const std::shared_ptr<Terrain> terrainToPlace);
+    const std::shared_ptr<Terrain>& getTerrain();
 
-    MAIN::core.init();
+    void setEntityHere(const std::shared_ptr<Entity> entityToAdd);
+    void removeEntityHere();
 
-	return 0;
-}
+    void draw();
+    void resetRenderPosition(int x, int y);
+
+    bool isPassable();
+
+private:
+    std::shared_ptr<Terrain> terrain;
+    std::shared_ptr<Entity> entityHere;
+};

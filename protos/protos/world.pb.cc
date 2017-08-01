@@ -12,20 +12,22 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
-namespace world {
-class Location_Area_TerrainDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Location_Area_Terrain> {
-} _Location_Area_Terrain_default_instance_;
-class Location_AreaDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Location_Area> {
-} _Location_Area_default_instance_;
+namespace WORLD {
 class LocationDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Location> {
 } _Location_default_instance_;
+class AreaDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Area> {
+} _Area_default_instance_;
+class TileDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Tile> {
+} _Tile_default_instance_;
+class TerrainDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Terrain> {
+} _Terrain_default_instance_;
 
 namespace protobuf_world_2eproto {
 
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[3];
+::google::protobuf::Metadata file_level_metadata[4];
 
 }  // namespace
 
@@ -43,26 +45,10 @@ PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::ParseTable const
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
+  { NULL, NULL, 0, -1, -1, false },
 };
 
 const ::google::protobuf::uint32 TableStruct::offsets[] = {
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area_Terrain, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area_Terrain, xloc_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area_Terrain, yloc_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area_Terrain, ttype_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area, name_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area, xloc_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area, yloc_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location_Area, terrain_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -74,18 +60,43 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location, areas_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location, current_area_x_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Location, current_area_y_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Area, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Area, name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Area, xloc_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Area, yloc_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Area, tile_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Tile, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Tile, terrain_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Terrain, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Terrain, xloc_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Terrain, yloc_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Terrain, ttype_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
-  { 0, -1, sizeof(Location_Area_Terrain)},
-  { 8, -1, sizeof(Location_Area)},
-  { 17, -1, sizeof(Location)},
+  { 0, -1, sizeof(Location)},
+  { 11, -1, sizeof(Area)},
+  { 20, -1, sizeof(Tile)},
+  { 26, -1, sizeof(Terrain)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::google::protobuf::Message*>(&_Location_Area_Terrain_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_Location_Area_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_Location_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_Area_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_Tile_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_Terrain_default_instance_),
 };
 
 namespace {
@@ -106,27 +117,32 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 3);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 4);
 }
 
 }  // namespace
 
 void TableStruct::Shutdown() {
-  _Location_Area_Terrain_default_instance_.Shutdown();
-  delete file_level_metadata[0].reflection;
-  _Location_Area_default_instance_.Shutdown();
-  delete file_level_metadata[1].reflection;
   _Location_default_instance_.Shutdown();
+  delete file_level_metadata[0].reflection;
+  _Area_default_instance_.Shutdown();
+  delete file_level_metadata[1].reflection;
+  _Tile_default_instance_.Shutdown();
   delete file_level_metadata[2].reflection;
+  _Terrain_default_instance_.Shutdown();
+  delete file_level_metadata[3].reflection;
 }
 
 void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::internal::InitProtobufDefaults();
-  _Location_Area_Terrain_default_instance_.DefaultConstruct();
-  _Location_Area_default_instance_.DefaultConstruct();
   _Location_default_instance_.DefaultConstruct();
+  _Area_default_instance_.DefaultConstruct();
+  _Tile_default_instance_.DefaultConstruct();
+  _Terrain_default_instance_.DefaultConstruct();
+  _Tile_default_instance_.get_mutable()->terrain_ = const_cast< ::WORLD::Terrain*>(
+      ::WORLD::Terrain::internal_default_instance());
 }
 
 void InitDefaults() {
@@ -136,18 +152,18 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\013world.proto\022\005world\"\244\002\n\010Location\022\014\n\004nam"
-      "e\030\001 \001(\t\022\r\n\005width\030\002 \001(\005\022\016\n\006height\030\003 \001(\005\022#"
-      "\n\005areas\030\004 \003(\0132\024.world.Location.Area\022\026\n\016c"
-      "urrent_area_x\030\005 \001(\005\022\026\n\016current_area_y\030\006 "
-      "\001(\005\032\225\001\n\004Area\022\014\n\004name\030\001 \001(\t\022\014\n\004xLoc\030\002 \001(\005"
-      "\022\014\n\004yLoc\030\003 \001(\005\022-\n\007terrain\030\004 \003(\0132\034.world."
-      "Location.Area.Terrain\0324\n\007Terrain\022\014\n\004xLoc"
-      "\030\001 \001(\005\022\014\n\004yLoc\030\002 \001(\005\022\r\n\005ttype\030\003 \001(\005b\006pro"
-      "to3"
+      "\n\013world.proto\022\005WORLD\"\203\001\n\010Location\022\014\n\004nam"
+      "e\030\001 \001(\t\022\r\n\005width\030\002 \001(\005\022\016\n\006height\030\003 \001(\005\022\032"
+      "\n\005areas\030\004 \003(\0132\013.WORLD.Area\022\026\n\016current_ar"
+      "ea_x\030\005 \001(\005\022\026\n\016current_area_y\030\006 \001(\005\"K\n\004Ar"
+      "ea\022\014\n\004name\030\001 \001(\t\022\014\n\004xLoc\030\002 \001(\005\022\014\n\004yLoc\030\003"
+      " \001(\005\022\031\n\004tile\030\004 \003(\0132\013.WORLD.Tile\"\'\n\004Tile\022"
+      "\037\n\007terrain\030\001 \001(\0132\016.WORLD.Terrain\"4\n\007Terr"
+      "ain\022\014\n\004xLoc\030\001 \001(\005\022\014\n\004yLoc\030\002 \001(\005\022\r\n\005ttype"
+      "\030\003 \001(\005b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 323);
+      descriptor, 334);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "world.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -170,20 +186,1331 @@ struct StaticDescriptorInitializer {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Location_Area_Terrain::kXLocFieldNumber;
-const int Location_Area_Terrain::kYLocFieldNumber;
-const int Location_Area_Terrain::kTtypeFieldNumber;
+const int Location::kNameFieldNumber;
+const int Location::kWidthFieldNumber;
+const int Location::kHeightFieldNumber;
+const int Location::kAreasFieldNumber;
+const int Location::kCurrentAreaXFieldNumber;
+const int Location::kCurrentAreaYFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-Location_Area_Terrain::Location_Area_Terrain()
+Location::Location()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
     protobuf_world_2eproto::InitDefaults();
   }
   SharedCtor();
-  // @@protoc_insertion_point(constructor:world.Location.Area.Terrain)
+  // @@protoc_insertion_point(constructor:WORLD.Location)
 }
-Location_Area_Terrain::Location_Area_Terrain(const Location_Area_Terrain& from)
+Location::Location(const Location& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      areas_(from.areas_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.name().size() > 0) {
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+  }
+  ::memcpy(&width_, &from.width_,
+    reinterpret_cast<char*>(&current_area_y_) -
+    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
+  // @@protoc_insertion_point(copy_constructor:WORLD.Location)
+}
+
+void Location::SharedCtor() {
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&width_, 0, reinterpret_cast<char*>(&current_area_y_) -
+    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
+  _cached_size_ = 0;
+}
+
+Location::~Location() {
+  // @@protoc_insertion_point(destructor:WORLD.Location)
+  SharedDtor();
+}
+
+void Location::SharedDtor() {
+  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void Location::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Location::descriptor() {
+  protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const Location& Location::default_instance() {
+  protobuf_world_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+Location* Location::New(::google::protobuf::Arena* arena) const {
+  Location* n = new Location;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void Location::Clear() {
+// @@protoc_insertion_point(message_clear_start:WORLD.Location)
+  areas_.Clear();
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&width_, 0, reinterpret_cast<char*>(&current_area_y_) -
+    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
+}
+
+bool Location::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:WORLD.Location)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string name = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "WORLD.Location.name"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 width = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &width_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 height = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &height_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated .WORLD.Area areas = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_areas()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 current_area_x = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(40u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &current_area_x_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 current_area_y = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(48u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &current_area_y_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:WORLD.Location)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:WORLD.Location)
+  return false;
+#undef DO_
+}
+
+void Location::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:WORLD.Location)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "WORLD.Location.name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->name(), output);
+  }
+
+  // int32 width = 2;
+  if (this->width() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->width(), output);
+  }
+
+  // int32 height = 3;
+  if (this->height() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->height(), output);
+  }
+
+  // repeated .WORLD.Area areas = 4;
+  for (unsigned int i = 0, n = this->areas_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->areas(i), output);
+  }
+
+  // int32 current_area_x = 5;
+  if (this->current_area_x() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->current_area_x(), output);
+  }
+
+  // int32 current_area_y = 6;
+  if (this->current_area_y() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->current_area_y(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:WORLD.Location)
+}
+
+::google::protobuf::uint8* Location::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:WORLD.Location)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "WORLD.Location.name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->name(), target);
+  }
+
+  // int32 width = 2;
+  if (this->width() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->width(), target);
+  }
+
+  // int32 height = 3;
+  if (this->height() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->height(), target);
+  }
+
+  // repeated .WORLD.Area areas = 4;
+  for (unsigned int i = 0, n = this->areas_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        4, this->areas(i), deterministic, target);
+  }
+
+  // int32 current_area_x = 5;
+  if (this->current_area_x() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->current_area_x(), target);
+  }
+
+  // int32 current_area_y = 6;
+  if (this->current_area_y() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->current_area_y(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:WORLD.Location)
+  return target;
+}
+
+size_t Location::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WORLD.Location)
+  size_t total_size = 0;
+
+  // repeated .WORLD.Area areas = 4;
+  {
+    unsigned int count = this->areas_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->areas(i));
+    }
+  }
+
+  // string name = 1;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+  }
+
+  // int32 width = 2;
+  if (this->width() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->width());
+  }
+
+  // int32 height = 3;
+  if (this->height() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->height());
+  }
+
+  // int32 current_area_x = 5;
+  if (this->current_area_x() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->current_area_x());
+  }
+
+  // int32 current_area_y = 6;
+  if (this->current_area_y() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->current_area_y());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Location::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WORLD.Location)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Location* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const Location>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WORLD.Location)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WORLD.Location)
+    MergeFrom(*source);
+  }
+}
+
+void Location::MergeFrom(const Location& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WORLD.Location)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  areas_.MergeFrom(from.areas_);
+  if (from.name().size() > 0) {
+
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+  }
+  if (from.width() != 0) {
+    set_width(from.width());
+  }
+  if (from.height() != 0) {
+    set_height(from.height());
+  }
+  if (from.current_area_x() != 0) {
+    set_current_area_x(from.current_area_x());
+  }
+  if (from.current_area_y() != 0) {
+    set_current_area_y(from.current_area_y());
+  }
+}
+
+void Location::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WORLD.Location)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Location::CopyFrom(const Location& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WORLD.Location)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Location::IsInitialized() const {
+  return true;
+}
+
+void Location::Swap(Location* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void Location::InternalSwap(Location* other) {
+  areas_.InternalSwap(&other->areas_);
+  name_.Swap(&other->name_);
+  std::swap(width_, other->width_);
+  std::swap(height_, other->height_);
+  std::swap(current_area_x_, other->current_area_x_);
+  std::swap(current_area_y_, other->current_area_y_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata Location::GetMetadata() const {
+  protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// Location
+
+// string name = 1;
+void Location::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& Location::name() const {
+  // @@protoc_insertion_point(field_get:WORLD.Location.name)
+  return name_.GetNoArena();
+}
+void Location::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:WORLD.Location.name)
+}
+#if LANG_CXX11
+void Location::set_name(::std::string&& value) {
+  
+  name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:WORLD.Location.name)
+}
+#endif
+void Location::set_name(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:WORLD.Location.name)
+}
+void Location::set_name(const char* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:WORLD.Location.name)
+}
+::std::string* Location::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:WORLD.Location.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* Location::release_name() {
+  // @@protoc_insertion_point(field_release:WORLD.Location.name)
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void Location::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:WORLD.Location.name)
+}
+
+// int32 width = 2;
+void Location::clear_width() {
+  width_ = 0;
+}
+::google::protobuf::int32 Location::width() const {
+  // @@protoc_insertion_point(field_get:WORLD.Location.width)
+  return width_;
+}
+void Location::set_width(::google::protobuf::int32 value) {
+  
+  width_ = value;
+  // @@protoc_insertion_point(field_set:WORLD.Location.width)
+}
+
+// int32 height = 3;
+void Location::clear_height() {
+  height_ = 0;
+}
+::google::protobuf::int32 Location::height() const {
+  // @@protoc_insertion_point(field_get:WORLD.Location.height)
+  return height_;
+}
+void Location::set_height(::google::protobuf::int32 value) {
+  
+  height_ = value;
+  // @@protoc_insertion_point(field_set:WORLD.Location.height)
+}
+
+// repeated .WORLD.Area areas = 4;
+int Location::areas_size() const {
+  return areas_.size();
+}
+void Location::clear_areas() {
+  areas_.Clear();
+}
+const ::WORLD::Area& Location::areas(int index) const {
+  // @@protoc_insertion_point(field_get:WORLD.Location.areas)
+  return areas_.Get(index);
+}
+::WORLD::Area* Location::mutable_areas(int index) {
+  // @@protoc_insertion_point(field_mutable:WORLD.Location.areas)
+  return areas_.Mutable(index);
+}
+::WORLD::Area* Location::add_areas() {
+  // @@protoc_insertion_point(field_add:WORLD.Location.areas)
+  return areas_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::WORLD::Area >*
+Location::mutable_areas() {
+  // @@protoc_insertion_point(field_mutable_list:WORLD.Location.areas)
+  return &areas_;
+}
+const ::google::protobuf::RepeatedPtrField< ::WORLD::Area >&
+Location::areas() const {
+  // @@protoc_insertion_point(field_list:WORLD.Location.areas)
+  return areas_;
+}
+
+// int32 current_area_x = 5;
+void Location::clear_current_area_x() {
+  current_area_x_ = 0;
+}
+::google::protobuf::int32 Location::current_area_x() const {
+  // @@protoc_insertion_point(field_get:WORLD.Location.current_area_x)
+  return current_area_x_;
+}
+void Location::set_current_area_x(::google::protobuf::int32 value) {
+  
+  current_area_x_ = value;
+  // @@protoc_insertion_point(field_set:WORLD.Location.current_area_x)
+}
+
+// int32 current_area_y = 6;
+void Location::clear_current_area_y() {
+  current_area_y_ = 0;
+}
+::google::protobuf::int32 Location::current_area_y() const {
+  // @@protoc_insertion_point(field_get:WORLD.Location.current_area_y)
+  return current_area_y_;
+}
+void Location::set_current_area_y(::google::protobuf::int32 value) {
+  
+  current_area_y_ = value;
+  // @@protoc_insertion_point(field_set:WORLD.Location.current_area_y)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int Area::kNameFieldNumber;
+const int Area::kXLocFieldNumber;
+const int Area::kYLocFieldNumber;
+const int Area::kTileFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+Area::Area()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_world_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:WORLD.Area)
+}
+Area::Area(const Area& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      tile_(from.tile_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.name().size() > 0) {
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+  }
+  ::memcpy(&xloc_, &from.xloc_,
+    reinterpret_cast<char*>(&yloc_) -
+    reinterpret_cast<char*>(&xloc_) + sizeof(yloc_));
+  // @@protoc_insertion_point(copy_constructor:WORLD.Area)
+}
+
+void Area::SharedCtor() {
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&xloc_, 0, reinterpret_cast<char*>(&yloc_) -
+    reinterpret_cast<char*>(&xloc_) + sizeof(yloc_));
+  _cached_size_ = 0;
+}
+
+Area::~Area() {
+  // @@protoc_insertion_point(destructor:WORLD.Area)
+  SharedDtor();
+}
+
+void Area::SharedDtor() {
+  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void Area::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Area::descriptor() {
+  protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const Area& Area::default_instance() {
+  protobuf_world_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+Area* Area::New(::google::protobuf::Arena* arena) const {
+  Area* n = new Area;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void Area::Clear() {
+// @@protoc_insertion_point(message_clear_start:WORLD.Area)
+  tile_.Clear();
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&xloc_, 0, reinterpret_cast<char*>(&yloc_) -
+    reinterpret_cast<char*>(&xloc_) + sizeof(yloc_));
+}
+
+bool Area::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:WORLD.Area)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string name = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "WORLD.Area.name"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 xLoc = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &xloc_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 yLoc = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &yloc_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated .WORLD.Tile tile = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_tile()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:WORLD.Area)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:WORLD.Area)
+  return false;
+#undef DO_
+}
+
+void Area::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:WORLD.Area)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "WORLD.Area.name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->name(), output);
+  }
+
+  // int32 xLoc = 2;
+  if (this->xloc() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->xloc(), output);
+  }
+
+  // int32 yLoc = 3;
+  if (this->yloc() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->yloc(), output);
+  }
+
+  // repeated .WORLD.Tile tile = 4;
+  for (unsigned int i = 0, n = this->tile_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->tile(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:WORLD.Area)
+}
+
+::google::protobuf::uint8* Area::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:WORLD.Area)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "WORLD.Area.name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->name(), target);
+  }
+
+  // int32 xLoc = 2;
+  if (this->xloc() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->xloc(), target);
+  }
+
+  // int32 yLoc = 3;
+  if (this->yloc() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->yloc(), target);
+  }
+
+  // repeated .WORLD.Tile tile = 4;
+  for (unsigned int i = 0, n = this->tile_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        4, this->tile(i), deterministic, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:WORLD.Area)
+  return target;
+}
+
+size_t Area::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WORLD.Area)
+  size_t total_size = 0;
+
+  // repeated .WORLD.Tile tile = 4;
+  {
+    unsigned int count = this->tile_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->tile(i));
+    }
+  }
+
+  // string name = 1;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+  }
+
+  // int32 xLoc = 2;
+  if (this->xloc() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->xloc());
+  }
+
+  // int32 yLoc = 3;
+  if (this->yloc() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->yloc());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Area::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WORLD.Area)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Area* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const Area>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WORLD.Area)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WORLD.Area)
+    MergeFrom(*source);
+  }
+}
+
+void Area::MergeFrom(const Area& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WORLD.Area)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  tile_.MergeFrom(from.tile_);
+  if (from.name().size() > 0) {
+
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+  }
+  if (from.xloc() != 0) {
+    set_xloc(from.xloc());
+  }
+  if (from.yloc() != 0) {
+    set_yloc(from.yloc());
+  }
+}
+
+void Area::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WORLD.Area)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Area::CopyFrom(const Area& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WORLD.Area)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Area::IsInitialized() const {
+  return true;
+}
+
+void Area::Swap(Area* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void Area::InternalSwap(Area* other) {
+  tile_.InternalSwap(&other->tile_);
+  name_.Swap(&other->name_);
+  std::swap(xloc_, other->xloc_);
+  std::swap(yloc_, other->yloc_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata Area::GetMetadata() const {
+  protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// Area
+
+// string name = 1;
+void Area::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& Area::name() const {
+  // @@protoc_insertion_point(field_get:WORLD.Area.name)
+  return name_.GetNoArena();
+}
+void Area::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:WORLD.Area.name)
+}
+#if LANG_CXX11
+void Area::set_name(::std::string&& value) {
+  
+  name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:WORLD.Area.name)
+}
+#endif
+void Area::set_name(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:WORLD.Area.name)
+}
+void Area::set_name(const char* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:WORLD.Area.name)
+}
+::std::string* Area::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:WORLD.Area.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* Area::release_name() {
+  // @@protoc_insertion_point(field_release:WORLD.Area.name)
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void Area::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:WORLD.Area.name)
+}
+
+// int32 xLoc = 2;
+void Area::clear_xloc() {
+  xloc_ = 0;
+}
+::google::protobuf::int32 Area::xloc() const {
+  // @@protoc_insertion_point(field_get:WORLD.Area.xLoc)
+  return xloc_;
+}
+void Area::set_xloc(::google::protobuf::int32 value) {
+  
+  xloc_ = value;
+  // @@protoc_insertion_point(field_set:WORLD.Area.xLoc)
+}
+
+// int32 yLoc = 3;
+void Area::clear_yloc() {
+  yloc_ = 0;
+}
+::google::protobuf::int32 Area::yloc() const {
+  // @@protoc_insertion_point(field_get:WORLD.Area.yLoc)
+  return yloc_;
+}
+void Area::set_yloc(::google::protobuf::int32 value) {
+  
+  yloc_ = value;
+  // @@protoc_insertion_point(field_set:WORLD.Area.yLoc)
+}
+
+// repeated .WORLD.Tile tile = 4;
+int Area::tile_size() const {
+  return tile_.size();
+}
+void Area::clear_tile() {
+  tile_.Clear();
+}
+const ::WORLD::Tile& Area::tile(int index) const {
+  // @@protoc_insertion_point(field_get:WORLD.Area.tile)
+  return tile_.Get(index);
+}
+::WORLD::Tile* Area::mutable_tile(int index) {
+  // @@protoc_insertion_point(field_mutable:WORLD.Area.tile)
+  return tile_.Mutable(index);
+}
+::WORLD::Tile* Area::add_tile() {
+  // @@protoc_insertion_point(field_add:WORLD.Area.tile)
+  return tile_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::WORLD::Tile >*
+Area::mutable_tile() {
+  // @@protoc_insertion_point(field_mutable_list:WORLD.Area.tile)
+  return &tile_;
+}
+const ::google::protobuf::RepeatedPtrField< ::WORLD::Tile >&
+Area::tile() const {
+  // @@protoc_insertion_point(field_list:WORLD.Area.tile)
+  return tile_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int Tile::kTerrainFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+Tile::Tile()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_world_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:WORLD.Tile)
+}
+Tile::Tile(const Tile& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_terrain()) {
+    terrain_ = new ::WORLD::Terrain(*from.terrain_);
+  } else {
+    terrain_ = NULL;
+  }
+  // @@protoc_insertion_point(copy_constructor:WORLD.Tile)
+}
+
+void Tile::SharedCtor() {
+  terrain_ = NULL;
+  _cached_size_ = 0;
+}
+
+Tile::~Tile() {
+  // @@protoc_insertion_point(destructor:WORLD.Tile)
+  SharedDtor();
+}
+
+void Tile::SharedDtor() {
+  if (this != internal_default_instance()) {
+    delete terrain_;
+  }
+}
+
+void Tile::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Tile::descriptor() {
+  protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const Tile& Tile::default_instance() {
+  protobuf_world_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+Tile* Tile::New(::google::protobuf::Arena* arena) const {
+  Tile* n = new Tile;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void Tile::Clear() {
+// @@protoc_insertion_point(message_clear_start:WORLD.Tile)
+  if (GetArenaNoVirtual() == NULL && terrain_ != NULL) {
+    delete terrain_;
+  }
+  terrain_ = NULL;
+}
+
+bool Tile::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:WORLD.Tile)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // .WORLD.Terrain terrain = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_terrain()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:WORLD.Tile)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:WORLD.Tile)
+  return false;
+#undef DO_
+}
+
+void Tile::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:WORLD.Tile)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .WORLD.Terrain terrain = 1;
+  if (this->has_terrain()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->terrain_, output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:WORLD.Tile)
+}
+
+::google::protobuf::uint8* Tile::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:WORLD.Tile)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .WORLD.Terrain terrain = 1;
+  if (this->has_terrain()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, *this->terrain_, deterministic, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:WORLD.Tile)
+  return target;
+}
+
+size_t Tile::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WORLD.Tile)
+  size_t total_size = 0;
+
+  // .WORLD.Terrain terrain = 1;
+  if (this->has_terrain()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->terrain_);
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Tile::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WORLD.Tile)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Tile* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const Tile>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WORLD.Tile)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WORLD.Tile)
+    MergeFrom(*source);
+  }
+}
+
+void Tile::MergeFrom(const Tile& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WORLD.Tile)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_terrain()) {
+    mutable_terrain()->::WORLD::Terrain::MergeFrom(from.terrain());
+  }
+}
+
+void Tile::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WORLD.Tile)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Tile::CopyFrom(const Tile& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WORLD.Tile)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Tile::IsInitialized() const {
+  return true;
+}
+
+void Tile::Swap(Tile* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void Tile::InternalSwap(Tile* other) {
+  std::swap(terrain_, other->terrain_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata Tile::GetMetadata() const {
+  protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// Tile
+
+// .WORLD.Terrain terrain = 1;
+bool Tile::has_terrain() const {
+  return this != internal_default_instance() && terrain_ != NULL;
+}
+void Tile::clear_terrain() {
+  if (GetArenaNoVirtual() == NULL && terrain_ != NULL) delete terrain_;
+  terrain_ = NULL;
+}
+const ::WORLD::Terrain& Tile::terrain() const {
+  // @@protoc_insertion_point(field_get:WORLD.Tile.terrain)
+  return terrain_ != NULL ? *terrain_
+                         : *::WORLD::Terrain::internal_default_instance();
+}
+::WORLD::Terrain* Tile::mutable_terrain() {
+  
+  if (terrain_ == NULL) {
+    terrain_ = new ::WORLD::Terrain;
+  }
+  // @@protoc_insertion_point(field_mutable:WORLD.Tile.terrain)
+  return terrain_;
+}
+::WORLD::Terrain* Tile::release_terrain() {
+  // @@protoc_insertion_point(field_release:WORLD.Tile.terrain)
+  
+  ::WORLD::Terrain* temp = terrain_;
+  terrain_ = NULL;
+  return temp;
+}
+void Tile::set_allocated_terrain(::WORLD::Terrain* terrain) {
+  delete terrain_;
+  terrain_ = terrain;
+  if (terrain) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:WORLD.Tile.terrain)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int Terrain::kXLocFieldNumber;
+const int Terrain::kYLocFieldNumber;
+const int Terrain::kTtypeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+Terrain::Terrain()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_world_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:WORLD.Terrain)
+}
+Terrain::Terrain(const Terrain& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
       _cached_size_(0) {
@@ -191,57 +1518,57 @@ Location_Area_Terrain::Location_Area_Terrain(const Location_Area_Terrain& from)
   ::memcpy(&xloc_, &from.xloc_,
     reinterpret_cast<char*>(&ttype_) -
     reinterpret_cast<char*>(&xloc_) + sizeof(ttype_));
-  // @@protoc_insertion_point(copy_constructor:world.Location.Area.Terrain)
+  // @@protoc_insertion_point(copy_constructor:WORLD.Terrain)
 }
 
-void Location_Area_Terrain::SharedCtor() {
+void Terrain::SharedCtor() {
   ::memset(&xloc_, 0, reinterpret_cast<char*>(&ttype_) -
     reinterpret_cast<char*>(&xloc_) + sizeof(ttype_));
   _cached_size_ = 0;
 }
 
-Location_Area_Terrain::~Location_Area_Terrain() {
-  // @@protoc_insertion_point(destructor:world.Location.Area.Terrain)
+Terrain::~Terrain() {
+  // @@protoc_insertion_point(destructor:WORLD.Terrain)
   SharedDtor();
 }
 
-void Location_Area_Terrain::SharedDtor() {
+void Terrain::SharedDtor() {
 }
 
-void Location_Area_Terrain::SetCachedSize(int size) const {
+void Terrain::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* Location_Area_Terrain::descriptor() {
+const ::google::protobuf::Descriptor* Terrain::descriptor() {
   protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
   return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
-const Location_Area_Terrain& Location_Area_Terrain::default_instance() {
+const Terrain& Terrain::default_instance() {
   protobuf_world_2eproto::InitDefaults();
   return *internal_default_instance();
 }
 
-Location_Area_Terrain* Location_Area_Terrain::New(::google::protobuf::Arena* arena) const {
-  Location_Area_Terrain* n = new Location_Area_Terrain;
+Terrain* Terrain::New(::google::protobuf::Arena* arena) const {
+  Terrain* n = new Terrain;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void Location_Area_Terrain::Clear() {
-// @@protoc_insertion_point(message_clear_start:world.Location.Area.Terrain)
+void Terrain::Clear() {
+// @@protoc_insertion_point(message_clear_start:WORLD.Terrain)
   ::memset(&xloc_, 0, reinterpret_cast<char*>(&ttype_) -
     reinterpret_cast<char*>(&xloc_) + sizeof(ttype_));
 }
 
-bool Location_Area_Terrain::MergePartialFromCodedStream(
+bool Terrain::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:world.Location.Area.Terrain)
+  // @@protoc_insertion_point(parse_start:WORLD.Terrain)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -302,17 +1629,17 @@ bool Location_Area_Terrain::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:world.Location.Area.Terrain)
+  // @@protoc_insertion_point(parse_success:WORLD.Terrain)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:world.Location.Area.Terrain)
+  // @@protoc_insertion_point(parse_failure:WORLD.Terrain)
   return false;
 #undef DO_
 }
 
-void Location_Area_Terrain::SerializeWithCachedSizes(
+void Terrain::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:world.Location.Area.Terrain)
+  // @@protoc_insertion_point(serialize_start:WORLD.Terrain)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -331,13 +1658,13 @@ void Location_Area_Terrain::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->ttype(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:world.Location.Area.Terrain)
+  // @@protoc_insertion_point(serialize_end:WORLD.Terrain)
 }
 
-::google::protobuf::uint8* Location_Area_Terrain::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* Terrain::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:world.Location.Area.Terrain)
+  // @@protoc_insertion_point(serialize_to_array_start:WORLD.Terrain)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -356,12 +1683,12 @@ void Location_Area_Terrain::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->ttype(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:world.Location.Area.Terrain)
+  // @@protoc_insertion_point(serialize_to_array_end:WORLD.Terrain)
   return target;
 }
 
-size_t Location_Area_Terrain::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:world.Location.Area.Terrain)
+size_t Terrain::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WORLD.Terrain)
   size_t total_size = 0;
 
   // int32 xLoc = 1;
@@ -392,23 +1719,23 @@ size_t Location_Area_Terrain::ByteSizeLong() const {
   return total_size;
 }
 
-void Location_Area_Terrain::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:world.Location.Area.Terrain)
+void Terrain::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WORLD.Terrain)
   GOOGLE_DCHECK_NE(&from, this);
-  const Location_Area_Terrain* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Location_Area_Terrain>(
+  const Terrain* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const Terrain>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:world.Location.Area.Terrain)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WORLD.Terrain)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:world.Location.Area.Terrain)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WORLD.Terrain)
     MergeFrom(*source);
   }
 }
 
-void Location_Area_Terrain::MergeFrom(const Location_Area_Terrain& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:world.Location.Area.Terrain)
+void Terrain::MergeFrom(const Terrain& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WORLD.Terrain)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -425,1129 +1752,89 @@ void Location_Area_Terrain::MergeFrom(const Location_Area_Terrain& from) {
   }
 }
 
-void Location_Area_Terrain::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:world.Location.Area.Terrain)
+void Terrain::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WORLD.Terrain)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void Location_Area_Terrain::CopyFrom(const Location_Area_Terrain& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:world.Location.Area.Terrain)
+void Terrain::CopyFrom(const Terrain& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WORLD.Terrain)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool Location_Area_Terrain::IsInitialized() const {
+bool Terrain::IsInitialized() const {
   return true;
 }
 
-void Location_Area_Terrain::Swap(Location_Area_Terrain* other) {
+void Terrain::Swap(Terrain* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void Location_Area_Terrain::InternalSwap(Location_Area_Terrain* other) {
+void Terrain::InternalSwap(Terrain* other) {
   std::swap(xloc_, other->xloc_);
   std::swap(yloc_, other->yloc_);
   std::swap(ttype_, other->ttype_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata Location_Area_Terrain::GetMetadata() const {
+::google::protobuf::Metadata Terrain::GetMetadata() const {
   protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
   return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// Location_Area_Terrain
+// Terrain
 
 // int32 xLoc = 1;
-void Location_Area_Terrain::clear_xloc() {
+void Terrain::clear_xloc() {
   xloc_ = 0;
 }
-::google::protobuf::int32 Location_Area_Terrain::xloc() const {
-  // @@protoc_insertion_point(field_get:world.Location.Area.Terrain.xLoc)
+::google::protobuf::int32 Terrain::xloc() const {
+  // @@protoc_insertion_point(field_get:WORLD.Terrain.xLoc)
   return xloc_;
 }
-void Location_Area_Terrain::set_xloc(::google::protobuf::int32 value) {
+void Terrain::set_xloc(::google::protobuf::int32 value) {
   
   xloc_ = value;
-  // @@protoc_insertion_point(field_set:world.Location.Area.Terrain.xLoc)
+  // @@protoc_insertion_point(field_set:WORLD.Terrain.xLoc)
 }
 
 // int32 yLoc = 2;
-void Location_Area_Terrain::clear_yloc() {
+void Terrain::clear_yloc() {
   yloc_ = 0;
 }
-::google::protobuf::int32 Location_Area_Terrain::yloc() const {
-  // @@protoc_insertion_point(field_get:world.Location.Area.Terrain.yLoc)
+::google::protobuf::int32 Terrain::yloc() const {
+  // @@protoc_insertion_point(field_get:WORLD.Terrain.yLoc)
   return yloc_;
 }
-void Location_Area_Terrain::set_yloc(::google::protobuf::int32 value) {
+void Terrain::set_yloc(::google::protobuf::int32 value) {
   
   yloc_ = value;
-  // @@protoc_insertion_point(field_set:world.Location.Area.Terrain.yLoc)
+  // @@protoc_insertion_point(field_set:WORLD.Terrain.yLoc)
 }
 
 // int32 ttype = 3;
-void Location_Area_Terrain::clear_ttype() {
+void Terrain::clear_ttype() {
   ttype_ = 0;
 }
-::google::protobuf::int32 Location_Area_Terrain::ttype() const {
-  // @@protoc_insertion_point(field_get:world.Location.Area.Terrain.ttype)
+::google::protobuf::int32 Terrain::ttype() const {
+  // @@protoc_insertion_point(field_get:WORLD.Terrain.ttype)
   return ttype_;
 }
-void Location_Area_Terrain::set_ttype(::google::protobuf::int32 value) {
+void Terrain::set_ttype(::google::protobuf::int32 value) {
   
   ttype_ = value;
-  // @@protoc_insertion_point(field_set:world.Location.Area.Terrain.ttype)
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Location_Area::kNameFieldNumber;
-const int Location_Area::kXLocFieldNumber;
-const int Location_Area::kYLocFieldNumber;
-const int Location_Area::kTerrainFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-Location_Area::Location_Area()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_world_2eproto::InitDefaults();
-  }
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:world.Location.Area)
-}
-Location_Area::Location_Area(const Location_Area& from)
-  : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      terrain_(from.terrain_),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.name().size() > 0) {
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
-  }
-  ::memcpy(&xloc_, &from.xloc_,
-    reinterpret_cast<char*>(&yloc_) -
-    reinterpret_cast<char*>(&xloc_) + sizeof(yloc_));
-  // @@protoc_insertion_point(copy_constructor:world.Location.Area)
-}
-
-void Location_Area::SharedCtor() {
-  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&xloc_, 0, reinterpret_cast<char*>(&yloc_) -
-    reinterpret_cast<char*>(&xloc_) + sizeof(yloc_));
-  _cached_size_ = 0;
-}
-
-Location_Area::~Location_Area() {
-  // @@protoc_insertion_point(destructor:world.Location.Area)
-  SharedDtor();
-}
-
-void Location_Area::SharedDtor() {
-  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void Location_Area::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* Location_Area::descriptor() {
-  protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
-const Location_Area& Location_Area::default_instance() {
-  protobuf_world_2eproto::InitDefaults();
-  return *internal_default_instance();
-}
-
-Location_Area* Location_Area::New(::google::protobuf::Arena* arena) const {
-  Location_Area* n = new Location_Area;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void Location_Area::Clear() {
-// @@protoc_insertion_point(message_clear_start:world.Location.Area)
-  terrain_.Clear();
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&xloc_, 0, reinterpret_cast<char*>(&yloc_) -
-    reinterpret_cast<char*>(&xloc_) + sizeof(yloc_));
-}
-
-bool Location_Area::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:world.Location.Area)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string name = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_name()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->name().data(), this->name().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "world.Location.Area.name"));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // int32 xLoc = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &xloc_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // int32 yLoc = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &yloc_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // repeated .world.Location.Area.Terrain terrain = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_terrain()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:world.Location.Area)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:world.Location.Area)
-  return false;
-#undef DO_
-}
-
-void Location_Area::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:world.Location.Area)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "world.Location.Area.name");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->name(), output);
-  }
-
-  // int32 xLoc = 2;
-  if (this->xloc() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->xloc(), output);
-  }
-
-  // int32 yLoc = 3;
-  if (this->yloc() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->yloc(), output);
-  }
-
-  // repeated .world.Location.Area.Terrain terrain = 4;
-  for (unsigned int i = 0, n = this->terrain_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->terrain(i), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:world.Location.Area)
-}
-
-::google::protobuf::uint8* Location_Area::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:world.Location.Area)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "world.Location.Area.name");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->name(), target);
-  }
-
-  // int32 xLoc = 2;
-  if (this->xloc() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->xloc(), target);
-  }
-
-  // int32 yLoc = 3;
-  if (this->yloc() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->yloc(), target);
-  }
-
-  // repeated .world.Location.Area.Terrain terrain = 4;
-  for (unsigned int i = 0, n = this->terrain_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        4, this->terrain(i), deterministic, target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:world.Location.Area)
-  return target;
-}
-
-size_t Location_Area::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:world.Location.Area)
-  size_t total_size = 0;
-
-  // repeated .world.Location.Area.Terrain terrain = 4;
-  {
-    unsigned int count = this->terrain_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->terrain(i));
-    }
-  }
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->name());
-  }
-
-  // int32 xLoc = 2;
-  if (this->xloc() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->xloc());
-  }
-
-  // int32 yLoc = 3;
-  if (this->yloc() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->yloc());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void Location_Area::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:world.Location.Area)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Location_Area* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Location_Area>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:world.Location.Area)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:world.Location.Area)
-    MergeFrom(*source);
-  }
-}
-
-void Location_Area::MergeFrom(const Location_Area& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:world.Location.Area)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  terrain_.MergeFrom(from.terrain_);
-  if (from.name().size() > 0) {
-
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
-  }
-  if (from.xloc() != 0) {
-    set_xloc(from.xloc());
-  }
-  if (from.yloc() != 0) {
-    set_yloc(from.yloc());
-  }
-}
-
-void Location_Area::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:world.Location.Area)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void Location_Area::CopyFrom(const Location_Area& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:world.Location.Area)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Location_Area::IsInitialized() const {
-  return true;
-}
-
-void Location_Area::Swap(Location_Area* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void Location_Area::InternalSwap(Location_Area* other) {
-  terrain_.InternalSwap(&other->terrain_);
-  name_.Swap(&other->name_);
-  std::swap(xloc_, other->xloc_);
-  std::swap(yloc_, other->yloc_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata Location_Area::GetMetadata() const {
-  protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages];
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// Location_Area
-
-// string name = 1;
-void Location_Area::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& Location_Area::name() const {
-  // @@protoc_insertion_point(field_get:world.Location.Area.name)
-  return name_.GetNoArena();
-}
-void Location_Area::set_name(const ::std::string& value) {
-  
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:world.Location.Area.name)
-}
-#if LANG_CXX11
-void Location_Area::set_name(::std::string&& value) {
-  
-  name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:world.Location.Area.name)
-}
-#endif
-void Location_Area::set_name(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:world.Location.Area.name)
-}
-void Location_Area::set_name(const char* value, size_t size) {
-  
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:world.Location.Area.name)
-}
-::std::string* Location_Area::mutable_name() {
-  
-  // @@protoc_insertion_point(field_mutable:world.Location.Area.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* Location_Area::release_name() {
-  // @@protoc_insertion_point(field_release:world.Location.Area.name)
-  
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void Location_Area::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
-    
-  } else {
-    
-  }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:world.Location.Area.name)
-}
-
-// int32 xLoc = 2;
-void Location_Area::clear_xloc() {
-  xloc_ = 0;
-}
-::google::protobuf::int32 Location_Area::xloc() const {
-  // @@protoc_insertion_point(field_get:world.Location.Area.xLoc)
-  return xloc_;
-}
-void Location_Area::set_xloc(::google::protobuf::int32 value) {
-  
-  xloc_ = value;
-  // @@protoc_insertion_point(field_set:world.Location.Area.xLoc)
-}
-
-// int32 yLoc = 3;
-void Location_Area::clear_yloc() {
-  yloc_ = 0;
-}
-::google::protobuf::int32 Location_Area::yloc() const {
-  // @@protoc_insertion_point(field_get:world.Location.Area.yLoc)
-  return yloc_;
-}
-void Location_Area::set_yloc(::google::protobuf::int32 value) {
-  
-  yloc_ = value;
-  // @@protoc_insertion_point(field_set:world.Location.Area.yLoc)
-}
-
-// repeated .world.Location.Area.Terrain terrain = 4;
-int Location_Area::terrain_size() const {
-  return terrain_.size();
-}
-void Location_Area::clear_terrain() {
-  terrain_.Clear();
-}
-const ::world::Location_Area_Terrain& Location_Area::terrain(int index) const {
-  // @@protoc_insertion_point(field_get:world.Location.Area.terrain)
-  return terrain_.Get(index);
-}
-::world::Location_Area_Terrain* Location_Area::mutable_terrain(int index) {
-  // @@protoc_insertion_point(field_mutable:world.Location.Area.terrain)
-  return terrain_.Mutable(index);
-}
-::world::Location_Area_Terrain* Location_Area::add_terrain() {
-  // @@protoc_insertion_point(field_add:world.Location.Area.terrain)
-  return terrain_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::world::Location_Area_Terrain >*
-Location_Area::mutable_terrain() {
-  // @@protoc_insertion_point(field_mutable_list:world.Location.Area.terrain)
-  return &terrain_;
-}
-const ::google::protobuf::RepeatedPtrField< ::world::Location_Area_Terrain >&
-Location_Area::terrain() const {
-  // @@protoc_insertion_point(field_list:world.Location.Area.terrain)
-  return terrain_;
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Location::kNameFieldNumber;
-const int Location::kWidthFieldNumber;
-const int Location::kHeightFieldNumber;
-const int Location::kAreasFieldNumber;
-const int Location::kCurrentAreaXFieldNumber;
-const int Location::kCurrentAreaYFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-Location::Location()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_world_2eproto::InitDefaults();
-  }
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:world.Location)
-}
-Location::Location(const Location& from)
-  : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      areas_(from.areas_),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.name().size() > 0) {
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
-  }
-  ::memcpy(&width_, &from.width_,
-    reinterpret_cast<char*>(&current_area_y_) -
-    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
-  // @@protoc_insertion_point(copy_constructor:world.Location)
-}
-
-void Location::SharedCtor() {
-  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&width_, 0, reinterpret_cast<char*>(&current_area_y_) -
-    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
-  _cached_size_ = 0;
-}
-
-Location::~Location() {
-  // @@protoc_insertion_point(destructor:world.Location)
-  SharedDtor();
-}
-
-void Location::SharedDtor() {
-  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void Location::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* Location::descriptor() {
-  protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
-const Location& Location::default_instance() {
-  protobuf_world_2eproto::InitDefaults();
-  return *internal_default_instance();
-}
-
-Location* Location::New(::google::protobuf::Arena* arena) const {
-  Location* n = new Location;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void Location::Clear() {
-// @@protoc_insertion_point(message_clear_start:world.Location)
-  areas_.Clear();
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&width_, 0, reinterpret_cast<char*>(&current_area_y_) -
-    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
-}
-
-bool Location::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:world.Location)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string name = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_name()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->name().data(), this->name().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "world.Location.name"));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // int32 width = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &width_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // int32 height = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &height_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // repeated .world.Location.Area areas = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_areas()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // int32 current_area_x = 5;
-      case 5: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(40u)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &current_area_x_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // int32 current_area_y = 6;
-      case 6: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(48u)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &current_area_y_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:world.Location)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:world.Location)
-  return false;
-#undef DO_
-}
-
-void Location::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:world.Location)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "world.Location.name");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->name(), output);
-  }
-
-  // int32 width = 2;
-  if (this->width() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->width(), output);
-  }
-
-  // int32 height = 3;
-  if (this->height() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->height(), output);
-  }
-
-  // repeated .world.Location.Area areas = 4;
-  for (unsigned int i = 0, n = this->areas_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->areas(i), output);
-  }
-
-  // int32 current_area_x = 5;
-  if (this->current_area_x() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->current_area_x(), output);
-  }
-
-  // int32 current_area_y = 6;
-  if (this->current_area_y() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->current_area_y(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:world.Location)
-}
-
-::google::protobuf::uint8* Location::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:world.Location)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "world.Location.name");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->name(), target);
-  }
-
-  // int32 width = 2;
-  if (this->width() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->width(), target);
-  }
-
-  // int32 height = 3;
-  if (this->height() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->height(), target);
-  }
-
-  // repeated .world.Location.Area areas = 4;
-  for (unsigned int i = 0, n = this->areas_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        4, this->areas(i), deterministic, target);
-  }
-
-  // int32 current_area_x = 5;
-  if (this->current_area_x() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->current_area_x(), target);
-  }
-
-  // int32 current_area_y = 6;
-  if (this->current_area_y() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->current_area_y(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:world.Location)
-  return target;
-}
-
-size_t Location::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:world.Location)
-  size_t total_size = 0;
-
-  // repeated .world.Location.Area areas = 4;
-  {
-    unsigned int count = this->areas_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->areas(i));
-    }
-  }
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->name());
-  }
-
-  // int32 width = 2;
-  if (this->width() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->width());
-  }
-
-  // int32 height = 3;
-  if (this->height() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->height());
-  }
-
-  // int32 current_area_x = 5;
-  if (this->current_area_x() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->current_area_x());
-  }
-
-  // int32 current_area_y = 6;
-  if (this->current_area_y() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->current_area_y());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void Location::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:world.Location)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Location* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Location>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:world.Location)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:world.Location)
-    MergeFrom(*source);
-  }
-}
-
-void Location::MergeFrom(const Location& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:world.Location)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  areas_.MergeFrom(from.areas_);
-  if (from.name().size() > 0) {
-
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
-  }
-  if (from.width() != 0) {
-    set_width(from.width());
-  }
-  if (from.height() != 0) {
-    set_height(from.height());
-  }
-  if (from.current_area_x() != 0) {
-    set_current_area_x(from.current_area_x());
-  }
-  if (from.current_area_y() != 0) {
-    set_current_area_y(from.current_area_y());
-  }
-}
-
-void Location::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:world.Location)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void Location::CopyFrom(const Location& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:world.Location)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Location::IsInitialized() const {
-  return true;
-}
-
-void Location::Swap(Location* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void Location::InternalSwap(Location* other) {
-  areas_.InternalSwap(&other->areas_);
-  name_.Swap(&other->name_);
-  std::swap(width_, other->width_);
-  std::swap(height_, other->height_);
-  std::swap(current_area_x_, other->current_area_x_);
-  std::swap(current_area_y_, other->current_area_y_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata Location::GetMetadata() const {
-  protobuf_world_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_world_2eproto::file_level_metadata[kIndexInFileMessages];
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// Location
-
-// string name = 1;
-void Location::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& Location::name() const {
-  // @@protoc_insertion_point(field_get:world.Location.name)
-  return name_.GetNoArena();
-}
-void Location::set_name(const ::std::string& value) {
-  
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:world.Location.name)
-}
-#if LANG_CXX11
-void Location::set_name(::std::string&& value) {
-  
-  name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:world.Location.name)
-}
-#endif
-void Location::set_name(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:world.Location.name)
-}
-void Location::set_name(const char* value, size_t size) {
-  
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:world.Location.name)
-}
-::std::string* Location::mutable_name() {
-  
-  // @@protoc_insertion_point(field_mutable:world.Location.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* Location::release_name() {
-  // @@protoc_insertion_point(field_release:world.Location.name)
-  
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void Location::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
-    
-  } else {
-    
-  }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:world.Location.name)
-}
-
-// int32 width = 2;
-void Location::clear_width() {
-  width_ = 0;
-}
-::google::protobuf::int32 Location::width() const {
-  // @@protoc_insertion_point(field_get:world.Location.width)
-  return width_;
-}
-void Location::set_width(::google::protobuf::int32 value) {
-  
-  width_ = value;
-  // @@protoc_insertion_point(field_set:world.Location.width)
-}
-
-// int32 height = 3;
-void Location::clear_height() {
-  height_ = 0;
-}
-::google::protobuf::int32 Location::height() const {
-  // @@protoc_insertion_point(field_get:world.Location.height)
-  return height_;
-}
-void Location::set_height(::google::protobuf::int32 value) {
-  
-  height_ = value;
-  // @@protoc_insertion_point(field_set:world.Location.height)
-}
-
-// repeated .world.Location.Area areas = 4;
-int Location::areas_size() const {
-  return areas_.size();
-}
-void Location::clear_areas() {
-  areas_.Clear();
-}
-const ::world::Location_Area& Location::areas(int index) const {
-  // @@protoc_insertion_point(field_get:world.Location.areas)
-  return areas_.Get(index);
-}
-::world::Location_Area* Location::mutable_areas(int index) {
-  // @@protoc_insertion_point(field_mutable:world.Location.areas)
-  return areas_.Mutable(index);
-}
-::world::Location_Area* Location::add_areas() {
-  // @@protoc_insertion_point(field_add:world.Location.areas)
-  return areas_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::world::Location_Area >*
-Location::mutable_areas() {
-  // @@protoc_insertion_point(field_mutable_list:world.Location.areas)
-  return &areas_;
-}
-const ::google::protobuf::RepeatedPtrField< ::world::Location_Area >&
-Location::areas() const {
-  // @@protoc_insertion_point(field_list:world.Location.areas)
-  return areas_;
-}
-
-// int32 current_area_x = 5;
-void Location::clear_current_area_x() {
-  current_area_x_ = 0;
-}
-::google::protobuf::int32 Location::current_area_x() const {
-  // @@protoc_insertion_point(field_get:world.Location.current_area_x)
-  return current_area_x_;
-}
-void Location::set_current_area_x(::google::protobuf::int32 value) {
-  
-  current_area_x_ = value;
-  // @@protoc_insertion_point(field_set:world.Location.current_area_x)
-}
-
-// int32 current_area_y = 6;
-void Location::clear_current_area_y() {
-  current_area_y_ = 0;
-}
-::google::protobuf::int32 Location::current_area_y() const {
-  // @@protoc_insertion_point(field_get:world.Location.current_area_y)
-  return current_area_y_;
-}
-void Location::set_current_area_y(::google::protobuf::int32 value) {
-  
-  current_area_y_ = value;
-  // @@protoc_insertion_point(field_set:world.Location.current_area_y)
+  // @@protoc_insertion_point(field_set:WORLD.Terrain.ttype)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace world
+}  // namespace WORLD
 
 // @@protoc_insertion_point(global_scope)

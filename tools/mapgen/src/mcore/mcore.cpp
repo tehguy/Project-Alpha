@@ -16,26 +16,29 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#include <include/gfx/gfx.hpp>
+#include <include/mapgen/mcore/mcore.hpp>
 
-namespace MAIN {
-    Core core;
+namespace MAPGEN {
+    MCore mcore;
 }
 
-int Core::init() {
-    if(!GFX::gfx->initGFX("./res/spritesheet.png", "Project Alpha")){
+int MCore::init(std::string name, int width, int height) {
+    if(!GFX::gfx->initGFX("../res/spritesheet.png", "MapGen")){
         return 1;
     }
 
-    genTestArea();
+    currentLocation = std::shared_ptr<MLocation>(new MLocation(name, width, height));
 
     gameLoop();
 
     return 0;
 }
 
-void Core::gameLoop() {
+void MCore::gameLoop() {
     GFX::gfx->getWindow()->setActive();
+    GFX::gfx->getWindow()->setKeyRepeatEnabled(false);
+
     while(GFX::gfx->getWindow()->isOpen()){
         sf::Event event;
         while(GFX::gfx->getWindow()->pollEvent(event)){
@@ -50,57 +53,44 @@ void Core::gameLoop() {
     }
 }
 
-void Core::movePlayer(int xOffset, int yOffset) {
-    if(currentLocation != nullptr){
-        currentLocation->movePlayer(xOffset, yOffset);
-    }
-}
-
-void Core::handleInput(int key) {
+void MCore::handleInput(int key) {
     switch (key){
         case sf::Keyboard::Q: case sf::Keyboard::Escape:
             GFX::gfx->getWindow()->close();
             break;
         case sf::Keyboard::Up: case sf::Keyboard::W:
-            movePlayer(0, (-1));
+            moveCursor(0, (-1));
             break;
         case sf::Keyboard::Right: case sf::Keyboard::D:
-            movePlayer(1, 0);
+            moveCursor(1, 0);
             break;
         case sf::Keyboard::Down: case sf::Keyboard::S:
-            movePlayer(0, 1);
+            moveCursor(0, 1);
             break;
         case sf::Keyboard::Left: case sf::Keyboard::A:
-            movePlayer((-1), 0);
+            moveCursor((-1), 0);
+            break;
+        case sf::Keyboard::N:
+            currentLocation->createArea();
+            break;
+        case sf::Keyboard::Num1: case sf::Keyboard::Numpad1:
+            createTile(ENUMS::TTYPE::GRASS);
+            break;
+        case sf::Keyboard::Num2: case sf::Keyboard::Numpad2:
+            createTile(ENUMS::TTYPE::MOUNTAIN);
+            break;
+        case sf::Keyboard::Num3 : case sf::Keyboard::Numpad3:
+            createTile(ENUMS::TTYPE::SNOW);
+            break;
+        case sf::Keyboard::Num4 : case sf::Keyboard::Numpad4:
+            createTile(ENUMS::TTYPE::WATER);
             break;
         default:
             break;
     }
 }
 
-void Core::genTestArea() {
-    currentLocation = std::shared_ptr<Location>(new Location("Big Test", 2, 2));
-    Area area1("Test1");
-    Area area2("Test2");
-    Area area3("Test3");
-    Area area4("Test4");
-
-    area1.genRandom(288);
-    area2.genRandom(243);
-    area3.genRandom(146);
-    area4.genRandom(723);
-
-    currentLocation->placeArea(0, 0, area1);
-    currentLocation->placeArea(1, 0, area2);
-    currentLocation->placeArea(0, 1, area3);
-    currentLocation->placeArea(1, 1, area4);
-    currentLocation->setCurrentArea(1, 1);
-    currentLocation->getCurrentArea()->spawnPlayer(0, 0, 20);
-
-    GFX::gfx->forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
-}
-
-void Core::draw() {
+void MCore::draw() {
     GFX::gfx->getWindow()->clear(sf::Color::Black);
 
     if(currentLocation != nullptr){
@@ -110,10 +100,22 @@ void Core::draw() {
     GFX::gfx->getWindow()->display();
 }
 
-void Core::setCurrentLocation(const std::shared_ptr<Location> location) {
+void MCore::moveCursor(int xOffset, int yOffset) {
+    if(currentLocation != nullptr){
+        currentLocation->moveCursor(xOffset, yOffset);
+    }
+}
+
+void MCore::setCurrentLocation(const std::shared_ptr<MLocation> location) {
     currentLocation = location;
 }
 
-const std::shared_ptr<Location> Core::getCurrentLocation() {
+const std::shared_ptr<MLocation> MCore::getCurrentLocation() {
     return currentLocation;
+}
+
+void MCore::createTile(ENUMS::TTYPE ttype) {
+    if(currentLocation->getCurrentArea() != nullptr){
+        currentLocation->getCurrentArea()->createTileAtCursor(ttype);
+    }
 }

@@ -16,13 +16,39 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
+#include <include/core/io/worldloader.hpp>
+#include <include/core/io/worldsaver.hpp>
 
+#include <include/enums/enums.hpp>
 
-int main() {
+#include <include/mapgen/mworld/mlocation.hpp>
 
-    MAIN::core.init();
+class MCore {
+public:
+    int init(std::string name, int width, int height);
 
-	return 0;
+private:
+    void gameLoop();
+
+    void handleInput(int key);
+
+    void draw();
+
+    void moveCursor(int xOffset, int yOffset);
+
+    void setCurrentLocation(const std::shared_ptr<MLocation> location);
+    const std::shared_ptr<MLocation> getCurrentLocation();
+
+    void createTile(ENUMS::TTYPE ttype);
+
+    std::shared_ptr<MLocation> currentLocation;
+
+    WorldLoader worldLoader;
+    WorldSaver worldSaver;
+};
+
+namespace MAPGEN {
+    extern MCore mcore;
 }

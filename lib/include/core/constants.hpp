@@ -1,6 +1,6 @@
 /*
-    CPPAdventures
-    Copyright (C) 2017  TehGuy
+    Project Alpha
+    Copyright (C) 2017  Pixima Development
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,4 +36,5 @@ namespace CONSTANTS {
     const sf::Rect<int> MOUNTAIN_SPRITE_RECT = sf::Rect<int>(32, 0, TILE_WIDTH, TILE_HEIGHT);
     const sf::Rect<int> SNOW_SPRITE_RECT = sf::Rect<int>(48, 0, TILE_WIDTH, TILE_HEIGHT);
     const sf::Rect<int> PLAYER_SPRITE_RECT = sf::Rect<int>(0, 16, TILE_WIDTH, TILE_HEIGHT);
+    const sf::Rect<int> CURSOR_SPRITE_RECT = sf::Rect<int>(16, 16, TILE_WIDTH, TILE_HEIGHT);
 }

@@ -16,13 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
+#include <include/entity/entity.hpp>
 
-
-int main() {
-
-    MAIN::core.init();
-
-	return 0;
-}
+class Cursor : public Entity {
+public:
+    Cursor();
+};

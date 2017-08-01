@@ -16,13 +16,33 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
+#include <include/enums/enums.hpp>
+#include <include/entity/cursor.hpp>
+#include <include/world/area.hpp>
 
+class MArea : public Area {
+public:
+    MArea(std::string name);
 
-int main() {
+    void spawnCursor(int x, int y);
 
-    MAIN::core.init();
+    bool moveCursor(int xOffset, int yOffset);
+    bool moveCursorToThisArea(int xOffset, int yOffset, const std::shared_ptr<MArea> &prevArea);
 
-	return 0;
-}
+    void despawnCursor();
+    Cursor passCursor();
+
+    void draw();
+
+    const std::shared_ptr<Cursor>& getCursor();
+
+    void createTileAtCursor(ENUMS::TTYPE ttype);
+private:
+    void setCursorMap(int x, int y, const std::shared_ptr<Cursor> set);
+
+    std::shared_ptr<Cursor> cursor;
+
+    std::vector<std::vector<std::shared_ptr<Cursor>>> cursorMap;
+};

@@ -1,6 +1,6 @@
 /*
-    CPPAdventures
-    Copyright (C) 2017  TehGuy
+    Project Alpha
+    Copyright (C) 2017  Pixima Development
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,16 +28,21 @@
 
 class Core {
 public:
-    void init();
+    int init();
+
+private:
+    void gameLoop();
 
     void handleInput(int key);
 
     void draw();
-private:
 
     void movePlayer(int xOffset, int yOffset);
 
     void genTestArea();
+
+    void setCurrentLocation(const std::shared_ptr<Location> location);
+    const std::shared_ptr<Location> getCurrentLocation();
 
     std::shared_ptr<Location> currentLocation;
 

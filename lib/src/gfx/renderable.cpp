@@ -1,6 +1,6 @@
 /*
-    CPPAdventures
-    Copyright (C) 2017  TehGuy
+    Project Alpha
+    Copyright (C) 2017  Pixima Development
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 
 Renderable::Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect) {
 
-    worldSprite = GFX::gfx.createSprite(spriteRect);
+    worldSprite = GFX::gfx->createSprite(spriteRect);
     setRenderPosition(x, y);
 
     renderBox.width = CONSTANTS::TILE_WIDTH;
@@ -29,8 +29,8 @@ Renderable::Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect)
 }
 
 void Renderable::render() {
-    if(GFX::gfx.checkWithinCamera(renderBox)){
-        GFX::gfx.getWindow()->draw(worldSprite);
+    if(GFX::gfx->checkWithinCamera(renderBox)){
+        GFX::gfx->getWindow()->draw(worldSprite);
     }
 }
 

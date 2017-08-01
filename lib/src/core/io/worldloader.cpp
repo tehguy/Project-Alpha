@@ -1,6 +1,6 @@
 /*
-    CPPAdventures
-    Copyright (C) 2017  TehGuy
+    Project Alpha
+    Copyright (C) 2017  Pixima Development
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ std::shared_ptr<Location> WorldLoader::loadLocation() {
     std::shared_ptr<Location> loadedLocation = std::shared_ptr<Location>(nullptr);
 
     if(openFile(fileName, &fileReader)){
-        world::Location locationLoader;
+        WORLD::Location locationLoader;
         bool eof;
 
         google::protobuf::io::IstreamInputStream inputStream(&fileReader);
@@ -60,10 +60,10 @@ std::shared_ptr<Location> WorldLoader::loadLocation() {
     return loadedLocation;
 }
 
-void WorldLoader::loadArea(world::Location &locationLoader,
+void WorldLoader::loadArea(WORLD::Location &locationLoader,
                            std::shared_ptr<Location> &loadedLocation) {
     for(int i = 0; i < locationLoader.areas().size(); i++){
-        const world::Location::Area& areaLoader = locationLoader.areas(i);
+        const WORLD::Area& areaLoader = locationLoader.areas(i);
         Area area(areaLoader.name());
 
         loadTerrain(areaLoader, area);
@@ -72,32 +72,33 @@ void WorldLoader::loadArea(world::Location &locationLoader,
     }
 }
 
-void WorldLoader::loadTerrain(const world::Location::Area &areaLoader, Area &loadedArea) {
+void WorldLoader::loadTerrain(const WORLD::Area &areaLoader, Area &loadedArea) {
     std::shared_ptr<Terrain> loadedTerrain;
+    std::shared_ptr<Tile> loadedTile = std::shared_ptr<Tile>(new Tile());
 
-    for(int i = 0; i < areaLoader.terrain().size(); i++){
-        int xLoc = areaLoader.terrain(i).xloc();
-        int yLoc = areaLoader.terrain(i).yloc();
-        int ttype = areaLoader.terrain(i).ttype();
+    for(int i = 0; i < areaLoader.tile().size(); i++){
+        int xLoc = areaLoader.tile(i).terrain().xloc();
+        int yLoc = areaLoader.tile(i).terrain().yloc();
+        int ttype = areaLoader.tile(i).terrain().ttype();
 
         switch(ttype){
             case 1:
-                loadedTerrain = std::shared_ptr<Terrain>(new Grass(xLoc, yLoc));
+                loadedTile->setTerrain(std::shared_ptr<Terrain>(new Grass(xLoc, yLoc)));
                 break;
             case 2:
-                loadedTerrain = std::shared_ptr<Terrain>(new Water(xLoc, yLoc));
+                loadedTile->setTerrain(std::shared_ptr<Terrain>(new Water(xLoc, yLoc)));
                 break;
             case 3:
-                loadedTerrain = std::shared_ptr<Terrain>(new Mountain(xLoc, yLoc));
+                loadedTile->setTerrain(std::shared_ptr<Terrain>(new Mountain(xLoc, yLoc)));
                 break;
             case 4:
-                loadedTerrain = std::shared_ptr<Terrain>(new Snow(xLoc, yLoc));
+                loadedTile->setTerrain(std::shared_ptr<Terrain>(new Snow(xLoc, yLoc)));
                 break;
             default:
-                loadedTerrain = std::shared_ptr<Terrain>(nullptr);
+                loadedTile->setTerrain(nullptr);
                 break;
         }
 
-        loadedArea.setMapTile(xLoc, yLoc, loadedTerrain);
+        loadedArea.setMapTile(xLoc, yLoc, loadedTile);
     }
 }

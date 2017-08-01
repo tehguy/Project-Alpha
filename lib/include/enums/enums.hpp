@@ -16,13 +16,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#pragma once
 
-
-
-int main() {
-
-    MAIN::core.init();
-
-	return 0;
+namespace ENUMS {
+    enum TTYPE {
+        BLANK,
+        GRASS,
+        WATER,
+        MOUNTAIN,
+        SNOW
+    };
 }
