@@ -22,7 +22,7 @@
 #include <include/entity/cursor.hpp>
 #include <include/world/area.hpp>
 
-class MArea : public Area {
+class MArea {
 public:
     MArea(std::string name);
 
@@ -39,10 +39,16 @@ public:
     const std::shared_ptr<Cursor>& getCursor();
 
     void createTileAtCursor(ENUMS::TTYPE ttype);
+
+    const std::shared_ptr<Area> & getHeldArea();
+
+    sf::Vector2i getDimensions();
 private:
     void setCursorMap(int x, int y, const std::shared_ptr<Cursor> set);
 
     std::shared_ptr<Cursor> cursor;
 
     std::vector<std::vector<std::shared_ptr<Cursor>>> cursorMap;
+
+    std::shared_ptr<Area> heldArea;
 };

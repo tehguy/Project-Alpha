@@ -19,6 +19,7 @@
 #pragma once
 
 #include <include/mapgen/mworld/marea.hpp>
+#include <include/world/location.hpp>
 
 class MLocation {
 public:
@@ -33,19 +34,19 @@ public:
     std::string getName();
 
     void setCurrentArea(int x, int y);
-    const std::shared_ptr<MArea>& getCurrentArea();
+    const std::shared_ptr<MArea>& getCurrentMArea();
 
     void drawChunk();
 
     void moveCursor(int xOffset, int yOffset);
 
+    std::shared_ptr<Location>& getHeldLocation();
+
 private:
-    void initAreaVector();
-    void initChunk();
 
-    void moveToArea(int xOffset, int yOffset);
+    void moveToMArea(int xOffset, int yOffset);
 
-    void loadAdjacentAreas();
+    void loadAdjacentMAreas();
 
     std::vector<std::vector<std::shared_ptr<MArea>>> chunk;
 
@@ -54,4 +55,6 @@ private:
     sf::Vector2i dimensions;
 
     std::string locationName;
+
+    std::shared_ptr<Location> heldLocation;
 };

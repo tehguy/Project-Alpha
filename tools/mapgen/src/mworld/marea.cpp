@@ -24,7 +24,9 @@
 #include <include/world/terrain/snow.hpp>
 #include <include/world/terrain/water.hpp>
 
-MArea::MArea(std::string name) : Area(name) {
+MArea::MArea(std::string name) {
+    heldArea = std::shared_ptr<Area>(new Area(name));
+
     cursor = std::shared_ptr<Cursor>(nullptr);
 
     for(unsigned int i = 0; i < getDimensions().x; i++){
@@ -105,7 +107,7 @@ void MArea::draw() {
         cursor->render();
     }
 
-    Area::draw();
+    heldArea->draw();
 }
 
 const std::shared_ptr<Cursor> &MArea::getCursor() {
@@ -117,8 +119,8 @@ void MArea::createTileAtCursor(ENUMS::TTYPE ttype) {
     int ypos = cursor->getWorldPosition().y;
 
     if(ttype == ENUMS::TTYPE::BLANK){
-        if(getMapTile(xpos, ypos) != nullptr){
-            setMapTile(xpos, ypos, std::shared_ptr<Tile>(nullptr));
+        if(heldArea->getMapTile(xpos, ypos) != nullptr){
+            heldArea->setMapTile(xpos, ypos, std::shared_ptr<Tile>(nullptr));
         }
     }
 
@@ -142,6 +144,14 @@ void MArea::createTileAtCursor(ENUMS::TTYPE ttype) {
     }
 
     if(tile != nullptr){
-        setMapTile(xpos, ypos, tile);
+        heldArea->setMapTile(xpos, ypos, tile);
     }
+}
+
+const std::shared_ptr<Area> & MArea::getHeldArea() {
+    return heldArea;
+}
+
+sf::Vector2i MArea::getDimensions() {
+    return heldArea->getDimensions();
 }

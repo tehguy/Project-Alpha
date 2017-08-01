@@ -70,6 +70,14 @@ void MCore::handleInput(int key) {
         case sf::Keyboard::Left: case sf::Keyboard::A:
             moveCursor((-1), 0);
             break;
+        default:
+            handleCreationInput(key);
+            break;
+    }
+}
+
+void MCore::handleCreationInput(int key) {
+    switch (key){
         case sf::Keyboard::N:
             currentLocation->createArea();
             break;
@@ -106,16 +114,8 @@ void MCore::moveCursor(int xOffset, int yOffset) {
     }
 }
 
-void MCore::setCurrentLocation(const std::shared_ptr<MLocation> location) {
-    currentLocation = location;
-}
-
-const std::shared_ptr<MLocation> MCore::getCurrentLocation() {
-    return currentLocation;
-}
-
 void MCore::createTile(ENUMS::TTYPE ttype) {
-    if(currentLocation->getCurrentArea() != nullptr){
-        currentLocation->getCurrentArea()->createTileAtCursor(ttype);
+    if(currentLocation->getCurrentMArea() != nullptr){
+        currentLocation->getCurrentMArea()->createTileAtCursor(ttype);
     }
 }

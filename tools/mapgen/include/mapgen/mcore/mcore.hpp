@@ -34,12 +34,11 @@ private:
 
     void handleInput(int key);
 
+    void handleCreationInput(int key);
+
     void draw();
 
     void moveCursor(int xOffset, int yOffset);
-
-    void setCurrentLocation(const std::shared_ptr<MLocation> location);
-    const std::shared_ptr<MLocation> getCurrentLocation();
 
     void createTile(ENUMS::TTYPE ttype);
 

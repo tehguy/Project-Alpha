@@ -24,34 +24,7 @@
 #include <iostream>
 
 MLocation::MLocation(std::string name, int width, int height) {
-    locationName = name;
-    dimensions.x = width;
-    dimensions.y = height;
-
-    initAreaVector();
-    initChunk();
-}
-
-void MLocation::initAreaVector() {
-    for(unsigned int i = 0; i < dimensions.x; i++){
-        areas.push_back(std::vector<std::shared_ptr<MArea>>());
-        areas.at(i).reserve((unsigned long) dimensions.y);
-
-        for(unsigned int j = 0; j < dimensions.y; j++){
-            areas.at(i).push_back(nullptr);
-        }
-    }
-}
-
-void MLocation::initChunk() {
-    for(unsigned long i = 0; i < 3; i++){
-        chunk.push_back(std::vector<std::shared_ptr<MArea>>());
-        chunk.at(i).reserve(3);
-
-        for(unsigned long j = 0; j < 3; j++){
-            chunk.at(i).push_back(nullptr);
-        }
-    }
+    heldLocation = std::shared_ptr<Location>(new Location(name, width, height));
 }
 
 sf::Vector2i MLocation::getDimensions() {
@@ -80,12 +53,12 @@ void MLocation::createArea() {
 
     placeArea(x, y, mArea);
     setCurrentArea(x, y);
-    getCurrentArea()->spawnCursor(0, 0);
+    getCurrentMArea()->spawnCursor(0, 0);
 }
 
 void MLocation::placeArea(int x, int y, MArea area) {
     if((x >= 0) && (x < getDimensions().x) && (y >= 0) && (y < getDimensions().y)){
-        area.setLocationalPosition(sf::Vector2i(x, y));
+        area.getHeldArea()->setLocationalPosition(sf::Vector2i(x, y));
         areas.at((unsigned long) x).at((unsigned long) y) = std::make_shared<MArea>(area);
     }
 }
@@ -101,13 +74,13 @@ std::string MLocation::getName() {
 void MLocation::setCurrentArea(int x, int y) {
     if(getArea((unsigned int) x, (unsigned int) y) != nullptr){
         std::shared_ptr<MArea> currentArea = getArea((unsigned int) x, (unsigned int) y);
-        currentArea->resetRenderPos(0, 0);
+        currentArea->getHeldArea()->resetRenderPos(0, 0);
         chunk.at(1).at(1) = currentArea;
-        loadAdjacentAreas();
+        loadAdjacentMAreas();
     }
 }
 
-const std::shared_ptr<MArea> &MLocation::getCurrentArea() {
+const std::shared_ptr<MArea> &MLocation::getCurrentMArea() {
     return chunk.at(1).at(1);
 }
 
@@ -122,23 +95,23 @@ void MLocation::drawChunk() {
 }
 
 void MLocation::moveCursor(int xOffset, int yOffset) {
-    std::shared_ptr<Cursor> cursor = std::make_shared<Cursor>(getCurrentArea()->passCursor());
+    std::shared_ptr<Cursor> cursor = std::make_shared<Cursor>(getCurrentMArea()->passCursor());
     int xTarget = cursor->getWorldPosition().x + xOffset;
     int yTarget = cursor->getWorldPosition().y + yOffset;
 
     if(xTarget < 0){
         if(chunk.at(0).at(1) != nullptr){
-            if(chunk.at(0).at(1)->movePlayerToThisArea((chunk.at(0).at(1)->getDimensions().x - 1),
-                                                       cursor->getWorldPosition().y, getCurrentArea())){
-                moveToArea((-1), 0);
+            if(chunk.at(0).at(1)->moveCursorToThisArea((chunk.at(0).at(1)->getDimensions().x - 1),
+                                                       cursor->getWorldPosition().y, getCurrentMArea())){
+                moveToMArea((-1), 0);
             }
             return;
         }
     }
-    else if(xTarget > (getCurrentArea()->getDimensions().x - 1)){
+    else if(xTarget > (getCurrentMArea()->getDimensions().x - 1)){
         if(chunk.at(2).at(1) != nullptr){
-            if(chunk.at(2).at(1)->movePlayerToThisArea(0, cursor->getWorldPosition().y, getCurrentArea())){
-                moveToArea(1, 0);
+            if(chunk.at(2).at(1)->moveCursorToThisArea(0, cursor->getWorldPosition().y, getCurrentMArea())){
+                moveToMArea(1, 0);
             }
             return;
         }
@@ -147,147 +120,125 @@ void MLocation::moveCursor(int xOffset, int yOffset) {
 
     if(yTarget < 0){
         if(chunk.at(1).at(0) != nullptr){
-            if(chunk.at(1).at(0)->movePlayerToThisArea(cursor->getWorldPosition().x,
-                                                       (chunk.at(1).at(0)->getDimensions().y - 1), getCurrentArea())){
-                moveToArea(0, (-1));
+            if(chunk.at(1).at(0)->moveCursorToThisArea(cursor->getWorldPosition().x,
+                                                       (chunk.at(1).at(0)->getDimensions().y - 1), getCurrentMArea())){
+                moveToMArea(0, (-1));
             }
             return;
         }
     }
-    else if(yTarget > (getCurrentArea()->getDimensions().y - 1)){
+    else if(yTarget > (getCurrentMArea()->getDimensions().y - 1)){
         if(chunk.at(1).at(2) != nullptr){
-            if(chunk.at(1).at(2)->movePlayerToThisArea(cursor->getWorldPosition().x, 0, getCurrentArea())){
-                moveToArea(0, 1);
+            if(chunk.at(1).at(2)->moveCursorToThisArea(cursor->getWorldPosition().x, 0, getCurrentMArea())){
+                moveToMArea(0, 1);
             }
             return;
         }
     }
 
-    getCurrentArea()->moveCursor(xOffset, yOffset);
+    getCurrentMArea()->moveCursor(xOffset, yOffset);
 }
 
-void MLocation::moveToArea(int xOffset, int yOffset) {
-    int xTarget = getCurrentArea()->getLocationalPosition().x + xOffset;
-    int yTarget = getCurrentArea()->getLocationalPosition().y + yOffset;
+void MLocation::moveToMArea(int xOffset, int yOffset) {
+    int xTarget = getCurrentMArea()->getHeldArea()->getLocationalPosition().x + xOffset;
+    int yTarget = getCurrentMArea()->getHeldArea()->getLocationalPosition().y + yOffset;
 
     if((xTarget >= 0) && (xTarget < getDimensions().x) && (yTarget >= 0) && (yTarget < getDimensions().y)){
         setCurrentArea(xTarget, yTarget);
-        GFX::gfx->forceCenterCamera(getCurrentArea()->getCursor()->getWorldPosition());
+        GFX::gfx->forceCenterCamera(getCurrentMArea()->getCursor()->getWorldPosition());
     }
 }
 
-void MLocation::loadAdjacentAreas() {
-    sf::Vector2i areaLoc = getCurrentArea()->getLocationalPosition();
-
-    std::shared_ptr<MArea> nArea;
-    std::shared_ptr<MArea> eArea;
-    std::shared_ptr<MArea> sArea;
-    std::shared_ptr<MArea> wArea;
-
-    std::shared_ptr<MArea> neArea;
-    std::shared_ptr<MArea> seArea;
-    std::shared_ptr<MArea> swArea;
-    std::shared_ptr<MArea> nwArea;
+void MLocation::loadAdjacentMAreas() {
+    sf::Vector2i areaLoc = getCurrentMArea()->getHeldArea()->getLocationalPosition();
 
     if(areaLoc.y > 0){
-        nArea = getArea(areaLoc.x, areaLoc.y - 1);
-        if(nArea != nullptr){
+        chunk.at(1).at(0) = getArea(areaLoc.x, areaLoc.y - 1);
+        if(chunk.at(1).at(0) != nullptr){
             int yOffset = (-1) * CONSTANTS::AREA_HEIGHT;
-            nArea->resetRenderPos(0, yOffset);
+            chunk.at(1).at(0)->getHeldArea()->resetRenderPos(0, yOffset);
         }
     }
     else {
-        nArea = nullptr;
+        chunk.at(1).at(0) = nullptr;
     }
-
-    chunk.at(1).at(0) = nArea;
 
     if(areaLoc.x < (dimensions.x - 1)){
-        eArea = getArea(areaLoc.x + 1, areaLoc.y);
-        if(eArea != nullptr){
-            eArea->resetRenderPos(CONSTANTS::AREA_WIDTH, 0);
+        chunk.at(2).at(1) = getArea(areaLoc.x + 1, areaLoc.y);
+        if(chunk.at(2).at(1) != nullptr){
+            chunk.at(2).at(1)->getHeldArea()->resetRenderPos(CONSTANTS::AREA_WIDTH, 0);
         }
     }
     else {
-        eArea = nullptr;
+        chunk.at(2).at(1) = nullptr;
     }
-
-    chunk.at(2).at(1) = eArea;
 
     if(areaLoc.y < (dimensions.y - 1)){
-        sArea = getArea(areaLoc.x, areaLoc.y + 1);
-        if(sArea != nullptr){
-            sArea->resetRenderPos(0, CONSTANTS::AREA_HEIGHT);
+        chunk.at(1).at(2) = getArea(areaLoc.x, areaLoc.y + 1);
+        if(chunk.at(1).at(2) != nullptr){
+            chunk.at(1).at(2)->getHeldArea()->resetRenderPos(0, CONSTANTS::AREA_HEIGHT);
         }
     }
     else {
-        sArea = nullptr;
+        chunk.at(1).at(2) = nullptr;
     }
-
-    chunk.at(1).at(2) = sArea;
 
     if(areaLoc.x > 0){
-        wArea = getArea(areaLoc.x - 1, areaLoc.y);
-        if(wArea != nullptr){
+        chunk.at(0).at(1) = getArea(areaLoc.x - 1, areaLoc.y);
+        if(chunk.at(0).at(1) != nullptr){
             int xOffset = (-1) * CONSTANTS::AREA_WIDTH;
-            wArea->resetRenderPos(xOffset, 0);
+            chunk.at(0).at(1)->getHeldArea()->resetRenderPos(xOffset, 0);
         }
     }
     else {
-        wArea = nullptr;
+        chunk.at(0).at(1) = nullptr;
     }
-
-    chunk.at(0).at(1) = wArea;
 
     if((areaLoc.x < (dimensions.x - 1)) && areaLoc.y > 0){
-        neArea = getArea(areaLoc.x + 1, areaLoc.y - 1);
-        if(neArea != nullptr){
+        chunk.at(2).at(0) = getArea(areaLoc.x + 1, areaLoc.y - 1);
+        if(chunk.at(2).at(0) != nullptr){
             int yOffset = (-1) * CONSTANTS::AREA_HEIGHT;
-            neArea->resetRenderPos(CONSTANTS::AREA_WIDTH, yOffset);
+            chunk.at(2).at(0)->getHeldArea()->resetRenderPos(CONSTANTS::AREA_WIDTH, yOffset);
         }
     }
     else{
-        neArea = nullptr;
+        chunk.at(2).at(0) = nullptr;
     }
-
-    chunk.at(2).at(0) = neArea;
 
     if((areaLoc.x < (dimensions.x - 1)) && (areaLoc.y < (dimensions.y - 1))){
-        seArea = getArea(areaLoc.x + 1, areaLoc.y + 1);
-        if(seArea != nullptr){
-            seArea->resetRenderPos(CONSTANTS::AREA_WIDTH, CONSTANTS::AREA_HEIGHT);
+        chunk.at(2).at(2) = getArea(areaLoc.x + 1, areaLoc.y + 1);
+        if(chunk.at(2).at(2) != nullptr){
+            chunk.at(2).at(2)->getHeldArea()->resetRenderPos(CONSTANTS::AREA_WIDTH, CONSTANTS::AREA_HEIGHT);
         }
     }
     else{
-        seArea = nullptr;
+        chunk.at(2).at(2) = nullptr;
     }
-
-    chunk.at(2).at(2) = seArea;
 
     if(areaLoc.x > 0 && (areaLoc.y < (dimensions.y - 1))){
-        swArea = getArea(areaLoc.x - 1, areaLoc.y + 1);
-        if(swArea != nullptr){
+        chunk.at(0).at(2) = getArea(areaLoc.x - 1, areaLoc.y + 1);
+        if(chunk.at(0).at(2) != nullptr){
             int xOffset = (-1) * CONSTANTS::AREA_WIDTH;
-            swArea->resetRenderPos(xOffset, CONSTANTS::AREA_HEIGHT);
+            chunk.at(0).at(2)->getHeldArea()->resetRenderPos(xOffset, CONSTANTS::AREA_HEIGHT);
         }
     }
     else{
-        swArea = nullptr;
+        chunk.at(0).at(2) = nullptr;
     }
-
-    chunk.at(0).at(2) = swArea;
 
     if(areaLoc.x > 0 && areaLoc.y > 0){
-        nwArea = getArea(areaLoc.x - 1, areaLoc.y - 1);
-        if(nwArea != nullptr){
+        chunk.at(0).at(0) = getArea(areaLoc.x - 1, areaLoc.y - 1);
+        if(chunk.at(0).at(0) != nullptr){
             int xOffset = (-1) * CONSTANTS::AREA_WIDTH;
             int yOffset = (-1) * CONSTANTS::AREA_HEIGHT;
-            nwArea->resetRenderPos(xOffset, yOffset);
+            chunk.at(0).at(0)->getHeldArea()->resetRenderPos(xOffset, yOffset);
         }
     }
     else{
-        nwArea = nullptr;
+        chunk.at(0).at(0) = nullptr;
     }
+}
 
-    chunk.at(0).at(0) = nwArea;
+std::shared_ptr<Location> &MLocation::getHeldLocation() {
+    return heldLocation;
 }
