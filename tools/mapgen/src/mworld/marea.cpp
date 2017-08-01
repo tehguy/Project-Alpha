@@ -39,6 +39,11 @@ MArea::MArea(std::string name) {
     }
 }
 
+MArea::~MArea() {
+    cursorMap.clear();
+}
+
+
 void MArea::spawnCursor(int x, int y) {
     if(cursor == nullptr){
         cursor = std::shared_ptr<Cursor>(new Cursor());

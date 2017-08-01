@@ -27,6 +27,11 @@ MLocation::MLocation(std::string name, int width, int height) {
     heldLocation = std::shared_ptr<Location>(new Location(name, width, height));
 }
 
+MLocation::~MLocation() {
+    chunk.clear();
+    areas.clear();
+}
+
 sf::Vector2i MLocation::getDimensions() {
     return dimensions;
 }

@@ -52,6 +52,7 @@ void Location::initChunk() {
 }
 
 Location::~Location() {
+    chunk.clear();
     areas.clear();
 }
 

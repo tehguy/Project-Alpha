@@ -24,6 +24,7 @@
 class MLocation {
 public:
     MLocation(std::string name, int width, int height);
+    ~MLocation();
 
     sf::Vector2i getDimensions();
 

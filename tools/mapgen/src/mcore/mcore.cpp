@@ -19,16 +19,18 @@
 #include <include/gfx/gfx.hpp>
 #include <include/mapgen/mcore/mcore.hpp>
 
+#include <iostream>
+
 namespace MAPGEN {
     MCore mcore;
 }
 
-int MCore::init(std::string name, int width, int height) {
+int MCore::init() {
+    createNewLocation();
+
     if(!GFX::gfx->initGFX("../res/spritesheet.png", "MapGen")){
         return 1;
     }
-
-    currentLocation = std::shared_ptr<MLocation>(new MLocation(name, width, height));
 
     gameLoop();
 
@@ -118,4 +120,20 @@ void MCore::createTile(ENUMS::TTYPE ttype) {
     if(currentLocation->getCurrentMArea() != nullptr){
         currentLocation->getCurrentMArea()->createTileAtCursor(ttype);
     }
+}
+
+void MCore::createNewLocation() {
+    std::string name = "";
+    int width = 1, height = 1;
+
+    std::cout << "Enter location name: ";
+    std::getline(std::cin, name);
+    std::cin.clear();
+
+    std::cout << "Enter width and height: ";
+    std::cin >> width >> height;
+    std::cin.clear();
+    std::cin.ignore(10, '\n');
+
+    currentLocation = std::shared_ptr<MLocation>(new MLocation(name, width, height));
 }

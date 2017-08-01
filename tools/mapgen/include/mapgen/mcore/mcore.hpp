@@ -27,7 +27,7 @@
 
 class MCore {
 public:
-    int init(std::string name, int width, int height);
+    int init();
 
 private:
     void gameLoop();
@@ -41,6 +41,8 @@ private:
     void moveCursor(int xOffset, int yOffset);
 
     void createTile(ENUMS::TTYPE ttype);
+
+    void createNewLocation();
 
     std::shared_ptr<MLocation> currentLocation;
 

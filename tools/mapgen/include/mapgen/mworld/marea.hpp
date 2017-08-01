@@ -25,6 +25,7 @@
 class MArea {
 public:
     MArea(std::string name);
+    ~MArea();
 
     void spawnCursor(int x, int y);
 

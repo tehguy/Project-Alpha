@@ -48,7 +48,8 @@ Area::Area(std::string name) {
 }
 
 Area::~Area() {
-
+    map.clear();
+    entityLayer.clear();
 }
 
 sf::Vector2i Area::getDimensions() {
