@@ -16,21 +16,19 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <include/gfx/gfx.hpp>
 #include <include/mapgen/mcore/mcore.hpp>
-#include <include/mapgen/mgfx/mgfx.hpp>
 
 namespace MAPGEN {
     MCore mcore;
 }
 
 int MCore::init(std::string name, int width, int height) {
-    if(!MGFX::mgfx->initGFX()){
+    if(!GFX::gfx->initGFX("../res/spritesheet.png", "MapGen")){
         return 1;
     }
 
     currentLocation = std::shared_ptr<MLocation>(new MLocation(name, width, height));
-
-    GFX::gfx = MGFX::mgfx;
 
     gameLoop();
 

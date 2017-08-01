@@ -23,7 +23,7 @@ namespace MAIN {
 }
 
 int Core::init() {
-    if(!GFX::gfx->initGFX()){
+    if(!GFX::gfx->initGFX("./res/spritesheet.png", "CPPAdventures")){
         return 1;
     }
 

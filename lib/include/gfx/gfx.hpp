@@ -22,26 +22,27 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+#include <include/core/constants.hpp>
+
 class Graphics {
 public:
     Graphics();
 
     bool checkWithinCamera(sf::Rect<int> object);
 
-    virtual bool initGFX();
+    bool initGFX(std::string tileTexturePath, std::string windowName, unsigned int screenWidth = CONSTANTS::SCREEN_WIDTH,
+                             unsigned int screenHeight = CONSTANTS::SCREEN_HEIGHT, unsigned int framerate = 60);
 
     const std::shared_ptr<sf::RenderWindow>& getWindow();
     const sf::Sprite createSprite(sf::Rect<int> spriteRect);
 
-    void centerCamera(sf::Vector2i playerPrevPos, sf::Vector2i playerCurrentPos);
-    void forceCenterCamera(sf::Vector2i playerCurrentPos);
-
-protected:
-    bool loadSpriteSheet(std::string filePath);
-    void setWindow(std::shared_ptr<sf::RenderWindow> _window);
-    void initCamera(int w, int h);
+    void centerCamera(sf::Vector2i prevPos, sf::Vector2i currentPos);
+    void forceCenterCamera(sf::Vector2i posToCenterOn);
 
 private:
+    bool loadSpriteSheet(std::string filePath);
+
+    void initCamera(int w, int h);
     bool checkCollision(sf::Rect<int> a, sf::Rect<int> b);
     void moveCamera(sf::Vector2f& offset);
 

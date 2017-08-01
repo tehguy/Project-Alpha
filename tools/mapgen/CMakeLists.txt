@@ -16,8 +16,6 @@ set(SOURCE_FILES
 
         src/mcore/mcore.cpp         include/mapgen/mcore/mcore.hpp
 
-        src/mgfx/mgfx.cpp           include/mapgen/mgfx/mgfx.hpp
-
         src/mworld/marea.cpp        include/mapgen/mworld/marea.hpp
         src/mworld/mlocation.cpp    include/mapgen/mworld/mlocation.hpp)
 
