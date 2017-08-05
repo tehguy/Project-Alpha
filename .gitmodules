@@ -1,0 +1,6 @@
+[submodule "sln/ProjectAlpha/external-lib/SFML"]
+	path = sln/ProjectAlpha/external-lib/SFML
+	url = git@github.com:SFML/SFML.git
+[submodule "sln/ProjectAlpha/external-lib/google-protobuf"]
+	path = sln/ProjectAlpha/external-lib/google-protobuf
+	url = git@github.com:google/protobuf.git
