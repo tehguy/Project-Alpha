@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{6CC9BA3C-2F3B-4F54-A731-7F6FB63AE20B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPPClient", "CPPClient\CPPClient.vcxproj", "{860CC8D0-74FE-4B13-9255-48F272678EB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{6CC9BA3C-2F3B-4F54-A731-7F6FB63AE20B}.Release|x64.Build.0 = Release|x64
 		{6CC9BA3C-2F3B-4F54-A731-7F6FB63AE20B}.Release|x86.ActiveCfg = Release|Win32
 		{6CC9BA3C-2F3B-4F54-A731-7F6FB63AE20B}.Release|x86.Build.0 = Release|Win32
+		{860CC8D0-74FE-4B13-9255-48F272678EB1}.Debug|x64.ActiveCfg = Debug|x64
+		{860CC8D0-74FE-4B13-9255-48F272678EB1}.Debug|x64.Build.0 = Debug|x64
+		{860CC8D0-74FE-4B13-9255-48F272678EB1}.Debug|x86.ActiveCfg = Debug|Win32
+		{860CC8D0-74FE-4B13-9255-48F272678EB1}.Debug|x86.Build.0 = Debug|Win32
+		{860CC8D0-74FE-4B13-9255-48F272678EB1}.Release|x64.ActiveCfg = Release|x64
+		{860CC8D0-74FE-4B13-9255-48F272678EB1}.Release|x64.Build.0 = Release|x64
+		{860CC8D0-74FE-4B13-9255-48F272678EB1}.Release|x86.ActiveCfg = Release|Win32
+		{860CC8D0-74FE-4B13-9255-48F272678EB1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
