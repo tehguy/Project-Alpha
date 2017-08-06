@@ -21,7 +21,7 @@
 
 Renderable::Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect) {
 
-    worldSprite = GFX::gfx->createSprite(spriteRect);
+    worldSprite = Graphics::Instance()->createSprite(spriteRect);
     setRenderPosition(x, y);
 
     renderBox.width = CONSTANTS::TILE_WIDTH;
@@ -29,8 +29,8 @@ Renderable::Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect)
 }
 
 void Renderable::render() {
-    if(GFX::gfx->checkWithinCamera(renderBox)){
-        GFX::gfx->getWindow()->draw(worldSprite);
+    if(Graphics::Instance()->checkWithinCamera(renderBox)){
+        Graphics::Instance()->getWindow()->draw(worldSprite);
     }
 }
 

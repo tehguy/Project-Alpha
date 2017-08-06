@@ -48,7 +48,8 @@ Area::Area(std::string name) {
 }
 
 Area::~Area() {
-
+    map.clear();
+    entityLayer.clear();
 }
 
 sf::Vector2i Area::getDimensions() {
@@ -117,7 +118,7 @@ bool Area::movePlayer(int xOffset, int yOffset) {
     int xTarget = player->getWorldPosition().x + xOffset;
     int yTarget = player->getWorldPosition().y + yOffset;
     if(moveEntity(xTarget, yTarget, player)){
-        GFX::gfx->centerCamera(player->getPreviousPosition(), player->getWorldPosition());
+        Graphics::Instance()->centerCamera(player->getPreviousPosition(), player->getWorldPosition());
         return true;
     }
 

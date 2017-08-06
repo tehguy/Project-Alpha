@@ -25,9 +25,11 @@
 #include <include/core/constants.hpp>
 
 class Graphics {
-public:
+protected:
     Graphics();
 
+public:
+    static std::shared_ptr<Graphics> Instance();
     bool checkWithinCamera(sf::Rect<int> object);
 
     bool initGFX(std::string tileTexturePath, std::string windowName, unsigned int screenWidth = CONSTANTS::SCREEN_WIDTH,
@@ -51,8 +53,6 @@ private:
     sf::Texture tileTexture;
 
     sf::Rect<int> actualCameraBounds;
-};
 
-namespace GFX {
-    extern std::shared_ptr<Graphics> gfx;
-}
+    static std::shared_ptr<Graphics> gfxInstance;
+};

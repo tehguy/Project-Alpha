@@ -17,22 +17,10 @@
 */
 #include <include/mapgen/mcore/mcore.hpp>
 
-#include <iostream>
-
 int main(int argc, char* argv[]){
-    std::string name = "";
-    int width = 1, height = 1;
 
-    std::cout << "Enter location name: ";
-    std::getline(std::cin, name);
-    std::cin.clear();
-
-    std::cout << "Enter width and height: ";
-    std::cin >> width >> height;
-    std::cin.clear();
-    std::cin.ignore(10, '\n');
-
-    MAPGEN::mcore.init(name, width, height);
+    MCore mCore;
+    mCore.init();
 
     return 0;
 }
