@@ -1,12 +1,21 @@
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+IF(WIN32)
+    set(SFML_INCLUDE_DIR ${SFML_EXT_PATH}/include)
+    set(Protobuf_INCLUDE_DIRS ${PROTOBUF_EXT_PATH}/src)
 
-find_package(SFML COMPONENTS system graphics window REQUIRED)
-find_package(Protobuf REQUIRED STATIC)
+    set(SFML_LIBRARIES sfml-graphics sfml-system sfml-window)
+    set(Protobuf_LIBRARIES libprotobuf libprotobuf-lite libprotoc)
+ENDIF(WIN32)
+IF(UNIX)
+    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+
+    find_package(SFML COMPONENTS system graphics window REQUIRED)
+    find_package(Protobuf REQUIRED STATIC)
+ENDIF(UNIX)
 
 include_directories(${SFML_INCLUDE_DIR}
         ${Protobuf_INCLUDE_DIRS})
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../../runtime/tools)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../../runtime)
 
 set(PROTOBUF_COMPILED_DIR ${PROJECT_SOURCE_DIR}/protos/protos)
 set(RUNTIME mapgen)

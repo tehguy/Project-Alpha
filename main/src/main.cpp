@@ -18,11 +18,10 @@
 
 #include <include/core/core.hpp>
 
-
-
 int main() {
+    Core core;
 
-    MAIN::core.init();
-
-	return 0;
+    auto returnCode = core.init();
+    getchar();
+    return returnCode;
 }

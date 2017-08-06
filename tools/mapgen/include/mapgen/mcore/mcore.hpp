@@ -27,28 +27,25 @@
 
 class MCore {
 public:
-    int init(std::string name, int width, int height);
+    int init();
 
 private:
     void gameLoop();
 
     void handleInput(int key);
 
+    void handleCreationInput(int key);
+
     void draw();
 
     void moveCursor(int xOffset, int yOffset);
 
-    void setCurrentLocation(const std::shared_ptr<MLocation> location);
-    const std::shared_ptr<MLocation> getCurrentLocation();
-
     void createTile(ENUMS::TTYPE ttype);
+
+    void createNewLocation();
 
     std::shared_ptr<MLocation> currentLocation;
 
     WorldLoader worldLoader;
     WorldSaver worldSaver;
 };
-
-namespace MAPGEN {
-    extern MCore mcore;
-}

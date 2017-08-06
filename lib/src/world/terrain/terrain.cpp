@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <include/core/core.hpp>
+#include <include/world/terrain/terrain.hpp>
 
 Terrain::Terrain(int x, int y, sf::Rect<int> spriteRect, bool isPassable, TYPE type) :
         Renderable((unsigned int) x, (unsigned int) y, spriteRect) {

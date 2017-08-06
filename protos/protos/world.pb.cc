@@ -6,7 +6,12 @@
 
 #include <algorithm>
 
+#include <google/protobuf/stubs/common.h>
+#include <google/protobuf/stubs/port.h>
+#include <google/protobuf/stubs/once.h>
+#include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/wire_format_lite_inl.h>
+#include <google/protobuf/descriptor.h>
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
@@ -149,6 +154,7 @@ void InitDefaults() {
   static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
   ::google::protobuf::GoogleOnceInit(&once, &TableStruct::InitDefaultsImpl);
 }
+namespace {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
@@ -168,12 +174,13 @@ void AddDescriptorsImpl() {
     "world.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
 }
+} // anonymous namespace
 
 void AddDescriptors() {
   static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
   ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
 }
-// Force AddDescriptors() to be called at static initialization time.
+// Force AddDescriptors() to be called at dynamic initialization time.
 struct StaticDescriptorInitializer {
   StaticDescriptorInitializer() {
     AddDescriptors();
@@ -213,15 +220,16 @@ Location::Location(const Location& from)
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   ::memcpy(&width_, &from.width_,
-    reinterpret_cast<char*>(&current_area_y_) -
-    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
+    static_cast<size_t>(reinterpret_cast<char*>(&current_area_y_) -
+    reinterpret_cast<char*>(&width_)) + sizeof(current_area_y_));
   // @@protoc_insertion_point(copy_constructor:WORLD.Location)
 }
 
 void Location::SharedCtor() {
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&width_, 0, reinterpret_cast<char*>(&current_area_y_) -
-    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
+  ::memset(&width_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&current_area_y_) -
+      reinterpret_cast<char*>(&width_)) + sizeof(current_area_y_));
   _cached_size_ = 0;
 }
 
@@ -261,8 +269,9 @@ void Location::Clear() {
 // @@protoc_insertion_point(message_clear_start:WORLD.Location)
   areas_.Clear();
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&width_, 0, reinterpret_cast<char*>(&current_area_y_) -
-    reinterpret_cast<char*>(&width_) + sizeof(current_area_y_));
+  ::memset(&width_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&current_area_y_) -
+      reinterpret_cast<char*>(&width_)) + sizeof(current_area_y_));
 }
 
 bool Location::MergePartialFromCodedStream(
@@ -282,7 +291,7 @@ bool Location::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->name().data(), this->name().length(),
+            this->name().data(), static_cast<int>(this->name().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "WORLD.Location.name"));
         } else {
@@ -389,7 +398,7 @@ void Location::SerializeWithCachedSizes(
   // string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), this->name().length(),
+      this->name().data(), static_cast<int>(this->name().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "WORLD.Location.name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
@@ -407,9 +416,10 @@ void Location::SerializeWithCachedSizes(
   }
 
   // repeated .WORLD.Area areas = 4;
-  for (unsigned int i = 0, n = this->areas_size(); i < n; i++) {
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->areas_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->areas(i), output);
+      4, this->areas(static_cast<int>(i)), output);
   }
 
   // int32 current_area_x = 5;
@@ -435,7 +445,7 @@ void Location::SerializeWithCachedSizes(
   // string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), this->name().length(),
+      this->name().data(), static_cast<int>(this->name().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "WORLD.Location.name");
     target =
@@ -454,10 +464,11 @@ void Location::SerializeWithCachedSizes(
   }
 
   // repeated .WORLD.Area areas = 4;
-  for (unsigned int i = 0, n = this->areas_size(); i < n; i++) {
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->areas_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        4, this->areas(i), deterministic, target);
+        4, this->areas(static_cast<int>(i)), deterministic, target);
   }
 
   // int32 current_area_x = 5;
@@ -480,12 +491,12 @@ size_t Location::ByteSizeLong() const {
 
   // repeated .WORLD.Area areas = 4;
   {
-    unsigned int count = this->areas_size();
+    unsigned int count = static_cast<unsigned int>(this->areas_size());
     total_size += 1UL * count;
     for (unsigned int i = 0; i < count; i++) {
       total_size +=
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->areas(i));
+          this->areas(static_cast<int>(i)));
     }
   }
 
@@ -781,15 +792,16 @@ Area::Area(const Area& from)
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   ::memcpy(&xloc_, &from.xloc_,
-    reinterpret_cast<char*>(&yloc_) -
-    reinterpret_cast<char*>(&xloc_) + sizeof(yloc_));
+    static_cast<size_t>(reinterpret_cast<char*>(&yloc_) -
+    reinterpret_cast<char*>(&xloc_)) + sizeof(yloc_));
   // @@protoc_insertion_point(copy_constructor:WORLD.Area)
 }
 
 void Area::SharedCtor() {
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&xloc_, 0, reinterpret_cast<char*>(&yloc_) -
-    reinterpret_cast<char*>(&xloc_) + sizeof(yloc_));
+  ::memset(&xloc_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&yloc_) -
+      reinterpret_cast<char*>(&xloc_)) + sizeof(yloc_));
   _cached_size_ = 0;
 }
 
@@ -829,8 +841,9 @@ void Area::Clear() {
 // @@protoc_insertion_point(message_clear_start:WORLD.Area)
   tile_.Clear();
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&xloc_, 0, reinterpret_cast<char*>(&yloc_) -
-    reinterpret_cast<char*>(&xloc_) + sizeof(yloc_));
+  ::memset(&xloc_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&yloc_) -
+      reinterpret_cast<char*>(&xloc_)) + sizeof(yloc_));
 }
 
 bool Area::MergePartialFromCodedStream(
@@ -850,7 +863,7 @@ bool Area::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->name().data(), this->name().length(),
+            this->name().data(), static_cast<int>(this->name().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "WORLD.Area.name"));
         } else {
@@ -929,7 +942,7 @@ void Area::SerializeWithCachedSizes(
   // string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), this->name().length(),
+      this->name().data(), static_cast<int>(this->name().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "WORLD.Area.name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
@@ -947,9 +960,10 @@ void Area::SerializeWithCachedSizes(
   }
 
   // repeated .WORLD.Tile tile = 4;
-  for (unsigned int i = 0, n = this->tile_size(); i < n; i++) {
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->tile_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->tile(i), output);
+      4, this->tile(static_cast<int>(i)), output);
   }
 
   // @@protoc_insertion_point(serialize_end:WORLD.Area)
@@ -965,7 +979,7 @@ void Area::SerializeWithCachedSizes(
   // string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), this->name().length(),
+      this->name().data(), static_cast<int>(this->name().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "WORLD.Area.name");
     target =
@@ -984,10 +998,11 @@ void Area::SerializeWithCachedSizes(
   }
 
   // repeated .WORLD.Tile tile = 4;
-  for (unsigned int i = 0, n = this->tile_size(); i < n; i++) {
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->tile_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        4, this->tile(i), deterministic, target);
+        4, this->tile(static_cast<int>(i)), deterministic, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:WORLD.Area)
@@ -1000,12 +1015,12 @@ size_t Area::ByteSizeLong() const {
 
   // repeated .WORLD.Tile tile = 4;
   {
-    unsigned int count = this->tile_size();
+    unsigned int count = static_cast<unsigned int>(this->tile_size());
     total_size += 1UL * count;
     for (unsigned int i = 0; i < count; i++) {
       total_size +=
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->tile(i));
+          this->tile(static_cast<int>(i)));
     }
   }
 
@@ -1516,14 +1531,15 @@ Terrain::Terrain(const Terrain& from)
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&xloc_, &from.xloc_,
-    reinterpret_cast<char*>(&ttype_) -
-    reinterpret_cast<char*>(&xloc_) + sizeof(ttype_));
+    static_cast<size_t>(reinterpret_cast<char*>(&ttype_) -
+    reinterpret_cast<char*>(&xloc_)) + sizeof(ttype_));
   // @@protoc_insertion_point(copy_constructor:WORLD.Terrain)
 }
 
 void Terrain::SharedCtor() {
-  ::memset(&xloc_, 0, reinterpret_cast<char*>(&ttype_) -
-    reinterpret_cast<char*>(&xloc_) + sizeof(ttype_));
+  ::memset(&xloc_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&ttype_) -
+      reinterpret_cast<char*>(&xloc_)) + sizeof(ttype_));
   _cached_size_ = 0;
 }
 
@@ -1560,8 +1576,9 @@ Terrain* Terrain::New(::google::protobuf::Arena* arena) const {
 
 void Terrain::Clear() {
 // @@protoc_insertion_point(message_clear_start:WORLD.Terrain)
-  ::memset(&xloc_, 0, reinterpret_cast<char*>(&ttype_) -
-    reinterpret_cast<char*>(&xloc_) + sizeof(ttype_));
+  ::memset(&xloc_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&ttype_) -
+      reinterpret_cast<char*>(&xloc_)) + sizeof(ttype_));
 }
 
 bool Terrain::MergePartialFromCodedStream(

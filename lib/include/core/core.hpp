@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include <include/core/engine_export.hpp>
 #include <include/core/io/worldloader.hpp>
 #include <include/core/io/worldsaver.hpp>
 
@@ -28,7 +29,8 @@
 
 class Core {
 public:
-    int init();
+    ENGINE_API Core();
+    ENGINE_API int init();
 
 private:
     void gameLoop();
@@ -49,7 +51,3 @@ private:
     WorldLoader worldLoader;
     WorldSaver worldSaver;
 };
-
-namespace MAIN {
-    extern Core core;
-}
