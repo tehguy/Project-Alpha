@@ -48,7 +48,7 @@ void MArea::spawnCursor(int x, int y) {
     if(cursor == nullptr){
         cursor = std::shared_ptr<Cursor>(new Cursor());
         moveCursor(x, y);
-        GFX::gfx->forceCenterCamera(cursor->getWorldPosition());
+        Graphics::Instance()->forceCenterCamera(cursor->getWorldPosition());
     }
     else{
         moveCursor(x, y);
@@ -69,7 +69,7 @@ bool MArea::moveCursor(int xOffset, int yOffset) {
         cursor->setWorldPosition(xTarget, yTarget);
         setCursorMap(xTarget, yTarget, cursor);
 
-        GFX::gfx->centerCamera(cursor->getPreviousPosition(), cursor->getWorldPosition());
+        Graphics::Instance()->centerCamera(cursor->getPreviousPosition(), cursor->getWorldPosition());
         return true;
     }
 

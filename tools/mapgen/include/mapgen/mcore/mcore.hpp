@@ -49,7 +49,3 @@ private:
     WorldLoader worldLoader;
     WorldSaver worldSaver;
 };
-
-namespace MAPGEN {
-    extern MCore mcore;
-}

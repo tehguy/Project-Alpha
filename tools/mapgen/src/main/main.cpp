@@ -19,7 +19,8 @@
 
 int main(int argc, char* argv[]){
 
-    MAPGEN::mcore.init();
+    MCore mCore;
+    mCore.init();
 
     return 0;
 }

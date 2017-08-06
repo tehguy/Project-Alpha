@@ -19,11 +19,7 @@
 #include <include/core/constants.hpp>
 #include <include/gfx/gfx.hpp>
 
-#include <cmath>
-
-namespace GFX {
-    std::shared_ptr<Graphics> gfx = std::shared_ptr<Graphics>(new Graphics());
-}
+std::shared_ptr<Graphics> Graphics::gfxInstance = std::shared_ptr<Graphics>(nullptr);
 
 Graphics::Graphics() {
 
@@ -161,4 +157,11 @@ void Graphics::initCamera(int w, int h) {
     actualCameraBounds.top = 0;
     actualCameraBounds.width = w;
     actualCameraBounds.height = h;
+}
+
+std::shared_ptr<Graphics> Graphics::Instance() {
+    if(gfxInstance == nullptr){
+        gfxInstance = std::shared_ptr<Graphics>(new Graphics());
+    }
+    return gfxInstance;
 }

@@ -18,36 +18,13 @@
 
 #pragma once
 
-#include <include/core/engine_export.hpp>
-#include <include/core/io/worldloader.hpp>
-#include <include/core/io/worldsaver.hpp>
-
-#include <include/entity/player.hpp>
-#include <include/gfx/gfx.hpp>
-#include <include/world/location.hpp>
-
-
-class Core {
-public:
-    ENGINE_API Core();
-    ENGINE_API int init();
-
-private:
-    void gameLoop();
-
-    void handleInput(int key);
-
-    void draw();
-
-    void movePlayer(int xOffset, int yOffset);
-
-    void genTestArea();
-
-    void setCurrentLocation(const std::shared_ptr<Location> location);
-    const std::shared_ptr<Location> getCurrentLocation();
-
-    std::shared_ptr<Location> currentLocation;
-
-    WorldLoader worldLoader;
-    WorldSaver worldSaver;
-};
+#ifdef _WIN32
+#   ifdef ENGINE_EXPORTS
+#       define ENGINE_API __declspec(dllexport)
+#   else
+#       define ENGINE_API __declspec(dllimport)
+#   endif
+#   define WIN32_LEAN_AND_MEAN
+#else
+#   define ENGINE_API
+#endif

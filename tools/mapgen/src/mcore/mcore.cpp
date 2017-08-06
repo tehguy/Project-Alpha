@@ -19,8 +19,6 @@
 #include <include/gfx/gfx.hpp>
 #include <include/mapgen/mcore/mcore.hpp>
 
-#include <iostream>
-
 namespace MAPGEN {
     MCore mcore;
 }
@@ -28,7 +26,7 @@ namespace MAPGEN {
 int MCore::init() {
     createNewLocation();
 
-    if(!GFX::gfx->initGFX("../res/spritesheet.png", "MapGen")){
+    if(!Graphics::Instance()->initGFX("../res/spritesheet.png", "MapGen")){
         return 1;
     }
 
@@ -38,14 +36,14 @@ int MCore::init() {
 }
 
 void MCore::gameLoop() {
-    GFX::gfx->getWindow()->setActive();
-    GFX::gfx->getWindow()->setKeyRepeatEnabled(false);
+    Graphics::Instance()->getWindow()->setActive();
+    Graphics::Instance()->getWindow()->setKeyRepeatEnabled(false);
 
-    while(GFX::gfx->getWindow()->isOpen()){
+    while(Graphics::Instance()->getWindow()->isOpen()){
         sf::Event event;
-        while(GFX::gfx->getWindow()->pollEvent(event)){
+        while(Graphics::Instance()->getWindow()->pollEvent(event)){
             if(event.type == sf::Event::Closed){
-                GFX::gfx->getWindow()->close();
+                Graphics::Instance()->getWindow()->close();
             }
             else if(event.type == sf::Event::KeyPressed){
                 handleInput(event.key.code);
@@ -58,7 +56,7 @@ void MCore::gameLoop() {
 void MCore::handleInput(int key) {
     switch (key){
         case sf::Keyboard::Q: case sf::Keyboard::Escape:
-            GFX::gfx->getWindow()->close();
+            Graphics::Instance()->getWindow()->close();
             break;
         case sf::Keyboard::Up: case sf::Keyboard::W:
             moveCursor(0, (-1));
@@ -101,13 +99,13 @@ void MCore::handleCreationInput(int key) {
 }
 
 void MCore::draw() {
-    GFX::gfx->getWindow()->clear(sf::Color::Black);
+    Graphics::Instance()->getWindow()->clear(sf::Color::Black);
 
     if(currentLocation != nullptr){
         currentLocation->drawChunk();
     }
 
-    GFX::gfx->getWindow()->display();
+    Graphics::Instance()->getWindow()->display();
 }
 
 void MCore::moveCursor(int xOffset, int yOffset) {

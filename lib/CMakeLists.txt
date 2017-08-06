@@ -1,13 +1,22 @@
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+IF(WIN32 OR MSVC)
+    set(SFML_INCLUDE_DIR "${SFML_EXT_PATH}/include")
+    set(Protobuf_INCLUDE_DIRS "${PROTOBUF_EXT_PATH}/src")
 
-find_package(SFML COMPONENTS system graphics window REQUIRED)
-find_package(Protobuf REQUIRED STATIC)
+    set(SFML_LIBRARIES sfml-graphics sfml-system sfml-window)
+    set(Protobuf_LIBRARIES libprotobuf libprotobuf-lite libprotoc)
 
-include_directories(${SFML_INCLUDE_DIR}
-        ${Protobuf_INCLUDE_DIRS})
+    add_definitions(-DENGINE_EXPORTS)
+ENDIF(WIN32 OR MSVC)
+IF(UNIX)
+    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+
+    find_package(SFML COMPONENTS system graphics window REQUIRED)
+    find_package(Protobuf REQUIRED STATIC)
+ENDIF(UNIX)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../runtime/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ../runtime/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../runtime/lib)
 set(CMAKE_INSTALL_RPATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 set(PROTOBUF_COMPILED_DIR ${PROJECT_SOURCE_DIR}/protos)
@@ -15,6 +24,7 @@ set(PROTOBUF_COMPILED_DIR ${PROJECT_SOURCE_DIR}/protos)
 set (SOURCE_FILES
                                                 include/core/constants.hpp
         src/core/core.cpp                       include/core/core.hpp
+                                                include/core/engine_export.hpp
         src/core/perlinnoise.cpp                include/core/perlinnoise.hpp
         src/core/randomnumbergenerator.cpp      include/core/randomnumbergenerator.hpp
 
@@ -49,6 +59,8 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 
 target_include_directories (engine PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
+        ${SFML_INCLUDE_DIR}
+        ${Protobuf_INCLUDE_DIRS}
         ${PROTOBUF_COMPILED_DIR})
 target_link_libraries(engine
         ${SFML_LIBRARIES}

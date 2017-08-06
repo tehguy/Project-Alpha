@@ -18,12 +18,12 @@
 
 #include <include/core/core.hpp>
 
-namespace MAIN {
-    Core core;
+ENGINE_API Core::Core() {
+
 }
 
-int Core::init() {
-    if(!GFX::gfx->initGFX("./res/spritesheet.png", "Project Alpha")){
+ENGINE_API int Core::init() {
+    if(!Graphics::Instance()->initGFX("./res/spritesheet.png", "Project Alpha")){
         return 1;
     }
 
@@ -35,12 +35,12 @@ int Core::init() {
 }
 
 void Core::gameLoop() {
-    GFX::gfx->getWindow()->setActive();
-    while(GFX::gfx->getWindow()->isOpen()){
+    Graphics::Instance()->getWindow()->setActive();
+    while(Graphics::Instance()->getWindow()->isOpen()){
         sf::Event event;
-        while(GFX::gfx->getWindow()->pollEvent(event)){
+        while(Graphics::Instance()->getWindow()->pollEvent(event)){
             if(event.type == sf::Event::Closed){
-                GFX::gfx->getWindow()->close();
+                Graphics::Instance()->getWindow()->close();
             }
             else if(event.type == sf::Event::KeyPressed){
                 handleInput(event.key.code);
@@ -59,7 +59,7 @@ void Core::movePlayer(int xOffset, int yOffset) {
 void Core::handleInput(int key) {
     switch (key){
         case sf::Keyboard::Q: case sf::Keyboard::Escape:
-            GFX::gfx->getWindow()->close();
+            Graphics::Instance()->getWindow()->close();
             break;
         case sf::Keyboard::Up: case sf::Keyboard::W:
             movePlayer(0, (-1));
@@ -97,17 +97,17 @@ void Core::genTestArea() {
     currentLocation->setCurrentArea(1, 1);
     currentLocation->getCurrentArea()->spawnPlayer(0, 0, 20);
 
-    GFX::gfx->forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
+    Graphics::Instance()->forceCenterCamera(currentLocation->getCurrentArea()->passPlayer().getWorldPosition());
 }
 
 void Core::draw() {
-    GFX::gfx->getWindow()->clear(sf::Color::Black);
+    Graphics::Instance()->getWindow()->clear(sf::Color::Black);
 
     if(currentLocation != nullptr){
         currentLocation->drawChunk();
     }
 
-    GFX::gfx->getWindow()->display();
+    Graphics::Instance()->getWindow()->display();
 }
 
 void Core::setCurrentLocation(const std::shared_ptr<Location> location) {
