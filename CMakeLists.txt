@@ -20,7 +20,3 @@ IF(WIN32 OR MSVC)
         string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
     endforeach()
 ENDIF(WIN32 OR MSVC)
-
-add_subdirectory(main)
-add_subdirectory(lib)
-add_subdirectory(tools)
