@@ -1,6 +1,24 @@
 cmake_minimum_required(VERSION 3.7.2)
 project(Project-Alpha)
 
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(${PROJECT_SOURCE_DIR}/lib)
+include_directories(${SFML_INCLUDE_DIR})
+
+set(SOURCE
+        src/main.cpp
+        src/core/constants.hpp
+        src/gfx/gfx.hpp src/gfx/gfx.cpp
+        src/gfx/renderable.hpp src/gfx/renderable.cpp src/world/terrain/terrain.hpp src/world/terrain/terrain.cpp)
+
+
+IF(UNIX)
+    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+
+    find_package(SFML 2 COMPONENTS system graphics window REQUIRED)
+ENDIF(UNIX)
+
 IF(WIN32 OR MSVC)
     set(SFML_EXT_PATH ${PROJECT_SOURCE_DIR}/lib/SFML)
 
@@ -16,3 +34,6 @@ IF(WIN32 OR MSVC)
         string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
     endforeach()
 ENDIF(WIN32 OR MSVC)
+
+add_executable(palpha ${SOURCE})
+target_link_libraries(palpha ${SFML_LIBRARIES})
