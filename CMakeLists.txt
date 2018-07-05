@@ -1,12 +1,8 @@
 cmake_minimum_required(VERSION 3.7.2)
 project(Project-Alpha)
 
-add_subdirectory(sln/external-lib/SFML)
-add_subdirectory(sln/external-lib/google-protobuf/cmake)
-
 IF(WIN32 OR MSVC)
-    set(SFML_EXT_PATH ${PROJECT_SOURCE_DIR}/sln/external-lib/SFML)
-    set(PROTOBUF_EXT_PATH ${PROJECT_SOURCE_DIR}/sln/external-lib/google-protobuf)
+    set(SFML_EXT_PATH ${PROJECT_SOURCE_DIR}/lib/SFML)
 
     set(CompilerFlags
             CMAKE_CXX_FLAGS
