@@ -33,20 +33,25 @@ public:
     Graphics(Graphics const&) = delete;
     void operator=(Graphics const&) = delete;
 
-    bool checkWithCamera(const sf::Rect<int>& object) const;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wsign-conversion"
     bool initGFX(const std::string &tileTexturePath, const std::string &windowName,
                  unsigned int screenWidth = CONSTANTS::GET_OBJECT().SCREEN_WIDTH,
                  unsigned int screenHeight = CONSTANTS::GET_OBJECT().SCREEN_HEIGHT, unsigned int framerate = 60);
+#pragma clang diagnostic pop
 
     sf::Sprite createSprite(sf::Rect<int> &spriteRect) const;
 
-    void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
+    void draw(const sf::Drawable& drawable, const sf::Rect<int> &object,
+              const sf::RenderStates& states = sf::RenderStates::Default);
     void centerCamera(const sf::Vector2i &prevPos, const sf::Vector2i &currentPos);
     void forceCenterCamera(const sf::Vector2i &posToCenterOn);
 
 private:
     Graphics() = default;
 
+    bool checkWithinCamera(const sf::Rect<int> &object) const;
     bool loadSpriteSheet(const std::string& filePath);
     bool checkCollision(const sf::Rect<int>& a, const sf::Rect<int>& b) const;
 

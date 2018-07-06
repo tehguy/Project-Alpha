@@ -28,9 +28,7 @@ Renderable::Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect)
 }
 
 void Renderable::render() {
-    if (Graphics::Instance().checkWithCamera(renderBox)) {
-        Graphics::Instance().draw(worldSprite);
-    }
+    Graphics::Instance().draw(worldSprite, renderBox);
 }
 
 void Renderable::setRenderPosition(const int x, const int y) {

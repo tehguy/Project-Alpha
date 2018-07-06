@@ -20,7 +20,7 @@
 #include <memory>
 #include "gfx.hpp"
 
-bool Graphics::checkWithCamera(const sf::Rect<int> &object) const {
+bool Graphics::checkWithinCamera(const sf::Rect<int> &object) const {
     return checkCollision(actualCameraBounds, object);
 }
 
@@ -76,8 +76,10 @@ sf::Sprite Graphics::createSprite(sf::Rect<int> &spriteRect) const{
     return sprite;
 }
 
-void Graphics::draw(const sf::Drawable &drawable, const sf::RenderStates &states) {
-    window.draw(drawable, states);
+void Graphics::draw(const sf::Drawable& drawable, const sf::Rect<int> &object, const sf::RenderStates &states) {
+    if (checkWithinCamera(object)) {
+        window.draw(drawable, states);
+    }
 }
 
 void Graphics::centerCamera(const sf::Vector2i &prevPos, const sf::Vector2i &currentPos) {
