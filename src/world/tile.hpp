@@ -18,28 +18,20 @@
 
 #pragma once
 
-#include <string>
-#include <vector>
+#include "terrain/terrain.hpp"
 
-#include "../../gfx/renderable.hpp"
-
-class Terrain : public Renderable {
+class Tile {
 public:
-    enum TYPE {
-        NONE,
-        GRASS,
-        WATER,
-        MOUNTAIN,
-        SNOW
-    };
+    Tile() = default; // NOLINT
 
-    Terrain(int x, int y, const sf::Rect<int> &spriteRect, TYPE type = TYPE::NONE, bool isPassable = true);
+    void setTerrain(Terrain terrain);
+    Terrain & getTerrain();
 
-    bool isPassable() const;
-    int getType() const;
+    void draw();
+    void resetRenderPosition(int x, int y);
+
+    bool isPassable();
 
 private:
-    bool passable;
-
-    TYPE ttype;
+    Terrain terrain;
 };

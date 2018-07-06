@@ -16,30 +16,24 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "tile.hpp"
 
-#include <string>
-#include <vector>
+void Tile::setTerrain(const Terrain terrain) {
+    this->terrain = terrain;
+}
 
-#include "../../gfx/renderable.hpp"
+Terrain &Tile::getTerrain() {
+    return terrain;
+}
 
-class Terrain : public Renderable {
-public:
-    enum TYPE {
-        NONE,
-        GRASS,
-        WATER,
-        MOUNTAIN,
-        SNOW
-    };
+void Tile::draw() {
+    terrain.render();
+}
 
-    Terrain(int x, int y, const sf::Rect<int> &spriteRect, TYPE type = TYPE::NONE, bool isPassable = true);
+void Tile::resetRenderPosition(const int x, const int y) {
+    terrain.setRenderPosition(x, y);
+}
 
-    bool isPassable() const;
-    int getType() const;
-
-private:
-    bool passable;
-
-    TYPE ttype;
-};
+bool Tile::isPassable() {
+    return terrain.isPassable();
+}

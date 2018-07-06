@@ -18,28 +18,26 @@
 
 #pragma once
 
-#include <string>
-#include <vector>
+#include "../gfx/renderable.hpp"
 
-#include "../../gfx/renderable.hpp"
-
-class Terrain : public Renderable {
+class Entity : public Renderable {
 public:
-    enum TYPE {
-        NONE,
-        GRASS,
-        WATER,
-        MOUNTAIN,
-        SNOW
-    };
+    Entity(sf::Rect<int> spriteRect, unsigned int curhp, unsigned int maxhp);
 
-    Terrain(int x, int y, const sf::Rect<int> &spriteRect, TYPE type = TYPE::NONE, bool isPassable = true);
+    unsigned int getCurrentHP() const;
+    unsigned int getMaxHP() const;
 
-    bool isPassable() const;
-    int getType() const;
+    virtual void addHP(unsigned int amtToAdd);
+    virtual void removeHP(unsigned int amtToRem);
+
+    void setPrevPos(int x, int y);
+    sf::Vector2i getPreviousPosition() const;
+
+    void setWorldPosition(int x, int y);
+    sf::Vector2i getWorldPosition() const;
 
 private:
-    bool passable;
+    unsigned int curhp, maxhp;
 
-    TYPE ttype;
+    sf::Vector2i prevPosition, worldPosition;
 };

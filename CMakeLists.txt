@@ -10,11 +10,16 @@ set(SOURCE
                                             src/main.cpp
         src/core/constants.hpp
 
+        src/entity/entity.hpp               src/entity/entity.cpp
+        src/entity/player.hpp               src/entity/player.cpp
+
         src/gfx/gfx.hpp                     src/gfx/gfx.cpp
         src/gfx/renderable.hpp              src/gfx/renderable.cpp
 
         src/world/terrain/terrain.hpp       src/world/terrain/terrain.cpp
-        src/world/terrain/terrain_gen.hpp)
+        src/world/terrain/terrain_gen.hpp
+
+        src/world/tile.hpp                  src/world/tile.cpp)
 
 
 IF(UNIX)

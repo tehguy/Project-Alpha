@@ -18,28 +18,21 @@
 
 #pragma once
 
-#include <string>
-#include <vector>
+#include "entity.hpp"
 
-#include "../../gfx/renderable.hpp"
-
-class Terrain : public Renderable {
+class Player : public Entity {
 public:
-    enum TYPE {
-        NONE,
-        GRASS,
-        WATER,
-        MOUNTAIN,
-        SNOW
-    };
+    explicit Player(unsigned int maxhp);
 
-    Terrain(int x, int y, const sf::Rect<int> &spriteRect, TYPE type = TYPE::NONE, bool isPassable = true);
+    unsigned int getCurExp() const;
+    unsigned int getExpToNextLevel() const;
 
-    bool isPassable() const;
-    int getType() const;
+    void addExpPoints(unsigned int amtToAdd);
+    void remExpPoints(unsigned int amtToRem);
+
+    void addHP(unsigned int amtToAdd) override;
+    void removeHP(unsigned int amtToRem) override;
 
 private:
-    bool passable;
-
-    TYPE ttype;
+    unsigned int curExp, expToNextLevel;
 };
