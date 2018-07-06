@@ -20,22 +20,22 @@
 #include "gfx.hpp"
 
 Renderable::Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect) {
-    worldSprite = Graphics::Instance()->createSprite(spriteRect);
+    worldSprite = Graphics::Instance().createSprite(spriteRect);
     setRenderPosition(x, y);
 
-    renderBox.width = CONSANTS::TILE_WIDTH;
-    renderBox.height = CONSANTS::TILE_HEIGHT;
+    renderBox.width = CONSTANTS::GET_OBJECT().TILE_WIDTH;
+    renderBox.height = CONSTANTS::GET_OBJECT().TILE_HEIGHT;
 }
 
 void Renderable::render() {
-    if (Graphics::Instance()->checkWithCamera(renderBox)) {
-        Graphics::Instance()->getWindow()->draw(worldSprite);
+    if (Graphics::Instance().checkWithCamera(renderBox)) {
+        Graphics::Instance().draw(worldSprite);
     }
 }
 
 void Renderable::setRenderPosition(const int x, const int y) {
-    renderBox.left = x * CONSANTS::TILE_WIDTH;
-    renderBox.top = y * CONSANTS::TILE_HEIGHT;
+    renderBox.left = x * CONSTANTS::GET_OBJECT().TILE_WIDTH;
+    renderBox.top = y * CONSTANTS::GET_OBJECT().TILE_HEIGHT;
 
     worldSprite.setPosition(renderBox.left, renderBox.top);
 }

@@ -18,9 +18,19 @@
 
 #pragma once
 
+#include <memory>
 #include <SFML/Graphics.hpp>
 
-namespace CONSANTS {
+class CONSTANTS {
+public:
+    static CONSTANTS& GET_OBJECT() {
+        static CONSTANTS instance;
+        return instance;
+    };
+
+    CONSTANTS(CONSTANTS const&) = delete;
+    void operator=(CONSTANTS const&) = delete;
+
     const int TILE_WIDTH = 16;
     const int TILE_HEIGHT = 16;
 
@@ -37,4 +47,7 @@ namespace CONSANTS {
     const sf::Rect<int> SNOW_SPRITE_RECT = sf::Rect<int>(48, 0, TILE_WIDTH, TILE_HEIGHT);
     const sf::Rect<int> PLAYER_SPRITE_RECT = sf::Rect<int>(0, 16, TILE_WIDTH, TILE_HEIGHT);
     const sf::Rect<int> CURSOR_SPRITE_RECT = sf::Rect<int>(16, 16, TILE_WIDTH, TILE_HEIGHT);
-}
+
+private:
+    CONSTANTS() = default;
+};

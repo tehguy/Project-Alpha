@@ -20,16 +20,6 @@
 #include <memory>
 #include "gfx.hpp"
 
-std::shared_ptr<Graphics> Graphics::gfxInstance = std::shared_ptr<Graphics>(nullptr);
-
-std::shared_ptr<Graphics> Graphics::Instance() {
-    if (gfxInstance == nullptr) {
-        gfxInstance = std::shared_ptr<Graphics>(new Graphics());
-    }
-
-    return gfxInstance;
-}
-
 bool Graphics::checkWithCamera(const sf::Rect<int> &object) const {
     return checkCollision(actualCameraBounds, object);
 }
@@ -53,15 +43,13 @@ bool Graphics::checkCollision(const sf::Rect<int> &a, const sf::Rect<int> &b) co
 
 bool Graphics::initGFX(const std::string &tileTexturePath, const std::string &windowName, unsigned int screenWidth,
                        unsigned int screenHeight, unsigned int framerate) {
-    sf::RenderWindow temp(sf::VideoMode(screenWidth, screenHeight), windowName);
-
-    window = std::make_shared<sf::RenderWindow>(sf::VideoMode(screenWidth, screenHeight), windowName);
-    window->setFramerateLimit(framerate);
+    window.create(sf::VideoMode(screenWidth, screenHeight), windowName);
+    window.setFramerateLimit(framerate);
 
     camera.setSize(screenWidth, screenHeight);
-    camera.setCenter(screenWidth/2, screenHeight/2);
+    camera.setCenter(screenWidth/2, screenHeight/2); // NOLINT
 
-    window->setView(camera);
+    window.setView(camera);
 
     initCamera(screenWidth, screenHeight);
 
@@ -79,10 +67,6 @@ bool Graphics::loadSpriteSheet(const std::string &filePath) {
     return tileTexture.loadFromFile(filePath);
 }
 
-std::shared_ptr<sf::RenderWindow> Graphics::getWindow() {
-    return window;
-}
-
 sf::Sprite Graphics::createSprite(sf::Rect<int> &spriteRect) const{
     sf::Sprite sprite;
 
@@ -92,23 +76,27 @@ sf::Sprite Graphics::createSprite(sf::Rect<int> &spriteRect) const{
     return sprite;
 }
 
-void Graphics::centerCamera(const sf::Vector2i &prevPos, const sf::Vector2i &currentPos) {
-    sf::View currentCam = window->getView();
+void Graphics::draw(const sf::Drawable &drawable, const sf::RenderStates &states) {
+    window.draw(drawable, states);
+}
 
-    float adjustedCamCenterX = std::floor(currentCam.getCenter().x / CONSANTS::TILE_WIDTH);
-    float adjustedCamCenterY = std::floor(currentCam.getCenter().y / CONSANTS::TILE_HEIGHT);
+void Graphics::centerCamera(const sf::Vector2i &prevPos, const sf::Vector2i &currentPos) {
+    sf::View currentCam = window.getView();
+
+    float adjustedCamCenterX = std::floor(currentCam.getCenter().x / CONSTANTS::GET_OBJECT().TILE_WIDTH);
+    float adjustedCamCenterY = std::floor(currentCam.getCenter().y / CONSTANTS::GET_OBJECT().TILE_HEIGHT);
 
     sf::Vector2f offset;
 
     if (prevPos.x != currentPos.x) {
         if (adjustedCamCenterX != currentPos.x) {
-            offset.x = ((currentPos.x - adjustedCamCenterX) * CONSANTS::TILE_WIDTH);
+            offset.x = ((currentPos.x - adjustedCamCenterX) * CONSTANTS::GET_OBJECT().TILE_WIDTH);
         }
     }
 
     if (prevPos.y != currentPos.y) {
         if (adjustedCamCenterY != currentPos.y) {
-            offset.y = ((currentPos.y - adjustedCamCenterY) * CONSANTS::TILE_HEIGHT);
+            offset.y = ((currentPos.y - adjustedCamCenterY) * CONSTANTS::GET_OBJECT().TILE_HEIGHT);
         }
     }
 
@@ -119,25 +107,25 @@ void Graphics::moveCamera(const sf::Vector2f &offset) {
     actualCameraBounds.left += offset.x;
     actualCameraBounds.top += offset.y;
 
-    sf::View view = window->getView();
+    sf::View view = window.getView();
     view.move(offset);
-    window->setView(view);
+    window.setView(view);
 }
 
 void Graphics::forceCenterCamera(const sf::Vector2i &posToCenterOn) {
-    sf::View currentCam = window->getView();
+    sf::View currentCam = window.getView();
 
-    float adjustedCamCenterX = std::floor(currentCam.getCenter().x / CONSANTS::TILE_WIDTH);
-    float adjustedCamCenterY = std::floor(currentCam.getCenter().y / CONSANTS::TILE_HEIGHT);
+    float adjustedCamCenterX = std::floor(currentCam.getCenter().x / CONSTANTS::GET_OBJECT().TILE_WIDTH);
+    float adjustedCamCenterY = std::floor(currentCam.getCenter().y / CONSTANTS::GET_OBJECT().TILE_HEIGHT);
 
     sf::Vector2f offset;
 
     if (adjustedCamCenterX != posToCenterOn.x) {
-        offset.x = ((posToCenterOn.x - adjustedCamCenterX) * CONSANTS::TILE_WIDTH);
+        offset.x = ((posToCenterOn.x - adjustedCamCenterX) * CONSTANTS::GET_OBJECT().TILE_WIDTH);
     }
 
     if (adjustedCamCenterY != posToCenterOn.y) {
-        offset.y = ((posToCenterOn.y - adjustedCamCenterY) * CONSANTS::TILE_HEIGHT);
+        offset.y = ((posToCenterOn.y - adjustedCamCenterY) * CONSTANTS::GET_OBJECT().TILE_HEIGHT);
     }
 
     moveCamera(offset);

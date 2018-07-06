@@ -24,35 +24,38 @@
 #include "../core/constants.hpp"
 
 class Graphics {
-protected:
-    Graphics() = default;
-
 public:
-    static std::shared_ptr<Graphics> Instance();
+    static Graphics& Instance() {
+        static Graphics instance;
+        return instance;
+    };
+
+    Graphics(Graphics const&) = delete;
+    void operator=(Graphics const&) = delete;
 
     bool checkWithCamera(const sf::Rect<int>& object) const;
     bool initGFX(const std::string &tileTexturePath, const std::string &windowName,
-                 unsigned int screenWidth = CONSANTS::SCREEN_WIDTH,
-                 unsigned int screenHeight = CONSANTS::SCREEN_HEIGHT, unsigned int framerate = 60);
+                 unsigned int screenWidth = CONSTANTS::GET_OBJECT().SCREEN_WIDTH,
+                 unsigned int screenHeight = CONSTANTS::GET_OBJECT().SCREEN_HEIGHT, unsigned int framerate = 60);
 
-    std::shared_ptr<sf::RenderWindow> getWindow();
     sf::Sprite createSprite(sf::Rect<int> &spriteRect) const;
 
+    void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
     void centerCamera(const sf::Vector2i &prevPos, const sf::Vector2i &currentPos);
     void forceCenterCamera(const sf::Vector2i &posToCenterOn);
 
 private:
+    Graphics() = default;
+
     bool loadSpriteSheet(const std::string& filePath);
     bool checkCollision(const sf::Rect<int>& a, const sf::Rect<int>& b) const;
 
     void initCamera(int w, int h);
     void moveCamera(const sf::Vector2f &offset);
 
-    std::shared_ptr<sf::RenderWindow> window;
+    sf::RenderWindow window;
     sf::View camera;
     sf::Texture tileTexture;
 
     sf::Rect<int> actualCameraBounds;
-
-    static std::shared_ptr<Graphics> gfxInstance;
 };

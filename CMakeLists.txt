@@ -7,10 +7,14 @@ include_directories(${PROJECT_SOURCE_DIR}/lib)
 include_directories(${SFML_INCLUDE_DIR})
 
 set(SOURCE
-        src/main.cpp
+                                            src/main.cpp
         src/core/constants.hpp
-        src/gfx/gfx.hpp src/gfx/gfx.cpp
-        src/gfx/renderable.hpp src/gfx/renderable.cpp src/world/terrain/terrain.hpp src/world/terrain/terrain.cpp)
+
+        src/gfx/gfx.hpp                     src/gfx/gfx.cpp
+        src/gfx/renderable.hpp              src/gfx/renderable.cpp
+
+        src/world/terrain/terrain.hpp       src/world/terrain/terrain.cpp
+        src/world/terrain/terrain_gen.hpp)
 
 
 IF(UNIX)

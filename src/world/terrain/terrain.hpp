@@ -33,7 +33,7 @@ public:
         SNOW
     };
 
-    Terrain(int x, int y, const sf::Rect<int> &spriteRect, bool isPassable, TYPE type);
+    Terrain(int x, int y, const sf::Rect<int> &spriteRect, TYPE type, bool isPassable = true);
 
     bool isPassable() const;
     int getType() const;

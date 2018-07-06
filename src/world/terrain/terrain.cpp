@@ -18,9 +18,8 @@
 
 #include "terrain.hpp"
 
-Terrain::Terrain(const int x, const int y, const sf::Rect<int> &spriteRect, const bool isPassable,
-                 const Terrain::TYPE type) : Renderable((unsigned int) x, (unsigned int) y, spriteRect),
-                                             passable(isPassable), ttype(type) {}
+Terrain::Terrain(int x, int y, const sf::Rect<int> &spriteRect, TYPE type, bool isPassable) : Renderable((unsigned int) x, (unsigned int) y, spriteRect),
+                                                                                              passable(isPassable), ttype(type) {}
 
 bool Terrain::isPassable() const {
     return passable;
