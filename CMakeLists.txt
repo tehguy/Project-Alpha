@@ -9,6 +9,8 @@ include_directories(${SFML_INCLUDE_DIR})
 set(SOURCE
                                             src/main.cpp
         src/core/constants.hpp
+        src/core/perlin_noise.hpp           src/core/perlin_noise.cpp
+        src/core/random_number_gen.hpp
 
         src/entity/entity.hpp               src/entity/entity.cpp
         src/entity/player.hpp               src/entity/player.cpp
