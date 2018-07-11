@@ -16,15 +16,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef TILE_HPP
+#define TILE_HPP
 
 #include "terrain/terrain.hpp"
 
 class Tile {
 public:
-    Tile() = default; // NOLINT
-
-    void setTerrain(Terrain terrain);
+    Tile(int x, int y, Terrain terrain);
+    void setTerrain(int x, int y, Terrain terrain);
     Terrain & getTerrain();
 
     void draw();
@@ -35,3 +35,5 @@ public:
 private:
     Terrain terrain;
 };
+
+#endif

@@ -21,6 +21,7 @@ set(SOURCE
         src/world/terrain/terrain.hpp       src/world/terrain/terrain.cpp
         src/world/terrain/terrain_gen.hpp
 
+        src/world/area.hpp                  src/world/area.cpp
         src/world/tile.hpp                  src/world/tile.cpp)
 
 

@@ -18,26 +18,36 @@
 
 #pragma once
 
-#include "terrain.hpp"
+#include "../tile.hpp"
 
 namespace TERRAIN_GEN {
-    Terrain GEN_SPACE(const int x, const int y) {
-        return Terrain(x, y, CONSTANTS::GET_OBJECT().BLANK_SPRITE_RECT, Terrain::TYPE::NONE, false);
+    Tile GEN_SPACE(const int x, const int y) {
+        Terrain space(CONSTANTS::GET_OBJECT().BLANK_SPRITE_RECT, Terrain::TYPE::NONE, false);
+
+        return Tile(x, y, space);
     }
 
-    Terrain GEN_GRASS(const int x, const int y) {
-        return Terrain(x, y, CONSTANTS::GET_OBJECT().GRASS_SPRITE_RECT, Terrain::TYPE::GRASS);
+    Tile GEN_GRASS(const int x, const int y) {
+        Terrain grass(CONSTANTS::GET_OBJECT().GRASS_SPRITE_RECT, Terrain::TYPE::GRASS, false);
+
+        return Tile(x, y, grass);
     };
 
-    Terrain GEN_WATER(const int x, const int y) {
-        return Terrain(x, y, CONSTANTS::GET_OBJECT().WATER_SPRITE_RECT, Terrain::TYPE::WATER);
+    Tile GEN_WATER(const int x, const int y) {
+        Terrain water(CONSTANTS::GET_OBJECT().WATER_SPRITE_RECT, Terrain::TYPE::WATER, false);
+
+        return Tile(x, y, water);
     };
 
-    Terrain GEN_MOUNTAIN(const int x, const int y) {
-        return Terrain(x, y, CONSTANTS::GET_OBJECT().MOUNTAIN_SPRITE_RECT, Terrain::TYPE::MOUNTAIN, false);
+    Tile GEN_MOUNTAIN(const int x, const int y) {
+        Terrain mountain(CONSTANTS::GET_OBJECT().MOUNTAIN_SPRITE_RECT, Terrain::TYPE::MOUNTAIN, false);;
+
+        return Tile(x, y, mountain);
     }
 
-    Terrain GEN_SNOW(const int x, const int y) {
-        return Terrain(x, y, CONSTANTS::GET_OBJECT().SNOW_SPRITE_RECT, Terrain::TYPE::SNOW);
+    Tile GEN_SNOW(const int x, const int y) {
+        Terrain snow(CONSTANTS::GET_OBJECT().SNOW_SPRITE_RECT, Terrain::TYPE::SNOW, false);
+
+        return Tile(x, y, snow);
     }
 }

@@ -16,15 +16,37 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "terrain.hpp"
+#pragma once
 
-Terrain::Terrain(const sf::Rect<int> &spriteRect, TYPE type, bool isPassable) : Renderable(0, 0, spriteRect),
-                                                                                passable(isPassable), ttype(type) {}
+#include <string>
+#include <SFML/System.hpp>
+#include <utility>
+#include <vector>
+#include "tile.hpp"
 
-bool Terrain::isPassable() const {
-    return passable;
-}
+class Area {
+public:
+    explicit Area(std::string name);
 
-int Terrain::getType() const {
-    return ttype;
-}
+    sf::Vector2i getAreaDimensions() const;
+    std::string & getAreaName();
+
+    void draw();
+
+    void genRandom(unsigned int seed);
+
+    bool collisionExistsAtPoint(unsigned int x, unsigned int y);
+
+    void resetRenderPos(int x, int y);
+
+private:
+    void setMapTile(unsigned int x, unsigned int y, const Tile &tile);
+    Tile & getMapTile(unsigned int x, unsigned int y);
+
+    std::string areaName;
+
+    sf::Vector2i areaDimensions;
+
+
+    std::vector<std::vector<Tile>> tileMap;
+};

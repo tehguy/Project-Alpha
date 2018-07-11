@@ -18,8 +18,15 @@
 
 #include "tile.hpp"
 
-void Tile::setTerrain(const Terrain terrain) {
-    this->terrain = terrain;
+Tile::Tile(int x, int y, Terrain terrain) : terrain(std::move(terrain)) {
+    resetRenderPosition(x, y);
+}
+
+
+void Tile::setTerrain(int x, int y, Terrain terrain) {
+    this->terrain = std::move(terrain);
+
+    resetRenderPosition(x, y);
 }
 
 Terrain &Tile::getTerrain() {
