@@ -75,33 +75,16 @@ void Location::drawArea(const int x, const int y, const sf::Vector2i renderPos) 
 }
 
 void Location::drawChunk() {
-    int negXOffset = (-1) * CONSTANTS::GET_OBJECT().AREA_WIDTH;
-    int negYOffset = (-1) * CONSTANTS::GET_OBJECT().AREA_HEIGHT;
+    /* start drawing one space to the left/up, end before 2 spaces right/down */
+    const int drawStartRelative = -1;
+    const int drawEndRelative = 2;
 
-    /* draw middle */
-    drawArea(center.x, center.y, {0, 0});
+    for (int x = drawStartRelative; x < drawEndRelative; x++) {
+        int xOffset = x * CONSTANTS::GET_OBJECT().AREA_WIDTH;
 
-    /* draw north area */
-    drawArea(center.x, (center.y - 1), {0, negYOffset});
-
-    /* draw north east area */
-    drawArea((center.x + 1), (center.y - 1), {CONSTANTS::GET_OBJECT().AREA_WIDTH, negYOffset});
-
-    /* draw east area */
-    drawArea((center.x + 1), center.y, {CONSTANTS::GET_OBJECT().AREA_WIDTH, 0});
-
-    /* draw south east area */
-    drawArea((center.x + 1), (center.y + 1), {CONSTANTS::GET_OBJECT().AREA_WIDTH, CONSTANTS::GET_OBJECT().AREA_HEIGHT});
-
-    /* draw south area */
-    drawArea(center.x, (center.y + 1), {0, CONSTANTS::GET_OBJECT().AREA_HEIGHT});
-
-    /* draw south west area */
-    drawArea((center.x - 1), (center.y + 1), {negXOffset, CONSTANTS::GET_OBJECT().AREA_HEIGHT});
-
-    /* draw west area */
-    drawArea((center.x - 1), center.y, {negXOffset, 0});
-
-    /* draw north west area */
-    drawArea((center.x - 1), (center.y - 1), {negXOffset, negYOffset});
+        for (int y = drawStartRelative; y < drawEndRelative; y++) {
+            int yOffset = y * CONSTANTS::GET_OBJECT().AREA_HEIGHT;
+            drawArea((center.x + x), (center.y + 1), {xOffset, yOffset});
+        }
+    }
 }
