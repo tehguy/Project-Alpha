@@ -77,9 +77,13 @@ sf::Sprite Graphics::createSprite(sf::Rect<int> &spriteRect) const{
 }
 
 void Graphics::draw(const sf::Drawable& drawable, const sf::Rect<int> &object, const sf::RenderStates &states) {
-    if (checkWithinCamera(object)) {
+    //if (checkWithinCamera(object)) {
         window.draw(drawable, states);
-    }
+    //}
+}
+
+void Graphics::clearWindow(sf::Color clearColor) {
+    window.clear(clearColor);
 }
 
 void Graphics::centerCamera(const sf::Vector2i &prevPos, const sf::Vector2i &currentPos) {
@@ -132,3 +136,24 @@ void Graphics::forceCenterCamera(const sf::Vector2i &posToCenterOn) {
 
     moveCamera(offset);
 }
+
+void Graphics::shutdown() {
+    window.close();
+}
+
+bool Graphics::windowIsOpen() {
+    return window.isOpen();
+}
+
+bool Graphics::pollEvent(sf::Event &event) {
+    return window.pollEvent(event);
+}
+
+void Graphics::display() {
+    window.display();
+}
+
+void Graphics::setActive() {
+    window.setActive();
+}
+

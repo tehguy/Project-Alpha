@@ -41,7 +41,7 @@ sf::Vector2i Location::getLocationDimensions() const {
     return dimensions;
 }
 
-void Location::placeArea(const int x, const int y, const Area &area) {
+void Location::placeArea(int x, int y, Area area) {
     if (coordinatesWithinLocation(x, y)) {
         areas[x][y] = std::make_unique<Area>(area);
     }
@@ -57,8 +57,6 @@ std::string &Location::getLocationName() {
 
 void Location::setCurrentArea(unsigned int x, unsigned int y) {
     if (areas[x][y] != nullptr) {
-        areas[x][y]->resetRenderPos(0, 0);
-
         int cX = x, cY = y;
 
         center = {cX, cY};
@@ -84,7 +82,7 @@ void Location::drawChunk() {
 
         for (int y = drawStartRelative; y < drawEndRelative; y++) {
             int yOffset = y * CONSTANTS::GET_OBJECT().AREA_HEIGHT;
-            drawArea((center.x + x), (center.y + 1), {xOffset, yOffset});
+            drawArea((center.x + x), (center.y + y), {xOffset, yOffset});
         }
     }
 }

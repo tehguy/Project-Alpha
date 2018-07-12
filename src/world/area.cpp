@@ -88,17 +88,16 @@ void Area::genRandom(const unsigned int seed) {
 }
 
 bool Area::collisionExistsAtPoint(const unsigned int x, const unsigned int y) {
-    return tileMap.at(x).at(y).isPassable();
+    return tileMap[x][y].isPassable();
 }
 
 void Area::resetRenderPos(const int x, const int y) {
-    for (int i = 0; i < areaDimensions.x; i++) {
-        for (int j = 0; j < areaDimensions.y; j++) {
+    for (unsigned int i = 0; i < areaDimensions.x; i++) {
+        for (unsigned int j = 0; j < areaDimensions.y; j++) {
             int xTarget = i + x;
             int yTarget = j + y;
 
-            getMapTile(static_cast<unsigned int>(xTarget), static_cast<unsigned int>(yTarget))
-                    .resetRenderPosition(xTarget, yTarget);
+            getMapTile(i, j).resetRenderPosition(xTarget, yTarget);
         }
     }
 }

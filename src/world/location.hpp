@@ -29,7 +29,7 @@ public:
 
     sf::Vector2i getLocationDimensions() const;
 
-    void placeArea(int x, int y, const Area &area);
+    void placeArea(int x, int y, Area area);
 
     std::string & getLocationName();
 

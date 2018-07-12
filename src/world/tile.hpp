@@ -22,8 +22,6 @@
 class Tile {
 public:
     Tile(int x, int y, Terrain terrain);
-    void setTerrain(int x, int y, Terrain terrain);
-    Terrain & getTerrain();
 
     void draw();
     void resetRenderPosition(int x, int y);

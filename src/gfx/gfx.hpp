@@ -45,8 +45,15 @@ public:
 
     void draw(const sf::Drawable& drawable, const sf::Rect<int> &object,
               const sf::RenderStates& states = sf::RenderStates::Default);
+    void clearWindow(sf::Color clearColor = sf::Color::Black);
     void centerCamera(const sf::Vector2i &prevPos, const sf::Vector2i &currentPos);
     void forceCenterCamera(const sf::Vector2i &posToCenterOn);
+
+    void shutdown();
+    bool windowIsOpen();
+    bool pollEvent(sf::Event &event);
+    void display();
+    void setActive();
 
 private:
     Graphics() = default;

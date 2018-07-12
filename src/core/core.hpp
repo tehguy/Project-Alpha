@@ -16,20 +16,20 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tile.hpp"
+#pragma once
 
-Tile::Tile(int x, int y, Terrain terrain) : terrain(std::move(terrain)) {
-    resetRenderPosition(x, y);
-}
+#include "../world/location.hpp"
 
-void Tile::draw() {
-    terrain.render();
-}
+class Core {
+public:
+    Core() = default;;
+    int init();
 
-void Tile::resetRenderPosition(const int x, const int y) {
-    terrain.setRenderPosition(x, y);
-}
+private:
+    void gameLoop();
+    void handleInput(int key);
+    void drawGame();
+    void genTestArea();
 
-bool Tile::isPassable() {
-    return terrain.isPassable();
-}
+    std::unique_ptr<Location> current;
+};

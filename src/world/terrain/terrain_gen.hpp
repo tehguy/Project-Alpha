@@ -28,13 +28,13 @@ namespace TERRAIN_GEN {
     }
 
     Tile GEN_GRASS(const int x, const int y) {
-        Terrain grass(CONSTANTS::GET_OBJECT().GRASS_SPRITE_RECT, Terrain::TYPE::GRASS, false);
+        Terrain grass(CONSTANTS::GET_OBJECT().GRASS_SPRITE_RECT, Terrain::TYPE::GRASS, true);
 
         return Tile(x, y, grass);
     };
 
     Tile GEN_WATER(const int x, const int y) {
-        Terrain water(CONSTANTS::GET_OBJECT().WATER_SPRITE_RECT, Terrain::TYPE::WATER, false);
+        Terrain water(CONSTANTS::GET_OBJECT().WATER_SPRITE_RECT, Terrain::TYPE::WATER, true);
 
         return Tile(x, y, water);
     };
@@ -46,7 +46,7 @@ namespace TERRAIN_GEN {
     }
 
     Tile GEN_SNOW(const int x, const int y) {
-        Terrain snow(CONSTANTS::GET_OBJECT().SNOW_SPRITE_RECT, Terrain::TYPE::SNOW, false);
+        Terrain snow(CONSTANTS::GET_OBJECT().SNOW_SPRITE_RECT, Terrain::TYPE::SNOW, true);
 
         return Tile(x, y, snow);
     }
