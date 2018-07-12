@@ -47,7 +47,7 @@ std::string &Area::getAreaName() {
     return areaName;
 }
 
-void Area::draw() {
+void Area::drawArea() {
     for (auto& innerVec : tileMap) {
         for (auto& tile : innerVec) {
             tile.draw();

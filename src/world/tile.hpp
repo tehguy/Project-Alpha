@@ -15,9 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#ifndef TILE_HPP
-#define TILE_HPP
+#pragma once
 
 #include "terrain/terrain.hpp"
 
@@ -35,5 +33,3 @@ public:
 private:
     Terrain terrain;
 };
-
-#endif

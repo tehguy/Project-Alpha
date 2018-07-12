@@ -20,33 +20,36 @@
 
 #include <string>
 #include <SFML/System.hpp>
-#include <utility>
-#include <vector>
-#include "tile.hpp"
 
-class Area {
+#include "area.hpp"
+
+class Location {
 public:
-    explicit Area(std::string name);
+    Location(std::string name, int width, int height);
 
-    sf::Vector2i getAreaDimensions() const;
-    std::string & getAreaName();
+    sf::Vector2i getLocationDimensions() const;
 
-    void drawArea();
+    void placeArea(int x, int y, const Area &area);
 
-    void genRandom(unsigned int seed);
+    std::string & getLocationName();
 
-    bool collisionExistsAtPoint(unsigned int x, unsigned int y);
+    void setCurrentArea(unsigned int x, unsigned int y);
 
-    void resetRenderPos(int x, int y);
+    void drawChunk();
 
 private:
-    void setMapTile(unsigned int x, unsigned int y, const Tile &tile);
-    Tile & getMapTile(unsigned int x, unsigned int y);
+    bool coordinatesWithinLocation(int x, int y);
 
-    std::string areaName;
+    void initAreaVector();
 
-    sf::Vector2i areaDimensions;
+    void drawArea(int x, int y, sf::Vector2i renderPos);
 
+    typedef std::vector<std::vector<std::unique_ptr<Area>>> areaVec;
 
-    std::vector<std::vector<Tile>> tileMap;
+    areaVec areas;
+
+    sf::Vector2i dimensions;
+    sf::Vector2i center;
+
+    std::string locationName;
 };
