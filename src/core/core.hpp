@@ -31,5 +31,5 @@ private:
     void drawGame();
     void genTestArea();
 
-    std::unique_ptr<Location> current;
+    std::unique_ptr<Location> currentLocation;
 };

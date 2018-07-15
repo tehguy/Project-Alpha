@@ -37,8 +37,8 @@ public:
     const int SCREEN_WIDTH = 1280;
     const int SCREEN_HEIGHT = 720;
 
-    const int AREA_WIDTH = 5;
-    const int AREA_HEIGHT = 5;
+    const int AREA_WIDTH = 20;
+    const int AREA_HEIGHT = 20;
 
     const sf::Rect<int> BLANK_SPRITE_RECT = sf::Rect<int>(0, 0, 0, 0);
     const sf::Rect<int> GRASS_SPRITE_RECT = sf::Rect<int>(0, 0, TILE_WIDTH, TILE_HEIGHT);

@@ -58,7 +58,7 @@ void Core::handleInput(int key) {
 }
 
 void Core::genTestArea() {
-    current = std::make_unique<Location>("Big Test", 2, 2);
+    currentLocation = std::make_unique<Location>("Big Test", 2, 2);
     Area area1("Test1");
     Area area2("Test2");
     Area area3("Test3");
@@ -69,19 +69,19 @@ void Core::genTestArea() {
     area3.genRandom(146);
     area4.genRandom(723);
 
-    current->placeArea(0, 0, area1);
-    current->placeArea(1, 0, area2);
-    current->placeArea(0, 1, area3);
-    current->placeArea(1, 1, area4);
+    currentLocation->placeArea(0, 0, area1);
+    currentLocation->placeArea(1, 0, area2);
+    currentLocation->placeArea(0, 1, area3);
+    currentLocation->placeArea(1, 1, area4);
 
-    current->setCurrentArea(0, 0);
+    currentLocation->setCurrentArea(0, 0);
 }
 
 void Core::drawGame() {
     Graphics::Instance().clearWindow();
 
-    if (current != nullptr) {
-        current->drawChunk();
+    if (currentLocation != nullptr) {
+        currentLocation->drawChunk();
     }
 
     Graphics::Instance().display();
