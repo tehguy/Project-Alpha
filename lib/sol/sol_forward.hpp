@@ -20,8 +20,8 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // This file was generated with a script.
-// Generated 2018-06-27 15:33:52.214419 UTC
-// This header was generated with sol v2.20.4 (revision 60ee53a)
+// Generated 2018-08-04 15:02:30.657205 UTC
+// This header was generated with sol v2.20.3 (revision daa9993)
 // https://github.com/ThePhD/sol2
 
 #ifndef SOL_SINGLE_INCLUDE_FORWARD_HPP
@@ -57,7 +57,7 @@
 // beginning of sol/config.hpp
 
 #ifdef _MSC_VER
-#if defined(_DEBUG) && !defined(NDEBUG)
+	#if defined(_DEBUG) && !defined(NDEBUG)
 
 	#ifndef SOL_IN_DEBUG_DETECTED
 	#define SOL_IN_DEBUG_DETECTED 1
@@ -78,7 +78,7 @@
 	#endif // Automatic RTTI
 #elif defined(__GNUC__) || defined(__clang__)
 
-#if !defined(NDEBUG) && !defined(__OPTIMIZE__)
+	#if !defined(NDEBUG) && !defined(__OPTIMIZE__)
 
 	#ifndef SOL_IN_DEBUG_DETECTED
 	#define SOL_IN_DEBUG_DETECTED 1
@@ -102,7 +102,7 @@
 
 #if defined(SOL_CHECK_ARGUMENTS) && SOL_CHECK_ARGUMENTS
 
-// Checks low-level getter function
+	// Checks low-level getter function
 	// (and thusly, affects nearly entire framework)
 	#if !defined(SOL_SAFE_GETTER)
 	#define SOL_SAFE_GETTER 1
@@ -123,7 +123,7 @@
 	#define SOL_SAFE_REFERENCES 1
 	#endif
 
-	// Changes all typedefs of sol::function to point to the
+	// Changes all typedefs of sol::function to point to the 
 	// protected_function version, instead of unsafe_function
 	#if !defined(SOL_SAFE_FUNCTION)
 	#define SOL_SAFE_FUNCTION 1
@@ -153,7 +153,7 @@
 	#endif
 
 	// Turn off Number Precision Checks
-	// if this is defined, we do not do range
+	// if this is defined, we do not do range 
 	// checks on integers / unsigned integers that might
 	// be bigger than what Lua can represent
 	#if !defined(SOL_NO_CHECK_NUMBER_PRECISION)
@@ -165,7 +165,7 @@
 
 #if defined(SOL_IN_DEBUG_DETECTED) && SOL_IN_DEBUG_DETECTED
 
-#if !defined(SOL_SAFE_REFERENCES)
+	#if !defined(SOL_SAFE_REFERENCES)
 	// Ensure that references are forcefully type-checked upon construction
 	#define SOL_SAFE_REFERENCES 1
 	#endif
@@ -213,7 +213,7 @@
 #ifndef SOL_UNORDERED_MAP_COMPATIBLE_HASH
 #define SOL_UNORDERED_MAP_COMPATIBLE_HASH 1
 #endif // SOL_UNORDERED_MAP_COMPATIBLE_HASH
-#endif
+#endif 
 
 #ifndef SOL_STACK_STRING_OPTIMIZATION_SIZE
 #define SOL_STACK_STRING_OPTIMIZATION_SIZE 1024
@@ -229,136 +229,136 @@
 
 namespace sol {
 
-    template <bool b>
-    class basic_reference;
-    using reference = basic_reference<false>;
-    using main_reference = basic_reference<true>;
-    class stack_reference;
+	template <bool b>
+	class basic_reference;
+	using reference = basic_reference<false>;
+	using main_reference = basic_reference<true>;
+	class stack_reference;
 
-    struct proxy_base_tag;
-    template <typename Super>
-    struct proxy_base;
-    template <typename Table, typename Key>
-    struct proxy;
+	struct proxy_base_tag;
+	template <typename Super>
+	struct proxy_base;
+	template <typename Table, typename Key>
+	struct proxy;
 
-    template <typename T>
-    class usertype;
-    template <typename T>
-    class simple_usertype;
-    template <bool, typename T>
-    class basic_table_core;
-    template <bool b>
-    using table_core = basic_table_core<b, reference>;
-    template <bool b>
-    using main_table_core = basic_table_core<b, main_reference>;
-    template <bool b>
-    using stack_table_core = basic_table_core<b, stack_reference>;
-    template <typename T>
-    using basic_table = basic_table_core<false, T>;
-    typedef table_core<false> table;
-    typedef table_core<true> global_table;
-    typedef main_table_core<false> main_table;
-    typedef main_table_core<true> main_global_table;
-    typedef stack_table_core<false> stack_table;
-    typedef stack_table_core<true> stack_global_table;
-    template <typename base_t>
-    struct basic_environment;
-    using environment = basic_environment<reference>;
-    using main_environment = basic_environment<main_reference>;
-    using stack_environment = basic_environment<stack_reference>;
-    template <typename T, bool>
-    class basic_function;
-    template <typename T, bool, typename H>
-    class basic_protected_function;
-    using unsafe_function = basic_function<reference, false>;
-    using safe_function = basic_protected_function<reference, false, reference>;
-    using main_unsafe_function = basic_function<main_reference, false>;
-    using main_safe_function = basic_protected_function<main_reference, false, reference>;
-    using stack_unsafe_function = basic_function<stack_reference, false>;
-    using stack_safe_function = basic_protected_function<stack_reference, false, reference>;
-    using stack_aligned_unsafe_function = basic_function<stack_reference, true>;
-    using stack_aligned_safe_function = basic_protected_function<stack_reference, true, reference>;
-    using protected_function = safe_function;
-    using main_protected_function = main_safe_function;
-    using stack_protected_function = stack_safe_function;
-    using stack_aligned_protected_function = stack_aligned_safe_function;
+	template <typename T>
+	class usertype;
+	template <typename T>
+	class simple_usertype;
+	template <bool, typename T>
+	class basic_table_core;
+	template <bool b>
+	using table_core = basic_table_core<b, reference>;
+	template <bool b>
+	using main_table_core = basic_table_core<b, main_reference>;
+	template <bool b>
+	using stack_table_core = basic_table_core<b, stack_reference>;
+	template <typename T>
+	using basic_table = basic_table_core<false, T>;
+	typedef table_core<false> table;
+	typedef table_core<true> global_table;
+	typedef main_table_core<false> main_table;
+	typedef main_table_core<true> main_global_table;
+	typedef stack_table_core<false> stack_table;
+	typedef stack_table_core<true> stack_global_table;
+	template <typename base_t>
+	struct basic_environment;
+	using environment = basic_environment<reference>;
+	using main_environment = basic_environment<main_reference>;
+	using stack_environment = basic_environment<stack_reference>;
+	template <typename T, bool>
+	class basic_function;
+	template <typename T, bool, typename H>
+	class basic_protected_function;
+	using unsafe_function = basic_function<reference, false>;
+	using safe_function = basic_protected_function<reference, false, reference>;
+	using main_unsafe_function = basic_function<main_reference, false>;
+	using main_safe_function = basic_protected_function<main_reference, false, reference>;
+	using stack_unsafe_function = basic_function<stack_reference, false>;
+	using stack_safe_function = basic_protected_function<stack_reference, false, reference>;
+	using stack_aligned_unsafe_function = basic_function<stack_reference, true>;
+	using stack_aligned_safe_function = basic_protected_function<stack_reference, true, reference>;
+	using protected_function = safe_function;
+	using main_protected_function = main_safe_function;
+	using stack_protected_function = stack_safe_function;
+	using stack_aligned_protected_function = stack_aligned_safe_function;
 #if defined(SOL_SAFE_FUNCTION) && SOL_SAFE_FUNCTION
-    using function = protected_function;
+	using function = protected_function;
 	using main_function = main_protected_function;
 	using stack_function = stack_protected_function;
 #else
-    using function = unsafe_function;
-    using main_function = main_unsafe_function;
-    using stack_function = stack_unsafe_function;
+	using function = unsafe_function;
+	using main_function = main_unsafe_function;
+	using stack_function = stack_unsafe_function;
 #endif
-    using stack_aligned_function = stack_aligned_unsafe_function;
-    using stack_aligned_stack_handler_function = basic_protected_function<stack_reference, true, stack_reference>;
+	using stack_aligned_function = stack_aligned_unsafe_function;
+	using stack_aligned_stack_handler_function = basic_protected_function<stack_reference, true, stack_reference>;
 
-    struct unsafe_function_result;
-    struct protected_function_result;
-    using safe_function_result = protected_function_result;
+	struct unsafe_function_result;
+	struct protected_function_result;
+	using safe_function_result = protected_function_result;
 #if defined(SOL_SAFE_FUNCTION) && SOL_SAFE_FUNCTION
-    using function_result = safe_function_result;
+	using function_result = safe_function_result;
 #else
-    using function_result = unsafe_function_result;
+	using function_result = unsafe_function_result;
 #endif
 
-    template <typename base_t>
-    class basic_object;
-    template <typename base_t>
-    class basic_userdata;
-    template <typename base_t>
-    class basic_lightuserdata;
-    template <typename base_t>
-    class basic_coroutine;
-    template <typename base_t>
-    class basic_thread;
+	template <typename base_t>
+	class basic_object;
+	template <typename base_t>
+	class basic_userdata;
+	template <typename base_t>
+	class basic_lightuserdata;
+	template <typename base_t>
+	class basic_coroutine;
+	template <typename base_t>
+	class basic_thread;
 
-    using object = basic_object<reference>;
-    using userdata = basic_userdata<reference>;
-    using lightuserdata = basic_lightuserdata<reference>;
-    using thread = basic_thread<reference>;
-    using coroutine = basic_coroutine<reference>;
-    using main_object = basic_object<main_reference>;
-    using main_userdata = basic_userdata<main_reference>;
-    using main_lightuserdata = basic_lightuserdata<main_reference>;
-    using main_coroutine = basic_coroutine<main_reference>;
-    using stack_object = basic_object<stack_reference>;
-    using stack_userdata = basic_userdata<stack_reference>;
-    using stack_lightuserdata = basic_lightuserdata<stack_reference>;
-    using stack_thread = basic_thread<stack_reference>;
-    using stack_coroutine = basic_coroutine<stack_reference>;
+	using object = basic_object<reference>;
+	using userdata = basic_userdata<reference>;
+	using lightuserdata = basic_lightuserdata<reference>;
+	using thread = basic_thread<reference>;
+	using coroutine = basic_coroutine<reference>;
+	using main_object = basic_object<main_reference>;
+	using main_userdata = basic_userdata<main_reference>;
+	using main_lightuserdata = basic_lightuserdata<main_reference>;
+	using main_coroutine = basic_coroutine<main_reference>;
+	using stack_object = basic_object<stack_reference>;
+	using stack_userdata = basic_userdata<stack_reference>;
+	using stack_lightuserdata = basic_lightuserdata<stack_reference>;
+	using stack_thread = basic_thread<stack_reference>;
+	using stack_coroutine = basic_coroutine<stack_reference>;
 
-    struct stack_proxy_base;
-    struct stack_proxy;
-    struct variadic_args;
-    struct variadic_results;
-    struct stack_count;
-    struct this_state;
-    struct this_main_state;
-    struct this_environment;
+	struct stack_proxy_base;
+	struct stack_proxy;
+	struct variadic_args;
+	struct variadic_results;
+	struct stack_count;
+	struct this_state;
+	struct this_main_state;
+	struct this_environment;
 
-    template <typename T>
-    struct as_table_t;
-    template <typename T>
-    struct as_container_t;
-    template <typename T>
-    struct nested;
-    template <typename T>
-    struct light;
-    template <typename T>
-    struct user;
-    template <typename T>
-    struct as_args_t;
-    template <typename T>
-    struct protect_t;
-    template <typename F, typename... Filters>
-    struct filter_wrapper;
+	template <typename T>
+	struct as_table_t;
+	template <typename T>
+	struct as_container_t;
+	template <typename T>
+	struct nested;
+	template <typename T>
+	struct light;
+	template <typename T>
+	struct user;
+	template <typename T>
+	struct as_args_t;
+	template <typename T>
+	struct protect_t;
+	template <typename F, typename... Filters>
+	struct filter_wrapper;
 
-    template <typename T>
-    struct usertype_traits;
-    template <typename T>
-    struct unique_usertype_traits;
+	template <typename T>
+	struct usertype_traits;
+	template <typename T>
+	struct unique_usertype_traits;
 } // namespace sol
 
 // end of sol/forward.hpp

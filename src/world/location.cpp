@@ -57,9 +57,9 @@ std::string &Location::getLocationName() {
 
 void Location::setCurrentArea(unsigned int x, unsigned int y) {
     if (areas[x][y] != nullptr) {
-        int cX = x, cY = y;
+        int cenX = x, cenY = y;
 
-        center = {cX, cY};
+        currentAreaCoords = {cenX, cenY};
     }
 }
 
@@ -82,7 +82,53 @@ void Location::drawChunk() {
 
         for (int y = drawStartRelative; y < drawEndRelative; y++) {
             int yOffset = y * CONSTANTS::GET_OBJECT().AREA_HEIGHT;
-            drawArea((center.x + x), (center.y + y), {xOffset, yOffset});
+            drawArea((currentAreaCoords.x + x), (currentAreaCoords.y + y), {xOffset, yOffset});
         }
     }
+}
+
+bool Location::canMoveToPosition(sf::Vector2i moveTo) {
+    auto curX = static_cast<unsigned int>(currentAreaCoords.x), curY = static_cast<unsigned int>(currentAreaCoords.y);
+
+    bool canPass;
+
+    if (moveTo.x >= areas[curX][curY]->getAreaDimensions().x) {
+        if ((curX + 1) >= dimensions.x) return false;
+        if (areas[curX + 1][curY] == nullptr) return false;
+
+        int adjustedMoveX = moveTo.x - areas[curX][curY]->getAreaDimensions().x;
+        canPass = areas[curX + 1][curY]->collisionExistsAtPoint(static_cast<unsigned int>(adjustedMoveX),
+                                                             static_cast<unsigned int>(moveTo.y));
+
+    } else if (moveTo.x < 0) {
+        if ((curX - 1) < 0) return false;
+        if (areas[curX - 1][curY] == nullptr) return false;
+
+        int adjustedMoveX = moveTo.x + areas[curX][curY]->getAreaDimensions().x;
+        canPass = areas[curX - 1][curY]->collisionExistsAtPoint(static_cast<unsigned int>(adjustedMoveX),
+                                                             static_cast<unsigned int>(moveTo.y));
+
+    } else if (moveTo.y >= areas[curX][curY]->getAreaDimensions().y) {
+        if ((curY + 1) >= dimensions.y) return false;
+        if (areas[curX][curY + 1] == nullptr) return false;
+
+        int adjustedMoveY = moveTo.y - areas[curX][curY]->getAreaDimensions().y;
+        canPass = areas[curX][curY + 1]->collisionExistsAtPoint(static_cast<unsigned int>(moveTo.x),
+                                                             static_cast<unsigned int>(adjustedMoveY));
+
+    } else if (moveTo.y < 0) {
+        if ((curY - 1) < 0) return false;
+        if (areas[curX][curY - 1] == nullptr) return false;
+
+        int adjustedMoveY = moveTo.y + areas[curX][curY]->getAreaDimensions().y;
+        canPass = areas[curX][curY - 1]->collisionExistsAtPoint(static_cast<unsigned int>(moveTo.x),
+                                                             static_cast<unsigned int>(adjustedMoveY));
+
+    } else {
+        canPass = areas[curX][curY]->collisionExistsAtPoint(static_cast<unsigned int>(moveTo.x),
+                                                            static_cast<unsigned int>(moveTo.y));
+
+    }
+
+    return canPass;
 }

@@ -37,6 +37,8 @@ public:
 
     void drawChunk();
 
+    bool canMoveToPosition(sf::Vector2i moveTo);
+
 private:
     bool coordinatesWithinLocation(int x, int y);
 
@@ -49,7 +51,7 @@ private:
     areaVec areas;
 
     sf::Vector2i dimensions;
-    sf::Vector2i center;
+    sf::Vector2i currentAreaCoords;
 
     std::string locationName;
 };

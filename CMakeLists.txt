@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7.2)
 project(Project-Alpha)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 include_directories(${PROJECT_SOURCE_DIR}/lib)
 include_directories(${SFML_INCLUDE_DIR})
