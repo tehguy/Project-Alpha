@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <numeric>
 #include <random>
 
 float PerlinNoise::GenNoiseWithSeed(unsigned int seed, float x, float y, float z) {

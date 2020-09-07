@@ -4,7 +4,6 @@ project(Project-Alpha)
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(${PROJECT_SOURCE_DIR}/lib)
-include_directories(${SFML_INCLUDE_DIR})
 
 set(SOURCE
                                             src/main.cpp
@@ -29,12 +28,11 @@ set(SOURCE
 
 IF(UNIX)
     set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
-
-    find_package(SFML 2 COMPONENTS system graphics window REQUIRED)
 ENDIF(UNIX)
 
 IF(WIN32 OR MSVC)
-    set(SFML_EXT_PATH ${PROJECT_SOURCE_DIR}/lib/SFML)
+    cmake_policy(SET CMP0074 NEW)
+    set(SFML_DIR "${PROJECT_SOURCE_DIR}/win-lib/SFML/lib/cmake/SFML")
 
     set(CompilerFlags
             CMAKE_CXX_FLAGS
@@ -50,4 +48,10 @@ IF(WIN32 OR MSVC)
 ENDIF(WIN32 OR MSVC)
 
 add_executable(palpha ${SOURCE})
-target_link_libraries(palpha ${SFML_LIBRARIES})
+
+set(SFML_STATIC_LIBRARIES TRUE)
+find_package(SFML 2.5 COMPONENTS system graphics window REQUIRED)
+
+if (SFML_FOUND)
+    target_link_libraries(palpha sfml-graphics)
+endif ()
