@@ -27,12 +27,13 @@
 
 class TileMap : public sf::Drawable, public sf::Transformable {
 public:
-    bool load(const std::shared_ptr<sf::Texture>& tileset, const std::vector<int>& tiles);
+    void init(std::shared_ptr<sf::Texture> texture);
+    void copyVertices(sf::VertexArray& input);
 
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
     sf::VertexArray m_vertices;
 
-    std::shared_ptr<sf::Texture> tileTexture;
+    std::shared_ptr<sf::Texture> tileTexture = nullptr;
 };

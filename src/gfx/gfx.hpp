@@ -59,6 +59,8 @@ public:
 
     void addTileToDrawBatch(int tileID);
 
+    sf::Vector2u getTextureSize();
+
 private:
     Graphics() = default;
 
@@ -76,6 +78,5 @@ private:
     TileMap tileMap;
 
     sf::Rect<int> actualCameraBounds;
-
-    std::vector<int> tileBatch;
+    sf::VertexArray vertices;
 };

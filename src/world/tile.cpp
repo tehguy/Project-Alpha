@@ -23,7 +23,7 @@ Tile::Tile(int x, int y, Terrain terrain) : terrain(std::move(terrain)) {
 }
 
 void Tile::draw() {
-    terrain.render(terrain.getType());
+    terrain.render();
 }
 
 void Tile::resetRenderPosition(const int x, const int y) {

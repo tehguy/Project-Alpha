@@ -23,12 +23,18 @@
 class Renderable {
 public:
     Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect);
+    Renderable(unsigned int x, unsigned int y, int tileID);
 
     void render();
     void render(int spriteIndex);
     void setRenderPosition(int x, int y);
 
 private:
+    void generateQuadCoords(unsigned int x, unsigned int y);
+    void generateTexCoords(int tileID);
+
     sf::Rect<int> renderBox;
     sf::Sprite worldSprite;
+
+    std::vector<sf::Vertex> quad;
 };

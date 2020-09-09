@@ -52,8 +52,14 @@ bool Graphics::initGFX(const std::string &tileTexturePath, const std::string &wi
     window.setView(camera);
 
     initCamera(screenWidth, screenHeight);
+    vertices.setPrimitiveType(sf::Quads);
 
-    return loadSpriteSheet(tileTexturePath);
+    if (loadSpriteSheet(tileTexturePath)) {
+        tileMap.init(tileTexture);
+        return true;
+    }
+
+    return false;
 }
 
 void Graphics::initCamera(const int w, const int h) {
@@ -83,8 +89,7 @@ void Graphics::draw(const sf::Drawable& drawable, const sf::Rect<int> &object, c
 }
 
 void Graphics::draw(const sf::RenderStates &states) {
-    tileMap.load(tileTexture, tileBatch);
-    window.draw(tileMap, states);
+
 }
 
 void Graphics::clearWindow(sf::Color clearColor) {
@@ -163,5 +168,9 @@ void Graphics::setActive() {
 }
 
 void Graphics::addTileToDrawBatch(int tileID) {
-    tileBatch.push_back(tileID);
+
+}
+
+sf::Vector2u Graphics::getTextureSize() {
+    return tileTexture->getSize();
 }
