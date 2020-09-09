@@ -22,6 +22,7 @@
 #include <vector>
 
 #include "../core/constants.hpp"
+#include "tilemap.hpp"
 
 class Graphics {
 public:
@@ -45,6 +46,7 @@ public:
 
     void draw(const sf::Drawable& drawable, const sf::Rect<int> &object,
               const sf::RenderStates& states = sf::RenderStates::Default);
+    void draw(const sf::RenderStates& states = sf::RenderStates::Default);
     void clearWindow(sf::Color clearColor = sf::Color::Black);
     void centerCamera(const sf::Vector2i &prevPos, const sf::Vector2i &currentPos);
     void forceCenterCamera(const sf::Vector2i &posToCenterOn);
@@ -55,19 +57,25 @@ public:
     void display();
     void setActive();
 
+    void addTileToDrawBatch(int tileID);
+
 private:
     Graphics() = default;
 
     bool checkWithinCamera(const sf::Rect<int> &object) const;
     bool loadSpriteSheet(const std::string& filePath);
-    bool checkCollision(const sf::Rect<int>& a, const sf::Rect<int>& b) const;
+    static bool checkCollision(const sf::Rect<int>& a, const sf::Rect<int>& b) ;
 
     void initCamera(int w, int h);
     void moveCamera(const sf::Vector2f &offset);
 
     sf::RenderWindow window;
     sf::View camera;
-    sf::Texture tileTexture;
+    std::shared_ptr<sf::Texture> tileTexture;
+
+    TileMap tileMap;
 
     sf::Rect<int> actualCameraBounds;
+
+    std::vector<int> tileBatch;
 };

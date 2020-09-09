@@ -18,30 +18,21 @@
 
 #pragma once
 
-#include <string>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Transformable.hpp>
+#include <SFML/Graphics/VertexArray.hpp>
+
 #include <vector>
+#include <memory>
 
-#include "../../gfx/renderable.hpp"
-
-class Terrain : public Renderable {
+class TileMap : public sf::Drawable, public sf::Transformable {
 public:
-    enum TYPE {
-        GRASS,
-        WATER,
-        MOUNTAIN,
-        SNOW,
-        PLAYER,
-        IDK,
-        NONE
-    };
-
-    Terrain(const sf::Rect<int> &spriteRect, TYPE type, bool isPassable);
-
-    bool isPassable() const;
-    int getType() const;
+    bool load(const std::shared_ptr<sf::Texture>& tileset, const std::vector<int>& tiles);
 
 private:
-    bool passable;
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-    TYPE ttype;
+    sf::VertexArray m_vertices;
+
+    std::shared_ptr<sf::Texture> tileTexture;
 };

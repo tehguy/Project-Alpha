@@ -25,6 +25,7 @@ public:
     Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect);
 
     void render();
+    void render(int spriteIndex);
     void setRenderPosition(int x, int y);
 
 private:

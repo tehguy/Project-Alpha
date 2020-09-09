@@ -17,6 +17,7 @@ set(SOURCE
 
         src/gfx/gfx.hpp                     src/gfx/gfx.cpp
         src/gfx/renderable.hpp              src/gfx/renderable.cpp
+        src/gfx/tilemap.hpp                 src/gfx/tilemap.cpp
 
         src/world/terrain/terrain.hpp       src/world/terrain/terrain.cpp
         src/world/terrain/terrain_gen.hpp

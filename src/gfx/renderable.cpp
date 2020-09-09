@@ -31,6 +31,11 @@ void Renderable::render() {
     Graphics::Instance().draw(worldSprite, renderBox);
 }
 
+void Renderable::render(int spriteIndex) {
+    Graphics::Instance().addTileToDrawBatch(spriteIndex);
+}
+
+
 void Renderable::setRenderPosition(const int x, const int y) {
     renderBox.left = x * CONSTANTS::GET_OBJECT().TILE_WIDTH;
     renderBox.top = y * CONSTANTS::GET_OBJECT().TILE_HEIGHT;
