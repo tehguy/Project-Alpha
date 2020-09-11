@@ -89,11 +89,13 @@ void Graphics::draw(const sf::Drawable& drawable, const sf::Rect<int> &object, c
 }
 
 void Graphics::draw(const sf::RenderStates &states) {
-
+    tileMap.copyVertices(vertices);
+    window.draw(tileMap);
 }
 
 void Graphics::clearWindow(sf::Color clearColor) {
     window.clear(clearColor);
+    vertices.clear();
 }
 
 void Graphics::centerCamera(const sf::Vector2i &prevPos, const sf::Vector2i &currentPos) {
@@ -167,8 +169,10 @@ void Graphics::setActive() {
     window.setActive();
 }
 
-void Graphics::addTileToDrawBatch(int tileID) {
-
+void Graphics::addTileToDrawBatch(const std::vector<sf::Vertex> &tileVertices) {
+    for (const auto& vertex : tileVertices) {
+        vertices.append(vertex);
+    }
 }
 
 sf::Vector2u Graphics::getTextureSize() {

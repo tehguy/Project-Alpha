@@ -57,7 +57,7 @@ public:
     void display();
     void setActive();
 
-    void addTileToDrawBatch(int tileID);
+    void addTileToDrawBatch(const std::vector<sf::Vertex> &tileVertices);
 
     sf::Vector2u getTextureSize();
 

@@ -31,7 +31,7 @@ public:
     void copyVertices(sf::VertexArray& input);
 
 private:
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     sf::VertexArray m_vertices;
 

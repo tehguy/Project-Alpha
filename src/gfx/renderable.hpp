@@ -26,7 +26,7 @@ public:
     Renderable(unsigned int x, unsigned int y, int tileID);
 
     void render();
-    void render(int spriteIndex);
+    void queueRender() const;
     void setRenderPosition(int x, int y);
 
 private:

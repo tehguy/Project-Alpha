@@ -36,6 +36,7 @@ public:
     };
 
     Terrain(const sf::Rect<int> &spriteRect, TYPE type, bool isPassable);
+    Terrain(TYPE type, bool isPassable);
 
     bool isPassable() const;
     int getType() const;

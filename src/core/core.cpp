@@ -83,6 +83,6 @@ void Core::drawGame() {
     if (currentLocation != nullptr) {
         currentLocation->drawChunk();
     }
-
+    //Graphics::Instance().draw();
     Graphics::Instance().display();
 }

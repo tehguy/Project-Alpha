@@ -36,8 +36,8 @@ void Renderable::render() {
     Graphics::Instance().draw(worldSprite, renderBox);
 }
 
-void Renderable::render(int spriteIndex) {
-    Graphics::Instance().addTileToDrawBatch(spriteIndex);
+void Renderable::queueRender() const {
+    Graphics::Instance().addTileToDrawBatch(quad);
 }
 
 
