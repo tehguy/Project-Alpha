@@ -34,6 +34,7 @@ ENDIF(UNIX)
 IF(WIN32 OR MSVC)
     cmake_policy(SET CMP0074 NEW)
     set(SFML_DIR "${PROJECT_SOURCE_DIR}/win-lib/SFML/lib/cmake/SFML")
+    set(SFML_STATIC_LIBRARIES TRUE)
 
     set(CompilerFlags
             CMAKE_CXX_FLAGS
@@ -50,7 +51,6 @@ ENDIF(WIN32 OR MSVC)
 
 add_executable(palpha ${SOURCE})
 
-set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2.5 COMPONENTS system graphics window REQUIRED)
 
 if (SFML_FOUND)
