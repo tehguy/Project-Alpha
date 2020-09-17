@@ -16,7 +16,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <mpif-sizeof.h>
 #include "terrain.hpp"
 
 Terrain::Terrain(const sf::Rect<int> &spriteRect, TYPE type, bool isPassable) : Renderable(0, 0, spriteRect),
