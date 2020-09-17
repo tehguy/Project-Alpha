@@ -16,28 +16,25 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "tilemap.hpp"
 
-#include "../gfx/renderable.hpp"
+#include <utility>
+#include "../core/constants.hpp"
 
-class Entity : public Renderable {
-public:
-    Entity(sf::Rect<int> spriteRect, unsigned int curhp, unsigned int maxhp);
+void TileMap::init(std::shared_ptr<sf::Texture> &texture) {
+    if (tileTexture == nullptr) {
+        tileTexture = texture;
+    }
+}
 
-    unsigned int getCurrentHP() const;
-    unsigned int getMaxHP() const;
+void TileMap::copyVertices(sf::VertexArray &input) {
+    m_vertices = input;
+}
 
-    virtual void addHP(unsigned int amtToAdd);
-    virtual void removeHP(unsigned int amtToRem);
+void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    states.transform *= getTransform();
 
-    void setPrevPos(int x, int y);
-    sf::Vector2i getPreviousPosition() const;
+    states.texture = &*tileTexture;
 
-    void setWorldPosition(int x, int y);
-    sf::Vector2i getWorldPosition() const;
-
-private:
-    unsigned int curhp, maxhp;
-
-    sf::Vector2i prevPosition, worldPosition;
-};
+    target.draw(m_vertices, states);
+}

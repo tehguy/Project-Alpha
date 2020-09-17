@@ -26,14 +26,17 @@
 class Terrain : public Renderable {
 public:
     enum TYPE {
-        NONE,
         GRASS,
         WATER,
         MOUNTAIN,
-        SNOW
+        SNOW,
+        PLAYER,
+        IDK,
+        NONE
     };
 
     Terrain(const sf::Rect<int> &spriteRect, TYPE type, bool isPassable);
+    Terrain(TYPE type, bool isPassable);
 
     bool isPassable() const;
     int getType() const;

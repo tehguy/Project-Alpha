@@ -21,6 +21,9 @@
 Terrain::Terrain(const sf::Rect<int> &spriteRect, TYPE type, bool isPassable) : Renderable(0, 0, spriteRect),
                                                                                 passable(isPassable), ttype(type) {}
 
+Terrain::Terrain(TYPE type, bool isPassable) : Renderable(0, 0, type), passable(isPassable),
+                                               ttype(type) {}
+
 bool Terrain::isPassable() const {
     return passable;
 }

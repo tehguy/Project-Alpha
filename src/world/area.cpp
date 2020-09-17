@@ -33,7 +33,7 @@ Area::Area(std::string name) {
         tileMap.at(i).reserve(static_cast<unsigned long>(areaDimensions.y));
 
         for (unsigned int j = 0; j < areaDimensions.y; j++) {
-            tileMap.at(i).emplace_back(TERRAIN_GEN::GEN_SPACE(i, j));
+            tileMap.at(i).emplace_back(TERRAIN_GEN::GEN_SPACE_VERT(i, j));
         }
     }
 }
@@ -72,16 +72,17 @@ void Area::genRandom(const unsigned int seed) {
             float n = PerlinNoise::Instance().GenNoiseWithSeed(seed, 10 * x, 10 * y, 0.8);
 
             if (n < 0.35f) {
-                setMapTile(i, j, TERRAIN_GEN::GEN_WATER(i, j));
+                setMapTile(i, j, TERRAIN_GEN::GEN_WATER_VERT(i, j));
             }
             else if (n >= 0.35f && n < 0.6f) {
-                setMapTile(i, j, TERRAIN_GEN::GEN_GRASS(i, j));
+                setMapTile(i, j, TERRAIN_GEN::GEN_GRASS_VERT(i, j));
             }
             else if (n >= 0.6f && n < 0.8f) {
-                setMapTile(i, j, TERRAIN_GEN::GEN_MOUNTAIN(i, j));
+                Tile tile = TERRAIN_GEN::GEN_MOUNTAIN_VERT(i, j);
+                setMapTile(i, j, tile);
             }
             else {
-                setMapTile(i, j, TERRAIN_GEN::GEN_SNOW(i, j));
+                setMapTile(i, j, TERRAIN_GEN::GEN_SNOW_VERT(i, j));
             }
         }
     }
@@ -94,8 +95,8 @@ bool Area::collisionExistsAtPoint(const unsigned int x, const unsigned int y) {
 void Area::resetRenderPos(const int x, const int y) {
     for (unsigned int i = 0; i < areaDimensions.x; i++) {
         for (unsigned int j = 0; j < areaDimensions.y; j++) {
-            int xTarget = i + x;
-            int yTarget = j + y;
+            unsigned int xTarget = i + x;
+            unsigned int yTarget = j + y;
 
             getMapTile(i, j).resetRenderPosition(xTarget, yTarget);
         }

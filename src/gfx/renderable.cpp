@@ -25,15 +25,56 @@ Renderable::Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect)
 
     renderBox.width = CONSTANTS::GET_OBJECT().TILE_WIDTH;
     renderBox.height = CONSTANTS::GET_OBJECT().TILE_HEIGHT;
+
+    quad.reserve(4);
 }
 
-void Renderable::render() {
-    Graphics::Instance().draw(worldSprite, renderBox);
+Renderable::Renderable(unsigned int x, unsigned int y, int tileID) {
+    generateQuadCoords(x, y);
+    generateTexCoords(tileID);
 }
 
-void Renderable::setRenderPosition(const int x, const int y) {
+void Renderable::queueRender() const {
+    Graphics::Instance().addTileToDrawBatch(quad);
+}
+
+
+void Renderable::setRenderPosition(const unsigned int x, const unsigned int y) {
     renderBox.left = x * CONSTANTS::GET_OBJECT().TILE_WIDTH;
     renderBox.top = y * CONSTANTS::GET_OBJECT().TILE_HEIGHT;
 
     worldSprite.setPosition(renderBox.left, renderBox.top);
+
+    generateQuadCoords(x, y);
+}
+
+void Renderable::generateQuadCoords(const unsigned int x, const unsigned int y) {
+    int width = CONSTANTS::GET_OBJECT().TILE_WIDTH;
+    int height = CONSTANTS::GET_OBJECT().TILE_HEIGHT;
+
+    if (quad.empty()) {
+        quad.emplace_back(sf::Vector2f(x * width, y * height));
+        quad.emplace_back(sf::Vector2f((x + 1) * width, y * height));
+        quad.emplace_back(sf::Vector2f((x + 1) * width, (y + 1) * height));
+        quad.emplace_back(sf::Vector2f(x * width, (y + 1) * height));
+    }
+    else {
+        quad[0].position = sf::Vector2f(x * width, y * height);
+        quad[1].position = sf::Vector2f((x + 1) * width, y * height);
+        quad[2].position = sf::Vector2f((x + 1) * width, (y + 1) * height);
+        quad[3].position = sf::Vector2f(x * width, (y + 1) * height);
+    }
+}
+
+void Renderable::generateTexCoords(const unsigned int tileID) {
+    sf::Vector2u texSize = Graphics::Instance().getTextureSize();
+    sf::Vector2i tileSize(CONSTANTS::GET_OBJECT().TILE_WIDTH, CONSTANTS::GET_OBJECT().TILE_HEIGHT);
+
+    int tu = tileID % (texSize.x / tileSize.x);
+    int tv = tileID / (texSize.x / tileSize.x);
+
+    quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
+    quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
+    quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
+    quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
 }

@@ -24,7 +24,7 @@ bool Graphics::checkWithinCamera(const sf::Rect<int> &object) const {
     return checkCollision(actualCameraBounds, object);
 }
 
-bool Graphics::checkCollision(const sf::Rect<int> &a, const sf::Rect<int> &b) const {
+bool Graphics::checkCollision(const sf::Rect<int> &a, const sf::Rect<int> &b) {
     const int leftA = a.left;
     const int leftB = b.left;
     const int rightA = a.left + a.width;
@@ -52,8 +52,16 @@ bool Graphics::initGFX(const std::string &tileTexturePath, const std::string &wi
     window.setView(camera);
 
     initCamera(screenWidth, screenHeight);
+    vertices.setPrimitiveType(sf::Quads);
 
-    return loadSpriteSheet(tileTexturePath);
+    tileTexture = std::make_shared<sf::Texture>();
+
+    if (loadSpriteSheet(tileTexturePath)) {
+        tileMap.init(tileTexture);
+        return true;
+    }
+
+    return false;
 }
 
 void Graphics::initCamera(const int w, const int h) {
@@ -64,26 +72,26 @@ void Graphics::initCamera(const int w, const int h) {
 }
 
 bool Graphics::loadSpriteSheet(const std::string &filePath) {
-    return tileTexture.loadFromFile(filePath);
+    return tileTexture->loadFromFile(filePath);
 }
 
 sf::Sprite Graphics::createSprite(sf::Rect<int> &spriteRect) const{
     sf::Sprite sprite;
 
-    sprite.setTexture(tileTexture);
+    sprite.setTexture(*tileTexture);
     sprite.setTextureRect(spriteRect);
 
     return sprite;
 }
 
-void Graphics::draw(const sf::Drawable& drawable, const sf::Rect<int> &object, const sf::RenderStates &states) {
-    //if (checkWithinCamera(object)) {
-        window.draw(drawable, states);
-    //}
+void Graphics::draw(const sf::RenderStates &states) {
+    tileMap.copyVertices(vertices);
+    window.draw(tileMap);
 }
 
 void Graphics::clearWindow(sf::Color clearColor) {
     window.clear(clearColor);
+    vertices.clear();
 }
 
 void Graphics::centerCamera(const sf::Vector2i &prevPos, const sf::Vector2i &currentPos) {
@@ -157,3 +165,12 @@ void Graphics::setActive() {
     window.setActive();
 }
 
+void Graphics::addTileToDrawBatch(const std::vector<sf::Vertex> &tileVertices) {
+    for (const auto& vertex : tileVertices) {
+        vertices.append(vertex);
+    }
+}
+
+sf::Vector2u Graphics::getTextureSize() {
+    return tileTexture->getSize();
+}

@@ -18,21 +18,22 @@
 
 #pragma once
 
-#include "entity.hpp"
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Transformable.hpp>
+#include <SFML/Graphics/VertexArray.hpp>
 
-class Player : public Entity {
+#include <vector>
+#include <memory>
+
+class TileMap : public sf::Drawable, public sf::Transformable {
 public:
-    explicit Player(unsigned int maxhp);
-
-    unsigned int getCurExp() const;
-    unsigned int getExpToNextLevel() const;
-
-    void addExpPoints(unsigned int amtToAdd);
-    void remExpPoints(unsigned int amtToRem);
-
-    void addHP(unsigned int amtToAdd) override;
-    void removeHP(unsigned int amtToRem) override;
+    void init(std::shared_ptr<sf::Texture> &texture);
+    void copyVertices(sf::VertexArray& input);
 
 private:
-    unsigned int curExp, expToNextLevel;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+    sf::VertexArray m_vertices;
+
+    std::shared_ptr<sf::Texture> tileTexture = nullptr;
 };
