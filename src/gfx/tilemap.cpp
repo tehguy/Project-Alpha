@@ -21,7 +21,7 @@
 #include <utility>
 #include "../core/constants.hpp"
 
-void TileMap::init(std::shared_ptr<sf::Texture> texture) {
+void TileMap::init(std::shared_ptr<sf::Texture> &texture) {
     if (tileTexture == nullptr) {
         tileTexture = texture;
     }

@@ -27,7 +27,7 @@
 
 class TileMap : public sf::Drawable, public sf::Transformable {
 public:
-    void init(std::shared_ptr<sf::Texture> texture);
+    void init(std::shared_ptr<sf::Texture> &texture);
     void copyVertices(sf::VertexArray& input);
 
 private:
