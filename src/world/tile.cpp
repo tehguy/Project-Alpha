@@ -23,7 +23,7 @@ Tile::Tile(const unsigned int x, const unsigned int y, Terrain terrain) : terrai
 }
 
 void Tile::draw() {
-    terrain.render();
+    //terrain.render();
     terrain.queueRender();
 }
 

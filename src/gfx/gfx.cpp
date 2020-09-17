@@ -54,6 +54,8 @@ bool Graphics::initGFX(const std::string &tileTexturePath, const std::string &wi
     initCamera(screenWidth, screenHeight);
     vertices.setPrimitiveType(sf::Quads);
 
+    tileTexture = std::make_shared<sf::Texture>();
+
     if (loadSpriteSheet(tileTexturePath)) {
         tileMap.init(tileTexture);
         return true;
