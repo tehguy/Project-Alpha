@@ -16,12 +16,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <mpif-sizeof.h>
 #include "terrain.hpp"
 
 Terrain::Terrain(const sf::Rect<int> &spriteRect, TYPE type, bool isPassable) : Renderable(0, 0, spriteRect),
                                                                                 passable(isPassable), ttype(type) {}
 
-Terrain::Terrain(Terrain::TYPE type, bool isPassable) : Renderable(0, 0, type) {}
+Terrain::Terrain(TYPE type, bool isPassable) : Renderable(0, 0, type), passable(isPassable),
+                                               ttype(type) {}
 
 bool Terrain::isPassable() const {
     return passable;

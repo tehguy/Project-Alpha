@@ -18,15 +18,16 @@
 
 #include "tile.hpp"
 
-Tile::Tile(int x, int y, Terrain terrain) : terrain(std::move(terrain)) {
+Tile::Tile(const unsigned int x, const unsigned int y, Terrain terrain) : terrain(std::move(terrain)) {
     resetRenderPosition(x, y);
 }
 
 void Tile::draw() {
     terrain.render();
+    terrain.queueRender();
 }
 
-void Tile::resetRenderPosition(const int x, const int y) {
+void Tile::resetRenderPosition(const unsigned int x, const unsigned int y) {
     terrain.setRenderPosition(x, y);
 }
 

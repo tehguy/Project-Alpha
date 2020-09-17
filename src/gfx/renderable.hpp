@@ -27,11 +27,11 @@ public:
 
     void render();
     void queueRender() const;
-    void setRenderPosition(int x, int y);
+    void setRenderPosition(const unsigned int x, const unsigned int y);
 
 private:
     void generateQuadCoords(unsigned int x, unsigned int y);
-    void generateTexCoords(int tileID);
+    void generateTexCoords(const unsigned int tileID);
 
     sf::Rect<int> renderBox;
     sf::Sprite worldSprite;

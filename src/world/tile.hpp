@@ -21,10 +21,10 @@
 
 class Tile {
 public:
-    Tile(int x, int y, Terrain terrain);
+    Tile(unsigned int x, unsigned int y, Terrain terrain);
 
     void draw();
-    void resetRenderPosition(int x, int y);
+    void resetRenderPosition(unsigned int x, unsigned int y);
 
     bool isPassable();
 

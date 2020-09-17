@@ -31,22 +31,52 @@ namespace TERRAIN_GEN {
         Terrain grass(CONSTANTS::GET_OBJECT().GRASS_SPRITE_RECT, Terrain::TYPE::GRASS, true);
 
         return Tile(x, y, grass);
-    };
+    }
 
     Tile GEN_WATER(const int x, const int y) {
         Terrain water(CONSTANTS::GET_OBJECT().WATER_SPRITE_RECT, Terrain::TYPE::WATER, true);
 
         return Tile(x, y, water);
-    };
+    }
 
     Tile GEN_MOUNTAIN(const int x, const int y) {
-        Terrain mountain(CONSTANTS::GET_OBJECT().MOUNTAIN_SPRITE_RECT, Terrain::TYPE::MOUNTAIN, false);;
+        Terrain mountain(CONSTANTS::GET_OBJECT().MOUNTAIN_SPRITE_RECT, Terrain::TYPE::MOUNTAIN, false);
 
         return Tile(x, y, mountain);
     }
 
     Tile GEN_SNOW(const int x, const int y) {
         Terrain snow(CONSTANTS::GET_OBJECT().SNOW_SPRITE_RECT, Terrain::TYPE::SNOW, true);
+
+        return Tile(x, y, snow);
+    }
+
+    Tile GEN_SPACE_VERT(const unsigned int x, const unsigned int y) {
+        Terrain space(Terrain::TYPE::NONE, false);
+
+        return Tile(x, y, space);
+    }
+
+    Tile GEN_GRASS_VERT(const unsigned int x, const unsigned int y) {
+        Terrain grass(Terrain::TYPE::GRASS, true);
+
+        return Tile(x, y, grass);
+    }
+
+    Tile GEN_WATER_VERT(const unsigned int x, const unsigned int y) {
+        Terrain water(Terrain::TYPE::WATER, true);
+
+        return Tile(x, y, water);
+    }
+
+    Tile GEN_MOUNTAIN_VERT(const unsigned int x, const unsigned int y) {
+        Terrain mountain(Terrain::TYPE::MOUNTAIN, false);
+
+        return Tile(x, y, mountain);
+    }
+
+    Tile GEN_SNOW_VERT(const unsigned int x, const unsigned int y) {
+        Terrain snow(Terrain::TYPE::SNOW, true);
 
         return Tile(x, y, snow);
     }

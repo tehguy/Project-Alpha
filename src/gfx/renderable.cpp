@@ -41,7 +41,7 @@ void Renderable::queueRender() const {
 }
 
 
-void Renderable::setRenderPosition(const int x, const int y) {
+void Renderable::setRenderPosition(const unsigned int x, const unsigned int y) {
     renderBox.left = x * CONSTANTS::GET_OBJECT().TILE_WIDTH;
     renderBox.top = y * CONSTANTS::GET_OBJECT().TILE_HEIGHT;
 
@@ -65,7 +65,7 @@ void Renderable::generateQuadCoords(const unsigned int x, const unsigned int y) 
     quad.emplace_back(sf::Vector2f(x * width, (y + 1) * height));
 }
 
-void Renderable::generateTexCoords(int tileID) {
+void Renderable::generateTexCoords(const unsigned int tileID) {
     sf::Vector2u texSize = Graphics::Instance().getTextureSize();
     sf::Vector2i tileSize(CONSTANTS::GET_OBJECT().TILE_WIDTH, CONSTANTS::GET_OBJECT().TILE_HEIGHT);
 
