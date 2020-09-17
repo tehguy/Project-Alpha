@@ -12,9 +12,6 @@ set(SOURCE
         src/core/perlin_noise.hpp           src/core/perlin_noise.cpp
         src/core/random_number_gen.hpp
 
-        src/entity/entity.hpp               src/entity/entity.cpp
-        src/entity/player.hpp               src/entity/player.cpp
-
         src/gfx/gfx.hpp                     src/gfx/gfx.cpp
         src/gfx/renderable.hpp              src/gfx/renderable.cpp
         src/gfx/tilemap.hpp                 src/gfx/tilemap.cpp

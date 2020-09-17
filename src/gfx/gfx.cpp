@@ -84,12 +84,6 @@ sf::Sprite Graphics::createSprite(sf::Rect<int> &spriteRect) const{
     return sprite;
 }
 
-void Graphics::draw(const sf::Drawable& drawable, const sf::Rect<int> &object, const sf::RenderStates &states) {
-    //if (checkWithinCamera(object)) {
-        window.draw(drawable, states);
-    //}
-}
-
 void Graphics::draw(const sf::RenderStates &states) {
     tileMap.copyVertices(vertices);
     window.draw(tileMap);

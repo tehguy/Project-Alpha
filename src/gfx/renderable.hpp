@@ -25,9 +25,6 @@ public:
     Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect);
     Renderable(unsigned int x, unsigned int y, int tileID);
 
-    Renderable(const Renderable& r);
-
-    void render();
     void queueRender() const;
     void setRenderPosition(unsigned int x, unsigned int y);
 

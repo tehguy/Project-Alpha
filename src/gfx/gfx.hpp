@@ -44,8 +44,6 @@ public:
 
     sf::Sprite createSprite(sf::Rect<int> &spriteRect) const;
 
-    void draw(const sf::Drawable& drawable, const sf::Rect<int> &object,
-              const sf::RenderStates& states = sf::RenderStates::Default);
     void draw(const sf::RenderStates& states = sf::RenderStates::Default);
     void clearWindow(sf::Color clearColor = sf::Color::Black);
     void centerCamera(const sf::Vector2i &prevPos, const sf::Vector2i &currentPos);

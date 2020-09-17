@@ -34,16 +34,6 @@ Renderable::Renderable(unsigned int x, unsigned int y, int tileID) {
     generateTexCoords(tileID);
 }
 
-Renderable::Renderable(const Renderable &r) {
-    for (const auto& vertex : r.quad) {
-        quad.push_back(vertex);
-    }
-}
-
-void Renderable::render() {
-    Graphics::Instance().draw(worldSprite, renderBox);
-}
-
 void Renderable::queueRender() const {
     Graphics::Instance().addTileToDrawBatch(quad);
 }

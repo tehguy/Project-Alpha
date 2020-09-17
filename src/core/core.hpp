@@ -22,12 +22,12 @@
 
 class Core {
 public:
-    Core() = default;;
+    Core() = default;
     int init();
 
 private:
     void gameLoop();
-    void handleInput(int key);
+    static void handleInput(int key);
     void drawGame();
     void genTestArea();
 
