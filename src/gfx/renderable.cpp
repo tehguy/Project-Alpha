@@ -25,11 +25,19 @@ Renderable::Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect)
 
     renderBox.width = CONSTANTS::GET_OBJECT().TILE_WIDTH;
     renderBox.height = CONSTANTS::GET_OBJECT().TILE_HEIGHT;
+
+    quad.reserve(4);
 }
 
 Renderable::Renderable(unsigned int x, unsigned int y, int tileID) {
     generateQuadCoords(x, y);
     generateTexCoords(tileID);
+}
+
+Renderable::Renderable(const Renderable &r) {
+    for (const auto& vertex : r.quad) {
+        quad.push_back(vertex);
+    }
 }
 
 void Renderable::render() {
@@ -54,15 +62,18 @@ void Renderable::generateQuadCoords(const unsigned int x, const unsigned int y) 
     int width = CONSTANTS::GET_OBJECT().TILE_WIDTH;
     int height = CONSTANTS::GET_OBJECT().TILE_HEIGHT;
 
-    if (!quad.empty()) {
-        quad.clear();
-        quad.reserve(4);
+    if (quad.empty()) {
+        quad.emplace_back(sf::Vector2f(x * width, y * height));
+        quad.emplace_back(sf::Vector2f((x + 1) * width, y * height));
+        quad.emplace_back(sf::Vector2f((x + 1) * width, (y + 1) * height));
+        quad.emplace_back(sf::Vector2f(x * width, (y + 1) * height));
     }
-
-    quad.emplace_back(sf::Vector2f(x * width, y * height));
-    quad.emplace_back(sf::Vector2f((x + 1) * width, y * height));
-    quad.emplace_back(sf::Vector2f((x + 1) * width, (y + 1) * height));
-    quad.emplace_back(sf::Vector2f(x * width, (y + 1) * height));
+    else {
+        quad[0].position = sf::Vector2f(x * width, y * height);
+        quad[1].position = sf::Vector2f((x + 1) * width, y * height);
+        quad[2].position = sf::Vector2f((x + 1) * width, (y + 1) * height);
+        quad[3].position = sf::Vector2f(x * width, (y + 1) * height);
+    }
 }
 
 void Renderable::generateTexCoords(const unsigned int tileID) {

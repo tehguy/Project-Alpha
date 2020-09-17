@@ -18,7 +18,7 @@
 
 #include "tile.hpp"
 
-Tile::Tile(const unsigned int x, const unsigned int y, Terrain terrain) : terrain(std::move(terrain)) {
+Tile::Tile(const unsigned int x, const unsigned int y, Terrain t) : terrain(t) {
     resetRenderPosition(x, y);
 }
 

@@ -59,8 +59,8 @@ namespace TERRAIN_GEN {
 
     Tile GEN_GRASS_VERT(const unsigned int x, const unsigned int y) {
         Terrain grass(Terrain::TYPE::GRASS, true);
-
-        return Tile(x, y, grass);
+        Tile tile(x, y, grass);
+        return tile;
     }
 
     Tile GEN_WATER_VERT(const unsigned int x, const unsigned int y) {

@@ -21,7 +21,7 @@
 
 class Tile {
 public:
-    Tile(unsigned int x, unsigned int y, Terrain terrain);
+    Tile(const unsigned int x, const unsigned int y, Terrain t);
 
     void draw();
     void resetRenderPosition(unsigned int x, unsigned int y);

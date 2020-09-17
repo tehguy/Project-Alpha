@@ -78,7 +78,8 @@ void Area::genRandom(const unsigned int seed) {
                 setMapTile(i, j, TERRAIN_GEN::GEN_GRASS_VERT(i, j));
             }
             else if (n >= 0.6f && n < 0.8f) {
-                setMapTile(i, j, TERRAIN_GEN::GEN_MOUNTAIN_VERT(i, j));
+                Tile tile = TERRAIN_GEN::GEN_MOUNTAIN_VERT(i, j);
+                setMapTile(i, j, tile);
             }
             else {
                 setMapTile(i, j, TERRAIN_GEN::GEN_SNOW_VERT(i, j));

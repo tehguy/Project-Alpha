@@ -25,13 +25,15 @@ public:
     Renderable(unsigned int x, unsigned int y, sf::Rect<int> spriteRect);
     Renderable(unsigned int x, unsigned int y, int tileID);
 
+    Renderable(const Renderable& r);
+
     void render();
     void queueRender() const;
-    void setRenderPosition(const unsigned int x, const unsigned int y);
+    void setRenderPosition(unsigned int x, unsigned int y);
 
 private:
     void generateQuadCoords(unsigned int x, unsigned int y);
-    void generateTexCoords(const unsigned int tileID);
+    void generateTexCoords(unsigned int tileID);
 
     sf::Rect<int> renderBox;
     sf::Sprite worldSprite;
