@@ -6,6 +6,23 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(${PROJECT_SOURCE_DIR}/lib)
 
 set(SOURCE
+        lib/imgui/imconfig.h
+                                            lib/imgui/imgui.cpp
+        lib/imgui/imgui.h
+                                            lib/imgui/imgui_demo.cpp
+                                            lib/imgui/imgui_draw.cpp
+        lib/imgui/imgui_internal.h
+                                            lib/imgui/imgui_tables.cpp
+                                            lib/imgui/imgui_widgets.cpp
+        lib/imgui/imstb_rectpack.h
+        lib/imgui/imstb_textedit.h
+        lib/imgui/imstb_truetype.h
+
+
+        lib/imgui-sfml/imgui-SFML.cpp       lib/imgui-sfml/imgui-SFML.cpp
+        lib/imgui-sfml/imgui-SFML_export.h
+
+
                                             src/main.cpp
         src/core/constants.hpp
         src/core/core.hpp                   src/core/core.cpp
@@ -50,6 +67,9 @@ add_executable(palpha ${SOURCE})
 
 find_package(SFML 2.5 COMPONENTS system graphics window REQUIRED)
 
+set(OpenGL_GL_PREFERENCE "GLVND")
+find_package(OpenGL REQUIRED)
+
 if (SFML_FOUND)
-    target_link_libraries(palpha sfml-graphics)
+    target_link_libraries(palpha sfml-graphics OpenGL::GL)
 endif ()
