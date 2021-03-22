@@ -31,5 +31,7 @@ private:
     void drawGame();
     void genTestArea();
 
+    void imgui_test();
+
     std::unique_ptr<Location> currentLocation;
 };

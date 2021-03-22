@@ -20,6 +20,9 @@
 
 #include "../gfx/gfx.hpp"
 
+#include <imgui/imgui.h>
+#include <imgui-sfml/imgui-SFML.h>
+
 int Core::init() {
     if (!Graphics::Instance().initGFX("./res/spritesheet.png", "Project Alpha")) return 1;
 
@@ -85,4 +88,51 @@ void Core::drawGame() {
     }
     Graphics::Instance().draw();
     Graphics::Instance().display();
+}
+
+void Core::imgui_test() {
+    sf::RenderWindow window(sf::VideoMode(640,480), "");
+    window.setVerticalSyncEnabled(true);
+    ImGui::SFML::Init(window);
+
+    sf::Color bgColor;
+    float color[3] = { 0.f, 0.f, 0.f };
+
+    char windowTitle[255] = "ImGui + SFML";
+    window.setTitle(windowTitle);
+    window.resetGLStates();
+
+    sf::Clock deltaClock;
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            ImGui::SFML::ProcessEvent(event);
+
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
+
+        ImGui::SFML::Update(window, deltaClock.restart());
+
+        ImGui::Begin("Sample Window");
+
+        if (ImGui::ColorEdit3("background color", color)) {
+            bgColor.r = static_cast<sf::Uint8>(color[0] * 255.f);
+            bgColor.g = static_cast<sf::Uint8>(color[1] * 255.f);
+            bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
+        }
+
+        ImGui::InputText("Window Title", windowTitle, 255);
+
+        if (ImGui::Button("Update window title")) {
+            window.setTitle(windowTitle);
+        }
+        ImGui::End();
+
+        window.clear(bgColor);
+        ImGui::SFML::Render(window);
+        window.display();
+    }
+    ImGui::SFML::Shutdown();
 }
